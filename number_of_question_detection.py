@@ -6,7 +6,7 @@ def generate_question_distribution(
     image_urls: list[str],
     system_prompt: str,
     tools: list[dict],
-    model: str = "gpt-4.1-mini",
+    model: str = "gpt-5-mini",
     max_output_tokens: int = 2048,
     api_key: str = None
 ) -> dict:
@@ -17,7 +17,7 @@ def generate_question_distribution(
         image_urls: List of base64 encoded image URLs
         system_prompt: The system prompt/instructions
         tools: List of tool definitions
-        model: Model to use (default: gpt-4.1-mini)
+        model: Model to use (default: gpt-5-mini)
         max_output_tokens: Maximum tokens in response (default: 2048)
         api_key: Optional API key (uses OPENAI_API_KEY env var if not provided)
 
@@ -370,7 +370,7 @@ if __name__ == "__main__":
         image_urls=images,
         system_prompt=SYSTEM_PROMPT,  # ADD YOUR PROMPT
         tools=TOOLS,                   # ADD YOUR TOOLS
-        model="gpt-4.1-mini"
+        model="gpt-5-mini"
     )
     
     print(response)

@@ -34,7 +34,6 @@ from test_generator import (
     generate_neet_test_from_url,
     generate_neet_test_batched,
     generate_neet_test_from_url_batched,
-    SYSTEM_PROMPT as GENERATOR_PROMPT
 )
 
 # Page config
@@ -56,7 +55,7 @@ if "generator_result" not in st.session_state:
 
 # Load API key from environment variable
 api_key = os.getenv("OPENAI_API_KEY")
-model = "gpt-4.1-mini"
+model = "gpt-5-mini"
 max_tokens = 10000
 batch_size = 3
 

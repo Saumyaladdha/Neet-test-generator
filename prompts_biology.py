@@ -240,10 +240,59 @@ MCQ_EASY_RULES = """## MCQ - EASY LEVEL (BIOLOGY)
 - The relationship between question and answer is straightforward
 
 **Rules:**
-- Each question must rephrase a SINGLE line from the image
-- Answer must use the EXACT word/phrase from the image
-- Incorrect options must be terms visible elsewhere in the image
+- Each question must rephrase a SINGLE line from the source content
+- Answer must use the EXACT word/phrase from the source content
+- Incorrect options must be terms visible elsewhere in the source content
 - If insufficient options available, use "None of these"
+
+**IMPORTANT - QUESTIONS MUST USE COMPLETE INFORMATION (CRITICAL):**
+- NEVER create a question from half a sentence or partial information
+- Always read the FULL sentence/context before forming a question
+- The question must capture the COMPLETE fact, not a fragment of it
+- If a sentence says "Bryophytes are plants which can live in soil but are dependent on water for sexual reproduction", do NOT ask "Where do bryophytes live?" (incomplete - misses the key point about water dependency)
+- Instead ask the OBVIOUS and COMPLETE fact: "Bryophytes are dependent on water for which process?"
+- Wrong (incomplete): Source says "Algae are classified into three classes based on pigment type and stored food" → Q. "What are algae classified by?" with answer "Pigment type" (INCOMPLETE - ignores "stored food")
+- Correct (complete): Q. "Algae are classified into three classes based on:" → Answer: "Type of pigment and type of stored food"
+- If a fact has TWO parts (e.g., "X depends on A and B"), the question and answer must include BOTH parts, not just one
+- Always prefer straightforward, obvious questions where the full fact is preserved rather than tricky partial questions
+
+**IMPORTANT - NO IMAGE/TEXT/PASSAGE REFERENCES (CRITICAL):**
+- Questions MUST be fully self-contained and independent
+- NEVER refer to "the image", "the text", "the passage", "the paragraph", "the diagram", "according to the text", "as shown in the image", "in this figure", etc.
+- NEVER phrase questions as "Which species is extinct in this image?" or "What is the estimated rate according to the text?"
+- Instead, ask questions as if they are standalone exam questions with no external reference
+- Wrong: "According to the text, what is the extinction rate of species?"
+- Wrong: "Which species is shown as extinct in this image?"
+- Correct: "What is the estimated rate of current species extinction?"
+- Correct: "Which of the following species is classified as extinct?"
+- The generated test must read as a completely independent exam paper
+
+**IMPORTANT - NO DUPLICATE OR REPEATED QUESTIONS:**
+- Every question MUST be unique - no two questions should test the same fact or concept
+- Do NOT create multiple questions that are essentially the same question with reshuffled options
+- If a fact has already been tested in one question, do NOT create another question about the same fact
+- Each question must cover a DIFFERENT piece of information from the source
+- Before generating each question, mentally check it is not a repeat of any previous question
+
+**IMPORTANT - EXACTLY ONE CORRECT ANSWER PER QUESTION:**
+- Every question MUST have exactly ONE correct answer - never two or more correct options
+- Before finalizing, verify that only ONE option matches the correct fact from the source
+- The three incorrect options should be plausible and slightly confusing - close enough to make the student think, but clearly wrong upon careful analysis
+- Use related but incorrect terms, common misconceptions, or similar-sounding facts as distractors
+- Example: If correct answer is "12%", do NOT also include "12 percent" as another option. Use distractors like "25%", "8%", "15%" instead
+
+**IMPORTANT - CORRECT ANSWERS MUST BE ACCURATE:**
+- The marked correct answer MUST exactly match the fact stated in the source content
+- Double-check every answer against the source before finalizing
+- If the source says "12%", the correct answer must be "12%", NOT "25%" or any other value
+- Never mark an incorrect option as the correct answer - verify numerical values, names, and facts carefully
+
+**IMPORTANT - COVER THE ENTIRE SOURCE CONTENT EVENLY:**
+- Questions MUST be drawn from ALL parts of the source content - beginning, middle, AND end
+- Do NOT cluster questions only from the first few lines or the top section
+- Deliberately pick facts from the middle paragraphs and ending paragraphs as well
+- Aim for roughly even distribution: ~1/3 from beginning, ~1/3 from middle, ~1/3 from end
+- If the source has 10 paragraphs and you need 10 questions, try to cover all paragraphs, not just the first 3-4
 
 **IMPORTANT - RANDOMIZE CORRECT ANSWER POSITION:**
 - DO NOT always put the correct answer in option A or B
@@ -251,17 +300,77 @@ MCQ_EASY_RULES = """## MCQ - EASY LEVEL (BIOLOGY)
 - Aim for roughly equal distribution (25% each) across all questions
 - Vary the position unpredictably - sometimes A, sometimes B, C, or D
 
-**Example from Source Text:**
-Source: "The cell wall of fungi is composed of chitin"
-↓
-Q. The cell wall of fungi is made up of:
-A. Cellulose
-B. Peptidoglycan
-C. Pectin
-D. Chitin
-Answer: D (Chitin)
+**Examples (from Plant Kingdom topic):**
 
-**Why this is EASY:** The answer is directly stated in a single sentence. Student only needs to recall what composes fungal cell walls."""
+**Example 1 - From BEGINNING of content (Algae classification):**
+Source: "Depending on the type of pigment possessed and the type of stored food, algae are classified into three classes, namely Chlorophyceae, Phaeophyceae and Rhodophyceae."
+↓
+Q. How many classes are algae classified into based on pigment type and stored food?
+A. Two
+B. Four
+C. Three
+D. Five
+Answer: C (Three - Chlorophyceae, Phaeophyceae and Rhodophyceae)
+Why EASY: Single fact from one sentence. Student recalls the number of algae classes.
+Why GOOD: No reference to "image" or "text". Question is self-contained.
+
+**Example 2 - From BEGINNING-MIDDLE of content (Bryophytes habitat):**
+Source: "Bryophytes are plants which can live in soil but are dependent on water for sexual reproduction."
+↓
+Wrong: "According to the passage, where do bryophytes live?" (references passage)
+Wrong: "As mentioned in the text, bryophytes depend on water for what?" (references text)
+Correct:
+Q. Bryophytes are dependent on water for which of the following processes?
+A. Vegetative propagation
+B. Photosynthesis
+C. Spore dispersal
+D. Sexual reproduction
+Answer: D (Sexual reproduction)
+Why EASY: Direct fact from a single sentence. Distractors are other biological processes that sound plausible.
+
+**Example 3 - From MIDDLE of content (Bryophyte structure):**
+Source: "The bryophytes are divided into liverworts and mosses. The plant body of liverworts is thalloid and dorsiventral whereas mosses have upright, slender axes bearing spirally arranged leaves."
+↓
+Q. The plant body of liverworts is:
+A. Upright with spirally arranged leaves
+B. Thalloid and dorsiventral
+C. Differentiated into root, stem and leaves
+D. Prostrate with vascular tissues
+Answer: B (Thalloid and dorsiventral)
+Why EASY: Directly stated characteristic. Option A is a trap - it describes mosses, not liverworts.
+
+**Example 4 - From MIDDLE-END of content (Pteridophytes):**
+Source: "In pteridophytes the main plant is a sporophyte which is differentiated into true root, stem and leaves. These organs possess well-differentiated vascular tissues."
+↓
+Q. Which plant group has a main plant body that possesses well-differentiated vascular tissues?
+A. Algae
+B. Bryophytes
+C. Pteridophytes
+D. Liverworts
+Answer: C (Pteridophytes)
+Why EASY: Directly stated. Distractors are other plant groups from the same source that do NOT have vascular tissues.
+
+**Example 5 - From END of content (Gymnosperms):**
+Source: "The gymnosperms are the plants in which ovules are not enclosed by any ovary wall. After fertilisation the seeds remain exposed and therefore these plants are called naked-seeded plants."
+↓
+Q. Gymnosperms are also known as naked-seeded plants because:
+A. They lack a seed coat
+B. Their seeds are dispersed without fruit
+C. Their ovules are not enclosed by any ovary wall
+D. They reproduce without fertilisation
+Answer: C (Their ovules are not enclosed by any ovary wall)
+Why EASY: Reason is directly stated. Distractors use related but incorrect seed/reproduction terms.
+
+**Example 6 - Demonstrating NO repetition and SINGLE correct answer:**
+If you already asked about algae classification (Example 1), do NOT ask:
+Wrong (repeated): "Algae are classified into Chlorophyceae, Phaeophyceae and ___?"
+Wrong (multiple correct): Q. "Which is a class of algae?" with options A. Chlorophyceae B. Phaeophyceae C. Rhodophyceae D. Bryophyceae (here A, B, C are all correct - NEVER do this)
+Correct (different fact, single answer): "Algae reproduce vegetatively by which method?"
+A. Budding
+B. Binary fission
+C. Fragmentation
+D. Grafting
+Answer: C (Fragmentation - directly stated in source)"""
 
 MCQ_MEDIUM_RULES = """## MCQ - MEDIUM LEVEL (BIOLOGY)
 
