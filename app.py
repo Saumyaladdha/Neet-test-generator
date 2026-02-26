@@ -34,6 +34,7 @@ from test_generator import (
     generate_neet_test_from_url,
     generate_neet_test_batched,
     generate_neet_test_from_url_batched,
+    generate_neet_test_multi_image_batched,
 )
 
 # Page config
@@ -448,24 +449,26 @@ if generate_btn:
         logger.info(f"Starting generation: subject={subject}, difficulty={difficulty}, type={question_type}, count={question_count}, batch_size={batch_size}")
         with st.spinner(f"Generating questions in batches of {batch_size}..."):
             try:
-                # Use first image for test generation (batched)
+                # Build image content dicts for ALL images
+                all_img_contents = []
                 if image_data_list:
-                    logger.info(f"Using uploaded image ({len(image_data_list[0])} bytes)")
-                    result = generate_neet_test_batched(
-                        image_source=image_data_list[0],
-                        subject=subject,
-                        difficulty=difficulty,
-                        question_count=question_count,
-                        question_type=question_type,
-                        batch_size=batch_size,
-                        model=model,
-                        max_tokens=max_tokens,
-                        api_key=api_key
-                    )
+                    for img_data in image_data_list:
+                        b64 = base64.b64encode(img_data).decode("utf-8")
+                        all_img_contents.append({
+                            "type": "input_image",
+                            "image_url": f"data:image/png;base64,{b64}"
+                        })
                 elif image_urls:
-                    logger.info(f"Using image URL: {image_urls[0][:50]}...")
-                    result = generate_neet_test_from_url_batched(
-                        image_url=image_urls[0],
+                    for url in image_urls:
+                        all_img_contents.append({
+                            "type": "input_image",
+                            "image_url": url
+                        })
+
+                if all_img_contents:
+                    logger.info(f"Using {len(all_img_contents)} image(s) for generation")
+                    result = generate_neet_test_multi_image_batched(
+                        image_contents=all_img_contents,
                         subject=subject,
                         difficulty=difficulty,
                         question_count=question_count,

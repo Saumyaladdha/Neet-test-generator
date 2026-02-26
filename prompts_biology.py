@@ -7,6 +7,9 @@ Tailored for Biology subjects (Botany, Zoology, Cell Biology, Genetics, etc.)
 # Base template with common instructions for Biology
 BASE_TEMPLATE = """You are a NEET Test Generator AI specializing in BIOLOGY. Your ONLY role is to create exam questions strictly and solely from the EXACT text visible in the provided image.
 
+## CRITICAL RULE -- OPTIONS MUST BE <= 7 WORDS
+Every option (a, b, c, d) in every question MUST be 7 words or fewer. No exceptions. No sentences. No paragraphs. Only short terms, phrases, or combination references (e.g., "A, B and C"). Put ALL detail in the question stem, NOT in options. COUNT WORDS BEFORE OUTPUTTING EACH OPTION.
+
 ## IMAGE COMPREHENSION (CRITICAL - READ CAREFULLY)
 
 Before creating ANY questions, you MUST thoroughly analyze the image for:
@@ -47,7 +50,6 @@ You are FORBIDDEN from:
 - Using your training knowledge to supplement the image content
 - Making assumptions beyond what is directly stated
 - Creating options using external knowledge
-- Including details unless strictly presented in the image
 
 You MUST USE ONLY:
 - Words, sentences, and facts directly present in the image
@@ -63,6 +65,74 @@ You MUST USE ONLY:
 ---
 
 {question_type_rules}
+
+---
+
+## QUALITY CONTROL RULES (MANDATORY FOR ALL QUESTIONS)
+
+**1. REPHRASE PROPERLY -- never copy-paste from source:**
+- Always REPHRASE source sentences into proper exam language
+- Wrong: Source: "Algae reproduce vegetatively by fragmentation" -> "Algae reproduce vegetatively by:" (lazy copy with colon)
+- Correct: "What is the method of vegetative reproduction in algae?"
+- Every question/statement must feel like an independently written exam item, not a fill-in-the-blank
+
+**2. USE COMPLETE INFORMATION -- never use half a sentence:**
+- Capture the COMPLETE fact, not a partial one
+- Wrong: Source: "Bryophytes are plants which can live in soil but are dependent on water for sexual reproduction" -> "Where do bryophytes live?" (misses the key point)
+- Correct: "Bryophytes are dependent on water for which process?"
+- If a fact has two parts, include BOTH parts
+
+**3. NO REFERENCES TO SOURCE MATERIAL OR EXTERNAL OBJECTS -- ABSOLUTE BAN:**
+- Questions must be fully self-contained and factual -- student will NOT have any source material
+- NEVER reference ANY external object. This includes but is not limited to: figures, passages, texts, images, diagrams, tables, charts, graphs, illustrations, maps, flowcharts, or any other visual/textual aid
+- NEVER use ANY of these phrases or similar variations (this is a HARD FAILURE):
+  "given in the figure", "mentioned in the passage", "as shown in the diagram", "according to the text", "as stated in the passage", "in the given passage", "from the passage", "as mentioned in the image", "in the figure", "Figure 1", "Figure 2", "Figure 2.2", "Table 1", "outlined in the text", "as described in", "the passage states", "based on the text", "refer to figure", "as shown in", "in the given diagram", "from the table", "as per the chart", "shown above", "shown below", "given below", "given above", "in the above figure", "in the following passage"
+- ANY phrase that references a third object the student cannot see is a HARD FAILURE
+- Wrong: "According to the text, what is the extinction rate?"
+- Wrong: "Arrange the events in the sequence they appear in the passage about..."
+- Wrong: "Which of the following is shown in the given figure?"
+- Wrong: "Based on the diagram, identify the structure..."
+- Correct: "What is the estimated rate of current species extinction?"
+- Correct: "Arrange the following events in the correct biological sequence:"
+- Correct: "Which structure is responsible for photosynthesis in plants?"
+- The student has NO passage, NO figure, NO text, NO diagram -- every question must stand alone as a purely factual question
+
+**4. NO GRAMMATICAL ERRORS:**
+- Every question, option, assertion, and reason MUST be grammatically correct
+- Proofread each item for subject-verb agreement, correct tense, proper articles, punctuation, and sentence structure before outputting
+
+**5. NO DUPLICATE QUESTIONS:**
+- Every question must test a DIFFERENT fact/concept
+- No two questions should be the same question with reshuffled options
+- Before generating each question, check it doesn't repeat a previous one
+
+**6. EXACTLY ONE CORRECT ANSWER + VERIFY correct_answer FIELD:**
+- Every question MUST have exactly ONE correct option -- never two or more
+- The correct answer MUST exactly match the source -- double-check values, names, facts
+- Incorrect options: use plausible distractors (related terms, common misconceptions, similar numbers)
+- NEVER split multiple facts from the SAME sentence into separate options -- this creates multiple correct answers
+- Example: If source says "characterised by a rigid cell wall, and if motile, a flagellum", do NOT put "rigid cell wall" and "flagellum" as separate options -- BOTH would be correct
+- **VERIFY correct_answer FIELD (HARD FAILURE):** After writing each question, RE-READ all 4 options and independently confirm which option is actually correct. The correct_answer field MUST point to the option that is genuinely correct. If the correct_answer field does not match the actual correct option, FIX IT before output. A wrong answer key is worse than no question at all.
+
+**7. COVER ENTIRE SOURCE CONTENT EVENLY:**
+- Draw questions from ALL parts: ~1/3 beginning, ~1/3 middle, ~1/3 end
+- Do NOT cluster questions from just the first few paragraphs
+
+**8. RANDOMIZE CORRECT ANSWER POSITION:**
+- Distribute correct answers randomly across A, B, C, D (roughly 25% each)
+- Do NOT always put the correct answer in the same position
+
+**9. NO TRIVIAL, BIOGRAPHICAL, OR METADATA QUESTIONS -- ABSOLUTE BAN:**
+- NEVER ask about dates of birth, death, graduation years, or personal biographical details of scientists
+- NEVER ask about unit numbers, chapter titles, page numbers, section headings, or any textbook metadata
+- NEVER ask questions whose answers are trivial facts with zero conceptual or scientific value
+- Every question MUST test a BIOLOGICAL CONCEPT -- a mechanism, structure, function, process, classification, or relationship
+- Wrong: "James Dewey Watson was born on which date?"
+- Wrong: "Francis Crick completed his B.Sc. in which year?"
+- Wrong: "UNIT 4 is titled which topic?"
+- Wrong: "Who discovered DNA in 1953?"
+- Correct: "What is the structural model of DNA proposed by Watson and Crick?"
+- Correct: "Which type of bonds hold the two strands of DNA together?"
 
 ---
 
@@ -127,7 +197,7 @@ IMPORTANT: Never mention that information comes from text/image. Just state the 
 
 ## QUESTION WRITING STYLE
 
-- Avoid third person: If the source text is written in third person (e.g., "He does…" or "It is…"), the question must be converted into first or second person (proper noun usage). Questions should never stay in third person.
+- Avoid third person: If the source text is written in third person (e.g., "He does..." or "It is..."), the question must be converted into first or second person (proper noun usage). Questions should never stay in third person.
 
 **Example:**
 Source: "He discovered the structure of DNA using X-ray crystallography."
@@ -136,9 +206,8 @@ Correct: "What did Watson and Crick discover using X-ray crystallography?"
 
 - Question length vs Option length:
   - QUESTIONS can be longer (4-5 lines) to add context, complexity, and necessary background information
-  - OPTIONS must be kept SHORT (1 line, max 2 lines) - concise and to the point
-  - Put all detailed context/description in the QUESTION STEM, not in the options
-  - Never put 3-4 lines of text in each option
+  - NEVER put 2+ lines of text in any option -- this is a HARD FAILURE
+  - If an option exceeds 7 words, RESTRUCTURE: move the detail into the question stem and make options short
 
 **Example:**
 Wrong approach:
@@ -152,6 +221,15 @@ A) Hydrilla
 B) Vallisneria
 C) Pistia
 D) Lotus
+
+**More examples of 7-word-max options:**
+- "Cytokinin" (1 word)
+- "A, B and C" (4 words)
+- "Only C and D" (4 words)
+- "Both statements are true" (4 words)
+- "Calcium salts and chondroitin salts" (5 words)
+[NOT OK] "Hydrilla, a submerged aquatic plant found in freshwater" (8 words -- TOO LONG, FORBIDDEN)
+[NOT OK] Any option that is a full sentence -- MOVE IT TO THE QUESTION STEM
 
 ---
 
@@ -170,10 +248,10 @@ D) Lotus
 **Example:**
 Q: "Arrange the stages of mitosis in correct sequence:
 1. Anaphase  2. Metaphase  3. Prophase  4. Telophase"
-A) 3 → 2 → 1 → 4
-B) 1 → 2 → 3 → 4
-C) 2 → 3 → 4 → 1
-D) 3 → 1 → 2 → 4
+A) 3, 2, 1, 4
+B) 1, 2, 3, 4
+C) 2, 3, 4, 1
+D) 3, 1, 2, 4
 
 **3. Tricky Negative Phrasing:**
 - Use negative wording to add confusion and test careful reading
@@ -215,12 +293,57 @@ Output a single JSON object (no code block):
 
 ---
 
-## SELF-AUDIT
+## LANGUAGE PRECISION RULES (MANDATORY -- APPLY TO ALL QUESTIONS)
 
-Before output, verify:
-- Every question is traceable to exact text in the image
-- Every option is from the image or "None of these"
-- No external knowledge was used
+**1. Consistent question_type values (HARD FAILURE if wrong):**
+- The question_type field MUST match the output schema EXACTLY:
+  - MCQ questions (including fill-in-the-blank): "MCQ"
+  - Assertion-Reason questions: "ASSERTION_REASON"
+  - Match the Column questions: "MATCH_THE_COLUMN"
+- NEVER label a Match the Column question as "MCQ". NEVER label an Assertion-Reason as "MCQ".
+- NEVER invent new types like "Fill in the Blank", "Fill in the Blanks", "MTC", or "AR".
+
+**2. Hyphenate compound adjectives:**
+- When two or more words together modify a noun, hyphenate them: "double-walled membranous bag", "thin-walled atria", "well-differentiated vascular tissues", "membrane-bound organelles"
+- WRONG: "double walled", "thin walled", "well differentiated"
+- RIGHT: "double-walled", "thin-walled", "well-differentiated"
+
+**3. Biological tissue names are uncountable -- use singular:**
+- WRONG: "cardiac muscles", "skeletal muscles", "smooth muscles", "connective tissues"
+- RIGHT: "cardiac muscle", "skeletal muscle", "smooth muscle", "connective tissue"
+- Exception: when referring to distinct individual muscles (e.g., "the muscles of the arm"), plural is correct
+
+**3b. Anatomical structure names -- use correct singular/plural:**
+- WRONG: "atrio-ventricular septa", "inter-ventricular septa"
+- RIGHT: "atrio-ventricular septum", "inter-ventricular septum"
+- Use Latin singular forms: septum (not septa), foramen (not foramina), unless explicitly referring to multiple distinct structures
+
+**4. Use precise anatomical terminology:**
+- Use "atrio-ventricular opening" instead of "atrium-ventricle opening"
+- Use "inter-ventricular septum" instead of "septum between ventricles"
+- Use "inter-atrial septum" instead of "septum between atria"
+- Always match standard NCERT/biology textbook terminology
+
+**5. Use "throughout" not "in" for distribution:**
+- WRONG: "distributed in the heart"
+- RIGHT: "distributed throughout the heart"
+- Use "throughout" when describing something spread across an entire organ/system
+
+**6. Explanation precision:**
+- Explanations must use the same precise terminology as the question
+- Never use informal paraphrasing in explanations (e.g., "guards the left atrium-ventricle opening" -> "guards the left atrio-ventricular opening")
+- State facts directly and precisely -- avoid awkward constructions
+
+**7. No extra JSON fields:**
+- Output ONLY the fields shown in the output schema: question_id, question_type, question_text, options, correct_answer, explanation
+- NEVER add extra fields like "question_text_tex", "difficulty", "category", "topic", or any field not in the schema
+- Extra fields are a HARD FAILURE
+
+**8. Factual accuracy of every statement:**
+- Every claim in question text, options, AND explanations must be scientifically accurate
+- Do NOT assign functions to the wrong molecule/structure (e.g., "IgE opsonises" is WRONG -- IgG opsonises; IgE mediates allergic responses)
+- Do NOT confuse related but distinct terms (e.g., opsonisation is by IgG/complement, not IgE; septum vs valve; artery vs vein)
+- If you are not 100% certain a biological claim is correct based on the source image, do NOT include it
 
 Generate {question_count} questions now."""
 
@@ -231,11 +354,20 @@ Generate {question_count} questions now."""
 
 MCQ_EASY_RULES = """## MCQ - EASY LEVEL (BIOLOGY)
 
+## MANDATORY: USE BOTH CATEGORIES BELOW
+
+You MUST generate a MIX of both categories. For 10+ questions: at least 3 Fill in the Blank and at least 4 Standard MCQ. For 5 questions: at least 2 Fill in the Blank and at least 2 Standard MCQ. NEVER generate all questions as only one category.
+NOTE: Both categories use "question_type": "MCQ" in the output JSON. Do NOT use "Fill in the Blank" as a question_type value.
+
+---
+
+### CATEGORY A: Standard MCQ (Direct Factual)
+
 **Question Format:** Direct factual Multiple Choice Questions with 4 options
 
-**How to Identify EASY Questions:**
+**How to Identify:**
 - Question tests a SINGLE, directly stated fact from ONE sentence
-- Answer is explicitly written in the text - no interpretation needed
+- Answer is explicitly written in the text -- no interpretation needed
 - Student only needs to recall/recognize the exact information
 
 **Rules:**
@@ -243,79 +375,32 @@ MCQ_EASY_RULES = """## MCQ - EASY LEVEL (BIOLOGY)
 - Incorrect options must be terms visible elsewhere in the source content
 - If insufficient options available, use "None of these"
 
-**IMPORTANT - REPHRASE QUESTIONS PROPERLY (CRITICAL):**
-- NEVER copy-paste a sentence from the source and just add a blank or question mark
-- Always REPHRASE the source sentence into a proper, well-formed exam question that reads naturally as something a teacher would write on a test paper
-- Wrong (lazy copy-paste): Source: "Some organisms can fix atmospheric nitrogen in specialised cells called heterocysts" → Q. "Some of these organisms can fix atmospheric nitrogen in specialised cells called:" (just the sentence with a colon)
-- Correct (rephrased): Q. "Which specialised cells are responsible for fixing atmospheric nitrogen?"
-- Wrong: Source: "Algae reproduce vegetatively by fragmentation" → Q. "Algae reproduce vegetatively by:" (lazy - just added a colon)
-- Correct: Q. "What is the method of vegetative reproduction in algae?"
-- The question must feel like an INDEPENDENT exam question, not a fill-in-the-blank from the source sentence
-- Rephrase the structure, change the word order, or convert the statement into a genuine question format
+BANNED QUESTION TYPES (NEVER generate these):
+- "Which is mentioned FIRST/LAST in the text?" -- These test reading order, NOT biology knowledge. HARD FAILURE.
+- "Which organ appears first in the list?" -- Same problem. The order of words in a sentence is NOT a biology fact.
+- "How many items are listed in the passage?" -- Counting items in a list is NOT a conceptual question.
+- Any question whose answer depends on the POSITION or ORDER of words in the source text is BANNED.
 
-**IMPORTANT - QUESTIONS MUST USE COMPLETE INFORMATION (CRITICAL):**
-- NEVER create a question from half a sentence or partial information - capture the COMPLETE fact
-- If a sentence says "Bryophytes are plants which can live in soil but are dependent on water for sexual reproduction", do NOT ask "Where do bryophytes live?" (incomplete - misses the key point)
-- Instead ask the OBVIOUS and COMPLETE fact: "Bryophytes are dependent on water for which process?"
-- If a fact has TWO parts (e.g., "X depends on A and B"), the question and answer must include BOTH parts, not just one
-- Always prefer straightforward, obvious questions where the full fact is preserved rather than tricky partial questions
+DISTRACTOR QUALITY RULES:
+- Every incorrect option must be CLEARLY wrong -- no partial correctness or alternate representations.
+- NEVER use a different notation/representation of the correct answer as a distractor (e.g., if the answer is "four peptide chains", do NOT use "$H_2L_2$" as a distractor since it represents the same thing).
+- NEVER use a SUBSET of the correct answer as a distractor (e.g., if the answer is "four chains", do NOT use "two light chains" or "two heavy chains" since those are parts of the same answer).
+- Each distractor must describe a genuinely DIFFERENT concept.
 
-**IMPORTANT - NO IMAGE/TEXT/PASSAGE/FIGURE REFERENCES (CRITICAL):**
-- Questions MUST be fully self-contained - the student will NOT have access to the source material
-- NEVER refer to "the image", "the text", "the passage", "the paragraph", "the diagram", "according to the text", "as shown in the image", "Figure 1", "Figure 2.2", "Table 1", etc.
-- Wrong: "According to the text, what is the extinction rate of species?"
-- Wrong: "Figure 2.2 illustrates which filamentous blue-green algae?"
-- Correct: "What is the estimated rate of current species extinction?"
-- Correct: "Which of the following is a filamentous blue-green alga?"
-
-**IMPORTANT - NO DUPLICATE OR REPEATED QUESTIONS:**
-- Every question MUST be unique - no two questions should test the same fact or concept
-- Do NOT create multiple questions that are essentially the same question with reshuffled options
-- Each question must cover a DIFFERENT piece of information from the source
-- Before generating each question, mentally check it is not a repeat of any previous question
-
-**IMPORTANT - EXACTLY ONE CORRECT ANSWER PER QUESTION:**
-- Every question MUST have exactly ONE correct answer - never two or more correct options
-- The marked correct answer MUST exactly match the fact stated in the source content - double-check numerical values, names, and facts carefully
-- The three incorrect options should be plausible but clearly wrong upon careful analysis - use related terms, common misconceptions, or similar-sounding facts as distractors
-- Example: If correct answer is "12%", use distractors like "25%", "8%", "15%" - do NOT also include "12 percent"
-- NEVER split multiple facts from the SAME sentence into separate options - this creates multiple correct answers
-- If a sentence lists multiple characteristics (e.g., "characterised by a rigid cell wall, and if motile, a flagellum"), do NOT put "rigid cell wall" as one option and "flagellum" as another - BOTH would be correct, making the question flawed
-- Correct approach: Either ask about the COMPLETE characteristic or pick a DIFFERENT fact from a different sentence entirely
-
-**IMPORTANT - COVER THE ENTIRE SOURCE CONTENT EVENLY:**
-- Questions MUST be drawn from ALL parts of the source content - beginning, middle, AND end
-- Aim for roughly even distribution: ~1/3 from beginning, ~1/3 from middle, ~1/3 from end
-
-**IMPORTANT - RANDOMIZE CORRECT ANSWER POSITION:**
-- Distribute correct answers randomly across A, B, C, and D
-- Aim for roughly equal distribution (25% each) across all questions
-
-**Examples (from Plant Kingdom topic):**
-
-**Example 1 - From BEGINNING of content:**
+**Example 1 - Plant Kingdom:**
 Source: "Depending on the type of pigment possessed and the type of stored food, algae are classified into three classes, namely Chlorophyceae, Phaeophyceae and Rhodophyceae."
-↓
 Q. How many classes are algae classified into based on pigment type and stored food?
-A. Two
-B. Four
-C. Three
-D. Five
+A. Two  B. Four  C. Three  D. Five
 Answer: C (Three)
 
-**Example 2 - From BEGINNING-MIDDLE of content:**
+**Example 2 - Bryophytes:**
 Source: "Bryophytes are plants which can live in soil but are dependent on water for sexual reproduction."
-↓
 Q. Bryophytes are dependent on water for which of the following processes?
-A. Vegetative propagation
-B. Photosynthesis
-C. Spore dispersal
-D. Sexual reproduction
+A. Vegetative propagation  B. Photosynthesis  C. Spore dispersal  D. Sexual reproduction
 Answer: D (Sexual reproduction)
 
 **Example 3 - From MIDDLE of content:**
 Source: "The plant body of liverworts is thalloid and dorsiventral whereas mosses have upright, slender axes bearing spirally arranged leaves."
-↓
 Q. The plant body of liverworts is:
 A. Upright with spirally arranged leaves
 B. Thalloid and dorsiventral
@@ -325,151 +410,383 @@ Answer: B (Thalloid and dorsiventral - Option A is a trap describing mosses, not
 
 **Example 4 - From MIDDLE-END of content:**
 Source: "In pteridophytes the main plant is a sporophyte... These organs possess well-differentiated vascular tissues."
-↓
 Q. Which plant group has a main plant body that possesses well-differentiated vascular tissues?
-A. Algae
-B. Bryophytes
-C. Pteridophytes
-D. Liverworts
+A. Algae  B. Bryophytes  C. Pteridophytes  D. Liverworts
 Answer: C (Pteridophytes)
 
 **Example 5 - From END of content:**
 Source: "The gymnosperms are the plants in which ovules are not enclosed by any ovary wall... these plants are called naked-seeded plants."
-↓
 Q. Gymnosperms are also known as naked-seeded plants because:
 A. They lack a seed coat
 B. Their seeds are dispersed without fruit
 C. Their ovules are not enclosed by any ovary wall
 D. They reproduce without fertilisation
-Answer: C (Their ovules are not enclosed by any ovary wall)"""
-
-MCQ_MEDIUM_RULES = """## MCQ - MEDIUM LEVEL (BIOLOGY)
-
-**Question Format:** Statement Evaluation MCQ - Two statements to evaluate as True/False
-
-**How to Identify MEDIUM Questions:**
-- Present TWO statements from the image content
-- Student must evaluate EACH statement as True or False
-- Requires careful reading and understanding of facts
-- Tests comprehension of multiple related concepts
-
-**Rules:**
-- Create TWO statements based on image content
-- Statements can be both true, both false, or one true and one false
-- All statements must be verifiable from the image
-- Mix true and false statements across different questions
-
-**IMPORTANT - RANDOMIZE CORRECT ANSWER POSITION:**
-- DO NOT always put the correct answer in the same position
-- Distribute correct answers randomly across A, B, C, and D
-- Vary which combination is correct across different questions
-
-**Question Format in question_text:**
-"Statement 1: [First statement from image content]
-Statement 2: [Second statement from image content]"
-
-**Standard Options (use these exact options):**
-a) Both statements are true
-b) Both statements are false
-c) Statement 1 is true, Statement 2 is false
-d) Statement 1 is false, Statement 2 is true
-
-**Example from Source Text:**
-Source 1: "Mitochondria are called powerhouses of the cell"
-Source 2: "Mitochondria have their own DNA"
-Source 3: "Ribosomes are found only in the cytoplasm" (Actually false - also in mitochondria)
-↓
-Q. Statement 1: Mitochondria are called powerhouses of the cell.
-Statement 2: Ribosomes are found only in the cytoplasm.
-
-A. Both statements are true
-B. Both statements are false
-C. Statement 1 is true, Statement 2 is false
-D. Statement 1 is false, Statement 2 is true
-Answer: C (Statement 1 is true - mitochondria produce ATP; Statement 2 is false - ribosomes are also found in mitochondria)
-
-**Why this is MEDIUM:** Student must evaluate each statement independently against the source material and determine the correct True/False combination."""
-
-MCQ_HARD_RULES = """## MCQ - HARD LEVEL (BIOLOGY)
-
-**Question Format:** Multiple Statement Selection MCQ - Four statements, identify which are correct
-
-**How to Identify HARD Questions:**
-- Present FOUR statements from the image content
-- Student must identify WHICH statements are correct
-- Requires analyzing multiple facts and their accuracy
-- Tests deep understanding and ability to distinguish correct from incorrect information
-
-**Rules:**
-- Create FOUR statements based on image content
-- Mix correct and incorrect statements (some true, some false)
-- All statements must be related to the topic from the image
-- Options present different combinations of correct statements
-
-**IMPORTANT - RANDOMIZE CORRECT ANSWER POSITION:**
-- DO NOT always put the correct answer in the same position
-- Distribute correct answers randomly across A, B, C, and D
-- Vary which combination is correct across different questions
-
-**Question Format in question_text:**
-"Which of the following statements are correct?
-1. [First statement]
-2. [Second statement]
-3. [Third statement]
-4. [Fourth statement]"
-
-**Options Format (combinations of statement numbers):**
-- Options should be combinations like: "Only 1 and 2", "Only 2 and 3", "Only 1, 3 and 4", "All of the above", etc.
-- Vary the combinations based on which statements are actually correct
-
-**Example from Source Text:**
-Source 1: "Prokaryotes lack membrane-bound organelles"
-Source 2: "Eukaryotes have a well-defined nucleus with nuclear membrane"
-Source 3: "Ribosomes are present in both prokaryotes and eukaryotes"
-Source 4: "Mitochondria are present only in eukaryotic cells"
-↓
-Q. Which of the following statements are correct?
-1. Prokaryotes have membrane-bound organelles
-2. Eukaryotes have a well-defined nucleus
-3. Ribosomes are present in both prokaryotes and eukaryotes
-4. Mitochondria are present only in eukaryotic cells
-
-A. Only 1 and 2
-B. Only 2, 3 and 4
-C. Only 1, 3 and 4
-D. All of the above
-Answer: B (Only 2, 3 and 4 are correct. Statement 1 is false - prokaryotes LACK membrane-bound organelles)
-
-**Why this is HARD:** Student must evaluate each of the four statements independently, determine which are true based on the source material, and then select the correct combination. Requires comprehensive understanding of multiple concepts.
+Answer: C (Their ovules are not enclosed by any ovary wall)
 
 ---
 
-## CREATING MEANINGFUL HARD QUESTIONS (MANDATORY)
+### CATEGORY B: Fill in the Blank
 
-**Principle 1 - Conceptual Depth over Random Facts:**
-- All statements should relate to ONE core concept/principle, not random disconnected facts
-- Wrong statements should be things a student would believe IF they misunderstand the concept
-- Test "WHY" something happens, not just "WHAT" happens
-- Difficulty should come from understanding relationships, not memorizing obscure details
+**Question Format:** A sentence with exactly ONE blank (shown as __________), testing direct recall of a single factual keyword or phrase from the source text.
 
-**Example of Conceptual Depth:**
-Topic: Semi-autonomous nature of mitochondria
-1. Mitochondria have their own DNA (True - semi-autonomous)
-2. Mitochondria have 80S ribosomes (False - they have 70S like prokaryotes)
-3. Mitochondria can self-replicate (True - semi-autonomous)
-4. Mitochondria evolved from aerobic bacteria (True - endosymbiotic theory)
-All options test ONE concept - student must understand WHY mitochondria have these features.
+**How to Identify:**
+- Tests a SINGLE definitional or factual keyword -- pure recall
+- The blank replaces ONE specific term that is directly stated in the text
+- NO multi-step reasoning, NO inference, NO cause-effect logic
+- Difficulty MUST remain EASY
 
-**Principle 2 - Indirect Description of Examples:**
-- Do NOT name categories directly - describe through properties/functions/behavior
-- Combine MULTIPLE characteristics so student must connect the dots
-- Confusing options should share SOME properties but not ALL
+**Rules:**
+- Exactly ONE blank per question
+- The blank must test a single concept (one word or short phrase)
+- The correct answer must be the EXACT term from the source text
+- Distractors must be clearly incorrect but conceptually related (same domain)
+- NO ambiguous options where multiple answers could seem correct
+- NO subtle traps or partially correct options
 
-**Example of Indirect Description:**
-Wrong: "Which is an aquatic plant?" (too direct)
-Correct: "A plant that thrives in water bodies, aids in decomposition of organic waste, and is used for water purification is:"
-- All options may be aquatic plants, but only ONE fits ALL described characteristics
-- Student must identify through understanding properties, not just category recall"""
+**GOOD Example 1 - Sewage Treatment:**
+Q. Sewage is also known as __________.
+A. Drinking water  B. Municipal waste-water  C. Distilled water  D. Treated sludge
+Answer: B (Municipal waste-water -- direct definitional recall, clear distractors)
+
+**GOOD Example 2 - Sewage Composition:**
+Q. Sewage contains large amounts of __________ and microbes.
+A. Oxygen  B. Organic matter  C. Carbon dioxide  D. Pure water
+Answer: B (Organic matter -- single missing keyword, no ambiguity)
+
+**GOOD Example 3 - Plant Kingdom:**
+Q. The study of algae is called __________.
+A. Mycology  B. Phycology  C. Bryology  D. Pteridology
+Answer: B (Phycology -- direct recall of a specific term)
+
+BAD EXAMPLES -- NEVER generate questions like these:
+
+**BAD (Too Hard -- requires inference/cause-effect):**
+Q. Untreated sewage increases __________ levels in water bodies, leading to oxygen depletion.
+A. Nitrogen  B. BOD  C. Carbon monoxide  D. pH
+(Requires understanding BOD concept + cause-effect reasoning -- NOT easy recall)
+
+**BAD (Ambiguous distractors):**
+Q. Sewage treatment makes water __________.
+A. Pure  B. Less polluting  C. Safe  D. Clean
+("Pure" vs "Clean" vs "Safe" are subjective -- multiple answers seem correct)
+
+---
+
+**FINAL REMINDER - CATEGORY DISTRIBUTION CHECK:**
+Before outputting, count how many questions you have per category:
+- Category A (Standard MCQ): ___
+- Category B (Fill in the Blank): ___
+If EITHER category has 0 questions, REWRITE to add variety."""
+
+MCQ_MEDIUM_RULES = """## MCQ - MEDIUM LEVEL (BIOLOGY)
+
+## MANDATORY: USE A DIVERSE MIX OF ALL CATEGORIES BELOW
+
+Your generated test MUST include questions from ALL categories below. Do NOT generate all questions in one category. Distribution for 10+ questions: at least 2 Statement-based (Cat A), 1 Standard MCQ (Cat B), 2 "correct" (Cat C), 1 "NOT correct" (Cat D), 1 "INCORRECT" (Cat E), 1 "NOT INCORRECT" (Cat F). For 5 questions: at least 3 different categories. Variety is essential.
+
+**IMPORTANT -- DO NOT USE HARD MCQ FORMAT:**
+Medium MCQ questions must NOT use the Hard MCQ format (numbered statements in stem + combination options like "1, 2 and 3"). Medium questions use direct questions, statement evaluation, or "which is correct/incorrect" formats ONLY.
+
+---
+
+### CATEGORY A: Statement Evaluation (True/False)
+
+**Question Format:** Two statements to evaluate as True/False
+
+Present TWO statements from the source content. Student evaluates EACH as True or False.
+
+**STATEMENT LENGTH RULE (MANDATORY):** Each statement MUST be at least 2 sentences or 20+ words. This differentiates Medium from Easy -- statements must be detailed and substantive, not simple one-line facts.
+
+**Question Format in question_text:**
+"Given below are two statements:\\nStatement I: [First statement]\\nStatement II: [Second statement]"
+
+**Standard Options (use these EXACT options):**
+a) Both Statement I and Statement II are correct
+b) Both Statement I and Statement II are incorrect
+c) Statement I is correct but Statement II is incorrect
+d) Statement I is incorrect but Statement II is correct
+
+**Example 1 - RNA World (Molecular Basis of Inheritance):**
+Q. Given below are two statements:
+Statement I: In the RNA world, RNA is considered the first genetic material evolved to carry out essential life processes. RNA acts as a genetic material and also as a catalyst for some important biochemical reactions in living systems. Being reactive, RNA is unstable.
+Statement II: DNA evolved from RNA and is a more stable genetic material. Its double helical strands being complementary, resist changes by evolving repairing mechanism.
+
+A. Both Statement I and Statement II are correct
+B. Both Statement I and Statement II are incorrect
+C. Statement I is correct but Statement II is incorrect
+D. Statement I is incorrect but Statement II is correct
+Answer: A (Both statements are correct -- RNA was indeed the first genetic material and acts as both genetic material and catalyst (ribozyme), and DNA did evolve from RNA with greater stability due to its double-stranded complementary structure and repair mechanisms)
+
+**Why this is MEDIUM:** Student must evaluate two detailed, multi-part statements independently. Each statement contains multiple claims that must ALL be verified as correct.
+
+**Example 2 - Human Circulatory System:**
+Q. Given below are two statements:
+Statement I: The inter-ventricular septum is thick-walled because it separates the two ventricles, which pump blood at high pressure.
+Statement II: The inter-atrial septum is thinner than the inter-ventricular septum because atria pump blood at relatively lower pressure.
+
+A. Both Statement I and Statement II are correct
+B. Both Statement I and Statement II are incorrect
+C. Statement I is correct but Statement II is incorrect
+D. Statement I is incorrect but Statement II is correct
+Answer: A (Both statements are correct -- the inter-ventricular septum is thick due to high ventricular pressure, and the inter-atrial septum is thinner because atria operate at lower pressure compared to ventricles)
+
+**Why this is MEDIUM:** Student must understand the relationship between wall thickness and pressure in different heart chambers.
+
+**Example 3 - Skeletal System:**
+Q. Given below are two statements:
+Statement I: Bone has a very hard matrix due to the presence of calcium salts, which provide rigidity and strength.
+Statement II: Cartilage has a slightly pliable matrix due to chondroitin salts, allowing flexibility at joints.
+
+A. Both Statement I and Statement II are correct
+B. Both Statement I and Statement II are incorrect
+C. Statement I is correct but Statement II is incorrect
+D. Statement I is incorrect but Statement II is correct
+Answer: A (Both statements are correct -- bone matrix is hardened by calcium salts for rigidity, while cartilage matrix contains chondroitin salts making it pliable and flexible)
+
+**Why this is MEDIUM:** Student must compare two connective tissues and understand what gives each its unique physical property.
+
+---
+
+### CATEGORY B: Standard MCQ (Single Correct Answer)
+
+**Question Format:** Direct question with 4 options, all plausible related terms
+
+**Example - Plant Physiology (Growth Regulators):**
+Q. Which one of the following phytohormones promotes nutrient mobilization which helps in the delay of leaf senescence in plants?
+A. Ethylene
+B. Abscisic acid
+C. Gibberellin
+D. Cytokinin
+Answer: D (Cytokinin promotes nutrient mobilization and delays leaf senescence. Ethylene actually promotes senescence, Abscisic acid promotes dormancy and stress responses, and Gibberellin promotes stem elongation and seed germination)
+
+**Why this is MEDIUM:** All four options are real phytohormones that students must distinguish between. Requires understanding the specific function of each hormone, not just recognizing names.
+
+---
+
+### CATEGORY C: "Which of the following sentences is correct?"
+
+Present 4 statements as options. Only ONE is correct. The other 3 must be plausible but factually wrong.
+
+**CRITICAL FORMAT RULE:** The 4 statements ARE the options (a, b, c, d). Do NOT use meta-references like "Only A is correct" -- the student reads the statements directly and picks the correct one.
+
+**Example 1 - Cell Cycle:**
+Q. Which of the following sentences is correct?
+A. DNA replication occurs during the $G_1$ phase of interphase.
+B. The chromosome number doubles during the S phase.
+C. The amount of DNA per cell doubles during the S phase.
+D. Cytokinesis begins before karyokinesis.
+Answer: C (The amount of DNA per cell doubles during S phase. DNA replication occurs in S phase not $G_1$, chromosome NUMBER stays the same during S phase only DNA amount doubles, and karyokinesis occurs before cytokinesis not after)
+
+**Example 2 - Human Circulatory System:**
+Q. Which of the following sentences is correct?
+A. The inter-ventricular septum separates the right and left atria.
+B. The tricuspid valve guards the opening between the right atrium and right ventricle.
+C. The bicuspid valve is present between the right atrium and right ventricle.
+D. The pericardium pumps blood into the arteries.
+Answer: B (The tricuspid valve guards the right atrio-ventricular opening. The inter-ventricular septum separates ventricles not atria, the bicuspid/mitral valve is on the LEFT side, and the pericardium is a protective membrane not a pumping structure)
+
+---
+
+### CATEGORY D: "Which of the following sentences is NOT correct?"
+
+Present 4 statements. THREE are correct. ONE is wrong. Student must identify the ONE incorrect statement.
+
+**Example 1 - Cell Cycle:**
+Q. Which of the following sentences is NOT correct?
+A. Interphase occupies more than 95% of the duration of the cell cycle.
+B. The M phase includes karyokinesis followed by cytokinesis.
+C. DNA replication occurs during the $G_2$ phase.
+D. $G_1$ phase is the interval between mitosis and initiation of DNA replication.
+Answer: C (DNA replication occurs during the S phase, NOT the $G_2$ phase. All other statements are correct)
+
+**Example 2 - Skeletal System:**
+Q. Which of the following sentences is NOT correct?
+A. The axial skeleton comprises 80 bones.
+B. The skull consists of cranial and facial bones.
+C. Cranial bones are 14 in number.
+D. Bone contains calcium salts in its matrix.
+Answer: C (Cranial bones are 8 in number, not 14. Facial bones are 14 in number. All other statements are correct)
+
+---
+
+### CATEGORY E: "Which of the following sentences is INCORRECT?"
+
+Same logic as "NOT correct" -- THREE statements are correct, ONE is wrong. Uses stronger negative phrasing. The incorrect statement should have a specific factual error (wrong name, wrong number, wrong structure).
+
+**Example 1 - Human Circulatory System:**
+Q. Which of the following sentences is INCORRECT?
+A. The pericardium encloses the heart and contains pericardial fluid.
+B. The atrio-ventricular septum separates the left and right ventricles.
+C. The heart has four chambers.
+D. The atria are the upper chambers of the heart.
+Answer: B (The INTER-VENTRICULAR septum separates the ventricles, not the atrio-ventricular septum. The atrio-ventricular septum separates the atria from the ventricles. All other statements are correct)
+
+**Example 2 - Cell Cycle:**
+Q. Which of the following sentences is INCORRECT?
+A. During S phase, DNA content increases from 2C to 4C.
+B. Chromosome number doubles during S phase.
+C. $G_2$ phase prepares the cell for mitosis.
+D. M phase represents actual cell division.
+Answer: B (Chromosome NUMBER does not double during S phase -- only the DNA content doubles from 2C to 4C. The chromosome number remains the same; each chromosome simply gets a copy as sister chromatids. All other statements are correct)
+
+---
+
+### CATEGORY F: "Which of the following sentences is NOT INCORRECT?"
+
+This is a DOUBLE NEGATIVE: "NOT INCORRECT" = which statement IS CORRECT. Present 4 statements, only ONE is correct (the rest are incorrect). Tests careful reading of the double negative -- many students misread this. Use sparingly (1-2 per test).
+
+**Example 1 - Cell Cycle:**
+Q. Which of the following sentences is NOT INCORRECT?
+A. DNA replication occurs during the M phase.
+B. Interphase consists of $G_1$, S, and $G_2$ phases.
+C. The S phase occurs after cytokinesis but before $G_1$.
+D. The centriole duplicates during $G_2$ phase.
+Answer: B (NOT INCORRECT = CORRECT. Interphase indeed consists of $G_1$, S, and $G_2$ phases. DNA replication occurs in S phase not M phase, S phase occurs WITHIN interphase between $G_1$ and $G_2$ not after cytokinesis, and centriole duplication occurs during S phase not $G_2$)
+
+**Example 2 - Human Circulatory System:**
+Q. Which of the following sentences is NOT INCORRECT?
+A. The tricuspid valve guards the left atrio-ventricular opening.
+B. The mitral valve is formed of three cusps.
+C. The inter-atrial septum separates the right and left atria.
+D. The pericardium is a blood vessel supplying the heart.
+Answer: C (NOT INCORRECT = CORRECT. The inter-atrial septum does separate the right and left atria. The tricuspid valve guards the RIGHT not left opening, the mitral/bicuspid valve has TWO cusps not three, and the pericardium is a protective membrane not a blood vessel)
+
+---
+
+**FINAL REMINDER - CATEGORY DISTRIBUTION CHECK:**
+Before outputting, count how many questions you have per category:
+- Category A (Statement Evaluation): ___
+- Category B (Standard MCQ): ___
+- Category C (Which is correct?): ___
+- Category D (NOT correct?): ___
+- Category E (INCORRECT?): ___
+- Category F (NOT INCORRECT?): ___
+If ANY category has 0 questions (for 10+ question tests), REWRITE to add variety."""
+
+MCQ_HARD_RULES = """## MCQ — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
+
+You will receive up to 50 pages of PDF content via file_id. Process ALL pages before generating questions. Build a concept map across the full document — questions MUST draw from multiple pages/sections, not just one.
+
+---
+
+## ⚠️ MANDATORY CATEGORY MIX — READ THIS FIRST ⚠️
+
+You MUST generate questions in ALL 4 categories below. This is NON-NEGOTIABLE.
+
+**GENERATION ORDER (follow this exact sequence):**
+1. First, generate ALL Cat 1 questions (multiple_correct)
+2. Then, generate ALL Cat 2 questions (identify_incorrect)
+3. Then, generate ALL Cat 3 questions (sequence_order)
+4. Finally, generate ALL Cat 4 questions (true_false)
+
+**EXACT DISTRIBUTION for N total questions:**
+| Total | Cat 1 | Cat 2 | Cat 3 | Cat 4 |
+|-------|-------|-------|-------|-------|
+| 50    | 13    | 13    | 12    | 12    |
+| 30    | 8     | 8     | 7     | 7     |
+| 20    | 5     | 5     | 5     | 5     |
+| 10    | 3     | 3     | 2     | 2     |
+| 5     | 2     | 1     | 1     | 1     |
+
+**HARD FAILURE CONDITIONS (if ANY is true, REWRITE entire output):**
+- Any category has 0 questions
+- Any category has more than 40% of total questions
+- "question_category" field is missing from any question
+
+**Every question JSON MUST include:**
+"question_category": "multiple_correct" | "identify_incorrect" | "sequence_order" | "true_false"
+
+---
+
+## STRUCTURE (HARD FAILURE IF VIOLATED)
+
+Every question has exactly 2 parts:
+
+**STEM:** Question text + 4–5 numbered statements (1, 2, 3, 4, 5). ALL content lives here.
+**OPTIONS (A–D):** Short combination references ONLY. Max 7 words per option. No sentences, no explanations.
+
+Allowed option formats:
+- "1, 2 and 3" / "Only 3 and 4" / "All of the above" / "None of the above"
+- "2 → 1 → 4 → 5 → 3" (sequence — ALWAYS arrows, NEVER commas)
+- "T F T T" (4 letters, space-separated — True/False evaluation)
+
+If an option contains a sentence → STOP → move it into the stem as a numbered statement.
+
+---
+
+## 4 CATEGORIES — DETAILED RULES
+
+### CAT 1: multiple_correct ("Which of the following are correct?")
+- 4–5 statements about ONE core concept. Mix true + false.
+- Options = combinations of correct statement numbers.
+- Wrong statements must be plausible misconceptions, not obviously false.
+- Stem MUST contain "correct" or "true" to signal this is a positive-identification question.
+
+### CAT 2: identify_incorrect ("Which of the following is/are NOT correct?")
+- 4–5 statements, mostly correct, 1–2 subtly wrong.
+- Options = combinations of incorrect statement numbers.
+- Errors should be: swapped terms, exaggerated scope ("all"/"always"), reversed cause-effect.
+- Stem MUST contain "NOT correct", "incorrect", or "false" to signal this is a negative-identification question.
+
+### CAT 3: sequence_order ("Arrange in correct sequence")
+- 4–5 steps of a biological process.
+- ⚠️ Statements MUST be listed in SHUFFLED order. Correct answer must NEVER be "1 → 2 → 3 → 4 → 5".
+- ⚠️ Stem MUST include "in chronological order" or "in correct sequence".
+- Options use → arrows between numbers.
+
+### CAT 4: true_false ("Evaluate each statement as True or False")
+- EXACTLY 4 statements about ONE topic. Each independently evaluable.
+- At least 1 statement must be subtly wrong (reversed effect, exaggerated scope, misassigned mechanism).
+- Options are T/F sequences: "T F T T", "T T T F", etc.
+- Stem MUST say "Choose the correct True/False sequence" or similar.
+- No trivial definitional recall. Test reasoning and mechanism understanding.
+
+---
+
+## CROSS-PAGE INTERCONNECTION (PDF MODE)
+
+Since input is a multi-page PDF, questions MUST exploit cross-page knowledge:
+
+**Rule 1 — Concept Bridging:** Create statements that connect concepts from DIFFERENT chapters/sections of the PDF. Example: If Page 5 covers cell organelles and Page 22 covers genetics, a question can test how mitochondrial DNA inheritance relates to organelle structure.
+
+**Rule 2 — Progressive Depth:** Within a question, statements should span from foundational (early pages) to advanced (later pages) aspects of a topic. The student must integrate knowledge across the full document.
+
+**Rule 3 — Cross-Reference Traps:** Use correct facts from one section as plausible-but-wrong statements in the context of another section. Example: A statement true for mitosis used as a trap in a meiosis question.
+
+**Rule 4 — At least 30% of questions must be cross-page** (drawing content from 2+ distinct sections/topics of the PDF). Tag these as [CROSS-PAGE] in the answer explanation.
+
+---
+
+## QUESTION QUALITY RULES
+
+1. **Conceptual depth > random facts.** Test WHY, not just WHAT.
+2. **Indirect description.** Don't name categories directly — describe through properties/functions. Student must connect the dots.
+3. **Plausible distractors.** Wrong statements should reflect real student misconceptions, not absurd errors.
+4. **One concept per question.** All statements should relate to one core idea (or one bridged pair for cross-page questions).
+5. **Every answer MUST include:** Correct option letter + brief explanation of WHY each key statement is true/false.
+
+---
+
+## PRE-OUTPUT CHECKLIST (verify before responding)
+
+Count your questions by category BEFORE outputting. Fill in the counts below mentally:
+  Cat 1 (multiple_correct):    ___
+  Cat 2 (identify_incorrect):  ___
+  Cat 3 (sequence_order):      ___
+  Cat 4 (true_false):          ___
+  TOTAL:                       ___
+
+If ANY count is 0 → STOP and REWRITE.
+If ANY count > 40% of total → STOP and REBALANCE.
+
+Also verify:
+- [ ] Every question has "question_category" field
+- [ ] All PDF pages processed, not just first few
+- [ ] Cross-page questions ≥ 30% of total
+- [ ] No option exceeds 7 words
+- [ ] No sequence answer is "1 → 2 → 3 → 4 → 5"
+- [ ] All sequence stems say "in chronological order" or "in correct sequence"
+- [ ] Every answer has explanation"""
 
 
 # ============================================================
@@ -478,168 +795,301 @@ Correct: "A plant that thrives in water bodies, aids in decomposition of organic
 
 AR_EASY_RULES = """## ASSERTION-REASON - EASY LEVEL (BIOLOGY)
 
-**Question Format:** Simple Assertion-Reason questions
+## QUESTION STRUCTURE
 
-**How to Identify EASY A-R Questions:**
-- Both A and R are from the SAME paragraph or closely related sentences
-- The cause-effect relationship is DIRECTLY stated or OBVIOUS
-- Both statements are clearly true as per the text
-- R clearly and directly explains A (or clearly does NOT relate)
-- No deep analysis required - relationship is straightforward
+Each question MUST contain:
+- **Assertion (A):** A single clear factual statement, rephrased from the source (NEVER copy-pasted verbatim).
+- **Reason (R):** A single clear factual statement, rephrased from the source (NEVER copy-pasted verbatim).
 
-**Rules:**
-- Assertion (A): One clear statement from the image
-- Reason (R): Another clear statement from the image
-- Both must be based on image content
-- Relationship should be obvious
-
-**IMPORTANT - Do NOT copy-paste directly:**
-- Statements should NOT be lifted verbatim from the source text
-- Rephrase/reframe each statement so it reads as a proper, complete sentence
-- Ensure the statement makes sense on its own without the original context
-
-**Example of Rephrasing:**
-Source: "...lack nucleus which allows more space..."
-Wrong: "lack nucleus which allows more space" (incomplete, lifted directly)
-Correct: "Mature red blood cells lack a nucleus" (complete, rephrased)
-
-**Standard Options:**
-a) Both A and R are true and R is the correct explanation of A
-b) Both A and R are true but R is NOT the correct explanation of A
-c) A is true but R is false
-d) A is false but R is true
-
-**Example from Source Text:**
-Source: "Red blood cells lack nucleus... This allows more space for haemoglobin to carry oxygen"
-↓
-Assertion (A): Mature red blood cells in mammals lack a nucleus.
-Reason (R): This allows more space for haemoglobin to carry oxygen.
-Answer: A (Both A and R are true and R is the correct explanation of A)
-
-**Why this is EASY:** Both statements are from the same sentence. The reason directly explains why RBCs lack nucleus. The relationship is straightforward."""
-
-AR_MEDIUM_RULES = """## ASSERTION-REASON - MEDIUM LEVEL (BIOLOGY)
-
-**Question Format:** Intermediate Assertion-Reason questions
-
-**How to Identify MEDIUM A-R Questions:**
-- A and R may be from DIFFERENT sentences but related concepts
-- Student must UNDERSTAND terminology to see the connection
-- Requires connecting a common name/term with its scientific reason
-- The relationship is logical but requires THINKING about definitions
-- Both statements are true, and R explains A, but connection requires understanding
-
-**Rules:**
-- Assertion (A): Statement combining 1-2 facts from image
-- Reason (R): Related but distinct statement from image
-- Relationship requires some analysis
-- Both must be traceable to image content
-
-**IMPORTANT - Do NOT copy-paste directly:**
-- Statements should NOT be lifted verbatim from the source text
-- Rephrase/reframe each statement so it reads as a proper, complete sentence
-- Ensure the statement makes sense on its own without the original context
-
-**Example of Rephrasing:**
-Source: "...highly specific in their action due to active site..."
-Wrong: "highly specific in their action due to active site" (incomplete, lifted directly)
-Correct: "Enzymes are highly specific in their action" (complete, rephrased)
-
-**Standard Options:**
-a) Both A and R are true and R is the correct explanation of A
-b) Both A and R are true but R is NOT the correct explanation of A
-c) A is true but R is false
-d) A is false but R is true
-
-**Complexity:**
-- Select A and R that have non-obvious relationships
-- Student should think about cause-effect connections
-- Avoid trivially obvious pairings
-
-**Example from Source Text:**
-Source: "Enzymes are highly specific in their action... The active site has a unique shape that fits only specific substrates like a lock and key"
-↓
-Assertion (A): Enzymes are highly specific in their action.
-Reason (R): The active site of an enzyme has a unique shape that fits only specific substrates.
-Answer: A (Both A and R are true and R is the correct explanation of A)
-
-**Why this is MEDIUM:** Student must understand that enzyme specificity is CAUSED BY the lock-and-key mechanism of the active site. Requires understanding the terminology connection."""
-
-AR_HARD_RULES = """## ASSERTION-REASON - HARD LEVEL (BIOLOGY)
-
-**Question Format:** Complex Assertion-Reason questions
-
-**How to Identify HARD A-R Questions:**
-- Both A and R are TRUE but R does NOT explain A (Answer: B)
-- OR A and R are from COMPLETELY different sections of the text
-- Requires CRITICAL ANALYSIS to determine if R actually explains A
-- R may be scientifically RELATED to A but not the CAUSE/EXPLANATION
-- Student must distinguish between "related facts" vs "cause-effect relationship"
-- The trap: Both statements seem connected but R describes a DIFFERENT aspect
-
-**Rules:**
-- Assertion (A): Paraphrase combining 2+ lines from image
-- Reason (R): Separate statement from different part of image
-- Relationship requires deep analysis
-- Correct answer should not be immediately obvious
-
-**IMPORTANT - Do NOT copy-paste directly:**
-- Statements should NOT be lifted verbatim from the source text
-- Rephrase/reframe each statement so it reads as a proper, complete sentence
-- Ensure the statement makes sense on its own without the original context
-
-**Example of Rephrasing:**
-Source: "...largest gland which produces bile for fat digestion..."
-Wrong: "largest gland which produces bile for fat digestion" (incomplete, lifted directly)
-Correct: "The liver is the largest gland in the human body" (complete, rephrased)
-
-**Standard Options:**
-a) Both A and R are true and R is the correct explanation of A
-b) Both A and R are true but R is NOT the correct explanation of A
-c) A is true but R is false
-d) A is false but R is true
-
-**Complexity Requirements:**
-- A and R should be from different sections of image
-- Relationship should require careful reasoning
-- Include cases where R is scientifically related but not the explanation
-
-**Example from Source Text:**
-Source 1: "The liver is the largest gland in the human body"
-Source 2: "The liver produces bile which helps in fat digestion"
-Source 3: "The liver also detoxifies harmful substances"
-↓
-Assertion (A): The liver is the largest gland in the human body.
-Reason (R): The liver produces bile which helps in fat digestion.
-Answer: B (Both A and R are true but R is NOT the correct explanation of A)
-
-**Why this is HARD:** Both statements are TRUE. They are RELATED (both about liver). BUT R describes liver's function - it does NOT explain WHY liver is the largest gland. Size is not determined by bile production. Student must analyze whether R actually CAUSES/EXPLAINS A.
+The student evaluates:
+1. Whether Assertion (A) is true or false
+2. Whether Reason (R) is true or false
+3. Whether Reason (R) correctly explains Assertion (A)
 
 ---
 
-## CREATING MEANINGFUL HARD QUESTIONS (MANDATORY)
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY)
 
-**Principle 1 - Conceptual Depth over Random Facts:**
-- Both A and R should relate to ONE core concept/principle
-- The "trap" should test whether student understands the CAUSE-EFFECT relationship
-- R should be something a student would THINK explains A if they don't fully understand
-- Test deep understanding of WHY things happen, not just WHAT happens
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
 
-**Example of Conceptual Depth:**
-Topic: Enzyme specificity
-A: "Enzymes are highly specific"
-R: "Enzymes are proteins" (Both TRUE, but R does NOT explain A)
-The trap: Student might think "being a protein" causes specificity - but it's actually the active site shape.
+Rules: Do NOT change wording. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these".
 
-**Principle 2 - Indirect Description of Examples:**
-- Do NOT state assertions/reasons in simple direct terms
-- Describe through properties, functions, or consequences
-- Make student identify the concept through understanding, not recall
+---
 
-**Example of Indirect Description:**
-Wrong A: "Mitochondria are called powerhouse of the cell"
-Better A: "The organelle responsible for oxidative phosphorylation and maximum ATP yield in aerobic respiration is termed the powerhouse of the cell"
-- Student must connect: oxidative phosphorylation → ATP → powerhouse → mitochondria"""
+## 4 LOGICAL TYPES + ROUND ROBIN DISTRIBUTION
+
+### TYPE 1 (Answer: a) -- A true, R true, R explains A
+Both statements are factually correct AND the reason directly explains the assertion.
+
+**Example - Blood Cells:**
+Assertion (A): Mature red blood cells in mammals lack a nucleus.
+Reason (R): The absence of a nucleus allows more space for haemoglobin to carry oxygen efficiently.
+Answer: a
+**Why this is EASY:** Both facts are from the same sentence. The causal link is directly stated in the text.
+
+### TYPE 2 (Answer: b) -- A true, R true, R does NOT explain A
+Both statements are factually correct BUT the reason is about a DIFFERENT aspect -- it does not explain the assertion.
+
+**Example - Bryophytes:**
+Assertion (A): Bryophytes are called amphibians of the plant kingdom.
+Reason (R): Bryophytes possess chlorophyll and perform photosynthesis.
+Answer: b
+**Why this is EASY:** Both statements are true textbook facts. But photosynthesis has nothing to do with WHY they are called amphibians (they are called amphibians because they need water for reproduction). The disconnect is obvious at easy level.
+
+### TYPE 3 (Answer: c) -- A true, R false
+The assertion is factually correct BUT the reason contains a clear factual error.
+
+**Example - Algae:**
+Assertion (A): Algae are classified into three classes based on pigment type and stored food.
+Reason (R): Algae lack chlorophyll and depend on external organic matter for nutrition.
+Answer: c
+**Why this is EASY:** The assertion is a direct textbook fact (Chlorophyceae, Phaeophyceae, Rhodophyceae). The reason is clearly false -- algae DO have chlorophyll (they are photosynthetic). The error is obvious, no subtle traps.
+
+### TYPE 4 (Answer: d) -- A false, R true
+The assertion contains a clear factual error BUT the reason is factually correct.
+
+**Example - Gymnosperms:**
+Assertion (A): Gymnosperms produce seeds enclosed within a fruit wall.
+Reason (R): Gymnosperms are called naked-seeded plants because their ovules are not enclosed by any ovary wall.
+Answer: d
+**Why this is EASY:** The assertion is clearly false (gymnosperms are NAKED-seeded, not enclosed). The reason states the correct textbook fact. The contradiction is straightforward to identify.
+
+---
+
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
+
+Questions MUST follow this cyclic logical ordering:
+
+Q1 -> TYPE 1 (answer: a)
+Q2 -> TYPE 2 (answer: b)
+Q3 -> TYPE 3 (answer: c)
+Q4 -> TYPE 4 (answer: d)
+Q5 -> TYPE 1 (answer: a)
+Q6 -> TYPE 2 (answer: b)
+Q7 -> TYPE 3 (answer: c)
+Q8 -> TYPE 4 (answer: d)
+... continue cyclically
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced.
+
+---
+
+## EASY LEVEL RULES (MANDATORY)
+
+1. Use direct textbook facts only -- both A and R must be traceable to the source content
+2. No multi-step reasoning -- the truth/falsehood of each statement must be immediately obvious
+3. No indirect inference -- do not require connecting facts from distant sections
+4. No compound logic traps -- each statement tests ONE fact, not multiple combined claims
+5. No ambiguous wording -- no double negatives, no subjective terms
+6. No numerical traps -- do not test precise numbers where approximation could confuse
+7. A and R must each be independently meaningful as standalone sentences
+
+---
+
+## CORRECT ANSWER VERIFICATION (MANDATORY -- HARD FAILURE)
+
+After writing EACH question, independently re-evaluate before setting correct_answer:
+- Is Assertion (A) factually TRUE or FALSE?
+- Is Reason (R) factually TRUE or FALSE?
+- Does R actually EXPLAIN A (cause-effect link)?
+
+Map your evaluation to the correct option:
+- A true + R true + R explains A → correct_answer: "a"
+- A true + R true + R does NOT explain A → correct_answer: "b"
+- A true + R false → correct_answer: "c"
+- A false + R true → correct_answer: "d"
+
+If the correct_answer does not match your re-evaluation, FIX the correct_answer field. NEVER output a question with a wrong answer key."""
+
+AR_MEDIUM_RULES = """## ASSERTION-REASON - MEDIUM LEVEL (BIOLOGY)
+
+## COGNITIVE REQUIREMENT
+
+Medium AR questions test:
+- Conceptual clarity -- student must UNDERSTAND the concept, not just recall it
+- Cause-effect reasoning -- student must evaluate whether R logically explains A
+- Moderate traps -- R may be true but unrelated, or plausible but subtly wrong
+
+**Assertion (A):**
+- Must test conceptual understanding, NOT direct definition recall
+- May involve application of a concept to a scenario
+- Contains ONE central idea (not compound claims)
+
+**Reason (R):**
+- Must be scientifically valid OR subtly incorrect (plausible but wrong)
+- May correctly explain A, be true but unrelated, or be false but plausible
+- Must be independently meaningful as a standalone sentence
+
+**What makes it MEDIUM (not Easy, not Hard):**
+- Concept linkage -- connecting two related ideas
+- Moderate cause-effect reasoning
+- Mild conceptual traps (R seems related but isn't the explanation)
+- NOT simple direct recall (that's Easy)
+- NOT multi-layer mechanism analysis (that's Hard)
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY)
+
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+---
+
+## 4 LOGICAL TYPES + ROUND ROBIN DISTRIBUTION
+
+### TYPE 1 (Answer: a) -- A true, R true, R explains A
+Both statements are correct AND R provides the conceptual explanation for A. The link requires understanding, not just reading.
+
+**Example - Enzyme Specificity:**
+Assertion (A): Enzymes are highly specific in their catalytic action.
+Reason (R): The active site of an enzyme has a unique three-dimensional shape that binds only specific substrates.
+Answer: a
+**Why this is MEDIUM:** Student must connect specificity (A) to the lock-and-key model of the active site (R). The cause-effect link requires understanding enzyme structure -- it's not directly stated as "because of" in the text.
+
+### TYPE 2 (Answer: b) -- A true, R true, R does NOT explain A
+Both statements are factually correct BUT the reason is about a DIFFERENT aspect of the same topic. The trap: they SEEM related but R is not the CAUSE of A.
+
+**Example - Cell Division:**
+Assertion (A): Meiosis results in the formation of four haploid daughter cells.
+Reason (R): During meiosis, crossing over occurs between non-sister chromatids of homologous chromosomes.
+Answer: b
+**Why this is MEDIUM:** Both are true facts about meiosis. A student might think crossing over causes the formation of four cells -- but crossing over causes genetic variation, NOT the reduction in cell number. The halving of chromosome number is due to the two rounds of division. Requires conceptual clarity to distinguish.
+
+### TYPE 3 (Answer: c) -- A true, R false
+The assertion is correct but the reason contains a plausible factual error -- not an obvious blunder, but a believable misconception.
+
+**Example - Plant Transport:**
+Assertion (A): Transpiration pull is the major force responsible for the upward movement of water in tall trees.
+Reason (R): Transpiration occurs primarily through the lenticels present on the bark of the stem.
+Answer: c
+**Why this is MEDIUM:** A is a standard concept. R sounds plausible (lenticels do exist on bark and allow gas exchange), but transpiration primarily occurs through stomata on leaves, NOT lenticels. The error is believable but requires knowing the correct site of transpiration.
+
+### TYPE 4 (Answer: d) -- A false, R true
+The assertion contains a conceptual error (not an obvious blunder) while the reason is a correct fact.
+
+**Example - Photosynthesis:**
+Assertion (A): The dark reactions of photosynthesis can only occur in the absence of light.
+Reason (R): The dark reactions (Calvin cycle) take place in the stroma of the chloroplast.
+Answer: d
+**Why this is MEDIUM:** A is a common misconception -- "dark reactions" does NOT mean they require darkness, they simply don't directly use light energy. R is a correct textbook fact. The trap tests whether the student has the misconception about what "dark" means in this context.
+
+---
+
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
+
+Q1 -> TYPE 1 (answer: a)
+Q2 -> TYPE 2 (answer: b)
+Q3 -> TYPE 3 (answer: c)
+Q4 -> TYPE 4 (answer: d)
+Q5 -> TYPE 1 (answer: a)
+Q6 -> TYPE 2 (answer: b)
+... continue cyclically
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively.
+
+---
+
+## MEDIUM LEVEL CONSTRAINTS
+
+1. For TYPE 2: R must be genuinely unrelated as an explanation (not just loosely connected)
+2. For TYPE 3: R must be plausible but wrong -- not an obvious blunder (that's Easy level)
+3. For TYPE 4: A must contain a believable misconception -- not an obvious error (that's Easy level)
+4. No multi-layer mechanism chains (that's Hard level)
+5. No compound assertions testing 3+ facts at once
+
+"""
+
+AR_HARD_RULES = """## ASSERTION-REASON — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
+
+You will receive up to 50 pages of PDF content via file_id. Process ALL pages before generating questions. A and R statements should draw from DIFFERENT sections/pages of the PDF where possible.
+
+---
+
+## ⚠️ ROUND ROBIN DISTRIBUTION (MANDATORY — READ FIRST)
+
+Questions MUST cycle through all 4 answer types in strict order:
+
+Q1 → TYPE 1 (answer: a) — A true, R true, R explains A
+Q2 → TYPE 2 (answer: b) — A true, R true, R does NOT explain A
+Q3 → TYPE 3 (answer: c) — A true, R false
+Q4 → TYPE 4 (answer: d) — A false, R true
+Q5 → TYPE 1 ... continue cyclically
+
+**HARD FAILURE** if any type has 0 questions or same type appears consecutively.
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY)
+
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+---
+
+## WHAT MAKES IT HARD (NOT Medium)
+
+**Assertion (A):**
+- Must involve mechanism-level reasoning (HOW/WHY) — never simple definitional recall
+- Describe through properties/functions/consequences — NOT direct labels
+  - Wrong: "Mitochondria are called powerhouse of the cell"
+  - Correct: "The organelle responsible for oxidative phosphorylation and maximum ATP yield is termed the powerhouse of the cell"
+- May combine concepts from different PDF sections
+
+**Reason (R):**
+- TYPE 1: R provides a multi-step mechanistic explanation for A
+- TYPE 2: R is true and topically related but NOT the actual cause/mechanism of A (tests correlation vs causation)
+- TYPE 3: R contains a SUBTLE mechanistic error — reversed cause-effect, misassigned pathway, or exaggerated scope ("all"/"always") — not an obvious blunder
+- TYPE 4: A contains a common student misconception; R is a correct mechanistic fact
+
+---
+
+## CROSS-PAGE INTERCONNECTION (PDF MODE)
+
+**Rule 1 — Cross-Section Pairing:** Where possible, draw A from one section/chapter and R from another. This tests whether students can evaluate relationships across topics.
+
+**Rule 2 — Cross-Reference Traps (TYPE 2):** Use a true fact from a related section as R — it's scientifically correct and topically adjacent, but doesn't actually explain A. Students who skim will assume the connection.
+
+**Rule 3 — At least 25% of questions should be cross-page** (A and R from different sections of the PDF). Tag these as [CROSS-PAGE] in the explanation.
+
+---
+
+## QUALITY RULES
+
+1. Both A and R must be traceable to PDF content — no external knowledge
+2. A and R must each be independently meaningful as standalone sentences
+3. NEVER copy-paste from source — always rephrase with mechanistic depth
+4. Difficulty comes from understanding mechanisms and relationships, NOT obscure terminology
+5. Every explanation MUST state: why A is true/false, why R is true/false, and why R does/doesn't explain A
+
+---
+
+## PRE-OUTPUT CHECKLIST
+
+Count your questions by type BEFORE outputting:
+  TYPE 1 (answer a): ___
+  TYPE 2 (answer b): ___
+  TYPE 3 (answer c): ___
+  TYPE 4 (answer d): ___
+
+If ANY count is 0 → STOP and REWRITE.
+If round robin order is broken → STOP and REORDER.
+
+Also verify:
+- [ ] All PDF pages processed, not just first few
+- [ ] Cross-page questions ≥ 25% of total
+- [ ] A is never simple recall — always mechanism-level
+- [ ] A uses indirect description (properties/functions, not labels)
+- [ ] TYPE 3 R errors are subtle (not obvious blunders)
+- [ ] TYPE 4 A errors are common misconceptions (not absurd)
+- [ ] Every explanation covers A truth value + R truth value + relationship"""
 
 
 # ============================================================
@@ -648,226 +1098,463 @@ Better A: "The organelle responsible for oxidative phosphorylation and maximum A
 
 MTC_EASY_RULES = """## MATCH THE COLUMN - EASY LEVEL (BIOLOGY)
 
-**Question Format:** Simple matching with 3-4 pairs
+## QUESTION STRUCTURE -- 4x5 FORMAT (MANDATORY)
 
-**How to Identify EASY Match the Column:**
-- Each match is a SINGLE, DIRECT characteristic stated in the text
-- Matching is ONE-TO-ONE with no ambiguity
-- Characteristics are UNIQUE to each group (no overlap)
-- Student only needs to recall which characteristic belongs to which group
-- Terms in Column B are simple, well-known descriptors
-
-**Rules:**
-- Use 3-4 pairs maximum
-- Pairs must be EXPLICITLY stated in image
-- Relationships should be direct (X is Y, A causes B)
-- No inference required
-
-**TABLE FORMAT (MANDATORY - USE LaTeX):**
-Use LaTeX tabular format for tables:
-\\begin{{tabular}}{{|c|c|}}
-\\hline
-Column A & Column B \\\\
-\\hline
-1. Item & a. Match \\\\
-2. Item & b. Match \\\\
-\\hline
-\\end{{tabular}}
-
-**Options Format:**
-a) 1-a, 2-b, 3-c
-b) 1-b, 2-c, 3-a
-c) 1-c, 2-a, 3-b
-d) 1-a, 2-c, 3-b
-
-**IMPORTANT - SHUFFLE COLUMN B (MANDATORY):**
-- Column B items MUST be shuffled/randomized so correct matches are NON-SEQUENTIAL
-- NEVER arrange Column B so that correct answer is 1-a, 2-b, 3-c, 4-d (sequential)
-- The correct matching should be scrambled like: 1-c, 2-a, 3-d, 4-b
-- This ensures students must actually know the content, not just match by position
-
-**Example of Proper Shuffling:**
-Wrong setup: A-1, B-2, C-3, D-4 (too easy - sequential match)
-Correct setup: A-3, B-1, C-4, D-2 (shuffled - requires knowledge)
-
-**Example from Source Text:**
-Source: "Nucleus - contains genetic material" | "Mitochondria - produces ATP" | "Ribosome - protein synthesis" | "Lysosome - digestion"
-↓
-| Column 1 | Column 2 |
-|----------|----------|
-| A. Nucleus | 1. Protein synthesis |
-| B. Mitochondria | 2. Contains genetic material |
-| C. Ribosome | 3. Produces ATP |
-| D. Lysosome | 4. Intracellular digestion |
-
-Answer: A-2, B-3, C-1, D-4
-
-**Why this is EASY:** Each function is directly stated for each organelle. No overlap - each organelle has a unique primary function. Simple recall task."""
-
-MTC_MEDIUM_RULES = """## MATCH THE COLUMN - MEDIUM LEVEL (BIOLOGY)
-
-**Question Format:** Intermediate matching with 4-5 pairs
-
-**How to Identify MEDIUM Match the Column:**
-- Matching requires understanding SPECIFIC characteristics or PROCESSES
-- Some characteristics may SEEM to apply to multiple items (but don't)
-- Column B contains more TECHNICAL terms or processes
-- Student must know specific details, not just general characteristics
-- May include scientific names or specific terms
-
-**Rules:**
-- Use 4-5 pairs
-- Pairs from image content
-- Some pairs may require combining information
-- All elements must be from the image
-
-**TABLE FORMAT (MANDATORY - USE LaTeX):**
-Use LaTeX tabular format for tables:
-\\begin{{tabular}}{{|c|c|}}
-\\hline
-Column A & Column B \\\\
-\\hline
-1. Item & a. Match \\\\
-2. Item & b. Match \\\\
-\\hline
-\\end{{tabular}}
-
-**Options Format:**
-a) 1-a, 2-b, 3-c, 4-d
-b) 1-b, 2-a, 3-d, 4-c
-c) 1-c, 2-d, 3-a, 4-b
-d) 1-d, 2-c, 3-b, 4-a
-
-**IMPORTANT - SHUFFLE COLUMN B (MANDATORY):**
-- Column B items MUST be shuffled/randomized so correct matches are NON-SEQUENTIAL
-- NEVER arrange Column B so that correct answer is 1-a, 2-b, 3-c, 4-d (sequential)
-- The correct matching should be scrambled like: 1-c, 2-a, 3-d, 4-b
-- This ensures students must actually know the content, not just match by position
-
-**Example of Proper Shuffling:**
-Wrong setup: A-1, B-2, C-3, D-4 (too easy - sequential match)
-Correct setup: A-3, B-1, C-4, D-2 (shuffled - requires knowledge)
-
-**Complexity:**
-- Include related but distinct concepts as distractors
-- Shuffled options should be plausible at first glance
-
-**Example from Source Text:**
-Source 1: "Pepsin works in acidic pH of stomach"
-Source 2: "Trypsin works in alkaline pH of small intestine"
-Source 3: "Amylase begins starch digestion in mouth"
-Source 4: "Lipase digests fats in small intestine"
-↓
-| Column 1 | Column 2 |
-|----------|----------|
-| A. Pepsin | 1. Starch digestion |
-| B. Trypsin | 2. Acidic pH of stomach |
-| C. Amylase | 3. Fat digestion |
-| D. Lipase | 4. Alkaline pH of small intestine |
-
-Answer: A-2, B-4, C-1, D-3
-
-**Why this is MEDIUM:** Multiple enzymes work in small intestine (could confuse trypsin and lipase). Requires knowing specific conditions and substrates for each enzyme."""
-
-MTC_HARD_RULES = """## MATCH THE COLUMN - HARD LEVEL (BIOLOGY)
-
-**Question Format:** Complex matching with 5+ pairs
-
-**How to Identify HARD Match the Column:**
-- Column A contains CONCEPTUAL statements requiring COMPARATIVE understanding
-- Student must understand PROCESSES and compare across different systems
-- Some characteristics may apply to MULTIPLE items but question asks for SPECIFIC one
-- Requires understanding what makes each item UNIQUE vs what is SHARED
-- Column A items are STATEMENTS/CONCEPTS, not just simple terms
-- Student must analyze which item the statement BEST describes
-
-**Rules:**
-- Use 5 or more pairs if available in image
-- Pairs may involve multi-step relationships
-- Distractors should be closely related concepts
-- Maximum challenge within image content
-
-**TABLE FORMAT (MANDATORY - USE LaTeX):**
-Use LaTeX tabular format for tables:
-\\begin{{tabular}}{{|c|c|}}
-\\hline
-Column A & Column B \\\\
-\\hline
-1. Item & a. Match \\\\
-2. Item & b. Match \\\\
-\\hline
-\\end{{tabular}}
-
-**Options Format:**
-a) 1-a, 2-b, 3-c, 4-d, 5-e
-b) 1-b, 2-c, 3-d, 4-e, 5-a
-c) 1-c, 2-d, 3-e, 4-a, 5-b
-d) 1-d, 2-e, 3-a, 4-b, 5-c
-
-**IMPORTANT - SHUFFLE COLUMN B (MANDATORY):**
-- Column B items MUST be shuffled/randomized so correct matches are NON-SEQUENTIAL
-- NEVER arrange Column B so that correct answer is 1-a, 2-b, 3-c, 4-d, 5-e (sequential)
-- The correct matching should be scrambled like: 1-d, 2-a, 3-e, 4-b, 5-c
-- This ensures students must actually know the content, not just match by position
-
-**Example of Proper Shuffling:**
-Wrong setup: A-1, B-2, C-3, D-4, E-5 (too easy - sequential match)
-Correct setup: A-4, B-1, C-5, D-2, E-3 (shuffled - requires knowledge)
-
-**Complexity Requirements:**
-- Use maximum pairs available from image
-- Column B items should be similar enough to cause confusion
-- Require careful reading of image to match correctly
-
-**Example from Source Text:**
-Source 1: "Xylem transports water from roots to leaves"
-Source 2: "Phloem transports food from leaves to other parts"
-Source 3: "Xylem vessels are dead cells"
-Source 4: "Phloem sieve tubes are living cells"
-Source 5: "Transpiration creates pulling force in xylem"
-↓
-| Column 1 | Column 2 |
-|----------|----------|
-| A. Transport of water upward | 1. Phloem |
-| B. Transport of food | 2. Xylem |
-| C. Contains dead cells | 3. Sieve tubes |
-| D. Contains living cells | 4. Vessels |
-| E. Driven by transpiration pull | 5. Both xylem and phloem |
-
-Answer: A-2, B-1, C-4, D-3, E-2
-
-**Why this is HARD:**
-- Both xylem and phloem are transport tissues (could confuse)
-- "Contains dead cells" could confuse vessels vs sieve tubes
-- Transpiration pull specifically applies to xylem, not both
-- Student must understand the DISTINGUISHING feature of each
+Each question contains two columns:
+- **Column I:** 4 items (numbered 1-4) -- all from the SAME category (e.g., all Terms, all Organisms, all Structures)
+- **Column II:** 5 items (lettered a-e) -- all from a DIFFERENT but consistent category (e.g., all Definitions, all Functions, all Locations)
+- The 5th item in Column II is a **scientifically plausible distractor** that does NOT correctly match any Column I item
+- This forces the student to evaluate every Column II option independently -- no "last one is free"
+- At least one wrong option MUST use the distractor item, making it a genuine trap
 
 ---
 
-## CREATING MEANINGFUL HARD QUESTIONS (MANDATORY)
+## TABLE FORMAT (MANDATORY - USE LaTeX)
 
-**Principle 1 - Conceptual Depth over Random Facts:**
-- All Column A items should relate to ONE core concept/principle (e.g., plant transport system)
-- Column B items should be closely related, requiring student to understand DISTINGUISHING features
-- Wrong matches should be plausible if student has superficial understanding
-- Test understanding of what makes each item UNIQUE vs what is SHARED
+\\begin{{tabular}}{{|c|c|}}
+\\hline
+Column I & Column II \\\\
+\\hline
+1. [Term] & a. [Definition/fact] \\\\
+2. [Term] & b. [Definition/fact] \\\\
+3. [Term] & c. [Definition/fact] \\\\
+4. [Term] & d. [Definition/fact] \\\\
+ & e. [Distractor -- plausible but matches none] \\\\
+\\hline
+\\end{{tabular}}
 
-**Example of Conceptual Depth:**
-Topic: Plant vascular tissues (all related to ONE system)
-- "Unidirectional transport" → Xylem (student must know phloem is bidirectional)
-- "Living conducting cells" → Phloem (student must know xylem vessels are dead)
-All items test understanding of the SAME concept from different angles.
+**Options format:** Each option is a complete matching sequence (only 4 pairs, since one Column II item is unused):
+a) 1-d, 2-a, 3-b, 4-c
+b) 1-c, 2-b, 3-e, 4-d
+c) 1-b, 2-d, 3-c, 4-a
+d) 1-a, 2-c, 3-d, 4-b
 
-**Principle 2 - Indirect Description in Column A:**
-- Do NOT use simple direct terms in Column A - describe through properties/functions
-- Combine MULTIPLE characteristics so student must connect the dots
-- Make student identify the match through understanding, not simple recall
+---
 
-**Example of Indirect Description:**
-Wrong Column A: "Xylem" (too direct - just matching names)
-Correct Column A: "Tissue with dead conducting elements driven by transpiration pull for unidirectional water transport"
-- Student must understand: dead cells + transpiration + unidirectional = xylem
-- This tests understanding, not just vocabulary matching"""
+## SHUFFLE COLUMN II (MANDATORY)
+
+- Column II items MUST be in RANDOM order -- the correct answer must NEVER be 1-a, 2-b, 3-c, 4-d (sequential)
+- Correct matching should be scrambled like: 1-d, 2-a, 3-e, 4-c
+- This ensures students must actually know the content, not just match by position
+
+---
+
+## ZERO KEYWORD OVERLAP RULE (CRITICAL -- HARD FAILURE)
+
+**NO word or root word may appear in BOTH a Column I item AND its correct Column II match.**
+
+This is the single most important quality rule. If the student can solve a pair by spotting a shared keyword, the question is worthless.
+
+BANNED patterns:
+- Column I: "Aeration" -> Column II: "Air pumped into tanks" (shares "aer/air")
+- Column I: "Pathogenic microbes" -> Column II: "Disease-causing microorganisms" (shares "micro")
+- Column I: "Heterotrophs" -> Column II: "Heterotrophic bacteria grow" (shares "heterotroph")
+- Column I: "Floc formation" -> Column II: "Flocs settle in tank" (shares "floc")
+
+CORRECT patterns:
+- Column I: "Primary treatment" -> Column II: "Physical removal of large and small particles" (no shared keywords)
+- Column I: "Activated sludge" -> Column II: "Sediment rich in aerobic microbes" (no shared keywords)
+
+**Self-check:** For EVERY pair, verify that no significant word (noun, verb, adjective) appears in both the Column I item and the Column II item. Articles, prepositions, and conjunctions are exempt.
+
+---
+
+## CATEGORICAL CONSISTENCY RULE (CRITICAL -- HARD FAILURE)
+
+Both columns must have a **consistent, uniform category**. Mixing categories within a column makes elimination trivial.
+
+**Column I must be ALL one type:** all Terms, all Organisms, all Structures, all Abbreviations, all Processes
+**Column II must be ALL one type:** all Definitions, all Functions, all Locations, all Chemical compositions, all Roles
+
+BANNED (mixed categories in Column II):
+- a. "A group of microbes" (category: organism type)
+- b. "A physical unit for treatment" (category: equipment)
+- c. "Settling of solid particles" (category: physical state)
+- d. "Produces biogas" (category: outcome)
+Mixing organism types, equipment, physical states, and outcomes makes elimination trivial.
+
+CORRECT (uniform categories):
+Column I: all Structures -> Column II: all Functions
+Column I: all Organisms -> Column II: all Roles in a process
+Column I: all Abbreviations -> Column II: all Full scientific names
+
+---
+
+## NO COMMON-SENSE / TAUTOLOGY RULE (HARD FAILURE)
+
+A question FAILS if a student with NO biology knowledge could answer it using logic alone.
+
+BANNED patterns:
+- "Urbanization" -> "Leads to larger quantities of waste" (common sense, not biology)
+- "Untreated sewage discharged" -> "Leads to pollution" (obvious to anyone)
+- "Action Plan" -> "Proposes building treatment facilities" (common sense from the word "plan")
+- "Agitating effluent" -> "Effluent is agitated mechanically" (split-sentence tautology -- same fact restated)
+
+Every pair MUST require specific biological knowledge to connect. The student must KNOW the biology, not just parse the language.
+
+---
+
+## EASY LEVEL RULES
+
+1. **Direct definitional or factual recall** -- pairs must be explicitly stated in the source
+2. **No multi-step reasoning** -- student should not need to chain concepts
+3. **No inference or mechanism-based understanding** -- no cause-effect or process knowledge needed
+4. **No ambiguous overlaps** -- Column I items must be clearly distinct from each other
+5. **No synonym confusion** -- avoid putting near-synonyms in Column I
+6. **No trick phrasing** -- each definition/fact should unambiguously point to one term
+
+BANNED ITEM TYPES (HARD FAILURE):
+- **NO figure references** -- NEVER use "Figure 8.7", "Figure 1", "diagram", "illustration" as items
+- **NO process stages as items** -- Do NOT use treatment steps, process stages, or sequential operations as Column I items at Easy level
+- **NO method-to-description matching** -- Do NOT create pairs like "Sequential filtration -> Method removing floating debris"
+- Column I items must be TERMS, NAMES, or CONCEPTS -- not procedures or methods
+
+---
+
+## GOOD EXAMPLES
+
+**Example 1 - Immunology (Column I: Cell types -> Column II: Maturation sites):**
+Q. Match the following:
+
+Column I: 1. B-lymphocytes  2. T-lymphocytes  3. Macrophages  4. Mast cells
+Column II: a. Red bone marrow  b. Thymus gland  c. Monocyte-derived in tissues  d. Connective tissue resident  e. Peyer's patches
+
+Options:
+A. 1-a, 2-b, 3-c, 4-d
+B. 1-b, 2-a, 3-c, 4-d
+C. 1-a, 2-b, 3-d, 4-c
+D. 1-a, 2-e, 3-c, 4-d
+Answer: A
+
+**Why this is GOOD:** (1) Zero keyword overlap -- "B-lymphocytes" shares no words with "Red bone marrow". (2) Categorical consistency -- Column I is ALL cell types, Column II is ALL locations/origins. (3) Option 'e' (Peyer's patches) is a plausible distractor -- it's a real immune structure but doesn't match any Column I item. (4) Requires specific immunology knowledge, not common sense.
+
+**Example 2 - Sewage Treatment (Column I: Abbreviations -> Column II: Scientific definitions):**
+Q. Match the following:
+
+Column I: 1. BOD  2. COD  3. DO  4. STP
+Column II: a. Amount of $O_2$ consumed by microbes per litre  b. Total oxidizable organic and inorganic load  c. Concentration of molecular $O_2$ in water  d. Facility converting liquid waste to safe effluent  e. Ratio of nitrogen to phosphorus in water
+
+Options:
+A. 1-a, 2-b, 3-c, 4-d
+B. 1-b, 2-a, 3-c, 4-d
+C. 1-a, 2-b, 3-d, 4-c
+D. 1-c, 2-b, 3-a, 4-d
+Answer: A
+
+**Why this is GOOD:** (1) Zero keyword overlap -- "BOD" shares no words with "$O_2$ consumed by microbes per litre". (2) Categorical consistency -- Column I is ALL abbreviations, Column II is ALL scientific definitions. (3) Option 'e' is a plausible distractor (sounds like a real water quality metric). (4) Student must know the exact definitions -- cannot guess from keywords.
+
+---
+
+## BAD EXAMPLES -- NEVER generate questions like these
+
+**BAD (Keyword overlap):**
+Column I: 1. Pathogenic microbes  2. Sewage treatment  3. Biological oxygen demand
+Column II: a. Microbes causing disease  b. Treatment of sewage  c. Demand for oxygen by biological organisms
+Every pair shares keywords -- student just pattern-matches words, no biology needed.
+
+**BAD (Split-sentence tautology):**
+Column I: 1. Agitating effluent; air pumped  2. Flocs settle in sedimentation
+Column II: a. Air pumped and effluent agitated  b. Sedimentation of flocs
+Column II is just Column I restated -- this is "find the synonym," not a biology test.
+
+**BAD (Mixed categories -- easy elimination):**
+Column I: 1. Heterotrophs  2. Aeration tank  3. Flocs settling  4. Biogas
+Column II: a. Grow anaerobically  b. Used for secondary treatment  c. Produces methane  d. Forms activated sludge
+Student can eliminate by category (organism vs equipment vs substance) without knowing biology.
+
+**BAD (Common sense, no biology needed):**
+Column I: 1. Urbanization  2. Untreated sewage  3. Action Plan
+Column II: a. Larger waste quantities  b. Leads to disease  c. Proposes building facilities
+Any literate person can answer this. No biological knowledge tested.
+
+---
+
+If ANY rule above is violated -> regenerate the question."""
+
+MTC_MEDIUM_RULES = """## MATCH THE COLUMN - MEDIUM LEVEL (BIOLOGY)
+
+## COGNITIVE REQUIREMENT
+
+Medium Match the Following questions test:
+- **Conceptual clarity** -- student must UNDERSTAND relationships, not just recall definitions
+- **Functional reasoning** -- connecting Role <-> Function or Process <-> Outcome
+- **Cause-effect linkage** -- evaluating how one concept influences another
+- **Elimination reasoning** -- at least one pair should require ruling out a close alternative
+
+## DESIGN SHIFT FROM EASY
+
+Easy = Term <-> Definition (direct recall)
+Medium = Process <-> Function / Cause <-> Effect / Role <-> Mechanism (conceptual understanding)
+
+If a pair can be answered by just knowing the definition of a term, it is TOO EASY for Medium.
+
+---
+
+## QUESTION STRUCTURE -- 4x5 FORMAT (MANDATORY)
+
+- **Column I:** 4 items -- processes, structures, agents, or concepts (numbered 1-4) -- all from the SAME category
+- **Column II:** 5 items -- functions, effects, outcomes, or mechanisms (lettered a-e) -- all from a DIFFERENT but consistent category
+- The 5th item in Column II is a **scientifically plausible distractor** that does NOT correctly match any Column I item
+- At least one pair must require elimination reasoning (two Column II items seem plausible, only one is correct)
+- At least one wrong option MUST use the distractor item, making it a genuine trap
+
+---
+
+## TABLE FORMAT (MANDATORY - USE LaTeX)
+
+\\begin{{tabular}}{{|c|c|}}
+\\hline
+Column I & Column II \\\\
+\\hline
+1. [Process/Agent] & a. [Function/Effect] \\\\
+2. [Process/Agent] & b. [Function/Effect] \\\\
+3. [Process/Agent] & c. [Function/Effect] \\\\
+4. [Process/Agent] & d. [Function/Effect] \\\\
+ & e. [Distractor -- plausible but matches none] \\\\
+\\hline
+\\end{{tabular}}
+
+**Options format:** Each option is a complete matching sequence (only 4 pairs, since one Column II item is unused):
+a) 1-d, 2-a, 3-b, 4-c
+b) 1-c, 2-b, 3-e, 4-d
+c) 1-b, 2-d, 3-c, 4-a
+d) 1-a, 2-c, 3-d, 4-b
+
+---
+
+## SHUFFLE COLUMN II (MANDATORY)
+
+- Column II must be in RANDOM order -- correct answer must NEVER be 1-a, 2-b, 3-c, 4-d
+- Scramble like: 1-d, 2-a, 3-b, 4-c
+
+---
+
+## ZERO KEYWORD OVERLAP RULE (CRITICAL -- HARD FAILURE)
+
+**NO word or root word may appear in BOTH a Column I item AND its correct Column II match.**
+
+This is the single most important quality rule. If the student can solve a pair by spotting a shared keyword, the question is worthless.
+
+BANNED patterns:
+- Column I: "Aerobic microbes" -> Column II: "Microbes that use oxygen" (shares "microbes")
+- Column I: "Effluent treatment" -> Column II: "Treated effluent released" (shares "effluent" and "treat")
+- Column I: "BOD reduction" -> Column II: "Reduces biological oxygen demand" (shares "reduce" and "BOD")
+
+CORRECT patterns:
+- Column I: "Activated sludge" -> Column II: "Serves as inoculum for fresh batches" (no shared keywords)
+- Column I: "Secondary treatment" -> Column II: "Biological breakdown of dissolved organics" (no shared keywords)
+
+**Self-check:** For EVERY pair, verify that no significant word (noun, verb, adjective) appears in both the Column I item and the Column II item.
+
+---
+
+## CATEGORICAL CONSISTENCY RULE (CRITICAL -- HARD FAILURE)
+
+Both columns must have a **consistent, uniform category**.
+
+**Column I must be ALL one type:** all Processes, all Structures, all Agents, all Stages
+**Column II must be ALL one different type:** all Functions, all Outcomes, all Mechanisms, all Products
+
+BANNED (mixed categories):
+- Column I mixing organisms + equipment + chemicals in the same list
+- Column II mixing definitions + outcomes + physical descriptions
+
+---
+
+## NO COMMON-SENSE / TAUTOLOGY RULE (HARD FAILURE)
+
+A question FAILS if a student with NO biology knowledge could answer it using logic alone.
+
+BANNED:
+- "Untreated sewage discharged" -> "Leads to pollution" (common sense)
+- "Agitating effluent" -> "Effluent agitated mechanically" (split-sentence tautology)
+- "Urbanization" -> "Increases waste production" (common sense)
+
+Every pair MUST require specific biological knowledge. The student must KNOW the biology, not just parse the language.
+
+---
+
+## GOOD EXAMPLES
+
+**Example 1 -- Function-Based Matching (Column I: Treatment stages -> Column II: Biological outcomes):**
+Q. Match the following:
+
+Column I: 1. Primary settling  2. Trickling filter  3. Anaerobic digester  4. Chlorination basin
+Column II: a. Volume of solid residue decreases via methanogenic activity  b. Particulates separate by gravity without chemical agents  c. Biofilm of decomposers breaks down dissolved organics  d. Residual viable microorganisms are eliminated  e. Nutrient load is converted to biomass via nitrification
+
+Options:
+A. 1-b, 2-c, 3-a, 4-d
+B. 1-c, 2-b, 3-a, 4-d
+C. 1-b, 2-c, 3-d, 4-a
+D. 1-b, 2-e, 3-a, 4-d
+Answer: A
+
+**Why this is GOOD:** (1) Zero keyword overlap -- "Primary settling" shares no words with "Particulates separate by gravity". (2) Categorical consistency -- Column I = ALL stages, Column II = ALL biological outcomes. (3) Option 'e' (nitrification) is a real process but doesn't match any Column I item. (4) Student must know what each stage actually accomplishes biologically.
+
+**Example 2 -- Role-Based Matching (Column I: Organisms -> Column II: Roles in decomposition):**
+Q. Match the following:
+
+Column I: 1. $\\textit{{Nitrosomonas}}$  2. $\\textit{{Thiobacillus}}$  3. Methanogens  4. Denitrifying bacteria
+Column II: a. Converts $NH_3$ to $NO_2^-$  b. Oxidizes reduced sulfur compounds  c. Produces $CH_4$ under strict anoxic conditions  d. Converts $NO_3^-$ to $N_2$ gas  e. Fixes atmospheric $N_2$ into organic molecules
+
+Options:
+A. 1-a, 2-b, 3-c, 4-d
+B. 1-b, 2-a, 3-c, 4-d
+C. 1-a, 2-b, 3-d, 4-c
+D. 1-a, 2-b, 3-c, 4-e
+Answer: A
+
+**Why this is GOOD:** (1) Zero keyword overlap -- organism names share no words with chemical descriptions. (2) Categorical consistency -- Column I = ALL organisms, Column II = ALL chemical transformations. (3) Confusable pairs -- a student might confuse $\\textit{{Nitrosomonas}}$ (oxidizes $NH_3$) with denitrifying bacteria (reduces $NO_3^-$) since both involve nitrogen. (4) Option 'e' ($N_2$ fixation) is a real nitrogen process but matches no listed organism.
+
+---
+
+## BAD EXAMPLES -- NEVER generate these for Medium
+
+**BAD (Keyword overlap):**
+Column I: 1. Untreated sewage  2. Sewage treatment plant  3. Pathogenic microbes  4. Organic matter
+Column II: a. Sewage increases BOD  b. Treatment makes sewage safer  c. Pathogens cause disease  d. Organic material consumed
+Every pair shares keywords -- student just pattern-matches words.
+
+**BAD (Mixed categories in columns):**
+Column I: 1. Heterotrophs (organism)  2. Aeration tank (equipment)  3. Flocs settling (physical event)  4. Biogas (substance)
+Mixing organism, equipment, event, and substance makes elimination trivial.
+
+**BAD (Common sense, no biology needed):**
+Column I: 1. Untreated sewage  2. Treatment process  3. Discharge into rivers
+Column II: a. Harms ecosystems  b. Contains waste  c. Makes water cleaner
+Anyone can answer this without biology knowledge.
+
+---
+
+## MEDIUM-LEVEL CONSTRAINTS
+
+1. **No multi-step mechanism chains** -- if matching requires understanding 3+ linked steps, it's Hard
+2. **No synonym confusion** -- Column I items must be clearly distinct concepts
+
+
+
+If ANY rule above is violated -> regenerate the question."""
+
+MTC_HARD_RULES = """## MATCH THE COLUMN — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
+
+You will receive up to 50 pages of PDF content via file_id. Process ALL pages. Column I and Column II items should draw from DIFFERENT sections/pages of the PDF where possible — test cross-topic integration.
+
+---
+
+## WHAT MAKES IT HARD (NOT Medium)
+
+Medium = Process ↔ Function / Cause ↔ Effect (single-step reasoning)
+Hard = Cause ↔ Downstream Consequence / Mechanism ↔ Specific Outcome (multi-step chains)
+
+If a pair can be matched with a single cause-effect link, it is TOO EASY for Hard.
+
+---
+
+## QUESTION STRUCTURE — 4x5 FORMAT (MANDATORY)
+
+- **Column I:** EXACTLY 4 items (numbered 1-4) — all from the SAME category (all Conditions, all Processes, all Events)
+- **Column II:** EXACTLY 5 items (lettered a-e) — all from a DIFFERENT but consistent category (all Consequences, all Outcomes, all Parameters)
+- The 5th item in Column II is a **scientifically plausible distractor** — matches none but sounds closely related
+- Column II items must be closely related to each other, creating confusion
+
+**TABLE FORMAT (USE LaTeX):**
+\\begin{{tabular}}{{|c|c|}}
+\\hline
+Column I & Column II \\\\
+\\hline
+1. [Condition/Process] & a. [Consequence/Mechanism] \\\\
+2. [Condition/Process] & b. [Consequence/Mechanism] \\\\
+3. [Condition/Process] & c. [Consequence/Mechanism] \\\\
+4. [Condition/Process] & d. [Consequence/Mechanism] \\\\
+ & e. [Distractor — plausible but matches none] \\\\
+\\hline
+\\end{{tabular}}
+
+**Options:** 4 complete matching sequences (one Column II item unused):
+a) 1-d, 2-c, 3-b, 4-a
+b) 1-c, 2-d, 3-a, 4-e
+c) 1-b, 2-a, 3-d, 4-c
+d) 1-a, 2-b, 3-c, 4-d
+
+Column II MUST be shuffled — correct answer must NEVER be 1-a, 2-b, 3-c, 4-d.
+
+---
+
+## ⚠️ CRITICAL RULES (HARD FAILURE IF VIOLATED)
+
+### 1. ZERO KEYWORD OVERLAP
+NO word or root word may appear in BOTH a Column I item AND its correct Column II match.
+- ❌ "Microbial degradation" → "Decomposition by microbes" (shares "microb-")
+- ✅ "Eutrophication" → "Algal bloom depletes dissolved $O_2$ at night"
+
+### 2. CATEGORICAL CONSISTENCY
+Column I = ALL one type. Column II = ALL one different type.
+- ❌ Mixing organisms + equipment + events in the same column
+- ✅ Column I: all biochemical events → Column II: all measurable ecological parameters
+
+### 3. NO COMMON SENSE / TAUTOLOGY
+Every pair MUST require specific biological knowledge and multi-step reasoning.
+- ❌ "Effective treatment" → "Less pollution" (common sense)
+- ❌ "Microbial degradation" → "Decomposition of organic matter" (identity mapping)
+
+### 4. IMMEDIATE CONSEQUENCE ONLY
+Each Column I item maps to its MOST IMMEDIATE downstream consequence — NOT a final-stage effect skipping intermediate steps.
+- ❌ Aeration → Effluent released into rivers (skips floc formation, BOD reduction)
+- ✅ Aeration → Vigorous growth of aerobic microbes (immediate result)
+
+### 5. NO CHAIN-SKIPPING
+If an intermediate step is listed as another Column I item, you MUST NOT skip over it. Every listed step gets its own distinct immediate outcome.
+
+### 6. NO OVERLAPPING OUTCOMES
+If two Column I items could both map to the same Column II item, the question is flawed. Each Column II item must correspond UNIQUELY to exactly one Column I item.
+
+### 7. ALL OPTIONS UNIQUE
+No two answer options may have identical matching sequences.
+
+### 8. EXPLANATION MUST NOT CONTRADICT ANSWER
+The explanation must validate EVERY pair in the correct option.
+
+---
+
+## CROSS-PAGE INTERCONNECTION (PDF MODE)
+
+**Rule 1 — Cross-Section Pairing:** Draw Column I items from one chapter/section and Column II items from another. Test whether students can connect mechanisms across topics.
+
+**Rule 2 — Cross-Reference Distractors:** The 5th distractor item should be a real concept from a different section that seems related but doesn't match.
+
+**Rule 3 — At least 25% of questions should be cross-page** (items drawn from 2+ distinct sections). Tag these as [CROSS-PAGE] in the explanation.
+
+---
+
+## QUALITY RULES
+
+1. Multi-step reasoning required — each pair must require chaining 2+ logical steps
+2. At least 2 wrong options must swap closely related pairs or use the distractor
+3. All Column I items should relate to ONE core system
+4. Column II items must be close enough to create genuine confusion
+5. No definition matching (that's Easy) or single cause-effect (that's Medium)
+6. No figure references — NEVER use "Figure X", "diagram" as items
+7. NEVER copy-paste verbatim from source — rephrase into mechanism-level descriptions
+8. Each question in a set must test a DIFFERENT conceptual angle
+
+---
+
+## PRE-OUTPUT CHECKLIST
+
+- [ ] All PDF pages processed, not just first few
+- [ ] Cross-page questions ≥ 25% of total
+- [ ] 4 items in Column I, 5 items in Column II per question
+- [ ] ZERO keyword overlap on every pair
+- [ ] Categorical consistency in both columns
+- [ ] No common-sense or tautological pairs
+- [ ] Each pair maps to IMMEDIATE consequence (no chain-skipping)
+- [ ] No two Column I items map to the same Column II item
+- [ ] All 4 answer options are structurally unique
+- [ ] Explanation validates every pair (no contradictions)
+- [ ] Column II is shuffled (not sequential)
+- [ ] Distractor is scientifically plausible and topically related
+
+If ANY condition fails → regenerate the question."""
 
 
 # ============================================================
@@ -893,15 +1580,35 @@ MCQ_OUTPUT_SCHEMA = """{
       }
     }"""
 
+MCQ_HARD_OUTPUT_SCHEMA = """{
+      "question_id": 1,
+      "question_type": "MCQ",
+      "question_category": "multiple_correct | identify_incorrect | sequence_order | true_false",
+      "question_text": "[Question stem with 4-5 numbered statements]",
+      "options": {
+        "a": "[MAX 7 WORDS - combination/sequence/T-F only]",
+        "b": "[MAX 7 WORDS - combination/sequence/T-F only]",
+        "c": "[MAX 7 WORDS - combination/sequence/T-F only]",
+        "d": "[MAX 7 WORDS - combination/sequence/T-F only]"
+      },
+      "correct_answer": "a",
+      "explanation": {
+        "a": "Correct: [Why this combination/sequence/T-F pattern is right]",
+        "b": "Incorrect: [Why wrong]",
+        "c": "Incorrect: [Why wrong]",
+        "d": "Incorrect: [Why wrong]"
+      }
+    }"""
+
 AR_OUTPUT_SCHEMA = """{
       "question_id": 1,
       "question_type": "ASSERTION_REASON",
       "question_text": "Assertion (A): [Statement with LaTeX: $H_2O$, $\\\\alpha$]\\n\\nReason (R): [Statement with LaTeX notation]",
       "options": {
-        "a": "Both A and R are true and R is the correct explanation of A",
-        "b": "Both A and R are true but R is NOT the correct explanation of A",
-        "c": "A is true but R is false",
-        "d": "A is false but R is true"
+        "a": "Both Assertion and Reason are true and Reason is the correct explanation of Assertion",
+        "b": "Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion",
+        "c": "Assertion is true but Reason is false",
+        "d": "Assertion is false but Reason is true"
       },
       "correct_answer": "a/b/c/d",
       "explanation": {
@@ -915,16 +1622,16 @@ AR_OUTPUT_SCHEMA = """{
 MTC_OUTPUT_SCHEMA = """{
       "question_id": 1,
       "question_type": "MATCH_THE_COLUMN",
-      "question_text": "Match the following:\\n\\n\\\\begin{tabular}{|l|l|}\\n\\\\hline\\nColumn A & Column B \\\\\\\\\\n\\\\hline\\n1. [Item with $\\\\alpha$, $H_2O$] & a. [Item] \\\\\\\\\\n2. [Item] & b. [Item] \\\\\\\\\\n3. [Item] & c. [Item] \\\\\\\\\\n4. [Item] & d. [Item] \\\\\\\\\\n\\\\hline\\n\\\\end{tabular}",
+      "question_text": "Match the following:\\n\\n\\\\begin{tabular}{|l|l|}\\n\\\\hline\\nColumn A & Column B \\\\\\\\\\n\\\\hline\\n1. [Item with $\\\\alpha$, $H_2O$] & a. [Item] \\\\\\\\\\n2. [Item] & b. [Item] \\\\\\\\\\n3. [Item] & c. [Item] \\\\\\\\\\n4. [Item] & d. [Item] \\\\\\\\\\n & e. [Distractor item] \\\\\\\\\\n\\\\hline\\n\\\\end{tabular}",
       "options": {
         "a": "1-a, 2-b, 3-c, 4-d",
-        "b": "1-b, 2-a, 3-d, 4-c",
-        "c": "1-c, 2-d, 3-a, 4-b",
+        "b": "1-b, 2-a, 3-d, 4-e",
+        "c": "1-c, 2-d, 3-e, 4-b",
         "d": "1-d, 2-c, 3-b, 4-a"
       },
       "correct_answer": "a",
       "explanation": {
-        "a": "Correct: 1 matches a because..., 2 matches b because... [use LaTeX for formulas]",
+        "a": "Correct: 1 matches a because..., 2 matches b because... [use LaTeX for formulas]. Option e is a distractor because...",
         "b": "Incorrect: [Which pairs are wrong and why, use LaTeX]",
         "c": "Incorrect: [Which pairs are wrong and why, use LaTeX]",
         "d": "Incorrect: [Which pairs are wrong and why, use LaTeX]"
@@ -950,7 +1657,7 @@ PROMPTS_CONFIG = {
     },
     ("mcq", "hard"): {
         "rules": MCQ_HARD_RULES,
-        "output_schema": MCQ_OUTPUT_SCHEMA,
+        "output_schema": MCQ_HARD_OUTPUT_SCHEMA,
         "description": "Complex analytical MCQs for Biology"
     },
 

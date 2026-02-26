@@ -317,7 +317,7 @@ def generate_neet_test_from_url(
 
 def _make_single_batch_request(
     client,
-    image_content: dict,
+    image_content,
     model: str,
     temperature: float,
     max_tokens: int,
@@ -332,7 +332,7 @@ def _make_single_batch_request(
 
     Args:
         client: OpenAI client instance
-        image_content: Dict with image data (type and url/base64)
+        image_content: Dict or list of dicts with image data (type and url/base64)
         model: Model to use
         temperature: Temperature setting
         max_tokens: Max tokens
@@ -356,8 +356,11 @@ def _make_single_batch_request(
     else:
         raise ValueError(f"No prompt configured for ({effective_type}, {difficulty})")
 
-    # Build user content
-    user_content = [image_content]
+    # Build user content -- support single image or multiple images
+    if isinstance(image_content, list):
+        user_content = list(image_content)
+    else:
+        user_content = [image_content]
 
     # Add previous questions if provided (to avoid repetition)
     if previous_questions:
@@ -621,6 +624,119 @@ def generate_neet_test_batched(
                 "batch_size": batch_size,
                 "batches_used": len(batches),
                 "questions_per_batch": batches
+            }
+
+    return combined_result
+
+
+def generate_neet_test_multi_image_batched(
+    image_contents: list,
+    subject: str = "biology",
+    difficulty: Literal["easy", "medium", "hard"] = "hard",
+    question_count: int = 5,
+    question_type: str = "mcq",
+    batch_size: int = 3,
+    model: str = "gpt-5-mini",
+    temperature: float = 1.0,
+    max_tokens: int = 2048,
+    api_key: Optional[str] = None,
+) -> dict:
+    """
+    Generate NEET test questions from MULTIPLE images in batches.
+
+    Sends ALL images to the LLM in every batch so the model can see
+    the full content across all pages/images.
+
+    Args:
+        image_contents: List of image content dicts (each with type and image_url)
+        subject: Subject for the test
+        difficulty: Difficulty level
+        question_count: Total number of questions to generate
+        question_type: Type of questions
+        batch_size: Number of questions per batch
+        model: OpenAI model to use
+        temperature: Sampling temperature
+        max_tokens: Maximum tokens in response
+        api_key: Optional API key
+
+    Returns:
+        Combined dictionary with all generated questions
+    """
+    client = OpenAI(api_key=api_key) if api_key else OpenAI()
+
+    logger.info(f"[MULTI-IMAGE] Received {len(image_contents)} image(s)")
+
+    # Calculate batches
+    batches = []
+    remaining = question_count
+    while remaining > 0:
+        batch_count = min(batch_size, remaining)
+        batches.append(batch_count)
+        remaining -= batch_count
+
+    logger.info("=" * 80)
+    logger.info(f"[BATCH PLAN] Total questions requested: {question_count}, batch_size: {batch_size}")
+    logger.info(f"[BATCH PLAN] Will run {len(batches)} batch(es): {batches}")
+    logger.info(f"[BATCH PLAN] Images: {len(image_contents)}, Settings: subject={subject}, difficulty={difficulty}, question_type={question_type}")
+    logger.info("=" * 80)
+
+    all_questions = []
+    previous_question_texts = []
+    combined_result = None
+
+    for batch_idx, batch_count in enumerate(batches):
+        logger.info("")
+        logger.info("#" * 80)
+        logger.info(f"[BATCH {batch_idx + 1}/{len(batches)}] Starting — generating {batch_count} question(s)")
+        logger.info(f"[BATCH {batch_idx + 1}/{len(batches)}] Questions generated so far: {len(all_questions)}")
+        logger.info("#" * 80)
+
+        batch_result = _make_single_batch_request(
+            client=client,
+            image_content=image_contents,
+            model=model,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            previous_questions=previous_question_texts if previous_question_texts else None,
+            question_type=question_type,
+            difficulty=difficulty,
+            subject=subject,
+            question_count=batch_count,
+        )
+
+        if "parse_error" in batch_result:
+            logger.error(f"[BATCH {batch_idx + 1}] Parse error: {batch_result.get('parse_error')}")
+            if combined_result is None:
+                combined_result = batch_result
+            continue
+
+        batch_questions = batch_result.get("questions", [])
+        logger.info(f"[BATCH {batch_idx + 1}] Generated {len(batch_questions)} question(s)")
+
+        for q in batch_questions:
+            q_text = q.get("question_text", "")
+            previous_question_texts.append(q_text)
+
+        all_questions.extend(batch_questions)
+
+        if combined_result is None:
+            combined_result = batch_result
+        else:
+            combined_result["questions"] = all_questions
+
+    if combined_result and "questions" in combined_result:
+        for i, q in enumerate(combined_result["questions"], 1):
+            q["question_id"] = i
+
+        if "test_metadata" in combined_result:
+            combined_result["test_metadata"]["total_questions"] = len(all_questions)
+            combined_result["test_metadata"]["requested_questions"] = question_count
+            combined_result["test_metadata"]["question_type"] = question_type
+            combined_result["test_metadata"]["batch_info"] = {
+                "batch_size": batch_size,
+                "batches_used": len(batches),
+                "questions_per_batch": batches,
+                "images_used": len(image_contents)
             }
 
     return combined_result
