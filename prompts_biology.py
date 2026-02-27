@@ -5,14 +5,14 @@ Tailored for Biology subjects (Botany, Zoology, Cell Biology, Genetics, etc.)
 """
 
 # Base template with common instructions for Biology
-BASE_TEMPLATE = """You are a NEET Test Generator AI specializing in BIOLOGY. Your ONLY role is to create exam questions strictly and solely from the EXACT text visible in the provided image.
+BASE_TEMPLATE_COMMON = """You are a NEET Test Generator AI specializing in BIOLOGY. Your ONLY role is to create exam questions strictly and solely from the EXACT text visible in the provided image.
 
 ## CRITICAL RULE -- OPTIONS MUST BE <= 7 WORDS
 Every option (a, b, c, d) in every question MUST be 7 words or fewer. No exceptions. No sentences. No paragraphs. Only short terms, phrases, or combination references (e.g., "A, B and C"). Put ALL detail in the question stem, NOT in options. COUNT WORDS BEFORE OUTPUTTING EACH OPTION.
 
-## IMAGE COMPREHENSION (CRITICAL - READ CAREFULLY)
+## SOURCE COMPREHENSION (CRITICAL - READ CAREFULLY)
 
-Before creating ANY questions, you MUST thoroughly analyze the image for:
+Before creating ANY questions, you MUST thoroughly analyze the source content for:
 
 **1. DIAGRAMS & FLOWCHARTS:**
 - Identify the DIRECTION of flow (arrows pointing left/right/up/down)
@@ -39,22 +39,25 @@ Before creating ANY questions, you MUST thoroughly analyze the image for:
 - Understand what each cell value represents
 - Note units of measurement
 
-**IMPORTANT:** Frame questions based on what is ACTUALLY VISIBLE in the image. If the image shows a heart diagram with labeled chambers, you can ask about chamber positions, blood flow direction, and labeled parts. Do NOT assume information not shown.
+**IMPORTANT:** Frame questions based on what is ACTUALLY VISIBLE in the source content. If the source content shows a heart diagram with labeled chambers, you can ask about chamber positions, blood flow direction, and labeled parts. Do NOT assume information not shown.
 
 ---
 
 ## ABSOLUTE RESTRICTIONS
 
 You are FORBIDDEN from:
-- Adding any information not explicitly visible in the image
-- Using your training knowledge to supplement the image content
+- Adding any information not explicitly visible in the source content
+- Using your training knowledge to supplement the source content
 - Making assumptions beyond what is directly stated
 - Creating options using external knowledge
 
 You MUST USE ONLY:
-- Words, sentences, and facts directly present in the image
-- Explicit relationships as stated in the image
-- Examples and definitions only as written in the image
+- Words, sentences, and facts directly present in the source content
+- Explicit relationships as stated in the source content
+- Examples and definitions only as written in the source content
+
+## LANGUAGE RULE
+All questions, options, and explanations must be in English only. Even if the source content contains Hindi or bilingual text, the output must be entirely in English.
 
 ---
 
@@ -106,13 +109,13 @@ You MUST USE ONLY:
 - No two questions should be the same question with reshuffled options
 - Before generating each question, check it doesn't repeat a previous one
 
-**6. EXACTLY ONE CORRECT ANSWER + VERIFY correct_answer FIELD:**
+**6. EXACTLY ONE CORRECT ANSWER:**
 - Every question MUST have exactly ONE correct option -- never two or more
 - The correct answer MUST exactly match the source -- double-check values, names, facts
 - Incorrect options: use plausible distractors (related terms, common misconceptions, similar numbers)
 - NEVER split multiple facts from the SAME sentence into separate options -- this creates multiple correct answers
 - Example: If source says "characterised by a rigid cell wall, and if motile, a flagellum", do NOT put "rigid cell wall" and "flagellum" as separate options -- BOTH would be correct
-- **VERIFY correct_answer FIELD (HARD FAILURE):** After writing each question, RE-READ all 4 options and independently confirm which option is actually correct. The correct_answer field MUST point to the option that is genuinely correct. If the correct_answer field does not match the actual correct option, FIX IT before output. A wrong answer key is worse than no question at all.
+- **VERIFY INTERNALLY:** After writing each question, RE-READ all 4 options and independently confirm which option is actually correct. If the question has zero or multiple correct options, REWRITE it before output.
 
 **7. COVER ENTIRE SOURCE CONTENT EVENLY:**
 - Draw questions from ALL parts: ~1/3 beginning, ~1/3 middle, ~1/3 end
@@ -123,16 +126,32 @@ You MUST USE ONLY:
 - Do NOT always put the correct answer in the same position
 
 **9. NO TRIVIAL, BIOGRAPHICAL, OR METADATA QUESTIONS -- ABSOLUTE BAN:**
-- NEVER ask about dates of birth, death, graduation years, or personal biographical details of scientists
-- NEVER ask about unit numbers, chapter titles, page numbers, section headings, or any textbook metadata
-- NEVER ask questions whose answers are trivial facts with zero conceptual or scientific value
-- Every question MUST test a BIOLOGICAL CONCEPT -- a mechanism, structure, function, process, classification, or relationship
-- Wrong: "James Dewey Watson was born on which date?"
-- Wrong: "Francis Crick completed his B.Sc. in which year?"
-- Wrong: "UNIT 4 is titled which topic?"
-- Wrong: "Who discovered DNA in 1953?"
-- Correct: "What is the structural model of DNA proposed by Watson and Crick?"
-- Correct: "Which type of bonds hold the two strands of DNA together?"
+
+BANNED BIOGRAPHICAL DETAILS (HARD FAILURE -- never ask about these):
+- Birth date, birth place, death date, death place
+- School/college attended, university name
+- Year of degree (B.Sc., M.Sc., Ph.D. completion year)
+- Awards, honours, prizes received (Nobel Prize year, fellowship year)
+- Personal life details (family, nationality, hometown)
+- Career timeline (when someone joined a lab, moved to a country)
+
+BANNED METADATA (HARD FAILURE):
+- Unit numbers, chapter titles, page numbers, section headings, or any textbook metadata
+
+ALLOWED SCIENTIST QUESTIONS (only these patterns are acceptable):
+- What scientific discovery/model/theory did [scientist] propose?
+- What was the subject/title of [scientist]'s research/thesis?
+- What technique/method did [scientist] use to make their discovery?
+- What was the conclusion/finding of [scientist]'s experiment?
+
+The test is: does the answer teach the student BIOLOGY?
+- "Watson was born in Chicago" → teaches ZERO biology → BANNED
+- "Watson received B.Sc. in 1950" → teaches ZERO biology → BANNED
+- "Watson was awarded honours in 1959" → teaches ZERO biology → BANNED
+- "Watson and Crick proposed double helix model" → teaches DNA structure → ALLOWED
+- "Crick's thesis was on X-ray diffraction of proteins" → teaches research methodology → ALLOWED
+
+If removing the scientist's name from the question makes it meaningless, it is a biographical question and MUST NOT be generated.
 
 ---
 
@@ -185,14 +204,6 @@ You MUST use LaTeX syntax for all scientific notation:
 
 ---
 
-## EXPLANATION GUIDELINES
-
-For each question, provide option-wise explanations:
-- Correct option: Explain WHY it is correct - give the fact directly
-- Incorrect options: Explain WHY each is wrong
-
-IMPORTANT: Never mention that information comes from text/image. Just state the fact directly.
-
 ---
 
 ## QUESTION WRITING STYLE
@@ -233,41 +244,7 @@ D) Lotus
 
 ---
 
-## TECHNIQUES TO INCREASE DIFFICULTY
-
-**1. Use Numbers (atom counts, quantities, measurements):**
-- Numbers are naturally harder to remember than concepts
-- Include specific counts, percentages, or measurements when available in source
-- Example: "How many ATP molecules are produced in glycolysis?" or "The number of chromosomes in human gametes is:"
-
-**2. Scramble Process/Flow Steps:**
-- If the source describes a process or sequence, scramble the steps
-- Ask students to identify the CORRECT ORDER
-- Provide 4 options with different arrangements
-
-**Example:**
-Q: "Arrange the stages of mitosis in correct sequence:
-1. Anaphase  2. Metaphase  3. Prophase  4. Telophase"
-A) 3, 2, 1, 4
-B) 1, 2, 3, 4
-C) 2, 3, 4, 1
-D) 3, 1, 2, 4
-
-**3. Tricky Negative Phrasing:**
-- Use negative wording to add confusion and test careful reading
-- Play with grammatical constructs like:
-  - "Which of the following is NOT correct?"
-  - "Which statement is NOT incorrect?" (double negative = which IS correct)
-  - "All are true EXCEPT:"
-  - "Which is FALSE regarding...?"
-- This tests attention to detail, not just knowledge
-
-**Example:**
-Simple: "Which is a characteristic of enzymes?"
-Tricky: "Which of the following is NOT a characteristic of enzymes?"
-More tricky: "All statements about enzymes are correct EXCEPT:"
-
----
+{difficulty_extras}
 
 ## OUTPUT FORMAT
 
@@ -335,24 +312,74 @@ Output a single JSON object (no code block):
 - State facts directly and precisely -- avoid awkward constructions
 
 **7. No extra JSON fields:**
-- Output ONLY the fields shown in the output schema: question_id, question_type, question_text, options, correct_answer, explanation
-- NEVER add extra fields like "question_text_tex", "difficulty", "category", "topic", or any field not in the schema
+- Output ONLY the fields shown in the output schema for your question type
+- NEVER add extra fields like "question_text_tex", "difficulty", "category", "topic", "correct_answer", "explanation", or any field not in the schema
 - Extra fields are a HARD FAILURE
 
 **8. Factual accuracy of every statement:**
-- Every claim in question text, options, AND explanations must be scientifically accurate
+- Every claim in question text and options must be scientifically accurate
 - Do NOT assign functions to the wrong molecule/structure (e.g., "IgE opsonises" is WRONG -- IgG opsonises; IgE mediates allergic responses)
 - Do NOT confuse related but distinct terms (e.g., opsonisation is by IgG/complement, not IgE; septum vs valve; artery vs vein)
 - If you are not 100% certain a biological claim is correct based on the source image, do NOT include it
 
 Generate {question_count} questions now."""
 
+DIFFICULTY_EXTRAS = """## TECHNIQUES TO INCREASE DIFFICULTY
+
+**1. Use Numbers (atom counts, quantities, measurements):**
+- Numbers are naturally harder to remember than concepts
+- Include specific counts, percentages, or measurements when available in source
+- Example: "How many ATP molecules are produced in glycolysis?" or "The number of chromosomes in human gametes is:"
+
+**2. Scramble Process/Flow Steps:**
+- If the source describes a process or sequence, scramble the steps
+- Ask students to identify the CORRECT ORDER
+- Provide 4 options with different arrangements
+
+**Example:**
+Q: "Arrange the stages of mitosis in correct sequence:
+1. Anaphase  2. Metaphase  3. Prophase  4. Telophase"
+A) 3, 2, 1, 4
+B) 1, 2, 3, 4
+C) 2, 3, 4, 1
+D) 3, 1, 2, 4
+
+**3. Tricky Negative Phrasing:**
+- Use negative wording to add confusion and test careful reading
+- Play with grammatical constructs like:
+  - "Which of the following is NOT correct?"
+  - "Which statement is NOT incorrect?" (double negative = which IS correct)
+  - "All are true EXCEPT:"
+  - "Which is FALSE regarding...?"
+- This tests attention to detail, not just knowledge
+
+**Example:**
+Simple: "Which is a characteristic of enzymes?"
+Tricky: "Which of the following is NOT a characteristic of enzymes?"
+More tricky: "All statements about enzymes are correct EXCEPT:"
+
+---
+
+"""
+
 
 # ============================================================
 # MCQ PROMPTS - BIOLOGY
 # ============================================================
 
-MCQ_EASY_RULES = """## MCQ - EASY LEVEL (BIOLOGY)
+MCQ_EASY_RULES = """EASY-LEVEL OVERRIDE: Do NOT use negative phrasing ("NOT correct", "NOT INCORRECT", "EXCEPT"), do NOT scramble sequences, do NOT use number/count-based traps. Every question must be straightforward direct recall.
+
+## MCQ - EASY LEVEL (BIOLOGY)
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
+
+---
 
 ## MANDATORY: USE BOTH CATEGORIES BELOW
 
@@ -373,13 +400,54 @@ NOTE: Both categories use "question_type": "MCQ" in the output JSON. Do NOT use 
 **Rules:**
 - Answer must use the EXACT word/phrase from the source content
 - Incorrect options must be terms visible elsewhere in the source content
-- If insufficient options available, use "None of these"
+- If insufficient plausible distractors are available from the source content, construct scientifically plausible wrong options from the same biological domain. Do NOT use "None of these" as a fallback.
 
-BANNED QUESTION TYPES (NEVER generate these):
-- "Which is mentioned FIRST/LAST in the text?" -- These test reading order, NOT biology knowledge. HARD FAILURE.
-- "Which organ appears first in the list?" -- Same problem. The order of words in a sentence is NOT a biology fact.
-- "How many items are listed in the passage?" -- Counting items in a list is NOT a conceptual question.
+BANNED QUESTION TYPES (NEVER generate these -- HARD FAILURE):
+- "Which is mentioned FIRST/LAST in the text?" -- Tests reading order, NOT biology.
+- "Which organ appears first in the list?" -- Same problem.
+- "How many items are listed in the passage?" -- Counting items is NOT a conceptual question.
 - Any question whose answer depends on the POSITION or ORDER of words in the source text is BANNED.
+
+BANNED BIOGRAPHICAL / TRIVIAL QUESTIONS (HARD FAILURE -- ZERO TOLERANCE):
+- NEVER ask about: birth date, birth place, death date, school/college name, degree year (B.Sc., M.Sc., Ph.D.), awards, honours, prizes, Nobel Prize year, fellowship year, nationality, hometown, career timeline
+- The test: does the answer teach BIOLOGY? If removing the scientist's name makes the question meaningless, it is biographical and MUST NOT be generated.
+- BANNED: "Where was Watson born?" / "In which year did Watson receive his B.Sc.?" / "Watson was awarded honours in which year?"
+- ALLOWED: "What model did Watson and Crick propose for DNA?" / "What was the subject of Crick's doctoral thesis?"
+
+BANNED: QUESTION ASKS X, OPTIONS ANSWER Y (HARD FAILURE)
+- The options must DIRECTLY answer what the question asks
+- If the question asks "Which cell type...?" → options must be cell type NAMES (e.g., Yeast, HeLa, Neuron, RBC)
+- If the question asks "How long...?" → options must be TIME durations
+- If the question asks "Where...?" → options must be LOCATIONS
+- NEVER mix the axis of the question with a different axis in options
+- Before outputting, re-read the question word (Which/What/Where/How many/How long) and verify ALL 4 options answer THAT specific question word
+
+BAD EXAMPLE:
+Q: "Which cell type completes the cell cycle in about 90 minutes?"
+A) Approximately 24 hours  B) About 90 minutes  C) About an hour  D) None of these
+FAILURE: Question asks for a CELL TYPE → options give TIME DURATIONS. These don't answer the question.
+
+CORRECT:
+Q: "Which cell type completes the cell cycle in about 90 minutes?"
+A) Yeast  B) Human cell  C) Neuron  D) E. coli
+
+BANNED: ANSWER VISIBLE IN THE QUESTION STEM (HARD FAILURE)
+- The correct answer (or any synonym/derivative of it) must NEVER appear in the question text
+- Before outputting, check: does any word in the correct option also appear in the question stem? If YES → rewrite the question to remove that word
+- This applies to both Standard MCQ and Fill in the Blank categories
+
+BAD EXAMPLE:
+Q: "Algae are chlorophyll-bearing, simple, thalloid, autotrophic and largely aquatic organisms. Which term best describes their mode of nutrition?"
+A) Autotrophic  B) Heterotrophic  C) Saprophytic  D) Parasitic
+FAILURE: "autotrophic" appears in the question AND is the correct answer — student doesn't need to know biology, just reads the stem.
+
+CORRECT VERSION 1 (remove the giveaway word):
+Q: "Algae are chlorophyll-bearing, simple, thalloid and largely aquatic organisms. What is their mode of nutrition?"
+A) Autotrophic  B) Heterotrophic  C) Saprophytic  D) Parasitic
+
+CORRECT VERSION 2 (rephrase entirely):
+Q: "What is the mode of nutrition in organisms that are chlorophyll-bearing, thalloid and largely aquatic?"
+A) Autotrophic  B) Heterotrophic  C) Saprophytic  D) Parasitic
 
 DISTRACTOR QUALITY RULES:
 - Every incorrect option must be CLEARLY wrong -- no partial correctness or alternate representations.
@@ -472,6 +540,12 @@ A. Pure  B. Less polluting  C. Safe  D. Clean
 
 ---
 
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
 **FINAL REMINDER - CATEGORY DISTRIBUTION CHECK:**
 Before outputting, count how many questions you have per category:
 - Category A (Standard MCQ): ___
@@ -479,6 +553,36 @@ Before outputting, count how many questions you have per category:
 If EITHER category has 0 questions, REWRITE to add variety."""
 
 MCQ_MEDIUM_RULES = """## MCQ - MEDIUM LEVEL (BIOLOGY)
+
+BANNED BIOGRAPHICAL / TRIVIAL QUESTIONS (HARD FAILURE -- ZERO TOLERANCE):
+- NEVER ask about: birth date, birth place, death date, school/college name, degree year (B.Sc., M.Sc., Ph.D.), awards, honours, prizes, Nobel Prize year, fellowship year, nationality, hometown, career timeline
+- The test: does the answer teach BIOLOGY? If removing the scientist's name makes the question meaningless, it is biographical and MUST NOT be generated.
+- BANNED: "Where was Watson born?" / "In which year did Watson receive his B.Sc.?" / "Watson was awarded honours in which year?"
+- ALLOWED: "What model did Watson and Crick propose for DNA?" / "What was the subject of Crick's doctoral thesis?"
+
+BANNED: QUESTION ASKS X, OPTIONS ANSWER Y (HARD FAILURE)
+- The options must DIRECTLY answer what the question asks
+- If the question asks "Which cell type...?" → options must be cell type NAMES
+- If the question asks "How long...?" → options must be TIME durations
+- If the question asks "Where...?" → options must be LOCATIONS
+- NEVER mix the axis of the question with a different axis in options
+- Before outputting, re-read the question word (Which/What/Where/How many/How long) and verify ALL 4 options answer THAT specific question word
+
+BANNED: ANSWER VISIBLE IN THE QUESTION STEM (HARD FAILURE)
+- The correct answer (or any synonym/derivative of it) must NEVER appear in the question text
+- Before outputting, check: does any word in the correct option also appear in the question stem? If YES → rewrite the question to remove that word
+
+---
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
+
+---
 
 ## MANDATORY: USE A DIVERSE MIX OF ALL CATEGORIES BELOW
 
@@ -500,13 +604,30 @@ Present TWO statements from the source content. Student evaluates EACH as True o
 **Question Format in question_text:**
 "Given below are two statements:\\nStatement I: [First statement]\\nStatement II: [Second statement]"
 
+**CRITICAL: Answer Distribution Rules (MANDATORY)**
+- When generating N questions in this category, answers MUST be distributed approximately equally across all 4 options:
+  - ~25% Answer A (Both correct)
+  - ~25% Answer B (Both incorrect)
+  - ~25% Answer C (Statement I correct, Statement II incorrect)
+  - ~25% Answer D (Statement I incorrect, Statement II correct)
+- NEVER have more than 35% of answers as the same option
+- NEVER place the same answer option for 3 consecutive questions
+- Before writing each question, DECIDE the target answer FIRST, then construct the statements to match that answer
+- For options B, C, D: introduce subtle, scientifically plausible errors — not obvious nonsense. The incorrect statement should sound convincing and test real misconceptions students have.
+
+**How to construct each answer type:**
+- For Answer A: Both statements must be factually accurate and complete
+- For Answer B: Both statements must contain a specific factual error (wrong molecule, wrong process, wrong location, reversed cause-effect, etc.)
+- For Answer C: Statement I is fully correct; Statement II has a specific error embedded in otherwise correct-sounding content
+- For Answer D: Statement I has a specific error embedded in otherwise correct-sounding content; Statement II is fully correct
+
 **Standard Options (use these EXACT options):**
 a) Both Statement I and Statement II are correct
 b) Both Statement I and Statement II are incorrect
 c) Statement I is correct but Statement II is incorrect
 d) Statement I is incorrect but Statement II is correct
 
-**Example 1 - RNA World (Molecular Basis of Inheritance):**
+**Example 1 — Answer A (Both Correct) — RNA World (Molecular Basis of Inheritance):**
 Q. Given below are two statements:
 Statement I: In the RNA world, RNA is considered the first genetic material evolved to carry out essential life processes. RNA acts as a genetic material and also as a catalyst for some important biochemical reactions in living systems. Being reactive, RNA is unstable.
 Statement II: DNA evolved from RNA and is a more stable genetic material. Its double helical strands being complementary, resist changes by evolving repairing mechanism.
@@ -515,35 +636,46 @@ A. Both Statement I and Statement II are correct
 B. Both Statement I and Statement II are incorrect
 C. Statement I is correct but Statement II is incorrect
 D. Statement I is incorrect but Statement II is correct
-Answer: A (Both statements are correct -- RNA was indeed the first genetic material and acts as both genetic material and catalyst (ribozyme), and DNA did evolve from RNA with greater stability due to its double-stranded complementary structure and repair mechanisms)
+Answer: A
+Explanation: RNA was indeed the first genetic material and acts as both genetic material and catalyst (ribozyme). DNA evolved from RNA with greater stability due to its double-stranded complementary structure and repair mechanisms.
 
-**Why this is MEDIUM:** Student must evaluate two detailed, multi-part statements independently. Each statement contains multiple claims that must ALL be verified as correct.
-
-**Example 2 - Human Circulatory System:**
+**Example 2 — Answer B (Both Incorrect) — Cell Biology:**
 Q. Given below are two statements:
-Statement I: The inter-ventricular septum is thick-walled because it separates the two ventricles, which pump blood at high pressure.
-Statement II: The inter-atrial septum is thinner than the inter-ventricular septum because atria pump blood at relatively lower pressure.
+Statement I: Lysosomes are formed by the process of packaging in the smooth endoplasmic reticulum (SER) and contain hydrolytic enzymes that function optimally at alkaline pH.
+Statement II: Peroxisomes are membrane-bound organelles that contain hydrolytic enzymes similar to lysosomes and are responsible for intracellular digestion.
 
 A. Both Statement I and Statement II are correct
 B. Both Statement I and Statement II are incorrect
 C. Statement I is correct but Statement II is incorrect
 D. Statement I is incorrect but Statement II is correct
-Answer: A (Both statements are correct -- the inter-ventricular septum is thick due to high ventricular pressure, and the inter-atrial septum is thinner because atria operate at lower pressure compared to ventricles)
+Answer: B
+Explanation: Statement I is incorrect — lysosomes are formed by packaging in the Golgi apparatus (not SER), and their enzymes function at acidic pH (around 5), not alkaline. Statement II is incorrect — peroxisomes contain oxidative enzymes (like catalase and peroxidase), not hydrolytic enzymes; they break down fatty acids and detoxify harmful substances, not perform intracellular digestion.
 
-**Why this is MEDIUM:** Student must understand the relationship between wall thickness and pressure in different heart chambers.
-
-**Example 3 - Skeletal System:**
+**Example 3 — Answer C (Only Statement I Correct) — Human Circulatory System:**
 Q. Given below are two statements:
-Statement I: Bone has a very hard matrix due to the presence of calcium salts, which provide rigidity and strength.
-Statement II: Cartilage has a slightly pliable matrix due to chondroitin salts, allowing flexibility at joints.
+Statement I: The inter-ventricular septum is thick-walled because it separates the two ventricles, which pump blood at high pressure to pulmonary and systemic circulations respectively.
+Statement II: The left atrium receives deoxygenated blood from the lungs through pulmonary veins, which then passes to the left ventricle for systemic circulation.
 
 A. Both Statement I and Statement II are correct
 B. Both Statement I and Statement II are incorrect
 C. Statement I is correct but Statement II is incorrect
 D. Statement I is incorrect but Statement II is correct
-Answer: A (Both statements are correct -- bone matrix is hardened by calcium salts for rigidity, while cartilage matrix contains chondroitin salts making it pliable and flexible)
+Answer: C
+Explanation: Statement I is correct — the inter-ventricular septum is thick due to high ventricular pressure requirements. Statement II is incorrect — the left atrium receives oxygenated blood (not deoxygenated) from the lungs through pulmonary veins.
 
-**Why this is MEDIUM:** Student must compare two connective tissues and understand what gives each its unique physical property.
+**Example 4 — Answer D (Only Statement II Correct) — Skeletal System:**
+Q. Given below are two statements:
+Statement I: Cartilage has a hard, inflexible matrix due to heavy calcium deposition, which is why it provides rigid structural support at joints like the knee and ear pinna.
+Statement II: Bone has a very hard matrix due to the presence of calcium salts in the form of hydroxyapatite, which provides rigidity and compressive strength to the skeletal framework.
+
+A. Both Statement I and Statement II are correct
+B. Both Statement I and Statement II are incorrect
+C. Statement I is correct but Statement II is incorrect
+D. Statement I is incorrect but Statement II is correct
+Answer: D
+Explanation: Statement I is incorrect — cartilage has a slightly pliable matrix due to chondroitin salts (not heavy calcium deposition), which is why it provides flexibility, not rigid support. Statement II is correct — bone matrix is hardened by calcium salts (hydroxyapatite), providing rigidity and compressive strength.
+
+**Why this is MEDIUM:** Student must evaluate two detailed, multi-part statements independently. Each statement contains multiple claims that must ALL be verified. With answer distribution across A/B/C/D, students cannot default to "both correct" and must critically assess each statement.
 
 ---
 
@@ -653,6 +785,12 @@ Answer: C (NOT INCORRECT = CORRECT. The inter-atrial septum does separate the ri
 
 ---
 
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
 **FINAL REMINDER - CATEGORY DISTRIBUTION CHECK:**
 Before outputting, count how many questions you have per category:
 - Category A (Statement Evaluation): ___
@@ -666,6 +804,20 @@ If ANY category has 0 questions (for 10+ question tests), REWRITE to add variety
 MCQ_HARD_RULES = """## MCQ — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
 
 You will receive up to 50 pages of PDF content via file_id. Process ALL pages before generating questions. Build a concept map across the full document — questions MUST draw from multiple pages/sections, not just one.
+
+BANNED BIOGRAPHICAL / TRIVIAL QUESTIONS (HARD FAILURE -- ZERO TOLERANCE):
+- NEVER ask about: birth date, birth place, death date, school/college name, degree year (B.Sc., M.Sc., Ph.D.), awards, honours, prizes, Nobel Prize year, fellowship year, nationality, hometown, career timeline
+- The test: does the answer teach BIOLOGY? If removing the scientist's name makes the question meaningless, it is biographical and MUST NOT be generated.
+
+---
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
 
 ---
 
@@ -767,6 +919,12 @@ Since input is a multi-page PDF, questions MUST exploit cross-page knowledge:
 
 ---
 
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_category, question_text, and options. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
 ## PRE-OUTPUT CHECKLIST (verify before responding)
 
 Count your questions by category BEFORE outputting. Fill in the counts below mentally:
@@ -786,7 +944,7 @@ Also verify:
 - [ ] No option exceeds 7 words
 - [ ] No sequence answer is "1 → 2 → 3 → 4 → 5"
 - [ ] All sequence stems say "in chronological order" or "in correct sequence"
-- [ ] Every answer has explanation"""
+- [ ] No correct_answer or explanation fields in output"""
 
 
 # ============================================================
@@ -794,6 +952,16 @@ Also verify:
 # ============================================================
 
 AR_EASY_RULES = """## ASSERTION-REASON - EASY LEVEL (BIOLOGY)
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
+
+---
 
 ## QUESTION STRUCTURE
 
@@ -808,72 +976,111 @@ The student evaluates:
 
 ---
 
-## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY)
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
 
 a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
 b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
 c) Assertion is true but Reason is false
 d) Assertion is false but Reason is true
 
-Rules: Do NOT change wording. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these".
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these". Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
 
 ---
 
-## 4 LOGICAL TYPES + ROUND ROBIN DISTRIBUTION
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
 
-### TYPE 1 (Answer: a) -- A true, R true, R explains A
-Both statements are factually correct AND the reason directly explains the assertion.
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE
+
+- **TYPE 1:** Both A and R are factually accurate. R provides the direct cause-effect explanation for A.
+- **TYPE 2:** Both A and R are factually accurate. R is a true fact from the same topic but does NOT explain A — they are unrelated facts that happen to be topically adjacent.
+- **TYPE 3:** A is factually accurate. R contains a specific factual error (wrong term, wrong process, reversed relationship, etc.) embedded in otherwise correct-sounding content.
+- **TYPE 4:** A contains a specific factual error (wrong term, wrong process, reversed relationship, etc.) embedded in otherwise correct-sounding content. R is factually accurate.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about CLEARLY different aspects so no one can argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
+
+---
+
+## 4 LOGICAL TYPES WITH EXAMPLES
+
+### TYPE 1 -- A true, R true, R explains A
 
 **Example - Blood Cells:**
 Assertion (A): Mature red blood cells in mammals lack a nucleus.
 Reason (R): The absence of a nucleus allows more space for haemoglobin to carry oxygen efficiently.
-Answer: a
+Analysis: A is true — mammalian RBCs are enucleated at maturity. R is true — the loss of the nucleus maximizes haemoglobin capacity. R directly explains why A occurs.
 **Why this is EASY:** Both facts are from the same sentence. The causal link is directly stated in the text.
 
-### TYPE 2 (Answer: b) -- A true, R true, R does NOT explain A
-Both statements are factually correct BUT the reason is about a DIFFERENT aspect -- it does not explain the assertion.
+### TYPE 2 -- A true, R true, R does NOT explain A
 
 **Example - Bryophytes:**
 Assertion (A): Bryophytes are called amphibians of the plant kingdom.
 Reason (R): Bryophytes possess chlorophyll and perform photosynthesis.
-Answer: b
-**Why this is EASY:** Both statements are true textbook facts. But photosynthesis has nothing to do with WHY they are called amphibians (they are called amphibians because they need water for reproduction). The disconnect is obvious at easy level.
+Analysis: A is true — bryophytes are termed amphibians of the plant kingdom because they need water for reproduction. R is true — bryophytes are photosynthetic. However, photosynthesis has nothing to do with why they are called amphibians. R does not explain A.
+**Why this is EASY:** Both are true textbook facts. The disconnect between them is obvious at easy level.
 
-### TYPE 3 (Answer: c) -- A true, R false
-The assertion is factually correct BUT the reason contains a clear factual error.
+### TYPE 3 -- A true, R false
 
 **Example - Algae:**
 Assertion (A): Algae are classified into three classes based on pigment type and stored food.
 Reason (R): Algae lack chlorophyll and depend on external organic matter for nutrition.
-Answer: c
-**Why this is EASY:** The assertion is a direct textbook fact (Chlorophyceae, Phaeophyceae, Rhodophyceae). The reason is clearly false -- algae DO have chlorophyll (they are photosynthetic). The error is obvious, no subtle traps.
+Analysis: A is true — algae are classified into Chlorophyceae, Phaeophyceae, and Rhodophyceae based on pigments and food storage. R is false — algae possess chlorophyll and are photosynthetic; they do not depend on external organic matter.
+**Why this is EASY:** The assertion is a direct textbook fact. The reason contains a clear factual error (algae DO have chlorophyll).
 
-### TYPE 4 (Answer: d) -- A false, R true
-The assertion contains a clear factual error BUT the reason is factually correct.
+### TYPE 4 -- A false, R true
 
 **Example - Gymnosperms:**
 Assertion (A): Gymnosperms produce seeds enclosed within a fruit wall.
 Reason (R): Gymnosperms are called naked-seeded plants because their ovules are not enclosed by any ovary wall.
-Answer: d
-**Why this is EASY:** The assertion is clearly false (gymnosperms are NAKED-seeded, not enclosed). The reason states the correct textbook fact. The contradiction is straightforward to identify.
+Analysis: A is false — gymnosperms produce naked seeds, not enclosed within a fruit wall; that describes angiosperms. R is true — gymnosperms are defined as naked-seeded because their ovules lack an ovary wall enclosure.
+**Why this is EASY:** The assertion contains a clear factual error (gymnosperms are naked-seeded, not enclosed). The reason states the textbook definition directly.
 
 ---
 
 ## ROUND ROBIN DISTRIBUTION (MANDATORY)
 
-Questions MUST follow this cyclic logical ordering:
+Questions MUST cycle through all 4 logical types:
 
-Q1 -> TYPE 1 (answer: a)
-Q2 -> TYPE 2 (answer: b)
-Q3 -> TYPE 3 (answer: c)
-Q4 -> TYPE 4 (answer: d)
-Q5 -> TYPE 1 (answer: a)
-Q6 -> TYPE 2 (answer: b)
-Q7 -> TYPE 3 (answer: c)
-Q8 -> TYPE 4 (answer: d)
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
 ... continue cyclically
 
-DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced.
+For remaining questions after the last complete batch of 4, each must have a different type — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
 
 ---
 
@@ -889,22 +1096,34 @@ DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distr
 
 ---
 
-## CORRECT ANSWER VERIFICATION (MANDATORY -- HARD FAILURE)
+## QUESTION VALIDITY VERIFICATION (MANDATORY)
 
-After writing EACH question, independently re-evaluate before setting correct_answer:
-- Is Assertion (A) factually TRUE or FALSE?
-- Is Reason (R) factually TRUE or FALSE?
-- Does R actually EXPLAIN A (cause-effect link)?
+After writing EACH question, verify:
+- Is Assertion (A) factually accurate or does it contain a specific, identifiable error?
+- Is Reason (R) factually accurate or does it contain a specific, identifiable error?
+- If both are true, does R actually EXPLAIN A (cause-effect link) or is it unrelated?
+- Does the question match the intended TYPE from the round-robin cycle?
+- Would a knowledgeable student be able to determine the relationship between A and R?
 
-Map your evaluation to the correct option:
-- A true + R true + R explains A → correct_answer: "a"
-- A true + R true + R does NOT explain A → correct_answer: "b"
-- A true + R false → correct_answer: "c"
-- A false + R true → correct_answer: "d"
+If any statement is ambiguous or the relationship is unclear, REWRITE the question. Every question must have exactly ONE valid option among the four.
 
-If the correct_answer does not match your re-evaluation, FIX the correct_answer field. NEVER output a question with a wrong answer key."""
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, question_text, and options. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template."""
 
 AR_MEDIUM_RULES = """## ASSERTION-REASON - MEDIUM LEVEL (BIOLOGY)
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
+
+---
 
 ## COGNITIVE REQUIREMENT
 
@@ -932,66 +1151,111 @@ Medium AR questions test:
 
 ---
 
-## FIXED OPTIONS (DO NOT MODIFY)
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
 
 a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
 b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
 c) Assertion is true but Reason is false
 d) Assertion is false but Reason is true
 
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these". Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
 ---
 
-## 4 LOGICAL TYPES + ROUND ROBIN DISTRIBUTION
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
 
-### TYPE 1 (Answer: a) -- A true, R true, R explains A
-Both statements are correct AND R provides the conceptual explanation for A. The link requires understanding, not just reading.
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE
+
+- **TYPE 1:** Both A and R are factually accurate. R provides the conceptual cause-effect explanation for A. The link requires understanding, not just reading.
+- **TYPE 2:** Both A and R are factually accurate. R is a true fact from the same topic but does NOT explain A — they seem related but R is not the cause of A.
+- **TYPE 3:** A is factually accurate. R contains a plausible factual error (not an obvious blunder) — a believable misconception embedded in otherwise correct-sounding content.
+- **TYPE 4:** A contains a conceptual error (a believable misconception, not an obvious blunder) embedded in otherwise correct-sounding content. R is factually accurate.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about CLEARLY different aspects so no one can argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
+
+---
+
+## 4 LOGICAL TYPES WITH EXAMPLES
+
+### TYPE 1 -- A true, R true, R explains A
 
 **Example - Enzyme Specificity:**
 Assertion (A): Enzymes are highly specific in their catalytic action.
 Reason (R): The active site of an enzyme has a unique three-dimensional shape that binds only specific substrates.
-Answer: a
-**Why this is MEDIUM:** Student must connect specificity (A) to the lock-and-key model of the active site (R). The cause-effect link requires understanding enzyme structure -- it's not directly stated as "because of" in the text.
+Analysis: A is true — enzymes catalyze only specific reactions. R is true — the active site's 3D shape determines substrate specificity. R directly explains why A occurs (lock-and-key model).
+**Why this is MEDIUM:** Student must connect specificity (A) to the structural basis of the active site (R). The cause-effect link requires understanding enzyme structure -- it's not directly stated as "because of" in the text.
 
-### TYPE 2 (Answer: b) -- A true, R true, R does NOT explain A
-Both statements are factually correct BUT the reason is about a DIFFERENT aspect of the same topic. The trap: they SEEM related but R is not the CAUSE of A.
+### TYPE 2 -- A true, R true, R does NOT explain A
 
 **Example - Cell Division:**
 Assertion (A): Meiosis results in the formation of four haploid daughter cells.
 Reason (R): During meiosis, crossing over occurs between non-sister chromatids of homologous chromosomes.
-Answer: b
-**Why this is MEDIUM:** Both are true facts about meiosis. A student might think crossing over causes the formation of four cells -- but crossing over causes genetic variation, NOT the reduction in cell number. The halving of chromosome number is due to the two rounds of division. Requires conceptual clarity to distinguish.
+Analysis: A is true — meiosis produces four haploid cells through two rounds of division. R is true — crossing over does occur during prophase I between non-sister chromatids. However, crossing over causes genetic variation, not the reduction in cell number. The halving is due to two sequential divisions.
+**Why this is MEDIUM:** Both are true facts about meiosis. The trap is that they seem causally related but R explains genetic recombination, not the production of four cells.
 
-### TYPE 3 (Answer: c) -- A true, R false
-The assertion is correct but the reason contains a plausible factual error -- not an obvious blunder, but a believable misconception.
+### TYPE 3 -- A true, R false
 
 **Example - Plant Transport:**
 Assertion (A): Transpiration pull is the major force responsible for the upward movement of water in tall trees.
 Reason (R): Transpiration occurs primarily through the lenticels present on the bark of the stem.
-Answer: c
-**Why this is MEDIUM:** A is a standard concept. R sounds plausible (lenticels do exist on bark and allow gas exchange), but transpiration primarily occurs through stomata on leaves, NOT lenticels. The error is believable but requires knowing the correct site of transpiration.
+Analysis: A is true — transpiration pull (cohesion-tension theory) is the primary driver of water ascent in tall trees. R is false — transpiration primarily occurs through stomata on leaves, not through lenticels. Lenticels do exist on bark and allow gas exchange, but they are not the primary site of transpiration.
+**Why this is MEDIUM:** R sounds plausible because lenticels are real structures involved in gas exchange, but the specific claim about transpiration site is wrong.
 
-### TYPE 4 (Answer: d) -- A false, R true
-The assertion contains a conceptual error (not an obvious blunder) while the reason is a correct fact.
+### TYPE 4 -- A false, R true
 
 **Example - Photosynthesis:**
 Assertion (A): The dark reactions of photosynthesis can only occur in the absence of light.
 Reason (R): The dark reactions (Calvin cycle) take place in the stroma of the chloroplast.
-Answer: d
-**Why this is MEDIUM:** A is a common misconception -- "dark reactions" does NOT mean they require darkness, they simply don't directly use light energy. R is a correct textbook fact. The trap tests whether the student has the misconception about what "dark" means in this context.
+Analysis: A is false — "dark reactions" does not mean they require darkness; they simply don't directly use light energy and can occur in the presence or absence of light. R is true — the Calvin cycle takes place in the stroma of the chloroplast.
+**Why this is MEDIUM:** A tests a common misconception about what "dark" means in "dark reactions." R is a straightforward textbook fact.
 
 ---
 
 ## ROUND ROBIN DISTRIBUTION (MANDATORY)
 
-Q1 -> TYPE 1 (answer: a)
-Q2 -> TYPE 2 (answer: b)
-Q3 -> TYPE 3 (answer: c)
-Q4 -> TYPE 4 (answer: d)
-Q5 -> TYPE 1 (answer: a)
-Q6 -> TYPE 2 (answer: b)
+Questions MUST cycle through all 4 logical types:
+
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
 ... continue cyclically
 
-DO NOT break the cycle. DO NOT repeat the same logical type consecutively.
+For remaining questions after the last complete batch of 4, each must have a different type — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
 
 ---
 
@@ -1003,6 +1267,27 @@ DO NOT break the cycle. DO NOT repeat the same logical type consecutively.
 4. No multi-layer mechanism chains (that's Hard level)
 5. No compound assertions testing 3+ facts at once
 
+---
+
+## QUESTION VALIDITY VERIFICATION (MANDATORY)
+
+After writing EACH question, verify:
+- Is Assertion (A) factually accurate or does it contain a specific, identifiable error?
+- Is Reason (R) factually accurate or does it contain a specific, identifiable error?
+- If both are true, does R actually EXPLAIN A (cause-effect link) or is it unrelated?
+- Does the question match the intended TYPE from the round-robin cycle?
+- Would a knowledgeable student be able to determine the relationship between A and R?
+- For TYPE 3: Is R's error plausible, not an obvious blunder?
+- For TYPE 4: Is A's error a believable misconception, not an absurd claim?
+
+If any statement is ambiguous or the relationship is unclear, REWRITE the question. Every question must have exactly ONE valid option among the four.
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, question_text, and options. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template.
+
 """
 
 AR_HARD_RULES = """## ASSERTION-REASON — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
@@ -1011,26 +1296,67 @@ You will receive up to 50 pages of PDF content via file_id. Process ALL pages be
 
 ---
 
-## ⚠️ ROUND ROBIN DISTRIBUTION (MANDATORY — READ FIRST)
+## CHEMICAL & MATHEMATICAL NOTATION
 
-Questions MUST cycle through all 4 answer types in strict order:
-
-Q1 → TYPE 1 (answer: a) — A true, R true, R explains A
-Q2 → TYPE 2 (answer: b) — A true, R true, R does NOT explain A
-Q3 → TYPE 3 (answer: c) — A true, R false
-Q4 → TYPE 4 (answer: d) — A false, R true
-Q5 → TYPE 1 ... continue cyclically
-
-**HARD FAILURE** if any type has 0 questions or same type appears consecutively.
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
 
 ---
 
-## FIXED OPTIONS (DO NOT MODIFY)
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
+
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+**HARD FAILURE** if any TYPE has 0 questions or same TYPE appears consecutively.
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
 
 a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
 b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
 c) Assertion is true but Reason is false
 d) Assertion is false but Reason is true
+
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these". Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE (HARD LEVEL)
+
+- **TYPE 1:** Both A and R are factually accurate. R provides a multi-step mechanistic explanation for A. The causal chain requires deep understanding of biological mechanisms.
+- **TYPE 2:** Both A and R are factually accurate. R is true and topically related but NOT the actual cause/mechanism of A — tests correlation vs causation. Students who skim will assume the connection.
+- **TYPE 3:** A is factually accurate. R contains a SUBTLE mechanistic error — reversed cause-effect, misassigned pathway, or exaggerated scope ("all"/"always") — embedded in otherwise correct-sounding mechanistic language. Not an obvious blunder.
+- **TYPE 4:** A contains a common student misconception (not an absurd error) embedded in otherwise correct-sounding mechanistic language. R is a factually accurate mechanistic statement.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about CLEARLY different aspects so no one can argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
 
 ---
 
@@ -1057,7 +1383,7 @@ d) Assertion is false but Reason is true
 
 **Rule 2 — Cross-Reference Traps (TYPE 2):** Use a true fact from a related section as R — it's scientifically correct and topically adjacent, but doesn't actually explain A. Students who skim will assume the connection.
 
-**Rule 3 — At least 25% of questions should be cross-page** (A and R from different sections of the PDF). Tag these as [CROSS-PAGE] in the explanation.
+**Rule 3 — At least 25% of questions should be cross-page** (A and R from different sections of the PDF).
 
 ---
 
@@ -1067,20 +1393,44 @@ d) Assertion is false but Reason is true
 2. A and R must each be independently meaningful as standalone sentences
 3. NEVER copy-paste from source — always rephrase with mechanistic depth
 4. Difficulty comes from understanding mechanisms and relationships, NOT obscure terminology
-5. Every explanation MUST state: why A is true/false, why R is true/false, and why R does/doesn't explain A
+5. Every question must have exactly ONE valid option among the four
 
 ---
 
-## PRE-OUTPUT CHECKLIST
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
 
-Count your questions by type BEFORE outputting:
-  TYPE 1 (answer a): ___
-  TYPE 2 (answer b): ___
-  TYPE 3 (answer c): ___
-  TYPE 4 (answer d): ___
+Questions MUST cycle through all 4 logical types:
+
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
+... continue cyclically
+
+For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
+
+---
+
+## PRE-OUTPUT CHECKLIST (Internal — Do NOT include in output)
+
+Mentally count your questions by TYPE BEFORE outputting:
+  TYPE 1: ___
+  TYPE 2: ___
+  TYPE 3: ___
+  TYPE 4: ___
 
 If ANY count is 0 → STOP and REWRITE.
+If any TYPE exceeds 35% of total → STOP and REBALANCE.
 If round robin order is broken → STOP and REORDER.
+If same TYPE appears 3 times consecutively → STOP and REORDER.
+
+Do not include any distribution check in your output.
 
 Also verify:
 - [ ] All PDF pages processed, not just first few
@@ -1089,7 +1439,13 @@ Also verify:
 - [ ] A uses indirect description (properties/functions, not labels)
 - [ ] TYPE 3 R errors are subtle (not obvious blunders)
 - [ ] TYPE 4 A errors are common misconceptions (not absurd)
-- [ ] Every explanation covers A truth value + R truth value + relationship"""
+- [ ] Every question has exactly ONE valid option among the four
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, question_text, and options. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template."""
 
 
 # ============================================================
@@ -1097,6 +1453,16 @@ Also verify:
 # ============================================================
 
 MTC_EASY_RULES = """## MATCH THE COLUMN - EASY LEVEL (BIOLOGY)
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols in column items and options. Wrap expressions in dollar signs ($...$). This is separate from table structure formatting (\\begin, \\hline).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
+
+---
 
 ## QUESTION STRUCTURE -- 4x5 FORMAT (MANDATORY)
 
@@ -1235,11 +1601,11 @@ Column I: 1. BOD  2. COD  3. DO  4. STP
 Column II: a. Amount of $O_2$ consumed by microbes per litre  b. Total oxidizable organic and inorganic load  c. Concentration of molecular $O_2$ in water  d. Facility converting liquid waste to safe effluent  e. Ratio of nitrogen to phosphorus in water
 
 Options:
-A. 1-a, 2-b, 3-c, 4-d
-B. 1-b, 2-a, 3-c, 4-d
-C. 1-a, 2-b, 3-d, 4-c
-D. 1-c, 2-b, 3-a, 4-d
-Answer: A
+A. 1-b, 2-a, 3-c, 4-d
+B. 1-c, 2-b, 3-a, 4-d
+C. 1-a, 2-b, 3-c, 4-d
+D. 1-a, 2-b, 3-d, 4-c
+Answer: C
 
 **Why this is GOOD:** (1) Zero keyword overlap -- "BOD" shares no words with "$O_2$ consumed by microbes per litre". (2) Categorical consistency -- Column I is ALL abbreviations, Column II is ALL scientific definitions. (3) Option 'e' is a plausible distractor (sounds like a real water quality metric). (4) Student must know the exact definitions -- cannot guess from keywords.
 
@@ -1269,9 +1635,25 @@ Any literate person can answer this. No biological knowledge tested.
 
 ---
 
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
 If ANY rule above is violated -> regenerate the question."""
 
 MTC_MEDIUM_RULES = """## MATCH THE COLUMN - MEDIUM LEVEL (BIOLOGY)
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols in column items and options. Wrap expressions in dollar signs ($...$). This is separate from table structure formatting (\\begin, \\hline).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
+
+---
 
 ## COGNITIVE REQUIREMENT
 
@@ -1433,11 +1815,27 @@ Anyone can answer this without biology knowledge.
 
 
 
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
 If ANY rule above is violated -> regenerate the question."""
 
 MTC_HARD_RULES = """## MATCH THE COLUMN — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
 
 You will receive up to 50 pages of PDF content via file_id. Process ALL pages. Column I and Column II items should draw from DIFFERENT sections/pages of the PDF where possible — test cross-topic integration.
+
+---
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols in column items and options. Wrap expressions in dollar signs ($...$). This is separate from table structure formatting (\\begin, \\hline).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\\alpha$, $\\beta$, $\\gamma$, $\\delta$, $\\omega$
+- Arrows: $\\rightarrow$, $\\leftarrow$, $\\rightleftharpoons$
+- Math operators: $\\times$, $\\div$, $\\pm$, $\\frac{a}{b}$
 
 ---
 
@@ -1550,9 +1948,15 @@ The explanation must validate EVERY pair in the correct option.
 - [ ] Each pair maps to IMMEDIATE consequence (no chain-skipping)
 - [ ] No two Column I items map to the same Column II item
 - [ ] All 4 answer options are structurally unique
-- [ ] Explanation validates every pair (no contradictions)
 - [ ] Column II is shuffled (not sequential)
 - [ ] Distractor is scientifically plausible and topically related
+- [ ] No correct_answer or explanation fields in output
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
 
 If ANY condition fails → regenerate the question."""
 
@@ -1569,14 +1973,7 @@ MCQ_OUTPUT_SCHEMA = """{
         "a": "[Option with LaTeX notation where needed]",
         "b": "[Option with LaTeX notation where needed]",
         "c": "[Option with LaTeX notation where needed]",
-        "d": "[Option or 'None of these']"
-      },
-      "correct_answer": "a",
-      "explanation": {
-        "a": "Correct: [Scientific explanation using LaTeX for formulas like $H_2O$, $\\\\alpha$]",
-        "b": "Incorrect: [Reason why wrong with LaTeX notation]",
-        "c": "Incorrect: [Reason why wrong with LaTeX notation]",
-        "d": "Incorrect: [Reason why wrong with LaTeX notation]"
+        "d": "[Option with LaTeX notation where needed]"
       }
     }"""
 
@@ -1590,13 +1987,6 @@ MCQ_HARD_OUTPUT_SCHEMA = """{
         "b": "[MAX 7 WORDS - combination/sequence/T-F only]",
         "c": "[MAX 7 WORDS - combination/sequence/T-F only]",
         "d": "[MAX 7 WORDS - combination/sequence/T-F only]"
-      },
-      "correct_answer": "a",
-      "explanation": {
-        "a": "Correct: [Why this combination/sequence/T-F pattern is right]",
-        "b": "Incorrect: [Why wrong]",
-        "c": "Incorrect: [Why wrong]",
-        "d": "Incorrect: [Why wrong]"
       }
     }"""
 
@@ -1609,13 +1999,6 @@ AR_OUTPUT_SCHEMA = """{
         "b": "Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion",
         "c": "Assertion is true but Reason is false",
         "d": "Assertion is false but Reason is true"
-      },
-      "correct_answer": "a/b/c/d",
-      "explanation": {
-        "a": "[A is true because..., R is true because..., use LaTeX for formulas]",
-        "b": "[Explanation with LaTeX notation]",
-        "c": "[Explanation with LaTeX notation]",
-        "d": "[Explanation with LaTeX notation]"
       }
     }"""
 
@@ -1628,13 +2011,6 @@ MTC_OUTPUT_SCHEMA = """{
         "b": "1-b, 2-a, 3-d, 4-e",
         "c": "1-c, 2-d, 3-e, 4-b",
         "d": "1-d, 2-c, 3-b, 4-a"
-      },
-      "correct_answer": "a",
-      "explanation": {
-        "a": "Correct: 1 matches a because..., 2 matches b because... [use LaTeX for formulas]. Option e is a distractor because...",
-        "b": "Incorrect: [Which pairs are wrong and why, use LaTeX]",
-        "c": "Incorrect: [Which pairs are wrong and why, use LaTeX]",
-        "d": "Incorrect: [Which pairs are wrong and why, use LaTeX]"
       }
     }"""
 
@@ -1717,13 +2093,17 @@ def get_prompt(question_type: str, difficulty: str, subject: str, question_count
 
     config = PROMPTS_CONFIG[key]
 
-    prompt = BASE_TEMPLATE.format(
+    # Only include difficulty techniques for medium and hard
+    extras = DIFFICULTY_EXTRAS if difficulty.lower() in ("medium", "hard") else ""
+
+    prompt = BASE_TEMPLATE_COMMON.format(
         subject=subject,
         question_count=question_count,
         difficulty=difficulty,
         question_type=question_type,
         question_type_rules=config["rules"],
-        output_schema=config["output_schema"]
+        output_schema=config["output_schema"],
+        difficulty_extras=extras
     )
 
     return prompt

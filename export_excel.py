@@ -16,13 +16,13 @@ TYPE_SHORT = {
 }
 
 
-def _format_options(options: dict, correct_answer: str) -> str:
-    """Format options as multi-line string with √ marking the correct answer."""
-    correct = correct_answer.lower()
+def _format_options(options: dict, correct_answer: str = "") -> str:
+    """Format options as multi-line string. Marks correct answer with √ only if provided."""
+    correct = correct_answer.lower() if correct_answer else ""
     lines = []
     for key in ["a", "b", "c", "d"]:
         if key in options:
-            marker = "√ " if key == correct else ""
+            marker = "√ " if correct and key == correct else ""
             lines.append(f"{key}) {marker}{options[key]}")
     return "\n".join(lines)
 
@@ -87,6 +87,14 @@ def export_questions_to_excel(result: dict, time_taken: float = None) -> bytes:
         for i, q in enumerate(q_list, start=2):
             q_text = q.get("question_text", "")
             options = q.get("options", {})
+            # AR options are a fixed constant — fill in if LLM omitted them
+            if q_type == "ASSERTION_REASON" and not options:
+                options = {
+                    "a": "Both Assertion and Reason are true and Reason is the correct explanation of Assertion",
+                    "b": "Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion",
+                    "c": "Assertion is true but Reason is false",
+                    "d": "Assertion is false but Reason is true",
+                }
             correct = q.get("correct_answer", "")
 
             # Question cell

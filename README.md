@@ -8,10 +8,12 @@ AI-powered question generator for NEET Biology exam preparation. Generates MCQ, 
 
 - **3 Question Types:** MCQ, Assertion-Reason, Match the Column
 - **3 Difficulty Levels:** Easy, Medium, Hard
-- **PDF Input:** Local files or URLs (up to 50 pages)
-- **Excel Export:** Auto-generates `.xlsx` files with all questions, options, answers, and explanations
-- **Interactive CLI:** Menu-driven interface for selecting question type, difficulty, and count
-- **LaTeX Formatting:** Scientific notation, Greek letters, subscripts/superscripts in questions
+- **PDF Splitting:** PDFs > 20 pages are automatically split into 10-page chunks and processed in parallel
+- **Parallel Generation:** All chunks are uploaded and generated concurrently — time ~= single chunk, not N × chunk
+- **No Answer Key Output:** Questions and options only — no correct_answer or explanation fields in any question type (MCQ, AR, MTC)
+- **Excel Export:** Auto-generates `.xlsx` files saved to `output/`
+- **LaTeX Formatting:** Scientific notation, Greek letters, subscripts/superscripts enforced via LaTeX syntax
+- **Interactive CLI:** Menu-driven interface for question type, difficulty, and count
 
 ---
 
@@ -23,7 +25,7 @@ python -m venv envi
 source envi/bin/activate
 
 # Install dependencies
-pip install openai python-dotenv openpyxl
+pip install openai python-dotenv openpyxl pypdf
 
 # Add your OpenAI API key
 echo "OPENAI_API_KEY=your-key-here" > .env
@@ -39,7 +41,8 @@ python pdf_token_counter.py /path/to/file.pdf        # Direct file
 python pdf_token_counter.py "https://example.com/doc.pdf"  # URL
 ```
 
-The tool will prompt you to select question type, difficulty, and count. Output is saved to `output/` as an Excel file.
+The tool prompts for question type, difficulty, and count. Output is saved to `output/` as:
+`{pdf_name}_{type}_{difficulty}_{count}.xlsx`
 
 ---
 
@@ -47,132 +50,182 @@ The tool will prompt you to select question type, difficulty, and count. Output 
 
 ```
 test-generator/
-  prompts_biology.py      # All prompt templates (BASE_TEMPLATE + 9 rule sets)
-  pdf_token_counter.py     # Main CLI tool (PDF upload, generation, export)
-  export_excel.py          # Excel workbook generation (openpyxl)
-  test_generator.py        # Legacy/alternate generator
-  app.py                   # Web app interface
-  input/                   # Sample PDF files for testing
-  output/                  # Generated Excel files
+  prompts_biology.py      # All prompt templates (BASE_TEMPLATE_COMMON + DIFFICULTY_EXTRAS + 9 rule sets)
+  pdf_token_counter.py    # Main CLI tool (PDF upload, splitting, parallel generation, export)
+  export_excel.py         # Excel workbook generation (openpyxl)
+  app.py                  # Web app interface
+  requirements.txt        # Dependencies
+  input/                  # Sample PDF files for testing
+  output/                 # Generated Excel files (auto-created)
 ```
 
 ---
 
-## Bugs Fixed
+## PDF Splitting (pdf_token_counter.py)
 
-### 1. PDF Switching Flow (pdf_token_counter.py)
-**Problem:** The previous nested-loop structure (outer loop for PDF selection + inner loop for "generate more?") was not working -- the program would get stuck or skip steps.
+**Rule:** PDF ≤ 20 pages → single API call. PDF > 20 pages → split into 10-page chunks.
 
-**Fix:** Flattened to a single `while True` loop:
-Load PDF -> Choose type -> Choose difficulty -> Choose count -> Generate -> Export Excel -> "Use another PDF? (y/n)" -> if yes, loop; if no, exit.
+**Proportional distribution (unitary method):**
+- Chunks: [10, 10, 10, 5] pages, 35 questions total
+- Distribution: [14, 14, 14, 7] questions
 
-### 2. Wrong Answer Keys in Assertion-Reason Questions (prompts_biology.py)
-**Problem:** Generated AR questions had correct statements but the `correct_answer` field pointed to the wrong option.
+**Parallel processing:** All chunks are uploaded and generated concurrently using `ThreadPoolExecutor`. Time taken is ~= the slowest single chunk, not the sum.
 
-**Fix:** Added two-level verification:
-- **BASE_TEMPLATE Rule #6:** General verification bullet requiring re-reading all options before output
-- **AR_EASY_RULES:** Explicit truth-value-to-option mapping table:
-  - A true + R true + R explains A -> "a"
-  - A true + R true + R does NOT explain A -> "b"
-  - A true + R false -> "c"
-  - A false + R true -> "d"
+**Retry policy:** Each chunk retries up to 2 times on JSON parse failure. If a chunk still fails, generation aborts — chunks are never skipped.
 
-### 3. Trivial/Biographical Questions Being Generated (prompts_biology.py)
-**Problem:** Nonsensical questions like "James Dewey Watson was born on which date?", "Francis Crick completed his B.Sc. in which year?", "UNIT 4 is titled which topic?" were being generated.
-
-**Fix:** Added Rule #9 to BASE_TEMPLATE -- absolute ban on biographical details, textbook metadata, and zero-concept-value questions. Every question must test a biological concept.
+**Cleanup:** Temp chunk PDF files are always deleted in a `finally` block.
 
 ---
 
-## Prompt Changes
+## Prompt Architecture (prompts_biology.py)
 
-### BASE_TEMPLATE (common to all question types)
-- Added **Rule #9: NO TRIVIAL, BIOGRAPHICAL, OR METADATA QUESTIONS** with banned/correct examples
-- Added **correct_answer verification** to Rule #6 (HARD FAILURE if answer key doesn't match actual correct option)
-- Removed duplicate bullet from ABSOLUTE RESTRICTIONS
-- Removed 4 duplicate 7-word rule bullets from QUESTION WRITING STYLE (already in CRITICAL RULE)
-- Removed duplicate grammar line from LANGUAGE PRECISION #8
-- Removed entire SELF-AUDIT section (all 10 items were recaps of earlier rules)
+### Template Structure
 
-### MCQ_EASY_RULES
-- Removed 2 duplicate distractor rules from Category B (identical to Category A)
-- Token savings: 468 (7.9%)
+```
+BASE_TEMPLATE_COMMON          ← always included (all types, all difficulties)
+  └── {difficulty_extras}     ← DIFFICULTY_EXTRAS injected here for medium/hard only
 
-### AR_EASY_RULES
-- Removed Rephrasing Rule section (covered by BASE_TEMPLATE Rule #1)
-- Removed EASY LEVEL RULES #7 and #8 (duplicated TYPE 3/4 descriptions)
-- Removed entire VALIDATION CHECKLIST (all items redundant)
-- Added CORRECT ANSWER VERIFICATION section with explicit truth-value mapping
-- Token savings: 134 (10.2%)
+DIFFICULTY_EXTRAS             ← techniques: negative phrasing, scrambling, number traps
+                                 NOT included for easy level
+```
 
-### MTC_EASY_RULES
-- Removed 6 redundant items from EASY LEVEL RULES (duplicated QUESTION STRUCTURE, ZERO KEYWORD OVERLAP, CATEGORICAL CONSISTENCY, NO COMMON-SENSE sections, and BASE_TEMPLATE Rule #1)
-- Removed entire VALIDATION CHECKLIST (all items restated earlier sections)
-- Moved unique "at least one wrong option uses distractor" rule to QUESTION STRUCTURE
-- Token savings: 357 (13.5%)
+### Rule Sets (9 total)
 
-### AR_MEDIUM_RULES
-- Removed rephrasing rules from COGNITIVE REQUIREMENT (covered by BASE_TEMPLATE Rule #1)
-- Removed 4 redundant MEDIUM LEVEL CONSTRAINTS (#1 ABSOLUTE RESTRICTIONS, #2 COGNITIVE REQUIREMENT, #8 COGNITIVE REQUIREMENT, #9 BASE_TEMPLATE Rule #1)
-- Removed entire VALIDATION CHECKLIST
-- Token savings: 222 (16.5%)
+| Type | Easy | Medium | Hard |
+|------|------|--------|------|
+| MCQ | MCQ_EASY_RULES | MCQ_MEDIUM_RULES | MCQ_HARD_RULES |
+| Assertion-Reason | AR_EASY_RULES | AR_MEDIUM_RULES | AR_HARD_RULES |
+| Match the Column | MTC_EASY_RULES | MTC_MEDIUM_RULES | MTC_HARD_RULES |
 
-### MTC_MEDIUM_RULES
-- Removed 10 of 12 redundant MEDIUM-LEVEL CONSTRAINTS (duplicated QUESTION STRUCTURE, DESIGN SHIFT, COGNITIVE REQUIREMENT, BASE_TEMPLATE, and detailed rule sections)
-- Removed entire VALIDATION CHECKLIST
-- Moved unique "at least one wrong option uses distractor" rule to QUESTION STRUCTURE
-- Token savings: 460 (18.7%)
+### Output Schemas
 
-### MCQ_MEDIUM_RULES
-- No changes needed -- already clean (all content is unique category definitions with examples)
+All three question types output **questions and options only** — no `correct_answer`, no `explanation`:
 
-### Total Token Savings
+```json
+MCQ / MCQ Hard:
+{ "question_id", "question_type", "question_text", "options": {a,b,c,d} }
 
-| Section | Old | New | Saved | % |
-|---------|-----|-----|-------|---|
-| BASE_TEMPLATE + MCQ_EASY | 5,904 | 5,436 | 468 | 7.9% |
-| AR_EASY | 1,316 | 1,182 | 134 | 10.2% |
-| MTC_EASY | 2,644 | 2,287 | 357 | 13.5% |
-| AR_MEDIUM | 1,349 | 1,127 | 222 | 16.5% |
-| MTC_MEDIUM | 2,465 | 2,005 | 460 | 18.7% |
-| MCQ_MEDIUM | 2,588 | 2,588 | 0 | 0.0% |
-| **Total** | **16,266** | **14,625** | **1,641** | **10.1%** |
+Assertion-Reason:
+{ "question_id", "question_type", "question_text", "options": {a,b,c,d} }
+
+Match the Column:
+{ "question_id", "question_type", "question_text", "options": {a,b,c,d} }
+```
+
+One option is always the correct answer — the model constructs it that way but does not label it.
 
 ---
 
-## Other Changes
+## Changes in This Version
 
-### Excel Export (export_excel.py)
-- Output saved to dedicated `output/` folder (not project root)
-- Added "Time Taken" column showing generation duration in seconds
-- Filename format: `{pdf_name}_{type}_{difficulty}_{count}.xlsx`
+### 1. No Answer Key / No Explanation (all question types)
 
-### Grammar Rule (prompts_biology.py)
-- Added LANGUAGE PRECISION rule requiring all questions, options, assertions, and reasons to be grammatically correct
+**What changed:**
+- Removed `correct_answer` and `explanation` fields from `MCQ_OUTPUT_SCHEMA`, `MCQ_HARD_OUTPUT_SCHEMA`, and `MTC_OUTPUT_SCHEMA`
+- Added `## NO EXPLANATIONS, NO ANSWER KEY` override section to all 9 rule sets (MCQ Easy/Medium/Hard, AR Easy/Medium/Hard, MTC Easy/Medium/Hard)
+- Removed `## EXPLANATION GUIDELINES` from `BASE_TEMPLATE_COMMON` (was telling the LLM to generate explanations for all types)
+- Removed "VERIFY correct_answer FIELD (HARD FAILURE)" from Rule #6 — replaced with "VERIFY INTERNALLY"
+- Updated Rule #7 to explicitly list `correct_answer` and `explanation` as **banned** extra fields
+
+**Why:** Centralised answer key management — questions go to students without answers, evaluated separately.
 
 ---
 
-## Changes To Be Made
+### 2. PDF Splitting + Parallel Generation (pdf_token_counter.py)
 
-### Prompt Optimisation (remaining sections)
-- [ ] MCQ_HARD_RULES -- remove redundancies with BASE_TEMPLATE
-- [ ] AR_HARD_RULES -- remove redundancies with BASE_TEMPLATE
-- [ ] MTC_HARD_RULES -- remove redundancies with BASE_TEMPLATE
+**What changed:**
+- Added `pypdf` to `requirements.txt`
+- New functions: `get_pdf_page_count()`, `split_pdf_into_chunks()`, `distribute_questions()`, `merge_results()`
+- New function `_process_single_chunk()` — handles upload + generate + retry for one chunk
+- `generate_from_chunks()` uses `ThreadPoolExecutor` to run all chunks concurrently
+- Results are merged in original chunk order with sequential question IDs
 
-### Testing Status
-- [x] MCQ Easy -- tested, working
-- [x] Assertion-Reason Easy -- tested, working (answer key fix verified)
-- [x] Match the Column Easy -- tested, working
-- [ ] MCQ Medium -- testing in progress
-- [ ] Assertion-Reason Medium -- testing in progress
-- [ ] Match the Column Medium -- testing in progress
-- [ ] MCQ Hard -- not tested yet
-- [ ] Assertion-Reason Hard -- not tested yet
-- [ ] Match the Column Hard -- not tested yet
+---
 
-### Future Improvements
-- [ ] Add correct_answer verification mapping to AR_MEDIUM_RULES and AR_HARD_RULES (currently only in AR_EASY)
-- [ ] Add support for subjects beyond Biology (Physics, Chemistry)
-- [ ] Add batch processing (multiple PDFs at once)
-- [ ] Add question quality scoring/validation post-generation
-- [ ] Web UI for non-CLI users
+### 3. LaTeX Notation + JSON Parse Safety (pdf_token_counter.py)
+
+**What changed:**
+- All 9 rule sections have `## CHEMICAL & MATHEMATICAL NOTATION` enforcing LaTeX (`$H_2O$`, `$\alpha$`, etc.)
+- `_fix_latex_escapes()` — regex escapes unescaped LaTeX backslash commands that break JSON parsing
+- `parse_json_response()` — 4-step pipeline: direct parse → fix LaTeX → markdown fencing → fix LaTeX in fencing
+
+**Why:** LaTeX is the LLM's native notation. JSON parse failures happen when `\alpha` in a string is treated as an invalid escape — the fixer doubles the backslash before sending to `json.loads()`.
+
+---
+
+### 4. BASE_TEMPLATE Split (prompts_biology.py)
+
+**What changed:**
+- `BASE_TEMPLATE` split into `BASE_TEMPLATE_COMMON` + `DIFFICULTY_EXTRAS`
+- `DIFFICULTY_EXTRAS` contains: negative phrasing, scrambling, number traps
+- Easy prompts get `difficulty_extras=""` — they never see these techniques
+- Medium/Hard prompts get the full `DIFFICULTY_EXTRAS` block
+
+---
+
+### 5. MCQ Easy Rules Additions (prompts_biology.py — MCQ_EASY_RULES)
+
+**EASY-LEVEL OVERRIDE** (top of section):
+> Do NOT use negative phrasing, do NOT scramble sequences, do NOT use number/count-based traps.
+
+**"None of these" ban:**
+> If insufficient distractors available, construct scientifically plausible wrong options. Do NOT use "None of these" as a fallback.
+
+**BANNED: QUESTION ASKS X, OPTIONS ANSWER Y:**
+> Options must directly answer what the question asks. If question asks "Which cell type?" → options must be cell type names, not time durations.
+
+**BANNED: ANSWER VISIBLE IN THE QUESTION STEM:**
+> The correct answer must never appear in the question text. If it does → rewrite the question.
+
+---
+
+### 6. MCQ Medium Rules Additions (prompts_biology.py — MCQ_MEDIUM_RULES)
+
+Added the same two banned patterns as Easy (axis mismatch, answer in stem), plus the biographical ban — all at the top of the section for high LLM attention.
+
+---
+
+### 7. Language Rule (prompts_biology.py — BASE_TEMPLATE_COMMON)
+
+Added under ABSOLUTE RESTRICTIONS:
+> All questions, options, and explanations must be in English only. Even if the source content contains Hindi or bilingual text, output must be entirely in English.
+
+---
+
+### 8. SOURCE COMPREHENSION Rename (prompts_biology.py — BASE_TEMPLATE_COMMON)
+
+`## IMAGE COMPREHENSION` → `## SOURCE COMPREHENSION`, all "the image" references → "the source content".
+
+---
+
+### 9. Biographical Ban — Expanded and Reinforced (prompts_biology.py)
+
+**Rule #9 in BASE_TEMPLATE_COMMON** expanded to include:
+- Banned biographical details list (birth, death, degrees, awards, career timeline)
+- Banned metadata list (unit numbers, chapter titles, page numbers)
+- Allowed scientist question patterns
+- The biology test: "does the answer teach BIOLOGY?"
+
+**Reinforced in MCQ Easy, Medium, Hard rule sections** (top of each) so the LLM sees it before generating, not buried after 300 lines.
+
+---
+
+## Testing Status
+
+- [x] MCQ Easy — tested, working
+- [x] MCQ Medium — tested, working
+- [x] Assertion-Reason Easy — tested, working
+- [ ] Assertion-Reason Medium — testing in progress
+- [ ] Assertion-Reason Hard — not tested
+- [ ] MCQ Hard — not tested
+- [ ] Match the Column Easy/Medium/Hard — not tested
+
+---
+
+## Known Issues / Future Work
+
+- [ ] Parallel generation confirmation: verify "Processing N chunks in parallel..." appears in logs for chunked PDFs
+- [ ] AR Medium/Hard: biographical ban not yet reinforced in rule sections (only in BASE_TEMPLATE)
+- [ ] MTC Easy/Medium/Hard: biographical ban not yet reinforced in rule sections
+- [ ] MCQ Hard: biographical ban added but compressed vs Easy/Medium
+- [ ] Support subjects beyond Biology (Chemistry prompts exist in prompts_chemistry.py — do not modify)

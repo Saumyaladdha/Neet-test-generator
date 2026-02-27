@@ -547,13 +547,6 @@ AR_OUTPUT_SCHEMA = """{{
         "b": "Both A and R are true but R is NOT the correct explanation of A",
         "c": "A is true but R is false",
         "d": "A is false but R is true"
-      }},
-      "correct_answer": "a/b/c/d",
-      "explanation": {{
-        "a": "[A is true because..., R is true because..., use LaTeX for formulas]",
-        "b": "[Explanation with LaTeX notation]",
-        "c": "[Explanation with LaTeX notation]",
-        "d": "[Explanation with LaTeX notation]"
       }}
     }}"""
 

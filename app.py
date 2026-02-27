@@ -465,17 +465,25 @@ if generate_btn:
                             "image_url": url
                         })
 
+                # AR-specific overrides: lower token budget (no explanations), larger batches
+                effective_max_tokens = max_tokens
+                effective_batch_size = batch_size
+                if question_type == "assertion_reason":
+                    effective_max_tokens = 4000
+                    if question_count > 15:
+                        effective_batch_size = 10
+
                 if all_img_contents:
-                    logger.info(f"Using {len(all_img_contents)} image(s) for generation")
+                    logger.info(f"Using {len(all_img_contents)} image(s) for generation (max_tokens={effective_max_tokens}, batch_size={effective_batch_size})")
                     result = generate_neet_test_multi_image_batched(
                         image_contents=all_img_contents,
                         subject=subject,
                         difficulty=difficulty,
                         question_count=question_count,
                         question_type=question_type,
-                        batch_size=batch_size,
+                        batch_size=effective_batch_size,
                         model=model,
-                        max_tokens=max_tokens,
+                        max_tokens=effective_max_tokens,
                         api_key=api_key
                     )
                 else:
