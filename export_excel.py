@@ -15,26 +15,52 @@ TYPE_SHORT = {
     "MATCH_THE_COLUMN": "MTC",
 }
 
+HEADERS = [
+    "Question",
+    "Option A", "Option B", "Option C", "Option D",
+    "Accuracy", "Comment",
+    "Time to Run",
+    "Input Tokens", "Output Tokens", "Total Tokens",
+    "Input Cost (₹)", "Output Cost (₹)", "Total Cost (₹)",
+    "level change", "reason",
+]
 
-def _format_options(options: dict, correct_answer: str = "") -> str:
-    """Format options as multi-line string. Marks correct answer with √ only if provided."""
-    correct = correct_answer.lower() if correct_answer else ""
-    lines = []
-    for key in ["a", "b", "c", "d"]:
-        if key in options:
-            marker = "√ " if correct and key == correct else ""
-            lines.append(f"{key}) {marker}{options[key]}")
-    return "\n".join(lines)
+# Column widths (index matches HEADERS order, 1-based)
+COL_WIDTHS = {
+    1: 70,   # Question
+    2: 35,   # Option A
+    3: 35,   # Option B
+    4: 35,   # Option C
+    5: 35,   # Option D
+    6: 12,   # Accuracy
+    7: 20,   # Comment
+    8: 14,   # Time to Run
+    9: 14,   # Input Tokens
+    10: 14,  # Output Tokens
+    11: 14,  # Total Tokens
+    12: 14,  # Input Cost (₹)
+    13: 14,  # Output Cost (₹)
+    14: 14,  # Total Cost (₹)
+    15: 14,  # level change
+    16: 25,  # reason
+}
 
 
-def export_questions_to_excel(result: dict, time_taken: float = None) -> bytes:
+def export_questions_to_excel(
+    result: dict,
+    time_taken: float = None,
+    input_tokens: int = None,
+    output_tokens: int = None,
+    total_tokens: int = None,
+    input_cost: float = None,
+    output_cost: float = None,
+    total_cost: float = None,
+) -> bytes:
     """
     Export questions to an Excel workbook.
 
     Each question_type gets its own sheet named {TYPE}_{DIFFICULTY}.
-    Column A = question text, Column B = options with √ on correct answer.
-
-    Returns the workbook as bytes (ready for st.download_button).
+    Returns the workbook as bytes (ready for st.download_button or file write).
     """
     wb = Workbook()
     wb.remove(wb.active)  # remove default sheet
@@ -67,27 +93,24 @@ def export_questions_to_excel(result: dict, time_taken: float = None) -> bytes:
         ws = wb.create_sheet(title=sheet_name)
 
         # Header row
-        headers = [sheet_name, "OPTIONS"]
-        if time_taken is not None:
-            headers.append("TIME TAKEN")
-        for col, value in enumerate(headers, start=1):
-            cell = ws.cell(row=1, column=col, value=value)
+        for col, header in enumerate(HEADERS, start=1):
+            cell = ws.cell(row=1, column=col, value=header)
             cell.font = header_font
             cell.fill = header_fill
             cell.alignment = header_alignment
             cell.border = thin_border
 
         # Column widths
-        ws.column_dimensions["A"].width = 70
-        ws.column_dimensions["B"].width = 70
-        if time_taken is not None:
-            ws.column_dimensions["C"].width = 15
+        from openpyxl.utils import get_column_letter
+        for col, width in COL_WIDTHS.items():
+            ws.column_dimensions[get_column_letter(col)].width = width
 
         # Data rows
         for i, q in enumerate(q_list, start=2):
             q_text = q.get("question_text", "")
             options = q.get("options", {})
-            # AR options are a fixed constant — fill in if LLM omitted them
+
+            # AR options are fixed — fill if LLM omitted them
             if q_type == "ASSERTION_REASON" and not options:
                 options = {
                     "a": "Both Assertion and Reason are true and Reason is the correct explanation of Assertion",
@@ -95,23 +118,30 @@ def export_questions_to_excel(result: dict, time_taken: float = None) -> bytes:
                     "c": "Assertion is true but Reason is false",
                     "d": "Assertion is false but Reason is true",
                 }
-            correct = q.get("correct_answer", "")
 
-            # Question cell
-            cell_q = ws.cell(row=i, column=1, value=q_text)
-            cell_q.alignment = cell_alignment
-            cell_q.border = thin_border
+            row_data = [
+                q_text,
+                options.get("a", ""),
+                options.get("b", ""),
+                options.get("c", ""),
+                options.get("d", ""),
+                "",  # Accuracy (manual)
+                "",  # Comment (manual)
+                f"{time_taken:.1f}s" if (time_taken is not None and i == 2) else "",
+                input_tokens if (input_tokens is not None and i == 2) else "",
+                output_tokens if (output_tokens is not None and i == 2) else "",
+                total_tokens if (total_tokens is not None and i == 2) else "",
+                input_cost if (input_cost is not None and i == 2) else "",
+                output_cost if (output_cost is not None and i == 2) else "",
+                total_cost if (total_cost is not None and i == 2) else "",
+                "",  # level change (manual)
+                "",  # reason (manual)
+            ]
 
-            # Options cell
-            cell_o = ws.cell(row=i, column=2, value=_format_options(options, correct))
-            cell_o.alignment = cell_alignment
-            cell_o.border = thin_border
-
-            # Time taken cell (only on first data row)
-            if time_taken is not None and i == 2:
-                cell_t = ws.cell(row=i, column=3, value=f"{time_taken:.1f}s")
-                cell_t.alignment = Alignment(horizontal="center", vertical="top")
-                cell_t.border = thin_border
+            for col, value in enumerate(row_data, start=1):
+                cell = ws.cell(row=i, column=col, value=value)
+                cell.alignment = cell_alignment
+                cell.border = thin_border
 
     # Fallback if no questions
     if not wb.sheetnames:

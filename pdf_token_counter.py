@@ -39,6 +39,10 @@ logger = logging.getLogger(__name__)
 MODEL = "gpt-5-mini"
 DEFAULT_PROMPT = "Summarize the key content of this PDF document."
 
+# Pricing (₹ per 1M tokens) — update if model pricing changes
+INPUT_COST_PER_1M_INR = 13.0
+OUTPUT_COST_PER_1M_INR = 52.0
+
 
 def upload_pdf(client: OpenAI, file_path: str) -> str:
     """
@@ -120,7 +124,11 @@ def send_pdf_for_analysis(client: OpenAI, prompt: str, file_id: str = None, file
             for block in item.content:
                 if hasattr(block, 'text'):
                     output_text += block.text
-    return output_text
+
+    usage = getattr(response, 'usage', None)
+    input_tokens = getattr(usage, 'input_tokens', 0) if usage else 0
+    output_tokens = getattr(usage, 'output_tokens', 0) if usage else 0
+    return output_text, {"input_tokens": input_tokens, "output_tokens": output_tokens, "total_tokens": input_tokens + output_tokens}
 
 
 def get_pdf_page_count(pdf_path: str) -> int:
@@ -276,10 +284,11 @@ def _process_single_chunk(client, chunk_index, total_chunks, chunk_path, chunk_p
     result = None
     for attempt in range(1, MAX_RETRIES + 1):
         print(f"  Chunk {chunk_index + 1}/{total_chunks}: Generating {chunk_q_count} questions (attempt {attempt})...")
-        raw_response = send_pdf_for_analysis(client, chunk_prompt, file_id=chunk_file_id)
+        raw_response, chunk_usage = send_pdf_for_analysis(client, chunk_prompt, file_id=chunk_file_id)
 
         result = parse_json_response(raw_response)
         if result is not None:
+            result["_usage"] = chunk_usage
             num_q = len(result.get("questions", []))
             print(f"  Chunk {chunk_index + 1}/{total_chunks}: Done — {num_q} questions")
             logger.info(f"Chunk {chunk_index + 1}: Got {num_q} questions (requested {chunk_q_count})")
@@ -337,7 +346,13 @@ def generate_from_chunks(client, chunks, questions_per_chunk, q_type, difficulty
 
     # Merge in original chunk order
     ordered_results = [indexed_results[idx] for idx, _, _, _ in work_items]
-    return merge_results(ordered_results, total_question_count)
+
+    # Aggregate token usage across all chunks
+    total_input = sum(r.get("_usage", {}).get("input_tokens", 0) for r in ordered_results)
+    total_output = sum(r.get("_usage", {}).get("output_tokens", 0) for r in ordered_results)
+    merged = merge_results(ordered_results, total_question_count)
+    merged["_usage"] = {"input_tokens": total_input, "output_tokens": total_output, "total_tokens": total_input + total_output}
+    return merged
 
 
 def main():
@@ -517,10 +532,12 @@ def main():
                 logger.info(f"Generating {question_count} {q_type_label} ({diff_label}) questions from PDF...")
                 print("Generating questions... (this may take a minute)")
                 start_time = time.time()
-                raw_response = send_pdf_for_analysis(client, gen_prompt, file_id=file_id, file_url=file_url)
+                raw_response, api_usage = send_pdf_for_analysis(client, gen_prompt, file_id=file_id, file_url=file_url)
                 elapsed = time.time() - start_time
 
                 result = parse_json_response(raw_response)
+                if result is not None:
+                    result["_usage"] = api_usage
                 if result is None:
                     print("Error: Could not parse API response as JSON.", file=sys.stderr)
                     print(f"Raw response (first 500 chars): {raw_response[:500]}", file=sys.stderr)
@@ -532,7 +549,24 @@ def main():
                         break
 
             # Export to Excel
-            excel_bytes = export_excel.export_questions_to_excel(result, time_taken=elapsed)
+            usage = result.pop("_usage", {})
+            in_tok = usage.get("input_tokens", 0)
+            out_tok = usage.get("output_tokens", 0)
+            tot_tok = usage.get("total_tokens", in_tok + out_tok)
+            in_cost = round(in_tok * INPUT_COST_PER_1M_INR / 1_000_000, 4)
+            out_cost = round(out_tok * OUTPUT_COST_PER_1M_INR / 1_000_000, 4)
+            tot_cost = round(in_cost + out_cost, 4)
+
+            excel_bytes = export_excel.export_questions_to_excel(
+                result,
+                time_taken=elapsed,
+                input_tokens=in_tok,
+                output_tokens=out_tok,
+                total_tokens=tot_tok,
+                input_cost=in_cost,
+                output_cost=out_cost,
+                total_cost=tot_cost,
+            )
 
             # Save to dedicated output/ folder
             script_dir = os.path.dirname(os.path.abspath(__file__))
