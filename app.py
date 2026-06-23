@@ -56,7 +56,7 @@ if "generator_result" not in st.session_state:
 
 # Load API key from environment variable
 api_key = os.getenv("OPENAI_API_KEY")
-model = "gpt-5-mini"
+model = "gpt-5.4-mini"
 max_tokens = 10000
 batch_size = 3
 

@@ -6,6 +6,7 @@ Usage: python generate_prompt.py
 import os
 import sys
 import prompts_biology
+import prompts_chemistry
 
 CATEGORIES = {
     "1": ("mcq",             "MCQ"),
@@ -19,14 +20,19 @@ DIFFICULTIES = {
     "3": ("hard",   "Hard"),
 }
 
+SUBJECTS = {
+    "1": ("biology",   "Biology",   prompts_biology),
+    "2": ("chemistry", "Chemistry", prompts_chemistry),
+}
+
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "prompt")
 
 
 def ask(prompt_text: str, choices: dict) -> str:
-    """Print numbered menu and return the selected key value."""
+    """Print numbered menu and return the selected key value (first element of tuple)."""
     print(prompt_text)
-    for k, (_, label) in choices.items():
-        print(f"  {k}. {label}")
+    for k, v in choices.items():
+        print(f"  {k}. {v[1]}")
     while True:
         choice = input("Enter choice: ").strip()
         if choice in choices:
@@ -37,19 +43,22 @@ def ask(prompt_text: str, choices: dict) -> str:
 def main():
     print("\n=== Prompt Generator ===\n")
 
-    q_type = ask("Select category:", CATEGORIES)
+    subject_key = ask("Select subject:", SUBJECTS)
+    subject_module = SUBJECTS[next(k for k, v in SUBJECTS.items() if v[0] == subject_key)][2]
+
+    q_type = ask("\nSelect category:", CATEGORIES)
     difficulty = ask("\nSelect difficulty:", DIFFICULTIES)
 
     question_count = 10  # fixed count for prompt preview
 
-    default_name = f"{q_type}_{difficulty}.txt"
+    default_name = f"{subject_key}_{q_type}_{difficulty}.txt"
     name_input = input(f"\nFile name (default: {default_name}): ").strip()
     file_name = name_input if name_input else default_name
     if not file_name.endswith(".txt"):
         file_name += ".txt"
 
     try:
-        prompt = prompts_biology.get_prompt(q_type, difficulty, "biology", question_count)
+        prompt = subject_module.get_prompt(q_type, difficulty, subject_key, question_count)
     except ValueError as e:
         print(f"\nError: {e}", file=sys.stderr)
         sys.exit(1)

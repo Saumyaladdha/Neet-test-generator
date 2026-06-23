@@ -25,6 +25,7 @@ from openai import OpenAI
 from pypdf import PdfReader, PdfWriter
 
 import prompts_biology
+import prompts_selector
 import export_excel
 
 load_dotenv()
@@ -109,6 +110,7 @@ def send_pdf_for_analysis(client: OpenAI, prompt: str, file_id: str = None, file
     """
     response = client.responses.create(
         model=MODEL,
+        max_output_tokens=16384,
         input=[{
             "role": "user",
             "content": [
@@ -233,6 +235,21 @@ def parse_json_response(raw_response: str):
             except json.JSONDecodeError:
                 pass
 
+    # 4. json_repair: handles truncated JSON, trailing commas, unquoted keys, etc.
+    try:
+        from json_repair import repair_json
+        repaired = repair_json(raw_response, return_objects=True)
+        if isinstance(repaired, dict) and repaired.get("questions"):
+            logger.info("parse_json_response: recovered via json_repair")
+            return repaired
+        # Also try after LaTeX fix
+        repaired2 = repair_json(fixed, return_objects=True)
+        if isinstance(repaired2, dict) and repaired2.get("questions"):
+            logger.info("parse_json_response: recovered via json_repair + latex fix")
+            return repaired2
+    except Exception as e:
+        logger.warning(f"json_repair failed: {e}")
+
     return None
 
 
@@ -264,10 +281,10 @@ def merge_results(chunk_results: list, total_requested: int) -> dict:
     return base_result
 
 
-MAX_RETRIES = 2
+MAX_RETRIES = 3
 
 
-def _process_single_chunk(client, chunk_index, total_chunks, chunk_path, chunk_page_count, chunk_q_count, q_type, difficulty):
+def _process_single_chunk(client, chunk_index, total_chunks, chunk_path, chunk_page_count, chunk_q_count, q_type, difficulty, subject):
     """
     Process a single chunk: upload, generate, parse with retries.
     Returns (chunk_index, result) on success or (chunk_index, None) on failure.
@@ -278,7 +295,7 @@ def _process_single_chunk(client, chunk_index, total_chunks, chunk_path, chunk_p
     chunk_file_id = upload_pdf(client, chunk_path)
 
     # Build prompt with this chunk's question count
-    chunk_prompt = prompts_biology.get_prompt(q_type, difficulty, "biology", chunk_q_count)
+    chunk_prompt = prompts_selector.get_prompt(q_type, difficulty, subject, chunk_q_count)
 
     # Generate with retries
     result = None
@@ -296,6 +313,7 @@ def _process_single_chunk(client, chunk_index, total_chunks, chunk_path, chunk_p
         else:
             logger.error(f"Chunk {chunk_index + 1}, attempt {attempt}: JSON parse failed")
             logger.error(f"Raw (first 300): {raw_response[:300]}")
+            logger.error(f"Raw (last 300): {raw_response[-300:]}")
             if attempt < MAX_RETRIES:
                 print(f"  Chunk {chunk_index + 1}: Parse failed, retrying...")
 
@@ -303,7 +321,7 @@ def _process_single_chunk(client, chunk_index, total_chunks, chunk_path, chunk_p
     return (chunk_index, None)
 
 
-def generate_from_chunks(client, chunks, questions_per_chunk, q_type, difficulty, total_question_count):
+def generate_from_chunks(client, chunks, questions_per_chunk, q_type, difficulty, total_question_count, subject):
     """
     Generate questions from multiple PDF chunks in PARALLEL and merge results.
     Each chunk is uploaded, sent for analysis, and parsed concurrently.
@@ -329,23 +347,28 @@ def generate_from_chunks(client, chunks, questions_per_chunk, q_type, difficulty
         futures = {
             executor.submit(
                 _process_single_chunk,
-                client, idx, total, path, pages, q_count, q_type, difficulty
+                client, idx, total, path, pages, q_count, q_type, difficulty, subject
             ): idx
             for idx, path, pages, q_count in work_items
         }
 
+        failed_chunks = []
         for future in concurrent.futures.as_completed(futures):
             chunk_idx, result = future.result()
             if result is None:
-                print(f"Error: Chunk {chunk_idx + 1} failed after {MAX_RETRIES} attempts. Aborting generation.", file=sys.stderr)
-                # Cancel remaining futures
-                for f in futures:
-                    f.cancel()
-                return None
-            indexed_results[chunk_idx] = result
+                failed_chunks.append(chunk_idx + 1)
+                print(f"  Warning: Chunk {chunk_idx + 1} failed after {MAX_RETRIES} attempts — skipping.", file=sys.stderr)
+            else:
+                indexed_results[chunk_idx] = result
 
-    # Merge in original chunk order
-    ordered_results = [indexed_results[idx] for idx, _, _, _ in work_items]
+        if failed_chunks:
+            print(f"  Warning: {len(failed_chunks)} chunk(s) failed ({failed_chunks}). Results will be partial.", file=sys.stderr)
+            if not indexed_results:
+                print("Error: All chunks failed. Aborting generation.", file=sys.stderr)
+                return None
+
+    # Merge in original chunk order (skip failed chunks)
+    ordered_results = [indexed_results[idx] for idx, _, _, _ in work_items if idx in indexed_results]
 
     # Aggregate token usage across all chunks
     total_input = sum(r.get("_usage", {}).get("input_tokens", 0) for r in ordered_results)
@@ -379,6 +402,10 @@ def main():
 
     client = OpenAI(api_key=api_key)
 
+    SUBJECTS = {
+        "1": ("biology", "Biology"),
+        "2": ("chemistry", "Chemistry"),
+    }
     QUESTION_TYPES = {
         "1": ("mcq", "MCQ"),
         "2": ("assertion_reason", "Assertion-Reason"),
@@ -441,7 +468,17 @@ def main():
         else:
             print(f"\nPDF loaded: {pdf_source}")
 
-        # --- Step 2: Choose question type ---
+        # --- Step 2: Choose subject ---
+        print("\nSelect subject:")
+        print("  1. Biology")
+        print("  2. Chemistry")
+        subj_choice = input("Enter choice (1/2): ").strip()
+        if subj_choice not in SUBJECTS:
+            print("Invalid choice. Defaulting to Biology.")
+            subj_choice = "1"
+        subject, subject_label = SUBJECTS[subj_choice]
+
+        # --- Step 3: Choose question type ---
         print("\nSelect question type:")
         print("  1. MCQ")
         print("  2. Assertion-Reason")
@@ -452,7 +489,7 @@ def main():
             type_choice = "1"
         q_type, q_type_label = QUESTION_TYPES[type_choice]
 
-        # --- Step 3: Choose difficulty ---
+        # --- Step 4: Choose difficulty ---
         print("\nSelect difficulty:")
         print("  1. Easy")
         print("  2. Medium")
@@ -463,7 +500,7 @@ def main():
             diff_choice = "1"
         difficulty, diff_label = DIFFICULTIES[diff_choice]
 
-        # --- Step 4: Choose question count ---
+        # --- Step 5: Choose question count ---
         count_input = input(f"\nNumber of questions to generate (default {DEFAULT_QUESTION_COUNT}): ").strip()
         if count_input:
             try:
@@ -477,8 +514,8 @@ def main():
         else:
             question_count = DEFAULT_QUESTION_COUNT
 
-        # --- Step 5: Build prompt and generate ---
-        print(f"\n--- Generating {question_count} {q_type_label} ({diff_label}) questions ---")
+        # --- Step 6: Build prompt and generate ---
+        print(f"\n--- Generating {question_count} {q_type_label} ({diff_label}) questions [{subject_label}] ---")
 
         try:
             if needs_splitting:
@@ -495,7 +532,7 @@ def main():
                     start_time = time.time()
                     result = generate_from_chunks(
                         client, chunks, questions_per_chunk,
-                        q_type, difficulty, question_count
+                        q_type, difficulty, question_count, subject
                     )
                     elapsed = time.time() - start_time
 
@@ -518,7 +555,7 @@ def main():
             else:
                 # --- Single-call generation (existing behavior) ---
                 try:
-                    gen_prompt = prompts_biology.get_prompt(q_type, difficulty, "biology", question_count)
+                    gen_prompt = prompts_selector.get_prompt(q_type, difficulty, subject, question_count)
                 except ValueError as e:
                     print(f"Error: {e}", file=sys.stderr)
                     continue
@@ -532,12 +569,24 @@ def main():
                 logger.info(f"Generating {question_count} {q_type_label} ({diff_label}) questions from PDF...")
                 print("Generating questions... (this may take a minute)")
                 start_time = time.time()
-                raw_response, api_usage = send_pdf_for_analysis(client, gen_prompt, file_id=file_id, file_url=file_url)
+
+                result = None
+                raw_response = ""
+                for attempt in range(1, MAX_RETRIES + 1):
+                    if attempt > 1:
+                        print(f"  Parse failed, retrying (attempt {attempt})...")
+                    raw_response, api_usage = send_pdf_for_analysis(client, gen_prompt, file_id=file_id, file_url=file_url)
+                    result = parse_json_response(raw_response)
+                    if result is not None:
+                        result["_usage"] = api_usage
+                        num_q = len(result.get("questions", []))
+                        if num_q < question_count:
+                            print(f"  Warning: requested {question_count} questions but received {num_q}.", file=sys.stderr)
+                        break
+                    logger.error(f"Attempt {attempt}: JSON parse failed. Raw (first 300): {raw_response[:300]}")
+
                 elapsed = time.time() - start_time
 
-                result = parse_json_response(raw_response)
-                if result is not None:
-                    result["_usage"] = api_usage
                 if result is None:
                     print("Error: Could not parse API response as JSON.", file=sys.stderr)
                     print(f"Raw response (first 500 chars): {raw_response[:500]}", file=sys.stderr)
@@ -582,6 +631,7 @@ def main():
             print(f"\n{'='*50}")
             print(f"Question Generation Complete!")
             print(f"{'='*50}")
+            print(f"Subject:    {subject_label}")
             print(f"Type:       {q_type_label}")
             print(f"Difficulty: {diff_label}")
             print(f"Questions:  {num_questions}")

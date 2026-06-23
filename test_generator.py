@@ -1,6 +1,6 @@
 """
 NEET Test Generator - OpenAI API Wrapper
-Generates exam questions from textbook images using gpt-5-mini
+Generates exam questions from textbook images using gpt-5.4-mini
 """
 
 import base64
@@ -120,7 +120,7 @@ def generate_neet_test(
     difficulty: Literal["easy", "medium", "hard"] = "hard",
     question_count: int = 5,
     question_type: str = "mcq",
-    model: str = "gpt-5-mini",
+    model: str = "gpt-5.4-mini",
     temperature: float = 1.0,
     max_tokens: int = 2048,
     api_key: Optional[str] = None,
@@ -234,7 +234,7 @@ def generate_neet_test_from_url(
     difficulty: Literal["easy", "medium", "hard"] = "hard",
     question_count: int = 5,
     question_type: str = "mcq",
-    model: str = "gpt-5-mini",
+    model: str = "gpt-5.4-mini",
     temperature: float = 1.0,
     max_tokens: int = 2048,
     api_key: Optional[str] = None,
@@ -463,7 +463,7 @@ def generate_neet_test_batched(
     question_count: int = 5,
     question_type: Literal["mcq", "assertion_reason", "match_the_column"] = "mcq",
     batch_size: int = 3,
-    model: str = "gpt-5-mini",
+    model: str = "gpt-5.4-mini",
     temperature: float = 1.0,
     max_tokens: int = 2048,
     api_key: Optional[str] = None,
@@ -636,7 +636,7 @@ def generate_neet_test_multi_image_batched(
     question_count: int = 5,
     question_type: str = "mcq",
     batch_size: int = 3,
-    model: str = "gpt-5-mini",
+    model: str = "gpt-5.4-mini",
     temperature: float = 1.0,
     max_tokens: int = 2048,
     api_key: Optional[str] = None,
@@ -749,7 +749,7 @@ def generate_neet_test_from_url_batched(
     question_count: int = 5,
     question_type: Literal["mcq", "assertion_reason", "match_the_column"] = "mcq",
     batch_size: int = 3,
-    model: str = "gpt-5-mini",
+    model: str = "gpt-5.4-mini",
     temperature: float = 1.0,
     max_tokens: int = 2048,
     api_key: Optional[str] = None,
