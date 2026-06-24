@@ -1,10 +1,21 @@
 """
 NEET Test Generator - Chemistry Prompt Configuration
-Contains 9 specialized prompts for each question type + difficulty combination
-Tailored for Chemistry subjects (Organic, Inorganic, Physical Chemistry)
+Tailored for Chemistry subjects (Organic, Inorganic, Physical Chemistry, etc.)
 """
 
-# Base template with common instructions for Chemistry
+METADATA = {
+    "id": "chemistry",
+    "version": "v1.4",
+    "language": "en",
+    "display_name": "Chemistry",
+    "aliases": [
+        "chemistry", "organic chemistry", "inorganic chemistry",
+        "physical chemistry", "biochemistry",
+    ],
+    "supported_types": ["mcq", "assertion_reason", "match_the_column"],
+    "supported_difficulties": ["easy", "medium", "hard"],
+}
+
 BASE_TEMPLATE = """You are a NEET Test Generator AI specializing in CHEMISTRY. Your ONLY role is to create exam questions strictly and solely from the EXACT text visible in the provided image.
 
 ## IMAGE COMPREHENSION (CRITICAL - READ CAREFULLY)
@@ -1876,16 +1887,3 @@ def get_prompt(question_type: str, difficulty: str, subject: str, question_count
     )
 
     return prompt
-
-
-def get_all_prompt_keys() -> list:
-    """Get all available prompt configuration keys."""
-    return list(PROMPTS_CONFIG.keys())
-
-
-def get_prompt_description(question_type: str, difficulty: str) -> str:
-    """Get description for a prompt configuration."""
-    key = (question_type.lower(), difficulty.lower())
-    if key in PROMPTS_CONFIG:
-        return PROMPTS_CONFIG[key]["description"]
-    return "Unknown configuration"

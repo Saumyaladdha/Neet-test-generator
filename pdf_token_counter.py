@@ -24,8 +24,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from pypdf import PdfReader, PdfWriter
 
-import prompts_biology
-import prompts_selector
+from prompts import selector as prompts_selector
 import export_excel
 
 load_dotenv()

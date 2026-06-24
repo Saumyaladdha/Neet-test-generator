@@ -1,10 +1,21 @@
 """
 NEET Test Generator - Biology Prompt Configuration
-Contains 9 specialized prompts for each question type + difficulty combination
 Tailored for Biology subjects (Botany, Zoology, Cell Biology, Genetics, etc.)
 """
 
-# Base template with common instructions for Biology
+METADATA = {
+    "id": "biology",
+    "version": "v1.4",
+    "language": "en",
+    "display_name": "Biology",
+    "aliases": [
+        "biology", "botany", "zoology", "cell biology", "genetics",
+        "ecology", "human physiology", "plant physiology", "microbiology",
+    ],
+    "supported_types": ["mcq", "assertion_reason", "match_the_column"],
+    "supported_difficulties": ["easy", "medium", "hard"],
+}
+
 BASE_TEMPLATE_COMMON = """You are a NEET Test Generator AI specializing in BIOLOGY. Your ONLY role is to create exam questions strictly and solely from the EXACT text visible in the provided source content.
 
 ---
@@ -3212,16 +3223,3 @@ def get_prompt(question_type: str, difficulty: str, subject: str, question_count
     )
 
     return prompt
-
-
-def get_all_prompt_keys() -> list:
-    """Get all available prompt configuration keys."""
-    return list(PROMPTS_CONFIG.keys())
-
-
-def get_prompt_description(question_type: str, difficulty: str) -> str:
-    """Get description for a prompt configuration."""
-    key = (question_type.lower(), difficulty.lower())
-    if key in PROMPTS_CONFIG:
-        return PROMPTS_CONFIG[key]["description"]
-    return "Unknown configuration"

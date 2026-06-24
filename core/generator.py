@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal, Optional, Union
 from openai import OpenAI
 from PIL import Image
-from prompts_config import get_prompt, PROMPTS_CONFIG
+from prompts.selector import get_prompt
 
 logger = logging.getLogger(__name__)
 
