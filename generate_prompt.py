@@ -5,13 +5,12 @@ Usage: python generate_prompt.py
 
 import os
 import sys
-import prompts_biology
-import prompts_chemistry
+from prompts.selector import get_prompt, list_subjects
 
 CATEGORIES = {
-    "1": ("mcq",             "MCQ"),
-    "2": ("assertion_reason","Assertion-Reason"),
-    "3": ("match_the_column","Match the Column"),
+    "1": ("mcq",              "MCQ"),
+    "2": ("assertion_reason", "Assertion-Reason"),
+    "3": ("match_the_column", "Match the Column"),
 }
 
 DIFFICULTIES = {
@@ -20,9 +19,11 @@ DIFFICULTIES = {
     "3": ("hard",   "Hard"),
 }
 
+# Built dynamically from registered subjects — adding a new subject file
+# automatically makes it appear here with no code changes.
 SUBJECTS = {
-    "1": ("biology",   "Biology",   prompts_biology),
-    "2": ("chemistry", "Chemistry", prompts_chemistry),
+    str(i + 1): (meta["id"], meta["display_name"])
+    for i, meta in enumerate(list_subjects())
 }
 
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "prompt")
@@ -44,8 +45,6 @@ def main():
     print("\n=== Prompt Generator ===\n")
 
     subject_key = ask("Select subject:", SUBJECTS)
-    subject_module = SUBJECTS[next(k for k, v in SUBJECTS.items() if v[0] == subject_key)][2]
-
     q_type = ask("\nSelect category:", CATEGORIES)
     difficulty = ask("\nSelect difficulty:", DIFFICULTIES)
 
@@ -58,7 +57,7 @@ def main():
         file_name += ".txt"
 
     try:
-        prompt = subject_module.get_prompt(q_type, difficulty, subject_key, question_count)
+        prompt = get_prompt(q_type, difficulty, subject_key, question_count)
     except ValueError as e:
         print(f"\nError: {e}", file=sys.stderr)
         sys.exit(1)
