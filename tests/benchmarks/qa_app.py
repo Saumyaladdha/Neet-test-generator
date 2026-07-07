@@ -39,8 +39,20 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 # once st.secrets is accessed — but core.config reads OPENAI_API_KEY via
 # os.getenv() at import time, before anything below touches st.secrets.
 # Bridge it explicitly so the import chain below doesn't crash first.
-if "OPENAI_API_KEY" in st.secrets:
+try:
+    _secret_keys_seen = list(st.secrets.keys())
+except Exception as _secrets_exc:
+    _secret_keys_seen = [f"<st.secrets raised: {type(_secrets_exc).__name__}: {_secrets_exc}>"]
+
+if "OPENAI_API_KEY" in _secret_keys_seen:
     os.environ.setdefault("OPENAI_API_KEY", st.secrets["OPENAI_API_KEY"])
+elif not os.getenv("OPENAI_API_KEY"):
+    st.error(
+        "OPENAI_API_KEY not found in st.secrets and not already set in the "
+        f"environment. Secret key names Streamlit actually sees: {_secret_keys_seen!r}. "
+        "Check Settings -> Secrets on this exact app and Reboot after saving."
+    )
+    st.stop()
 
 from core.generator import generate_chunk
 from core.pdf import get_page_count_from_bytes, extract_pages
