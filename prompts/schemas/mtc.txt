@@ -1,0 +1,11 @@
+{
+      "question_id": 1,
+      "question_type": "MATCH_THE_COLUMN",
+      "question_text": "Match the following:\n\n\\begin{tabular}{|l|l|}\n\\hline\nColumn I & Column II \\\\\n\\hline\n1. [Item] & i. [Item] \\\\\n2. [Item] & ii. [Item] \\\\\n3. [Item] & iii. [Item] \\\\\n4. [Item] & iv. [Item] \\\\\n\\hline\n\\end{tabular}",
+      "options": {
+        "a": "1-iii, 2-i, 3-iv, 4-ii",
+        "b": "1-iv, 2-iii, 3-ii, 4-i",
+        "c": "1-i, 2-ii, 3-iii, 4-iv",
+        "d": "1-ii, 2-iv, 3-i, 4-iii"
+      }
+    }

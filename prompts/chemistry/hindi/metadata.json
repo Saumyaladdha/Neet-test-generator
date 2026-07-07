@@ -1,0 +1,29 @@
+{
+  "id": "chemistry",
+  "version": "v1.4",
+  "prompt_version": "v1",
+  "language": "hi",
+  "display_name": "Chemistry (Hindi Medium)",
+  "aliases": [
+    "chemistry",
+    "organic chemistry",
+    "inorganic chemistry",
+    "physical chemistry",
+    "biochemistry",
+    "rasayan vigyan",
+    "rasayan",
+    "karbanik rasayan",
+    "akarbanik rasayan",
+    "bhawtik rasayan"
+  ],
+  "supported_types": [
+    "mcq",
+    "assertion_reason",
+    "match_the_column"
+  ],
+  "supported_difficulties": [
+    "easy",
+    "medium",
+    "hard"
+  ]
+}

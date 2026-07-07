@@ -1,0 +1,148 @@
+## ASSERTION-REASON - EASY LEVEL (BIOLOGY)
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\alpha$, $\beta$, $\gamma$, $\delta$, $\omega$
+- Arrows: $\rightarrow$, $\leftarrow$, $\rightleftharpoons$
+- Math operators: $\times$, $\div$, $\pm$, $\frac{a}{b}$
+
+---
+
+## QUESTION STRUCTURE
+
+Each question MUST contain:
+- **Assertion (A):** A single clear factual statement, rephrased from the source (NEVER copy-pasted verbatim).
+- **Reason (R):** A single clear factual statement, rephrased from the source (NEVER copy-pasted verbatim).
+
+The student evaluates:
+1. Whether Assertion (A) is true or false
+2. Whether Reason (R) is true or false
+3. Whether Reason (R) correctly explains Assertion (A)
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
+
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these". Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
+
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE
+
+- **TYPE 1:** Both A and R are factually accurate. R provides the direct cause-effect explanation for A.
+- **TYPE 2:** Both A and R are factually accurate. R is a true fact from the same topic but does NOT explain A — they are unrelated facts that happen to be topically adjacent.
+- **TYPE 3:** A is factually accurate. R contains a specific factual error (wrong term, wrong process, reversed relationship, etc.) embedded in otherwise correct-sounding content.
+- **TYPE 4:** A contains a specific factual error (wrong term, wrong process, reversed relationship, etc.) embedded in otherwise correct-sounding content. R is factually accurate.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about CLEARLY different aspects so no one can argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
+
+---
+
+## 4 LOGICAL TYPES WITH EXAMPLES
+
+### TYPE 1 -- A true, R true, R explains A
+
+**Example - Blood Cells:**
+Assertion (A): Mature red blood cells in mammals lack a nucleus.
+Reason (R): The absence of a nucleus allows more space for haemoglobin to carry oxygen efficiently.
+Analysis: A is true — mammalian RBCs are enucleated at maturity. R is true — the loss of the nucleus maximizes haemoglobin capacity. R directly explains why A occurs.
+**Why this is EASY:** Both facts are from the same sentence. The causal link is directly stated in the text.
+
+### TYPE 2 -- A true, R true, R does NOT explain A
+
+**Example - Bryophytes:**
+Assertion (A): Bryophytes are called amphibians of the plant kingdom.
+Reason (R): Bryophytes possess chlorophyll and perform photosynthesis.
+Analysis: A is true — bryophytes are termed amphibians of the plant kingdom because they need water for reproduction. R is true — bryophytes are photosynthetic. However, photosynthesis has nothing to do with why they are called amphibians. R does not explain A.
+**Why this is EASY:** Both are true textbook facts. The disconnect between them is obvious at easy level.
+
+### TYPE 3 -- A true, R false
+
+**Example - Algae:**
+Assertion (A): Algae are classified into three classes based on pigment type and stored food.
+Reason (R): Algae lack chlorophyll and depend on external organic matter for nutrition.
+Analysis: A is true — algae are classified into Chlorophyceae, Phaeophyceae, and Rhodophyceae based on pigments and food storage. R is false — algae possess chlorophyll and are photosynthetic; they do not depend on external organic matter.
+**Why this is EASY:** The assertion is a direct textbook fact. The reason contains a clear factual error (algae DO have chlorophyll).
+
+### TYPE 4 -- A false, R true
+
+**Example - Gymnosperms:**
+Assertion (A): Gymnosperms produce seeds enclosed within a fruit wall.
+Reason (R): Gymnosperms are called naked-seeded plants because their ovules are not enclosed by any ovary wall.
+Analysis: A is false — gymnosperms produce naked seeds, not enclosed within a fruit wall; that describes angiosperms. R is true — gymnosperms are defined as naked-seeded because their ovules lack an ovary wall enclosure.
+**Why this is EASY:** The assertion contains a clear factual error (gymnosperms are naked-seeded, not enclosed). The reason states the textbook definition directly.
+
+---
+
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
+
+Questions MUST cycle through all 4 logical types:
+
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
+... continue cyclically
+
+For remaining questions after the last complete batch of 4, each must have a different type — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
+
+---
+
+## EASY LEVEL RULES (MANDATORY)
+
+1. Use direct textbook facts only -- both A and R must be traceable to the source content
+2. No multi-step reasoning -- the truth/falsehood of each statement must be immediately obvious
+3. No indirect inference -- do not require connecting facts from distant sections
+4. No compound logic traps -- each statement tests ONE fact, not multiple combined claims
+5. No ambiguous wording -- no double negatives, no subjective terms
+6. No numerical traps -- do not test precise numbers where approximation could confuse
+7. A and R must each be independently meaningful as standalone sentences
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, answer_type, question_text, and options. The "answer_type" field is an internal quality-check value (see schema) that is stripped automatically before delivery to students — populating it is not a violation of this rule. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template.

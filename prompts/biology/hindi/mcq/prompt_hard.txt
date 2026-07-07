@@ -1,0 +1,498 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक शब्द अपवाद हैं
+
+वैज्ञानिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द (जैसे NCERT हिंदी में हैं):
+  DNA, RNA, mRNA, tRNA, rRNA, ATP, ADP, AMP, NADPH, NADH, FADH₂,
+  CO₂, O₂, H₂O, pH, BOD, COD — सभी रासायनिक सूत्र और अंतर्राष्ट्रीय प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  कोशिका (cell), केन्द्रक (nucleus), माइटोकॉण्ड्रिया (mitochondria),
+  क्लोरोप्लास्ट (chloroplast), प्रकाश संश्लेषण (photosynthesis),
+  श्वसन (respiration), पाचन (digestion), गुणसूत्र (chromosome),
+  जीन (gene), उत्परिवर्तन (mutation), पारिस्थितिकी (ecology),
+  जैव विविधता (biodiversity), कोशिका भित्ति (cell wall),
+  कोशिका झिल्ली (cell membrane), राइबोसोम (ribosome),
+  गॉल्जी उपकरण (Golgi apparatus), लाइसोसोम (lysosome),
+  अन्तःप्रद्रव्य जालिका (endoplasmic reticulum), केन्द्रिका (nucleolus)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+## MCQ — HARD LEVEL (BIOLOGY)
+
+---
+
+## WHAT "HARD" MEANS (READ BEFORE GENERATING)
+
+A HARD MCQ tests whether the student can **integrate multiple facts, evaluate several claims simultaneously, and apply precise biological knowledge under cognitive load.** The difficulty comes from the FORMAT (multiple statements to evaluate in a single question) combined with SUBTLE errors that exploit real student misconceptions.
+
+**Hard = "I must evaluate 4-5 statements against my deep understanding, and the wrong statements are designed to trap me."**
+
+| Aspect | Easy | Medium | Hard |
+|--------|------|--------|------|
+| What it tests | Single-fact recall | Conceptual understanding + error detection | Multi-statement evaluation + integration |
+| Format | Direct question → 4 short options | Statement evaluation or "which is correct" | 4-5 numbered statements → combination options |
+| Wrong options | Clearly different terms | Statements with ONE subtle error | Plausible statement COMBINATIONS that include/exclude traps |
+| Cognitive load | Low — recall one fact | Medium — evaluate 1-2 statements | High — evaluate 4-5 statements simultaneously |
+| Student who gets it right | Read the chapter | Understood the concepts | Can apply precise knowledge under multi-statement pressure |
+
+If a question can be answered by evaluating just ONE statement and ignoring the rest → it is Medium, not Hard. Hard questions require the student to correctly evaluate MOST or ALL statements to arrive at the answer.
+
+---
+
+## GLOBAL RULES (APPLY TO ALL CATEGORIES)
+
+### BANNED: BIOGRAPHICAL / TRIVIAL QUESTIONS (HARD FAILURE — ZERO TOLERANCE)
+- NEVER ask about: birth date, birth place, death date, school/college name, degree year, awards, honours, prizes, Nobel Prize year, fellowship year, nationality, hometown, career timeline
+- The test: does the answer teach BIOLOGY? If removing the scientist's name makes the question meaningless, it is biographical and MUST NOT be generated
+
+### BANNED: PARENTHETICAL HINTS IN STEM (HARD FAILURE)
+- ❌ "...regarding Chondrichthyes (cartilaginous fishes)?"
+- ❌ "...about Platyhelminthes (flatworms)?"
+- ✅ "...regarding Chondrichthyes?"
+- Exception: Parenthetical adds genuinely NEW contextual info, not a translation
+
+### BANNED: ANSWER VISIBLE IN STEM (HARD FAILURE)
+The correct combination (or any obvious clue to it) must NOT be deducible from the question stem alone.
+
+---
+
+## STRUCTURE (HARD FAILURE IF VIOLATED)
+
+Every question has exactly 2 parts:
+
+**STEM:** Question text + 4–5 numbered statements (1, 2, 3, 4, 5). ALL content lives here.
+**OPTIONS (a–d):** Short combination references ONLY. Maximum 7 words per option. No sentences, no explanations.
+
+**Allowed option formats:**
+- Combination references: "1, 2 and 3" / "Only 3 and 4" / "1, 3 and 5"
+- Sequence arrows: "2 → 1 → 4 → 5 → 3" (ALWAYS arrows, NEVER commas for sequences)
+- True/False patterns: "T F T T" (4 letters, space-separated)
+
+**If an option contains a sentence → STOP → move it into the stem as a numbered statement.**
+
+### BANNED IN STATEMENT TEXT AND STEM (HARD FAILURE)
+
+Every numbered statement and the question stem must be fully self-contained. The student has NO access to any source material. It is a HARD FAILURE if ANY statement or the stem contains:
+
+- "the text states/notes/mentions/describes/discusses/concludes"
+- "described in the text/passage/chapter"
+- "according to the text/passage"
+- "as given/shown/mentioned/described in the text/passage"
+- "the passage states", "from the passage", "given in the passage"
+
+❌ HARD FAILURE — stem references source: "पाठ में वर्णित निम्नलिखित घटनाओं को सही क्रम में व्यवस्थित कीजिए:"
+✅ CORRECT: "साइक्लोस्टोम मछलियों के जीवन-चक्र की निम्नलिखित घटनाओं को सही क्रम में व्यवस्थित कीजिए:"
+
+❌ HARD FAILURE — statement references source: "5. पाठ में कहा गया है कि चेतना जीवधारियों की परिभाषित विशेषता बन जाती है।"
+✅ CORRECT: "5. चेतना को जीवधारियों की परिभाषित विशेषता माना जाता है।"
+
+Every statement must assert a standalone biological fact. If removing the phrase "the text states that" leaves a grammatically correct sentence, rewrite the statement to be that sentence directly.
+
+---
+
+## THE SINGLE-ERROR RULE (APPLIES TO ALL WRONG STATEMENTS)
+
+Every intentionally incorrect statement (in Cat 1, 2, and 4) must follow this discipline:
+
+**Each wrong statement must contain exactly ONE specific factual error.**
+
+- **Specific:** A wrong name, wrong number, wrong location, wrong process, reversed cause-effect, or swapped attribute
+- **Subtle:** The rest of the statement must be factually correct and sound convincing
+- **Testable:** Fixing the single error makes the statement fully correct
+- **Misconception-based:** The error should reflect a real confusion students have
+
+### ✓ GOOD wrong statements:
+- "S प्रावस्था के दौरान गुणसूत्र संख्या दोगुनी हो जाती है।" → एक त्रुटि: DNA मात्रा दोगुनी होती है, गुणसूत्र संख्या नहीं
+- "बायाँ अलिन्द फुफ्फुसीय शिराओं द्वारा फेफड़ों से विऑक्सीकृत रक्त प्राप्त करता है।" → एक त्रुटि: "ऑक्सीकृत" होना चाहिए
+- "जीन-विनिमय (crossing over) प्रोफेज़-I की लेप्टोटीन उपअवस्था में होता है।" → एक त्रुटि: यह पैकिटीन में होता है
+
+### ✗ BAD wrong statements (HARD FAILURE):
+- "संधिपादों में द्रवस्थैतिक कंकाल होता है और उनमें संधित उपांगों का अभाव होता है।" → दो त्रुटियाँ एक साथ — स्पष्ट रूप से गलत
+- "समसूत्री विभाजन पुनर्संयोजित गुणसूत्रों वाली चार अगुणित कोशिकाएँ उत्पन्न करता है।" → तीन त्रुटियाँ एक साथ — बेतुका रूप से गलत
+
+**Litmus test:** Would a student who studied casually hesitate before marking this wrong? If NO → too many errors stacked. REWRITE.
+
+---
+
+## ⚠️ MANDATORY CATEGORY MIX — READ THIS FIRST ⚠️
+
+**GENERATION ORDER (follow this exact sequence):**
+1. First, generate ALL Cat 1 questions (multiple_correct)
+2. Then, generate ALL Cat 2 questions (identify_incorrect)
+3. Then, generate ALL Cat 3 questions (sequence_order)
+4. Finally, generate ALL Cat 4 questions (true_false)
+
+**EXACT DISTRIBUTION for N total questions:**
+| Total | Cat 1 | Cat 2 | Cat 3 | Cat 4 |
+|-------|-------|-------|-------|-------|
+| 50 | 13 | 13 | 12 | 12 |
+| 30 | 8 | 8 | 7 | 7 |
+| 20 | 5 | 5 | 5 | 5 |
+| 10 | 3 | 3 | 2 | 2 |
+| 5 | 2 | 1 | 1 | 1 |
+
+**HARD FAILURE CONDITIONS (if ANY is true, REWRITE entire output):**
+- Any category has 0 questions
+- Any category has more than 40% of total questions
+- "question_category" field is missing from any question
+
+**Every question JSON MUST include:**
+"question_category": "multiple_correct" | "identify_incorrect" | "sequence_order" | "true_false"
+
+---
+
+## 4 CATEGORIES — DETAILED RULES
+
+---
+
+### CAT 1: multiple_correct ("Which of the following are correct?")
+
+**Purpose:** Student identifies which statements among 4-5 are factually correct. Tests ability to evaluate multiple claims simultaneously.
+
+**Statement construction rules:**
+- Use exactly 5 statements
+- Mix: 2-3 statements must be CORRECT, 2-3 must be INCORRECT (never all correct, never all incorrect)
+- Wrong statements follow the Single-Error Rule — one subtle error each
+- All 5 statements must be about ONE core concept (or one bridged pair for cross-topic questions)
+- Stem MUST contain "correct" or "true" to signal this is a positive-identification question
+
+**OPTION GENERATION PROCEDURE FOR CAT 1 (MANDATORY — FOLLOW IN ORDER):**
+
+Step 1 — WRITE ALL 5 STATEMENTS first. Do not think about options yet.
+
+Step 2 — EVALUATE EACH STATEMENT INDEPENDENTLY. For each statement (1 through 5), determine: is it CORRECT or INCORRECT based strictly on the source content? Write down the verdict internally:
+  - Statement 1: CORRECT / INCORRECT
+  - Statement 2: CORRECT / INCORRECT
+  - Statement 3: CORRECT / INCORRECT
+  - Statement 4: CORRECT / INCORRECT
+  - Statement 5: CORRECT / INCORRECT
+
+Step 3 — COLLECT the correct statement numbers into a set. This is your CORRECT COMBINATION. Verify it contains 2-3 numbers (never 0, 1, 4, or 5). If it does not, go back and rewrite statements until you have exactly 2-3 correct and 2-3 incorrect.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots (a, b, c, or d). Distribute randomly across questions.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Each wrong option must:
+  - Differ from the correct combination by exactly 1-2 statements (add one wrong number OR remove one correct number OR swap one of each)
+  - Contain 2-3 statement numbers (never 1 or all 5)
+  - NOT be identical to the correct combination
+  - NOT use "All of the above" or "None of the above"
+
+Step 6 — TRIPLE VERIFICATION (HARD FAILURE if skipped):
+  a) Re-read each of the 5 statements one more time
+  b) For each statement, re-confirm CORRECT or INCORRECT against the source
+  c) Check that your correct combination from Step 3 still matches
+  d) Check that EXACTLY ONE of the four options matches this combination
+  e) If the verification fails at ANY point, regenerate from Step 1
+
+### REAL FAILURE EXAMPLES FROM PAST GENERATIONS
+
+**FAILURE 1 — Correct combination not present in options:**
+
+उदाहरण के लिए, समसूत्री विभाजन की अवस्थाओं पर बना एक प्रश्न:
+कथन:
+1. पूर्वावस्था की समाप्ति सेंट्रोसोम के विपरीत ध्रुवों की ओर गति और गुणसूत्रों के संघनन से चिह्नित होती है।
+2. मध्यावस्था में संघनित गुणसूत्रों के चारों ओर एक नई केन्द्रक-झिल्ली का निर्माण होता है।
+3. पश्चावस्था सेंट्रोमियर के विभाजन और क्रोमेटिड्स के विपरीत ध्रुवों की ओर गमन से प्रारम्भ होती है।
+4. अन्त्यावस्था में गुणसूत्र-समूहों के चारों ओर केन्द्रिका, गॉल्जी उपकरण और अन्तःप्रद्रव्य जालिका का पुनर्निर्माण होता है।
+5. पादप कोशिकाओं में कोशिका-द्विभाजन प्लाज्मा झिल्ली में विदलन खाँच (cleavage furrow) के निर्माण से प्रारम्भ होता है।
+
+दिए गए विकल्प:
+a) 1, 3 और 4
+b) 2, 3 और 5
+c) 1, 2 और 5
+d) 1, 4 और 5
+
+TEACHER FEEDBACK: केवल कथन 1 और 3 सही हैं। कथन 4 आंशिक रूप से गलत है (स्रोत के अनुसार अन्त्यावस्था का विवरण अशुद्ध है)। कथन 5 गलत है (विदलन खाँच जन्तु कोशिकाओं में बनती है, पादप कोशिकाओं में नहीं)। कोई भी विकल्प "केवल 1 और 3" सूचीबद्ध नहीं करता।
+
+ROOT CAUSE: मॉडल ने 5 कथन लिखे, यह मान लिया कि कथन 1, 3 और 4 सभी सही हैं, और इसी धारणा पर विकल्प बनाए। परन्तु कथन 4 में एक तथ्यात्मक त्रुटि थी जिसे मॉडल पकड़ नहीं पाया। परिणाम: वास्तविक सही सेट (1 और 3) किसी भी विकल्प में नहीं आता।
+
+LESSON: सभी 5 कथन लिखने के बाद आपको प्रत्येक कथन को स्रोत के विरुद्ध पुनः सत्यापित करना ही होगा, केवल अपने प्रारम्भिक इरादे पर भरोसा न करें।
+
+
+**FAILURE 2 — Too many correct statements, no matching option:**
+
+उदाहरण के लिए, अन्तरावस्था पर बना एक प्रश्न:
+कथन:
+1. एक सामान्य मानव कोशिका चक्र में, अन्तरावस्था कुल अवधि के 95% से अधिक भाग घेरती है।
+2. S प्रावस्था के दौरान प्रति कोशिका DNA की मात्रा $2C$ से $4C$ तक बढ़ जाती है।
+3. S प्रावस्था के दौरान DNA प्रतिकृति बनने पर गुणसूत्र संख्या बढ़ जाती है।
+4. S प्रावस्था के दौरान सेंट्रिओल का कोशिकाद्रव्य में द्विगुणन होता है।
+5. एक औसत मानव कोशिका चक्र में, M प्रावस्था केवल लगभग एक घंटे तक चलती है।
+
+दिए गए विकल्प:
+a) 1, 2 और 4
+b) 1, 2 और 5
+c) 2, 3 और 5
+d) 1, 4 और 5
+
+TEACHER FEEDBACK: कथन 1, 2, 4 और 5 सभी सही हैं। केवल कथन 3 गलत है (DNA मात्रा दोगुनी होती है, गुणसूत्र संख्या नहीं)। वास्तविक सही सेट {1, 2, 4, 5} है — चार सही कथन — परन्तु कोई भी विकल्प चारों को सूचीबद्ध नहीं करता।
+
+ROOT CAUSE: मॉडल का इरादा 2-3 सही और 2-3 गलत रखने का था, परन्तु अनजाने में 4 सही कथन और केवल 1 गलत कथन लिख दिया। चूँकि सभी विकल्पों में केवल 3 संख्याएँ हैं, कोई भी विकल्प 4 सही उत्तरों को समाहित नहीं कर सकता।
+
+LESSON: सभी 5 कथन लिखने के बाद अपने सही कथनों की गिनती करें। यदि 4 या 5 सही हैं, तो आपको एकल-त्रुटि नियम का पालन करते हुए 1-2 कथनों को पुनर्लिखित करके एक सूक्ष्म त्रुटि डालनी होगी। यदि 0 या 1 सही हैं, तो गलत कथनों को सही बनाने के लिए पुनर्लिखित करें। लक्ष्य सदैव 2-3 सही + 2-3 गलत होना चाहिए।
+
+
+### HOW TO AVOID THESE FAILURES
+
+1. NEVER skip Step 2. Evaluate each statement INDEPENDENTLY against the source — do not rely on your intent when writing them.
+
+2. After evaluation, COUNT correct statements. If the count is not 2 or 3, rewrite statements before proceeding to options.
+
+3. Common traps that cause accidental correctness:
+   - You intend statement X to be wrong, but the "error" you introduced is actually correct per the source
+   - You intend statement Y to be wrong, but the detail you changed is not addressed in the source (making it ambiguous, not wrong)
+   - You write a statement that is wrong per your training knowledge but correct per the source content
+
+4. Common traps that cause accidental incorrectness:
+   - You intend statement X to be correct, but you accidentally add a detail the source does not support
+   - You rephrase a source fact and subtly change its meaning (meaning drift)
+   - You combine two source facts into one statement, but the combination creates an inaccuracy
+
+5. Ambiguous-not-wrong trap: You write a statement intended to be incorrect, but the "error" makes it ambiguous rather than definitively wrong. Evaluate each statement against the source: if you cannot say it is DEFINITIVELY wrong based on the source, treat it as correct for counting purposes.
+
+### उदाहरण — Cat 1:
+प्र. संधिपाद (Arthropoda) संघ के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए और सही कथन पहचानिए:
+1. शरीर काइटिन-निर्मित बाह्य-कंकाल से ढका होता है जो वृद्धि के दौरान समय-समय पर झड़ता है
+2. सभी संधिपाद वर्गों में श्वसन केवल फेफड़ों द्वारा होता है
+3. शरीर खण्डित होता है और उपांग संधित होते हैं
+4. परिसंचरण तन्त्र खुले प्रकार का होता है जिसमें हीमोलिम्फ परिसंचरण तरल के रूप में कार्य करता है
+5. उत्सर्जन प्रत्येक खण्ड में स्थित वृक्कक (nephridia) द्वारा होता है
+
+a) 1, 3 और 4
+b) 1, 2 और 3
+c) 2, 3 और 5
+d) 1, 4 और 5
+
+उत्तर: a
+*कथन 2 गलत: संधिपाद गलफड़ों, बुक-लंग्स या श्वास-नलियों द्वारा श्वसन करते हैं — "केवल फेफड़ों द्वारा" नहीं। कथन 5 गलत: संधिपाद माल्पीघियन नलिकाओं द्वारा उत्सर्जन करते हैं, वृक्कक (Annelida) द्वारा नहीं।*
+
+---
+
+### CAT 2: identify_incorrect ("Which of the following is/are NOT correct?")
+
+**Purpose:** Student identifies the WRONG statement(s) among mostly correct ones. Tests ability to spot subtle errors under pressure of correct-sounding context.
+
+**Statement construction rules:**
+- Use exactly 5 statements
+- Mix: 3-4 statements must be CORRECT, 1-2 must be INCORRECT
+- Incorrect statements follow the Single-Error Rule — one subtle error each, embedded in otherwise correct-sounding content
+- Error types: swapped terms, wrong numbers, reversed cause-effect, exaggerated scope ("all"/"always"/"never"), misattributed mechanism
+- Stem MUST contain "NOT correct", "incorrect", or "false"
+
+**OPTION GENERATION PROCEDURE FOR CAT 2 (MANDATORY — FOLLOW IN ORDER):**
+
+Step 1 — WRITE ALL 5 STATEMENTS first. Do not think about options yet.
+
+Step 2 — EVALUATE EACH STATEMENT INDEPENDENTLY. For each statement (1 through 5), determine: is it CORRECT or INCORRECT based strictly on the source content? Write down the verdict internally:
+  - Statement 1: CORRECT / INCORRECT
+  - Statement 2: CORRECT / INCORRECT
+  - Statement 3: CORRECT / INCORRECT
+  - Statement 4: CORRECT / INCORRECT
+  - Statement 5: CORRECT / INCORRECT
+
+Step 3 — COLLECT the INCORRECT statement numbers into a set. This is your CORRECT COMBINATION (the answer to "which are NOT correct"). Verify it contains exactly 1-2 numbers. If it contains 0, you have no question. If it contains 3 or more, go back and rewrite the over-specified correct statements until only 1-2 are incorrect.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots (a, b, c, or d). Distribute randomly across questions.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Each wrong option must:
+  - Differ from the correct combination by exactly 1 statement number (add one correct-but-tricky number OR remove the actual incorrect number OR swap one of each)
+  - At least one wrong option should include a correct-but-counter-intuitive statement number — something that sounds suspicious but is actually right
+  - NOT be identical to the correct combination
+
+Step 6 — TRIPLE VERIFICATION (HARD FAILURE if skipped):
+  a) Re-read each of the 5 statements one more time
+  b) For each statement, re-confirm CORRECT or INCORRECT against the source
+  c) Check that your incorrect-statement set from Step 3 still matches
+  d) Check that EXACTLY ONE of the four options matches this set
+  e) If the verification fails at ANY point, regenerate from Step 1
+
+### उदाहरण — Cat 2:
+प्र. कॉन्ड्रिक्थीज के बारे में निम्नलिखित में से कौन-से कथन सही नहीं हैं?
+1. अन्तःकंकाल पूरी तरह उपास्थि-निर्मित है और आयु के साथ अस्थिभूत नहीं होता
+2. क्लोम-विदर पृथक् होते हैं और ओपर्कुलम से ढके नहीं होते
+3. अधिकांश जातियों में वायु-कोष होता है जो उछाल बनाए रखने में सहायक होता है
+4. त्वचा मोटी होती है और लघु प्लेकॉइड शल्कों से ढकी होती है
+5. दाँत रूपांतरित प्लेकॉइड शल्क हैं जो जीवन-पर्यन्त प्रतिस्थापित होते रहते हैं
+
+a) केवल 3
+b) 3 और 5
+c) 1 और 3
+d) केवल 2
+
+उत्तर: a
+*चरण 2 मूल्यांकन: 1=सही, 2=सही, 3=गलत (कॉन्ड्रिक्थीज में वायु-कोष नहीं होता), 4=सही, 5=सही। चरण 3: गलत सेट = {3}। चरण 6 पुष्टि करता है कि केवल एक विकल्प "केवल 3" से मेल खाता है। विकल्प d) एक जाल है: कथन 2 असामान्य लगता है परन्तु वास्तव में सही है।*
+
+**FAILURE EXAMPLE FOR CAT 2:**
+
+उदाहरण के लिए, मूल तंत्र पर बना एक प्रश्न:
+1. द्विबीजपत्री पौधों में मूलांकुर के सीधे दीर्घीकरण से एक मुख्य जड़ बनती है जिस पर पार्श्व जड़ें लगी होती हैं।
+2. मुख्य जड़ और उसकी शाखाएँ मिलकर मूसला जड़ तंत्र बनाती हैं, जैसा कि सरसों में देखा जाता है।
+3. एकबीजपत्री पौधों में मुख्य जड़ स्थायी रहती है और रेशेदार जड़ तंत्र बनाती है।
+4. अपस्थानिक जड़ें पौधे के मूलांकुर के अतिरिक्त अन्य भागों से उत्पन्न होती हैं।
+5. जड़ तंत्र के कार्यों में अवशोषण, स्थिरीकरण, संग्रहण और पादप वृद्धि नियामकों का संश्लेषण शामिल है।
+
+चरण 2 मूल्यांकन: 1=सही, 2=सही, 3=गलत (एकबीजपत्री पौधों में मुख्य जड़ अल्पकालिक होती है — यह स्थायी नहीं रहती, बल्कि अपस्थानिक जड़ों द्वारा प्रतिस्थापित हो जाती है), 4=सही, 5=सही।
+गलत सेट = {3}। सही विकल्प "केवल 3" होना चाहिए।
+
+सामान्य विफलता: मॉडल "3 और 4", "2 और 3", "1 और 5", "3 और 5" जैसे विकल्प लिखता है — इनमें से कोई भी "केवल 3" नहीं है। ऐसा तब होता है जब मॉडल चरण 2 को छोड़कर सत्यापित मूल्यांकन के बजाय इरादे से विकल्प बनाता है। सीख: विकल्प लिखने से पहले हमेशा चरण 2 पूरा करें।
+
+---
+
+### CAT 3: sequence_order ("Arrange in correct sequence")
+
+**Purpose:** Student arranges biological process steps in the correct chronological or functional order.
+
+**Statement construction rules:**
+- Use exactly 5 statements, each describing ONE step of a biological process
+- Statements MUST be listed in SHUFFLED order — numbering (1-5) must NOT match correct chronological order
+- Each statement describes the step without naming its position
+
+**Shuffling verification (MANDATORY):**
+- Correct sequence must NEVER be 1 → 2 → 3 → 4 → 5 (sequential)
+- Correct sequence must NEVER be 5 → 4 → 3 → 2 → 1 (reverse sequential)
+- At least 3 out of 5 numbers must be OUT of their original position in the correct answer
+
+**Option construction rules:**
+- Use arrow notation: "3 → 1 → 5 → 2 → 4"
+- All 4 options must use ALL 5 statement numbers (no partial sequences)
+- At least one wrong option should swap two ADJACENT steps in the correct sequence
+- Stem MUST include "in correct sequence", "in chronological order", or similar
+
+### उदाहरण — Cat 3:
+प्र. अर्धसूत्री विभाजन-I की निम्नलिखित घटनाओं को सही कालानुक्रम में व्यवस्थित कीजिए:
+1. समजात गुणसूत्र पृथक् होकर विपरीत ध्रुवों की ओर गतिशील होते हैं
+2. गुणसूत्र संघनित और दृश्यमान होते हैं; सूत्र-युग्मन (synapsis) प्रारम्भ होता है
+3. द्विसंयोजक (bivalents) तर्क-तन्तुओं से जुड़कर मध्यपट्टिका पर संरेखित होते हैं
+4. प्रत्येक अगुणित गुणसूत्र सेट के चारों ओर केन्द्रक-झिल्ली पुनर्निर्मित होती है
+5. असमजात क्रोमेटिड्स (non-sister chromatids) के बीच काइऐज्मा पर जीन-विनिमय (crossing over) होता है
+
+a) 2 → 5 → 3 → 1 → 4
+b) 5 → 2 → 3 → 1 → 4
+c) 2 → 3 → 5 → 1 → 4
+d) 2 → 5 → 1 → 3 → 4
+
+उत्तर: a
+*विकल्प b) में 2 और 5 परस्पर बदले गए हैं। विकल्प c) में 3 और 5 परस्पर बदले गए हैं। विकल्प d) में 1 और 3 परस्पर बदले गए हैं।*
+
+---
+
+### CAT 4: true_false ("Evaluate each statement as True or False")
+
+**Purpose:** Student independently evaluates EACH of 4 statements as True or False, then selects the matching T/F pattern.
+
+**Statement construction rules:**
+- Use EXACTLY 4 statements about ONE topic
+- Each statement must be independently evaluable
+- T/F balance: use either 2T+2F or 3T+1F pattern. NEVER use 4T+0F or 0T+4F
+- Wrong statements follow the Single-Error Rule — one subtle error each
+- Stem MUST include "Choose the correct True/False sequence" or "Select the correct combination of True (T) and False (F)"
+
+**Option construction rules:**
+- 4 options, each a 4-letter T/F sequence separated by spaces: "T F T T"
+- Each option must differ from correct by exactly 1-2 positions
+
+**Ambiguity check (MANDATORY):**
+Look at each position across all 4 options. At least 2 positions must have MIXED values (some T, some F). If only 1 position varies → question reduces to a 1-statement evaluation → REWRITE.
+
+### ✓ GOOD option set (forces evaluation of multiple statements):
+a) T T F T
+b) T F T T
+c) F T F T
+d) T F F T
+
+### ✗ BAD option set (only 1 position varies):
+a) T T T T
+b) T T T F
+c) T T F T
+d) T T T T
+
+### उदाहरण — Cat 4:
+प्र. कोशिका चक्र के बारे में निम्नलिखित कथनों का मूल्यांकन कीजिए और सही सत्य (T) / असत्य (F) अनुक्रम चुनिए:
+1. अन्तरावस्था कोशिका चक्र की कुल अवधि का 95% से अधिक समय लेती है
+2. DNA प्रतिकृति अन्तरावस्था की $G_2$ प्रावस्था के दौरान होती है
+3. $G_1$ प्रावस्था, समसूत्री विभाजन की समाप्ति और DNA प्रतिकृति के प्रारम्भ के बीच का अन्तराल है
+4. S प्रावस्था के दौरान DNA की मात्रा 2C से 4C तक दोगुनी हो जाती है जबकि गुणसूत्र संख्या अपरिवर्तित रहती है
+
+a) T F T T
+b) T T T F
+c) T F T F
+d) F F T T
+
+उत्तर: a
+
+---
+
+## CROSS-TOPIC INTERCONNECTION
+
+Questions MUST exploit connections across different sections/topics of the source content:
+
+**Rule 1 — Concept Bridging:** Create statements that connect concepts from DIFFERENT sections of the source.
+
+**Rule 2 — Progressive Depth:** Within a question, statements should span from foundational to advanced aspects of a topic.
+
+**Rule 3 — Cross-Reference Traps:** Use correct facts from one topic as plausible-but-wrong statements in the context of another. Example: A feature of Annelida used as a distractor in an Arthropoda question.
+
+**Rule 4 — At least 30% of questions must be cross-topic** (drawing content from 2+ distinct sections/topics of the source).
+
+---
+
+## QUESTION QUALITY RULES
+
+1. **Conceptual depth over random facts.** Test WHY and HOW, not just WHAT.
+2. **Indirect description.** Don't name categories directly — describe through properties and functions.
+3. **Plausible distractors.** Every wrong option should include at least one correct statement number AND exclude at least one correct statement number (or include a wrong one).
+4. **One concept per question.** All statements should relate to one core idea (or one bridged pair for cross-topic questions).
+5. **No trivial definitional recall.** If a statement tests only "what is the name of X?" it belongs in Easy, not Hard.
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_category, correct_statement_numbers, question_text, and options. The "correct_statement_numbers" field is an internal quality-check value (see schema) that is stripped automatically before delivery to students — populating it is not a violation of this rule. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+## UNIVERSAL OPTION VERIFICATION PROTOCOL (ALL CATEGORIES — HARD FAILURE IF SKIPPED)
+
+After constructing EVERY question (regardless of category), perform this 3-step verification:
+
+**V1 — RE-EVALUATE all statements against the source.** Do not trust your initial intent. Re-read each statement and independently judge it against the source content.
+
+**V2 — DERIVE the correct answer from V1.** Based on your fresh evaluation:
+  - Cat 1: Which statements are correct? → That combination must appear in exactly one option
+  - Cat 2: Which statements are incorrect? → That combination must appear in exactly one option
+  - Cat 3: What is the correct chronological order? → That sequence must appear in exactly one option
+  - Cat 4: What is the T/F pattern? → That pattern must appear in exactly one option
+
+**V3 — MATCH against options.** Does EXACTLY ONE option match your V2 answer?
+  - If YES → proceed
+  - If NO (zero or multiple matches) → regenerate options starting from the verified answer in V2
+  - If the verified answer is structurally incompatible with your options (e.g., 4 correct statements but all options list 3) → rewrite statements first, then regenerate options
+
+This protocol catches the most common generation failure: the model writes statements with one intended answer, but the statements as written have a DIFFERENT actual answer, and no option matches reality.
+
+---
+
+## ADDITIONAL WRITING RULES
+
+**Option length:**
+- STEMS can be long (question text + 4-5 numbered statements)
+- OPTIONS must be ≤ 7 words — combination references ONLY, never sentences

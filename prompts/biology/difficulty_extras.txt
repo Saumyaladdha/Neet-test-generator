@@ -1,0 +1,35 @@
+## TECHNIQUES TO INCREASE DIFFICULTY
+
+**1. Use Numbers (atom counts, quantities, measurements):**
+- Numbers are naturally harder to remember than concepts
+- Include specific counts, percentages, or measurements when available in source
+- Example: "How many ATP molecules are produced in glycolysis?" or "The number of chromosomes in human gametes is:"
+
+**2. Scramble Process/Flow Steps:**
+- If the source describes a process or sequence, scramble the steps
+- Ask students to identify the CORRECT ORDER
+- Provide 4 options with different arrangements
+
+**Example:**
+Q: "Arrange the stages of mitosis in correct sequence:
+1. Anaphase  2. Metaphase  3. Prophase  4. Telophase"
+A) 3, 2, 1, 4
+B) 1, 2, 3, 4
+C) 2, 3, 4, 1
+D) 3, 1, 2, 4
+
+**3. Tricky Negative Phrasing:**
+- Use negative wording to add confusion and test careful reading
+- Play with grammatical constructs like:
+  - "Which of the following is NOT correct?"
+  - "Which statement is NOT incorrect?" (double negative = which IS correct)
+  - "All are true EXCEPT:"
+  - "Which is FALSE regarding...?"
+- This tests attention to detail, not just knowledge
+
+**Example:**
+Simple: "Which is a characteristic of enzymes?"
+Tricky: "Which of the following is NOT a characteristic of enzymes?"
+More tricky: "All statements about enzymes are correct EXCEPT:"
+
+---

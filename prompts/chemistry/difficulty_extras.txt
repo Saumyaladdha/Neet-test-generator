@@ -1,0 +1,27 @@
+## TECHNIQUES TO INCREASE DIFFICULTY
+
+**1. Use Numbers (atom counts, quantities, measurements):**
+- Numbers are naturally harder to remember than concepts
+- Include specific counts, bond angles, atomic numbers, or measurements when available in source
+- Example: "The bond angle in $H_2O$ molecule is:" or "The number of electrons in $Fe^{2+}$ is:"
+
+**2. Use Multi-Statement Evaluation (Cat A/C/E):**
+- If the source describes multiple properties, mechanisms, or facts, write 4 statements mixing correct and subtly wrong ones
+- Use Cat A ("Which are correct?") or Cat C ("How many are correct?") or Cat E (True/False pattern)
+- This forces the student to evaluate each claim independently — much harder than a simple recall question
+
+**3. Tricky Negative Phrasing:**
+- Use negative wording to add confusion and test careful reading
+- Play with grammatical constructs like:
+  - "Which of the following is NOT correct?"
+  - "Which statement is NOT incorrect?" (double negative = which IS correct)
+  - "All are true EXCEPT:"
+  - "Which is FALSE regarding...?"
+- This tests attention to detail, not just knowledge
+
+**Example:**
+Simple: "Which is a property of ionic compounds?"
+Tricky: "Which of the following is NOT a property of ionic compounds?"
+More tricky: "All statements about ionic bonding are correct EXCEPT:"
+
+---

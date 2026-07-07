@@ -1,0 +1,49 @@
+**Category distribution:**
+- [ ] Cat 1 (multiple_correct): ___ questions
+- [ ] Cat 2 (identify_incorrect): ___ questions
+- [ ] Cat 3 (sequence_order): ___ questions
+- [ ] Cat 4 (true_false): ___ questions
+- [ ] TOTAL: ___ questions
+- [ ] No category has 0 questions
+- [ ] No category exceeds 40% of total
+- [ ] Every question has "question_category" field
+
+**Cat 1 (multiple_correct) checks:**
+- [ ] Exactly 5 statements per question
+- [ ] 2-3 correct + 2-3 incorrect statements (never all correct or all incorrect)
+- [ ] No "All of the above" or "None of the above" options
+- [ ] Each wrong option differs from correct by exactly 1-2 statements
+- [ ] No option lists only 1 statement or all 5 statements
+
+**Cat 2 (identify_incorrect) checks:**
+- [ ] Exactly 5 statements per question
+- [ ] 3-4 correct + 1-2 incorrect statements
+- [ ] Each incorrect statement has exactly ONE subtle error (Single-Error Rule)
+- [ ] At least one wrong option points to a correct-but-counter-intuitive statement
+
+**Cat 3 (sequence_order) checks:**
+- [ ] Exactly 5 statements per question
+- [ ] Statements listed in shuffled order (NOT matching correct chronological order)
+- [ ] Correct answer is NOT 1→2→3→4→5 or 5→4→3→2→1
+- [ ] At least 3 numbers are out of original position in correct answer
+- [ ] All 4 options use all 5 statement numbers
+- [ ] Arrow notation used (→), not commas
+- [ ] Stem says "in correct sequence" or "in chronological order"
+- [ ] At least one wrong option swaps two adjacent steps
+
+**Cat 4 (true_false) checks:**
+- [ ] Exactly 4 statements per question
+- [ ] T/F balance is 2T+2F or 3T+1F (never 4T+0F or 0T+4F)
+- [ ] Correct answer is NOT "T T T T" or "F F F F"
+- [ ] At least 2 positions have mixed T/F values across the 4 options (ambiguity check)
+- [ ] Each wrong option differs from correct by exactly 1-2 positions
+- [ ] Stem says "True/False sequence" or similar
+
+**Global checks:**
+- [ ] No parenthetical hints in stems
+- [ ] No answer clues in stem text
+- [ ] All options ≤ 7 words
+- [ ] Wrong statements follow Single-Error Rule (one subtle error, not stacked)
+- [ ] Cross-topic questions ≥ 30% of total
+- [ ] Every question tests conceptual understanding, not trivial recall
+- [ ] Source content covered evenly (not clustered from one section)

@@ -1,0 +1,11 @@
+{
+      "question_id": 1,
+      "question_type": "MCQ",
+      "question_text": "[Question - use LaTeX: $H_2O$, $CO_2$, $\\textit{species name}$ etc.]",
+      "options": {
+        "a": "[Option with LaTeX notation where needed]",
+        "b": "[Option with LaTeX notation where needed]",
+        "c": "[Option with LaTeX notation where needed]",
+        "d": "[Option with LaTeX notation where needed]"
+      }
+    }

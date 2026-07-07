@@ -1,0 +1,256 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक शब्द अपवाद हैं
+
+वैज्ञानिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द (जैसे NCERT हिंदी में हैं):
+  DNA, RNA, mRNA, tRNA, rRNA, ATP, ADP, AMP, NADPH, NADH, FADH₂,
+  CO₂, O₂, H₂O, pH, BOD, COD — सभी रासायनिक सूत्र और अंतर्राष्ट्रीय प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  कोशिका (cell), केन्द्रक (nucleus), माइटोकॉण्ड्रिया (mitochondria),
+  क्लोरोप्लास्ट (chloroplast), प्रकाश संश्लेषण (photosynthesis),
+  श्वसन (respiration), पाचन (digestion), गुणसूत्र (chromosome),
+  जीन (gene), उत्परिवर्तन (mutation), पारिस्थितिकी (ecology),
+  जैव विविधता (biodiversity), कोशिका भित्ति (cell wall),
+  कोशिका झिल्ली (cell membrane), राइबोसोम (ribosome),
+  गॉल्जी उपकरण (Golgi apparatus), लाइसोसोम (lysosome),
+  अन्तःप्रद्रव्य जालिका (endoplasmic reticulum), केन्द्रिका (nucleolus)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+## MATCH THE COLUMN — MEDIUM LEVEL (BIOLOGY)
+
+A MEDIUM Match-the-Column question tests whether the student understands a biological relationship well enough to distinguish the correct pairing from closely related alternatives. If a pair is recoverable from the definition of a term alone, it is TOO EASY for Medium.
+
+---
+
+## QUESTION CATEGORIES
+
+Each question must fit ONE of these categories. **The ✅ examples below illustrate the PATTERN only — do NOT use them as source material. All pairs MUST come from the provided source content.**
+
+**M1 — प्रक्रिया ↔ प्राथमिक परिणाम:**
+- ✅ ग्लाइकोलिसिस ↔ प्रति ग्लूकोज़ 2 $ATP$ और 2 $NADH$ की निवल उपज
+- ❌ प्रकाश संश्लेषण ↔ क्लोरोप्लास्ट में होता है (परिभाषा, परिणाम नहीं)
+
+**M2 — जीव ↔ जैविक भूमिका:**
+- ✅ $\textit{{Nitrosomonas}}$ ↔ नाइट्रोजन चक्र में $NH_3$ को $NO_2^-$ में ऑक्सीकृत करता है
+- ❌ माइकोराइज़ा ↔ एक प्रकार की कवक (परिभाषा)
+
+**M3 — संरचना ↔ कार्य:**
+- ✅ पेशीद्रव्यी जालिका (sarcoplasmic reticulum) ↔ पेशी संकुचन को प्रेरित करने हेतु $Ca^{{2+}}$ मुक्त करती है
+- ❌ माइटोकॉण्ड्रिया ↔ कोशिका का ऊर्जा-गृह (बहुत सामान्य)
+
+**M4 — अवस्था ↔ प्रमुख घटना:**
+- ✅ लेप्टोटीन ↔ गुणसूत्र संघनित होकर दृश्यमान होने लगते हैं
+- ❌ अन्तरावस्था ↔ कोशिका विभाजित नहीं हो रही (अवलोकन, घटना नहीं)
+
+**M5 — एंज़ाइम/अणु ↔ क्रियाधार या क्रिया:**
+- ✅ पेप्सिन ↔ ऐरोमैटिक अमीनो अम्लों से सटे पेप्टाइड बंधों को तोड़ता है
+- ❌ एमाइलेज़ ↔ स्टार्च को तोड़ता है (नाम से परिभाषात्मक प्रतिध्वनि)
+
+**M6 — परिस्थिति ↔ जैविक अनुक्रिया:**
+- ✅ रक्षक कोशिकाओं में $CO_2$ की उच्च सान्द्रता ↔ रंध्र बंद होते हैं
+- ❌ सूखा ↔ पौधा मुरझाता है (सामान्य ज्ञान)
+
+**M7 — हार्मोन/रसायन ↔ लक्ष्य प्रभाव:**
+- ✅ जिबरेलिन ↔ शीत उपचार आवश्यक बीजों में प्रसुप्ति को तोड़ता है
+- ❌ ऑक्सिन ↔ वृद्धि को बढ़ावा देता है (बहुत अस्पष्ट)
+
+**M8 — तकनीक ↔ अनुप्रयोग:**
+- ✅ सदर्न ब्लॉटिंग ↔ जेल पृथक्करण के बाद विशिष्ट $DNA$ अनुक्रमों का पता लगाती है
+- ❌ $PCR$ ↔ $DNA$ को प्रवर्धित करता है (परिभाषा से बहुत स्पष्ट)
+
+---
+
+## QUESTION STRUCTURE — 4×4 FORMAT (MANDATORY)
+
+- **Column I:** 4 items — all from the SAME category type
+- **Column II:** 4 items — all from a DIFFERENT but consistent category type
+- One-to-one matching: every Column I item maps to exactly one Column II item
+- **Column II must be shuffled** — correct answer must NEVER be 1-i, 2-ii, 3-iii, 4-iv
+- At least one pair must require elimination reasoning (two Column II items seem plausible, only one is correct)
+
+---
+
+## QUALITY RULES (HARD FAILURE IF VIOLATED)
+
+### 1. Zero Keyword Overlap
+NO word or root word may appear in BOTH a Column I item AND its correct Column II match.
+- ❌ "वातापेक्षी सूक्ष्मजीव" → "ऑक्सीजन का उपयोग करने वाले सूक्ष्मजीव" ("सूक्ष्मजीव" साझा)
+- ❌ "$BOD$ में कमी" → "जैविक ऑक्सीजन माँग को कम करता है" ("कमी" और "$BOD$" साझा)
+- ✅ "सक्रियित स्लज" → "नए बैचों के लिए टीके (inoculum) का कार्य करता है"
+
+Self-check: For EVERY pair, verify no significant word (noun, verb, adjective) appears in both items.
+
+### 2. Categorical Consistency
+Column I must be ALL one type. Column II must be ALL one different type.
+- ❌ Column I mixing organisms + equipment + chemicals
+- ❌ Column II mixing definitions + outcomes + locations
+
+### 3. No Common-Sense / Tautology
+Every pair must require specific biological knowledge. Three banned patterns:
+
+**सामान्य ज्ञान:** केवल तर्क से उत्तर मिल जाता है, जीव विज्ञान की आवश्यकता नहीं।
+- ❌ "अनुपचारित मल-जल का निर्वहन" → "प्रदूषण की ओर ले जाता है"
+
+**स्प्लिट-सेंटेंस पुनरुक्ति:** स्तम्भ II, स्तम्भ I का व्याकरणिक पुनर्व्यवस्थापन है।
+- ❌ स्तम्भ I: "अपवाह का विक्षोभण" → स्तम्भ II: "अपवाह यांत्रिक रूप से विक्षोभित"
+
+**परिभाषात्मक प्रतिध्वनि:** स्तम्भ II वही दोहराता है जो स्तम्भ I का नाम स्वयं दर्शाता है।
+- ❌ स्तम्भ I: "नाइट्रीकारक जीवाणु" → स्तम्भ II: "नाइट्रीकरण में शामिल जीवाणु"
+
+---
+
+## OPTION GENERATION PROCEDURE (MANDATORY — FOLLOW IN ORDER)
+
+Step 1: After constructing the table, write down the CORRECT matching sequence internally (e.g., 1-iii, 2-i, 3-iv, 4-ii).
+
+Step 2: Randomly assign this correct sequence to one of the four option slots (a, b, c, or d). Distribute roughly evenly across all questions.
+
+Step 3: Generate exactly 3 WRONG sequences by swapping 2 or more pairings from the correct sequence. Each wrong option must differ from the correct one in at least 2 pairings. Exploit the confusable pair identified in PRE-GENERATION step 6.
+
+Step 4 — VERIFICATION (HARD FAILURE if skipped): Re-read all 4 options. Trace each option against your correct sequence. Confirm that EXACTLY ONE option produces all correct pairs and the other three do NOT. If zero or multiple options match → regenerate.
+
+### REAL FAILURE EXAMPLE — No correct option present:
+
+उत्पन्न प्रश्न (प्रक्रिया ↔ परिणाम):
+स्तम्भ I: 1. वायुकरण  2. फ्लॉक निर्माण  3. अवसादन  4. अवायवीय पाचन
+स्तम्भ II:
+i. स्थिर स्लज से उत्पन्न मीथेन-समृद्ध बायोगैस
+ii. सूक्ष्मजीवों द्वारा उपभोग से घुलित कार्बनिक भार में कमी
+iii. वातापेक्षी सूक्ष्मजीवों की वृद्धि से बना सक्रियित स्लज
+iv. अवसाद-युक्त जल का स्वच्छ बहिःस्राव और स्लज परत में पृथक्करण
+
+सही अनुक्रम: 1-iii, 2-ii, 3-iv, 4-i
+
+उत्पन्न विकल्प:
+a. 1-ii, 2-iii, 3-i, 4-iv
+b. 1-iv, 2-i, 3-ii, 4-iii
+c. 1-iii, 2-iv, 3-i, 4-ii
+d. 1-i, 2-ii, 3-iii, 4-iv
+
+अध्यापक प्रतिक्रिया: प्रश्न हल करने योग्य नहीं है। चारों में से कोई भी विकल्प सही अनुक्रम (1-iii, 2-ii, 3-iv, 4-i) से मेल नहीं खाता।
+
+मूल कारण: विकल्पों को सही अनुक्रम को पहले किसी स्लॉट में रखे बिना स्वतंत्र क्रमचय के रूप में उत्पन्न किया गया। विकल्पों को हमेशा सही अनुक्रम से व्युत्पन्न करें, स्वतंत्र रूप से नहीं।
+
+---
+
+## GOOD EXAMPLES
+
+**उदाहरण 1 — प्रक्रिया ↔ परिणाम:**
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+स्तम्भ I & स्तम्भ II \\
+\hline
+1. प्राथमिक अवसादन & i. मीथेनजनक क्रिया द्वारा ठोस अवशेष के आयतन में कमी \\
+2. ट्रिकलिंग फिल्टर & ii. रासायनिक अभिकर्मकों के बिना गुरुत्व द्वारा कणों का पृथक्करण \\
+3. अवायवीय पाचित्र & iii. अपघटकों की जैवफिल्म द्वारा घुलित कार्बनिक पदार्थों का विघटन \\
+4. क्लोरीनीकरण टैंक & iv. शेष जीवित सूक्ष्मजीवों का उन्मूलन \\
+\hline
+\end{{tabular}}
+
+a) 1-ii, 2-iii, 3-i, 4-iv
+b) 1-iii, 2-ii, 3-i, 4-iv
+c) 1-ii, 2-iii, 3-iv, 4-i
+d) 1-i, 2-iii, 3-ii, 4-iv
+
+उत्तर: a
+
+**उदाहरण 2 — जीव ↔ भूमिका:**
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+स्तम्भ I & स्तम्भ II \\
+\hline
+1. $\textit{{Nitrosomonas}}$ & i. $NO_3^-$ को गैसीय $N_2$ में परिवर्तित करता है \\
+2. $\textit{{Thiobacillus}}$ & ii. अपचयित सल्फर यौगिकों का ऑक्सीकरण करता है \\
+3. मीथेनजनक (Methanogens) & iii. पूर्णतः अनॉक्सी परिस्थितियों में $CH_4$ उत्पन्न करते हैं \\
+4. विनाइट्रीकारक जीवाणु & iv. $NH_3$ को $NO_2^-$ में परिवर्तित करता है \\
+\hline
+\end{{tabular}}
+
+a) 1-iv, 2-ii, 3-iii, 4-i
+b) 1-ii, 2-i, 3-iii, 4-iv
+c) 1-iv, 2-ii, 3-i, 4-iii
+d) 1-iii, 2-ii, 3-iv, 4-i
+
+उत्तर: a
+
+---
+
+## BAD EXAMPLES
+
+**BAD 1 — कीवर्ड ओवरलैप:**
+स्तम्भ I: 1. रोगजनक सूक्ष्मजीव  2. कार्बनिक पदार्थ  3. मल-जल उपचार  4. अनुपचारित मल-जल
+स्तम्भ II: i. रोगजनक रोग उत्पन्न करते हैं  ii. कार्बनिक पदार्थ का उपभोग होता है  iii. उपचार इसे सुरक्षित बनाता है  iv. मल-जल $BOD$ बढ़ाता है
+*हर युग्म कीवर्ड साझा करता है — छात्र शब्दों का मिलान करता है, जीव विज्ञान का नहीं।*
+
+**BAD 2 — मिश्रित श्रेणियाँ:**
+स्तम्भ I: 1. विषमपोषी (जीव)  2. वातन टैंक (उपकरण)  3. फ्लॉक्स का अवसादन (घटना)  4. बायोगैस (पदार्थ)
+*जीव + उपकरण + घटना + पदार्थ को मिलाने से निष्कासन तुच्छ हो जाता है।*
+
+**BAD 3 — परिभाषात्मक प्रतिध्वनि:**
+स्तम्भ I: 1. नाइट्रीकारक जीवाणु  2. विनाइट्रीकारक जीवाणु  3. नाइट्रोजन-स्थिरीकारक जीवाणु  4. अमोनीकारक जीवाणु
+स्तम्भ II: i. वायुमंडलीय नाइट्रोजन का स्थिरीकरण करते हैं  ii. विनाइट्रीकरण करते हैं  iii. नाइट्रीकरण करते हैं  iv. नाइट्रोजन यौगिकों का अपघटन करते हैं
+*स्तम्भ II, स्तम्भ I का ही पुनर्कथन है — किसी समझ की आवश्यकता नहीं।*
+
+---
+
+## SOURCE-FACT VERIFICATION PROCEDURE (MANDATORY — EVERY PAIR)
+
+For EVERY Column I ↔ Column II pair, internally perform this check before including it:
+
+**Step 1: LOCATE** — Identify the EXACT sentence or phrase in the source content where this pair's relationship is stated. If you cannot point to a specific line, DO NOT use this pair.
+
+**Step 2: QUOTE-CHECK** — The fact in Column II must be a rephrased version of what the source ACTUALLY says. Do NOT:
+- Expand a source fact with additional detail from your training knowledge
+- Combine facts from the source with facts you "know" to be true
+- Use a fact that is biologically correct but NOT stated in the provided source content
+- Assume a fact is in the source because it is standard NCERT -- only the PROVIDED text counts
+
+**Step 3: NEGATIVE CHECK** — Ask: "Does Column II contain anything that goes BEYOND what the source explicitly states?" If YES → rewrite Column II to contain ONLY what the source says, or drop the pair.
+
+See GOOD EXAMPLES for source-accurate pairs. The key principle: if you cannot point to a specific sentence in the source for a fact, that fact does not exist for your purposes.
+
+---
+
+## PRE-GENERATION STEP (MANDATORY)
+
+1. Choose a category from M1–M8
+2. Identify 4 pairs from the source content — not from general knowledge
+3. Verify zero keyword overlap on every pair
+4. Verify no near-synonyms across Column I items
+5. Shuffle Column II — confirm correct answer is NOT 1-i, 2-ii, 3-iii, 4-iv
+6. Identify one confusable pair; construct wrong options that exploit it
+
+---
+
+## MEDIUM-LEVEL CONSTRAINTS
+
+1. **No multi-step chains** — if matching requires 3+ linked steps, it belongs in Hard
+2. **No synonym confusion** — Column I items must be clearly distinct concepts
+3. **At least one confusable pair** — one pair must require elimination to distinguish from a nearby Column II option
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field. Output ONLY: question_id, question_type, question_text, and options. Exactly ONE of the four options must be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.

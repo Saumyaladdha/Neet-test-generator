@@ -1,0 +1,8 @@
+## PRE-GENERATION CHECKLIST (DO BEFORE WRITING EACH QUESTION)
+
+1. Select category CH1–CH5.
+2. Discard check — if YES to any, choose a different topic: bare numbers in Column II? stem references a table/figure/text? Column I = section headings? Column II paraphrases Column I?
+3. Build 4 correct pairs. Verify each pair: no keyword overlap, no tautology, unique match only.
+4. Design the distractor — a real chemistry fact, same domain, no label.
+5. Apply POSITION-FIRST template. Apply ANCHOR-AND-DERIVE. Verify options (no duplicate roman numerals within any option, no two options identical, exactly one option = CORRECT).
+6. Minimum 3 different categories across the batch, no single category >40%.

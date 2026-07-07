@@ -1,0 +1,23 @@
+CRITICAL FORMATTING RULE: Each numbered statement MUST be on its own line. Use \n to separate the stem from statement 1, and between every pair of consecutive statements. The question_text field MUST follow this exact pattern:
+
+"[Stem sentence ending with colon]:\n1. [First statement.]\n2. [Second statement.]\n3. [Third statement.]\n4. [Fourth statement.]\n5. [Fifth statement.]"
+
+BAD (all on one line — HARD FAILURE):
+"Which of the following are correct? 1. Statement one. 2. Statement two. 3. Statement three. 4. Statement four. 5. Statement five."
+
+GOOD (each statement on its own line):
+"Which of the following statements about Arthropoda are correct?\n1. The body is covered by a chitinous exoskeleton shed periodically during growth.\n2. Respiration occurs exclusively through lungs in all arthropod classes.\n3. The body is segmented and the appendages are jointed.\n4. The circulatory system is of the open type with haemolymph as the circulatory fluid.\n5. Excretion is carried out through nephridia located in each body segment."
+
+{
+      "question_id": 1,
+      "question_type": "MCQ",
+      "question_category": "multiple_correct | identify_incorrect | sequence_order | true_false",
+      "correct_statement_numbers": "[list of ints] — ONLY for question_category multiple_correct: the statement numbers YOU determined are correct. ONLY for identify_incorrect: the statement numbers YOU determined are incorrect. Omit (empty list) for sequence_order/true_false. Internal quality-check field only — removed automatically before delivery to students, never shown to them. Must exactly match the number-set in exactly one of the four options below.",
+      "question_text": "[Stem sentence]:\n1. [Statement one.]\n2. [Statement two.]\n3. [Statement three.]\n4. [Statement four.]\n5. [Statement five.]",
+      "options": {
+        "a": "[MAX 7 WORDS - combination/sequence/T-F only]",
+        "b": "[MAX 7 WORDS - combination/sequence/T-F only]",
+        "c": "[MAX 7 WORDS - combination/sequence/T-F only]",
+        "d": "[MAX 7 WORDS - combination/sequence/T-F only]"
+      }
+    }

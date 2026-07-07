@@ -1,0 +1,5 @@
+------------ ANSWER VERIFICATION ------------
+
+1. Verify the correct answer matches the PDF content.
+2. For multi-statement questions (Cat A/B/C/E): verify each statement TRUE/FALSE independently, then confirm the correct combination or T/F pattern appears in exactly ONE option.
+If any mismatch → fix. If unsure → remove that question entirely.

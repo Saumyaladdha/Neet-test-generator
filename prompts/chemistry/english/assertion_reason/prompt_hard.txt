@@ -1,0 +1,193 @@
+## ASSERTION-REASON — HARD LEVEL (CHEMISTRY | NEET)
+
+---
+
+## THE GOLDEN RULE OF AR QUESTIONS (READ FIRST)
+
+A and R MUST always be about the SAME chemical compound, reaction, or phenomenon.
+NEVER pair an assertion about one topic with a reason about a completely different topic.
+
+❌ DISCONNECTED (instant fail — teaches zero chemistry):
+A: "Benzene is aromatic."
+R: "Sodium chloride dissolves in water."
+← Different compounds, different phenomena. No relationship at all.
+
+❌ DISCONNECTED (instant fail):
+A: "Diamond is the hardest substance."
+R: "Nitrogen gas is diatomic."
+← No shared topic, no chemical logic.
+
+✅ CONNECTED (correct approach):
+A: "Graphite conducts electricity."
+R: "Graphite has a layered structure."
+← Same compound (graphite). R is a true fact about graphite, but layers don't cause conductivity — delocalized π electrons do. Answer: B.
+
+✅ CONNECTED (correct approach):
+A: "Copper is used in electrical wiring."
+R: "Copper is malleable and ductile."
+← Same compound (copper). R is true but describes mechanical properties, not electrical ones. Answer: B.
+
+THE CONNECTION TEST (run before writing R):
+"Is R about the same compound / reaction / phenomenon as A?"
+→ If NO → REWRITE R. Do not output until YES.
+
+---
+
+## THE 4 ANSWER TYPES — WHEN TO USE EACH
+
+(a) Both A and R are true AND R correctly explains A
+→ Use when R states the actual chemical mechanism/cause behind A
+→ Example: A: "NaCl has a high melting point." R: "$Na^+$ and $Cl^-$ ions are held by strong electrostatic forces." (ionic bonding IS the reason for high m.p.)
+
+(b) Both A and R are true BUT R does NOT explain A — HARDEST TYPE
+→ Use when R is a true fact about the same compound/system, but describes a DIFFERENT property, not the cause of A
+→ The trap: student sees two true statements about the same thing and assumes one explains the other
+→ Example: A: "Graphite conducts electricity." R: "Graphite has a layered structure." (layers explain lubrication, NOT conductivity)
+
+(c) A is true, R is false
+→ Use when R sounds plausible but contains a subtle factual error
+→ R must be a common misconception, not an obvious blunder
+→ Example: A: "$CO_2$ is a linear molecule." R: "$CO_2$ has a net dipole moment due to the two $C=O$ bonds." (A is true; R is false — the dipole moments cancel in linear geometry)
+
+(d) A is false, R is true
+→ Use when A contains a subtle error (wrong value, wrong trend, overgeneralisation) and R is a correct, independently verifiable fact
+
+---
+
+## ROUND-ROBIN TYPE ASSIGNMENT (MANDATORY — DO THIS BEFORE WRITING ANY QUESTION)
+
+Before writing question N, look up its assigned type from this cycle:
+
+Q1 → type (b) | Q2 → type (c) | Q3 → type (d) | Q4 → type (a)
+Q5 → type (b) | Q6 → type (c) | Q7 → type (d) | Q8 → type (a)
+Q9 → type (b) | Q10 → type (c) | Q11 → type (d) | Q12 → type (a)
+... continue cyclically
+
+The cycle always starts with (b) because type (b) is the hardest and most important for this difficulty level. NEVER start a batch with (a).
+
+For batches not divisible by 4, the remainder continues the cycle: e.g. 6 questions = b,c,d,a,b,c.
+
+HARD FAILURE: Skipping the assignment step. HARD FAILURE: Any type appearing 0 times. HARD FAILURE: Same type appearing 3+ times.
+
+---
+
+## MANDATORY QUESTION WRITING PROCEDURE
+
+Step 0 — ASSIGN TYPE: Look up the assigned type for question N from the round-robin table above. Write it down internally: "This question is type ___". Do NOT proceed until type is assigned.
+
+Step 1 — PICK ONE TOPIC: Choose a single chemical compound, reaction, or concept from the source that FITS the assigned type. Both A and R will be about this topic.
+
+Step 2 — WRITE A to match the assigned type:
+- Types (a) and (b): A must be a true, observable fact about the topic
+- Type (c): A must be a true, observable fact about the topic
+- Type (d): A must contain ONE subtle factual error — wrong value, wrong trend, or overgeneralisation
+
+Step 3 — WRITE R to match the assigned type:
+- Type (a): R must be the ACTUAL mechanism/cause behind A. Test: "A is true BECAUSE R" must be unambiguously correct.
+- Type (b): R must be a TRUE fact about the SAME topic, but describing a DIFFERENT property — NOT the cause of A. The student must be tempted to think R explains A, but it doesn't.
+- Type (c): R must contain ONE subtle factual error — a plausible-sounding misconception, NOT an obvious blunder.
+- Type (d): R must be a true, correct, independently verifiable fact about the same topic.
+
+Step 4 — VERIFY type assignment:
+  a) Re-read A — is it true/false as intended by the assigned type?
+  b) Re-read R — is it true/false as intended by the assigned type?
+  c) Does R mechanistically explain A? Answer must match the assigned type.
+  d) CONNECTION TEST: same compound/phenomenon? If no → REWRITE R.
+  e) If the question does not cleanly fit the assigned type → REWRITE, do not change the type assignment.
+
+---
+
+## HOW TO CONSTRUCT TYPE (b) — THE HARDEST TYPE (most questions in this set)
+
+Type (b) requires finding two TRUE facts about the same topic where one PLAUSIBLY SEEMS to explain the other but does NOT.
+
+Strategy: Pick a property of the compound for A. Then write R as a different property of the same compound that students commonly (wrongly) link to A.
+
+✅ HARD — R plausibly seems to explain A but doesn't:
+A: "Graphite conducts electricity." R: "Graphite has a layered structure." ← Many students incorrectly link layers to conductivity. Actual reason: delocalized π electrons.
+
+✅ HARD — R is a correct fact but wrong mechanism:
+A: "$NH_3$ is a better ligand than $PH_3$." R: "Nitrogen is more electronegative than phosphorus." ← True, but the reason is lone pair availability/size, not electronegativity.
+
+✅ HARD — R describes a consequence, not a cause:
+A: "Sodium has a low density." R: "Sodium has a body-centred cubic crystal structure." ← BCC structure is true, but density is primarily explained by atomic mass and atomic radius, not crystal type alone.
+
+❌ NOT HARD — R obviously doesn't explain A:
+A: "Copper conducts electricity." R: "Copper has a reddish colour." ← No student thinks colour causes conductivity. This is type (b) but too easy — not acceptable for hard level.
+
+The trap that makes type (b) hard: student sees two true statements about the same thing and assumes one explains the other. Design the question so this trap is real.
+
+---
+
+## WHAT MAKES A QUESTION HARD
+
+Hard = both statements are about the same topic AND both sound plausible, but the causal link is absent or wrong.
+
+The student who MEMORISED facts picks (a) because both statements are true and related.
+The student who UNDERSTANDS chemistry picks (b) because they know R describes a different property.
+
+---
+
+## STANDARD OPTIONS (use exactly as written — copy verbatim into JSON)
+
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+Do NOT change wording. Do NOT abbreviate. Do NOT paraphrase. Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## BANNED PATTERNS (HARD FAILURE)
+
+- A and R about different compounds or completely different phenomena → CONNECTION TEST fails
+- R that is obviously unrelated (any student can see it doesn't explain A) → not hard, just wrong
+- Copy-pasting sentences directly from the source → always rephrase
+- R that contains multiple errors stacked together → single error only (c/d types)
+- A that bundles multiple unrelated facts together (formula + unit conversion + definition all in one assertion) → write ONE clean fact per statement
+
+❌ REAL FAILURE EXAMPLES (exact questions generated — never repeat these patterns):
+
+FAILURE 1 — A bundles unrelated facts, R is about a different aspect:
+A: "The dipole moment $\mu$ is given by $\mu = Q \times r$ and is expressed in Debye units where $1\,D = 3.33564 \times 10^{{-30}}\,C\,m$."
+R: "The crossed-arrow convention places the cross on the negative end and the arrow head on the positive end when depicting dipole on a Lewis structure."
+WHY IT FAILS: A contains two separate facts (formula + unit conversion). R is about notation convention — has zero causal link to the formula or units. CONNECTION TEST fails.
+CORRECT VERSION: A: "Dipole moment is a vector quantity." R: "Dipole moment has both magnitude ($\mu = Q \times r$) and a defined direction from positive to negative charge." → Same topic, R adds mechanistic context.
+
+FAILURE 2 — A and R about completely different compounds:
+A: "The net dipole moment of $H_2O$ is $1.85\,D$ arising from two O–H bond dipoles at $104.5°$."
+R: "In linear $BeF_2$ the two equal bond dipoles are collinear and opposite, producing zero net dipole moment."
+WHY IT FAILS: A is about $H_2O$, R is about $BeF_2$. Different compounds, different molecular geometries. CONNECTION TEST fails immediately.
+CORRECT VERSION: A: "Water has a net dipole moment of $1.85\,D$." R: "The two O–H bond dipoles in water are arranged at an angle of $104.5°$ and do not cancel each other." → Same compound, R directly explains A.
+
+FAILURE 3 — A and R about different ionic species (cation vs anion):
+A: "A cation is smaller than its parent atom."
+R: "An anion is smaller than its parent atom because addition of electrons reduces repulsion."
+WHY IT FAILS: A is about cations, R is about anions — completely different ionic entities. The CONNECTION TEST fails: R is not about the same species as A. The scientific error in R (anions are actually LARGER) is also detectable at a glance.
+CORRECT VERSION: A: "A cation is smaller than its parent atom." R: "Removal of an electron from the outermost shell of the atom increases electron–electron repulsion among the remaining electrons." → Same entity (cation / electron removal). R contains a subtle error: removal of electrons REDUCES repulsion, making the ion smaller, not increases it. Hard type (c).
+
+FAILURE 4 — A and R about different elements from the same chapter:
+A: "In beryllium, the electron removed during first ionisation is a 2s-electron."
+R: "In boron, the electron removed during first ionisation is a 2p-electron."
+WHY IT FAILS: A is about beryllium, R is about boron — two different elements. Even if they appear in the same chapter, a question pairing them is COMPARING two entities, not connecting A and R about one entity. A student can check both facts independently with no causal reasoning required.
+CORRECT VERSION: A: "Beryllium has a higher first ionisation enthalpy than boron." R: "Beryllium has a fully-filled 2s subshell, which is more stable than the half-filled 2p subshell of boron." → Same comparative phenomenon (Be vs B IE trend), R provides the mechanistic explanation. Hard type (a).
+
+FAILURE 5 — Direct negation: A and R are mirror-opposite statements (trivially detectable):
+A: "Atomic radius decreases across a period from left to right."
+R: "Atomic radius increases across a period as atomic number increases."
+WHY IT FAILS: A says X decreases, R says X increases — for the same property, same direction, same period. Any student can see one is false without any chemistry knowledge. This is NOT hard; it requires only logic, not understanding.
+CORRECT VERSION: A: "Atomic radius decreases across a period from left to right." R: "Shielding effect increases steadily across a period, weakening the nuclear attraction on valence electrons." → A is true; R contains a subtle error (shielding from inner electrons stays roughly constant across a period — it is the increasing nuclear charge that dominates). Hard type (c).
+
+---
+
+## TYPE DISTRIBUTION (MANDATORY — HARD FAILURE if violated)
+
+In every batch of 4 questions, each answer type must appear EXACTLY ONCE, in round-robin order starting with (b):
+- Q1, Q5, Q9, ...: answer (b) — both true, R does NOT explain A
+- Q2, Q6, Q10, ...: answer (c) — A true, R false
+- Q3, Q7, Q11, ...: answer (d) — A false, R true
+- Q4, Q8, Q12, ...: answer (a) — both true, R explains A
+
+NEVER have 3 or more questions with the same answer type. NEVER skip a type.
+

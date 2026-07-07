@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEET Test Generator — API Specification</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --border: #ddd;
+    --code-bg: #f4f4f4;
+    --accent: #1a56db;
+    --warn: #92400e;
+    --warn-bg: #fffbeb;
+    --tag-bg: #e8f0fe;
+    --tag-text: #1a56db;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    background: #fff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .cover-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .cover-meta {
+    margin-top: 16px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cover-meta span strong { color: var(--text); }
+
+  /* ── TOC ── */
+  .toc {
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+  }
+  .toc h2 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .toc ol {
+    padding-left: 20px;
+  }
+  .toc li { margin-bottom: 4px; font-size: 14px; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .sub { padding-left: 16px; list-style: none; margin-top: 4px; }
+  .toc .sub li::before { content: "— "; color: var(--muted); }
+
+  /* ── Sections ── */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 24px 0 10px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  p { margin-bottom: 12px; }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 4px; }
+
+  /* ── Code ── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    margin: 12px 0 20px;
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  code {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 13px;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  pre code { background: none; border: none; padding: 0; font-size: inherit; }
+
+  /* ── Tables ── */
+  .table-wrap { overflow-x: auto; margin: 12px 0 20px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: #f4f4f4;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+  }
+  td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+
+  /* ── Callouts ── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: #f0f5ff;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .callout.warn {
+    border-color: #d97706;
+    background: var(--warn-bg);
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    margin-right: 6px;
+  }
+  .tag.green { background: #dcfce7; color: #166534; }
+  .tag.yellow { background: #fef9c3; color: #854d0e; }
+  .tag.red { background: #fee2e2; color: #991b1b; }
+
+  /* ── Flow diagram ── */
+  .flow {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 13px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 4px;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.8;
+    margin: 12px 0 20px;
+  }
+
+  /* ── Divider ── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── Page break hint for print ── */
+  @media print {
+    .section { page-break-inside: avoid; }
+    pre { white-space: pre-wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ COVER ═══════════════════════════════ -->
+<div class="cover">
+  <div class="cover-label">Internal Technical Specification</div>
+  <h1>NEET Test Generator<br>API Design Document</h1>
+  <div class="cover-meta">
+    <span><strong>Version:</strong> 2.0</span>
+    <span><strong>Date:</strong> July 2026</span>
+    <span><strong>Status:</strong> test_id-based schema, mixed-test support, E2E-tested against live AWS</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ TOC ═══════════════════════════════ -->
+<div class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#overview">Product Overview</a></li>
+    <li><a href="#upload">File Upload Rules</a></li>
+    <li><a href="#ids">test_id — the One ID</a></li>
+    <li><a href="#detector">Detector API</a>
+      <ul class="sub">
+        <li>Inputs</li>
+        <li>S3 Structure</li>
+        <li>Range Logic</li>
+        <li>DynamoDB Table</li>
+        <li>Heartbeat (SSE)</li>
+        <li>Error Cases</li>
+      </ul>
+    </li>
+    <li><a href="#generator">Generator API</a>
+      <ul class="sub">
+        <li>Mixed Tests — components[]</li>
+        <li>Inputs &amp; Responses</li>
+        <li>Enums</li>
+        <li>Prompt Folder Structure</li>
+        <li>PDF Handling</li>
+        <li>Batch &amp; Retry Logic</li>
+        <li>ECS Worker Flow</li>
+        <li>Frontend Polling</li>
+      </ul>
+    </li>
+    <li><a href="#answers">Answer Generation Pipeline</a>
+      <ul class="sub">
+        <li>Why a Separate Queue &amp; Worker</li>
+        <li>Architecture Flow</li>
+        <li>answers_status Lifecycle</li>
+        <li>SQS Queue: NeetTestGeneratorAnswer</li>
+        <li>GET /answers/{test_id}</li>
+        <li>Answer Prompt Architecture</li>
+      </ul>
+    </li>
+    <li><a href="#tables">Database Tables</a>
+      <ul class="sub">
+        <li>NeetTestGenerator_User</li>
+        <li>NeetTestGenerator_Jobs</li>
+        <li>NeetTestGenerator_Detector</li>
+        <li>NeetTestGenerator_Test</li>
+      </ul>
+    </li>
+    <li><a href="#redis">Redis — Temporary State</a></li>
+    <li><a href="#analytics">ClickHouse Analytics</a></li>
+    <li><a href="#alerting">Grafana Alerting</a></li>
+    <li><a href="#infra">Infrastructure Summary</a></li>
+    <li><a href="#codestructure">Code Structure</a>
+      <ul class="sub">
+        <li>Repository Layout</li>
+        <li>API Layer (api/)</li>
+        <li>Core Modules (core/)</li>
+        <li>Workers (worker/)</li>
+        <li>Prompts (prompts/)</li>
+        <li>Adaptive-Test Integration</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════ 1. OVERVIEW ═══════════════════════════════ -->
+<div class="section" id="overview">
+  <div class="section-label">Section 01</div>
+  <h2>Product Overview</h2>
+
+  <p>A web application where NEET students upload their study material — textbook pages, handwritten notes, diagrams, formula sheets — and get a ready-to-attempt practice test generated from that content.</p>
+
+  <p>The student controls difficulty, question type, and how many questions they want — and can now mix several type/difficulty combinations into a single test (e.g. 5 easy MCQs + 3 hard Assertion-Reason questions, all in one test). Before generating, the system analyses the content and tells the student exactly what is possible, so they set expectations before the job runs.</p>
+
+  <h4>Who uses it</h4>
+  <p>NEET aspirants — Class 11 and 12 students preparing for the medical entrance exam.</p>
+
+  <h4>What they upload</h4>
+  <p>Images of textbook pages, handwritten notes, diagrams, formula sheets. Or a single PDF.</p>
+
+  <h4>What they get back</h4>
+  <p>A NEET-pattern practice test with MCQs, Assertion-Reason questions, and/or Match the Column questions (mixed freely within one test), with an answer key.</p>
+
+  <h4>Two APIs, two jobs</h4>
+  <p>The system is split into exactly two APIs because they have fundamentally different latency requirements:</p>
+  <ul>
+    <li><strong>Detector API</strong> — synchronous, fast, student waits. Analyses content, returns question count ranges. Unmetered — no daily limit consumed at this step.</li>
+    <li><strong>Generator API</strong> — async, slow, student gets a progress screen. Generates the actual questions via SQS + ECS worker. Daily limit is enforced here.</li>
+  </ul>
+
+  <h4>Subjects supported today</h4>
+  <p>Biology and Chemistry only. Physics is not yet built — adding it is a prompt-folder addition, not a code change (see Code Structure).</p>
+</div>
+
+<!-- ═══════════════════════════════ 2. UPLOAD ═══════════════════════════════ -->
+<div class="section" id="upload">
+  <div class="section-label">Section 02</div>
+  <h2>File Upload Rules</h2>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Format</th><th>Limit</th><th>Accepted Types</th><th>Notes</th></tr>
+      <tr><td>Images</td><td>Max 5 files</td><td>JPG, PNG, WEBP</td><td>5 MB per file</td></tr>
+      <tr><td>PDF</td><td>Max 1 file</td><td>PDF</td><td>50 MB</td></tr>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <strong>No mixing allowed</strong>
+    If file_type is <code>pdf</code>, images are rejected. If file_type is <code>image</code>, PDFs are rejected. The frontend enforces this before the API call.
+  </div>
+
+  <p>Files are uploaded to S3 directly by the Detector API when the student uploads them — <code>/generate</code> never uploads anything itself, it just reuses the <code>file_reference</code> (S3 URI) that <code>/detect</code> already returned.</p>
+</div>
+
+<!-- ═══════════════════════════════ 3. test_id ═══════════════════════════════ -->
+<div class="section" id="ids">
+  <div class="section-label">Section 03</div>
+  <h2>test_id — the One ID</h2>
+
+  <p><code>test_id</code> is the single identifying concept used across the system, but it is <strong>not one ID shared across every table</strong> — each generate call mints its own.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Where generated</th><th>What it identifies</th><th>Primary key of</th></tr>
+      <tr><td><code>POST /detect</code></td><td>One upload + detection result</td><td><code>NeetTestGenerator_Detector</code></td></tr>
+      <tr><td><code>POST /generate</code></td><td>One specific job/test (always a <strong>fresh</strong> id)</td><td><code>NeetTestGenerator_Jobs</code> and, once finished, <code>NeetTestGenerator_Test</code></td></tr>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <strong>Why /generate never reuses the detection's test_id</strong>
+    <p>One detection commonly feeds several generate calls — a student uploads one PDF, then asks for an easy test, then a hard test, then a mixed test, all from the same upload. If every one of those jobs reused the detection's own test_id as its primary key, the second generate call would silently overwrite the first job's row in DynamoDB before either finished processing — this was found and fixed during E2E testing.</p>
+    <p>The fix: <code>/generate</code> always mints its own new <code>test_id</code>. The originating detection's id is passed in as <code>source_test_id</code> and stored on the job purely for traceability — it is <em>not</em> the primary key.</p>
+  </div>
+
+  <pre>Client flow:
+  1. POST /detect                    → returns test_id = "detect-A"
+  2. POST /generate {source_test_id: "detect-A", components: [...]}
+       → server mints a NEW test_id = "job-1"  (this is the real test)
+  3. POST /generate {source_test_id: "detect-A", components: [...]}  (different combo)
+       → server mints a NEW test_id = "job-2"  (a second, independent test)
+
+  job-1 and job-2 both have source_test_id = "detect-A", but are otherwise
+  completely independent rows — neither can overwrite the other.</pre>
+</div>
+
+<!-- ═══════════════════════════════ 4. DETECTOR ═══════════════════════════════ -->
+<div class="section" id="detector">
+  <div class="section-label">Section 04</div>
+  <h2>Detector API</h2>
+
+  <p>Analyses the uploaded content and returns how many questions of each type and difficulty can be generated from it. The frontend uses this to show the student a slider range before they request generation, and the Generator API later validates each requested component's count against these same ranges.</p>
+
+  <p>
+    <span class="tag">Synchronous</span>
+    <span class="tag">No SQS</span>
+    <span class="tag">Unmetered</span>
+    <span class="tag">SSE Heartbeat</span>
+  </p>
+
+  <h3>Inputs</h3>
+  <pre>user_id       string    required
+subject       string    required   biology / chemistry
+medium        string    required   english / hindi
+files         multipart required   images OR one PDF
+file_type     string    required   image / pdf</pre>
+
+  <h3>S3 Upload Structure</h3>
+  <pre>Images:
+  neetTestGenerator/{user_id}/{upload_date}/{test_id}/images/{HHMMSSffffff}_image_0.png
+  neetTestGenerator/{user_id}/{upload_date}/{test_id}/images/{HHMMSSffffff}_image_1.png
+
+PDF:
+  neetTestGenerator/{user_id}/{upload_date}/{test_id}/pdfs/file.pdf</pre>
+
+  <p><code>upload_date</code> is <code>YYYY-MM-DD</code> (UTC) — every upload for a given user on a given day lands under the same date folder, making the bucket browsable by day. Image filenames are prefixed with a microsecond-precision timestamp (<code>HHMMSSffffff</code>) so that listing the <code>images/</code> folder sorts chronologically even though multiple images in one detection upload concurrently; the original index is kept as a suffix tiebreaker. The bucket is <code>mldatabase</code> (ap-south-1).</p>
+
+  <h3>How Files Are Sent to the Model</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>file_type</th><th>Flow</th></tr>
+      <tr>
+        <td><strong>image</strong></td>
+        <td>Upload to S3 → generate presigned URL → send as an image content block</td>
+      </tr>
+      <tr>
+        <td><strong>pdf</strong></td>
+        <td>Upload to S3 (permanent storage). Gemini path (default): send the presigned S3 URL directly. OpenAI path: additionally upload to OpenAI Files API and send by <code>file_id</code>.</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>Range Logic</h3>
+  <p>Applied in the API layer after the detector returns 9 raw counts (one per difficulty × question type). The detector returns raw counts only — range computation happens in code (<code>api/detect.py:_compute_range</code>).</p>
+
+  <pre>count >= 10  →  min = count - 5,  max = count
+count  < 10  →  min = max(0, count - 2),  max = count
+count == 0   →  {count: 0, min: 0, max: 0}</pre>
+
+  <p>Example output:</p>
+  <pre>easy.mcq   = {count: 22, min: 17, max: 22}
+medium.ar  = {count:  7, min:  5, max:  7}
+hard.mtc   = {count:  3, min:  1, max:  3}
+easy.ar    = {count:  0, min:  0, max:  0}</pre>
+
+  <h3>DynamoDB Table — NeetTestGenerator_Detector</h3>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td>test_id</td><td>string</td><td>Primary key, uuid — generated by this call</td></tr>
+      <tr><td>user_id</td><td>string</td><td>GSI (user-created-index) with created_at for history</td></tr>
+      <tr><td>subject</td><td>string</td><td>biology / chemistry</td></tr>
+      <tr><td>medium</td><td>string</td><td>english / hindi</td></tr>
+      <tr><td>file_type</td><td>string</td><td>image / pdf</td></tr>
+      <tr><td>s3_paths</td><td>list</td><td>S3 URIs — images under <code>images/</code>, PDFs under <code>pdfs/</code> subfolder</td></tr>
+      <tr><td>results</td><td>map</td><td>Nested: <code>{easy: {mcq, ar, mtc}, medium: {...}, hard: {...}}</code>, each a <code>{count, min, max}</code> object</td></tr>
+      <tr><td>success</td><td>boolean</td><td>true / false</td></tr>
+      <tr><td>error_message</td><td>string</td><td>present only when success=false</td></tr>
+      <tr><td>prompt_version</td><td>string</td><td>v1 — tracks which detector prompt was used</td></tr>
+      <tr><td>created_at</td><td>ISO timestamp</td><td></td></tr>
+    </table>
+  </div>
+
+  <h3>Heartbeat — Server-Sent Events (SSE)</h3>
+  <p>Detection takes roughly 10–25 seconds depending on provider and content. The frontend opens an SSE connection and the API streams progress so the page does not appear frozen.</p>
+
+  <pre>event: heartbeat
+data: {"status": "alive", "step": "uploading_to_s3"}
+
+event: heartbeat
+data: {"status": "alive", "step": "running_detector"}
+
+event: heartbeat
+data: {"status": "alive", "step": "computing_ranges"}
+
+event: complete
+data: {"test_id": "abc-123", "results": {...}}</pre>
+
+  <h3>API Response (on complete event)</h3>
+  <pre>{
+  "test_id": "abc-123",
+  "subject": "biology",
+  "medium": "english",
+  "file_type": "image",
+  "elapsed_seconds": 9.3,
+  "results": {
+    "easy":   { "mcq": {"count": 22, "min": 17, "max": 22}, "ar": {...}, "mtc": {...} },
+    "medium": { "mcq": {...}, "ar": {...}, "mtc": {...} },
+    "hard":   { "mcq": {...}, "ar": {...}, "mtc": {...} }
+  },
+  "s3_paths": ["s3://mldatabase/neetTestGenerator/user-123/2026-07-03/abc-123/images/..."]
+}</pre>
+
+  <p><code>test_id</code> here is what the client should pass as <code>source_test_id</code> on any following <code>/generate</code> calls.</p>
+
+  <h3>Error Cases</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Error</th><th>HTTP / SSE code</th><th>Stored in DB</th></tr>
+      <tr><td>File too large</td><td>400</td><td>No</td></tr>
+      <tr><td>Unsupported file type</td><td>400</td><td>No</td></tr>
+      <tr><td>S3 upload failed</td><td>error event, S3_ERROR</td><td>Yes, success=false</td></tr>
+      <tr><td>Detector API failed</td><td>error event, DETECTOR_ERROR</td><td>Yes, success=false</td></tr>
+      <tr><td>JSON parse failed</td><td>error event, PARSE_ERROR</td><td>Yes, success=false</td></tr>
+      <tr><td>Timeout &gt; 120s</td><td>error event, TIMEOUT</td><td>Yes, success=false</td></tr>
+    </table>
+  </div>
+  <p>On any failure after S3 upload, <code>test_id</code> is still returned so the frontend can show a retry option, and the detection row is still saved with <code>success: false</code> and an <code>error_message</code>.</p>
+</div>
+
+<!-- ═══════════════════════════════ 5. GENERATOR ═══════════════════════════════ -->
+<div class="section" id="generator">
+  <div class="section-label">Section 05</div>
+  <h2>Generator API</h2>
+
+  <p>Student has reviewed the detector results and set their preferences. This API accepts the job, puts it on SQS, and returns a <code>test_id</code> immediately. An ECS worker processes it in the background. The frontend polls for status every 2 seconds.</p>
+
+  <p>
+    <span class="tag">Async</span>
+    <span class="tag">SQS Queue</span>
+    <span class="tag">ECS Worker</span>
+    <span class="tag">Mixed Tests</span>
+    <span class="tag">Frontend Polling</span>
+  </p>
+
+  <h3>Mixed Tests — the components[] field</h3>
+
+  <p>A single test can combine several question_type × difficulty combinations under one <code>test_id</code> — e.g. easy MCQ + hard Assertion-Reason + easy Match-the-Column, all delivered as one test the student attempts in one sitting. A normal, single-type test is simply a <code>components</code> list with one entry — the request shape never changes between the two cases.</p>
+
+  <pre>"components": [
+  {"question_type": "mcq",              "difficulty": "easy",   "question_count": 5},
+  {"question_type": "assertion_reason",  "difficulty": "hard",   "question_count": 3},
+  {"question_type": "match_the_column",  "difficulty": "easy",   "question_count": 2}
+]</pre>
+
+  <p>There is no client-facing top-level <code>question_count</code> — the server computes it as the sum across all components, purely for the total-cap check (1–100) and for display on the Jobs row.</p>
+
+  <h3>API Input</h3>
+  <pre>{
+  "user_id":          "user-123",
+  "subject":          "biology",
+  "medium":           "english",
+  "components": [
+    {"question_type": "mcq", "difficulty": "hard", "question_count": 10}
+  ],
+  "file_reference":   "s3://mldatabase/neetTestGenerator/user-123/2026-07-03/abc-123/pdfs/file.pdf",
+  "file_type":        "pdf",
+  "source_test_id":   "abc-123",
+  "test_series_name": "Biology Hard Test",
+  "plan":             "free"
+}</pre>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+      <tr><td>file_reference</td><td>yes</td><td>The exact <code>s3_paths[0]</code> value returned by <code>/detect</code> — <code>/generate</code> never uploads anything itself</td></tr>
+      <tr><td>source_test_id</td><td>no</td><td>The detection's own <code>test_id</code>. If given, each component's requested count is validated against that detection's stored min/max for that difficulty×type cell</td></tr>
+      <tr><td>test_series_name</td><td>no</td><td>Defaults to <code>"{Subject} Test"</code> if omitted</td></tr>
+      <tr><td>plan</td><td>no, defaults "free"</td><td>Drives the daily-limit lookup — never stored on the user row, always supplied per-request by the UI's own auth/subscription state</td></tr>
+    </table>
+  </div>
+
+  <h3>API Response — Job Accepted</h3>
+  <pre>{
+  "test_id":    "job-abc-123",
+  "status":     "Pending",
+  "message":    "Your test is being generated.",
+  "created_at": "2026-07-03T14:32:00Z"
+}</pre>
+  <p>HTTP <strong>202 Accepted</strong> — not 200. <code>test_id</code> here is a brand-new id, distinct from <code>source_test_id</code> if one was supplied (see Section 03).</p>
+
+  <h3>Enums</h3>
+  <p>Defined once in <code>core/enums.py</code>, validated at the API boundary and again before every DynamoDB write.</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Enum</th><th>Values</th><th>Used for</th></tr>
+      <tr><td>Subject</td><td>biology, chemistry</td><td>Jobs.subject, Detector.subject</td></tr>
+      <tr><td>Medium</td><td>english, hindi</td><td>Jobs.medium, Detector.medium</td></tr>
+      <tr><td>FileType</td><td>image, pdf</td><td>Jobs.file_type, Detector.file_type</td></tr>
+      <tr><td>Difficulty</td><td>easy, medium, hard</td><td>component.difficulty, question.difficulty</td></tr>
+      <tr><td>QuestionTypeInput</td><td>mcq, assertion_reason, match_the_column</td><td>component.question_type, request/Jobs-level (lowercase)</td></tr>
+      <tr><td>QuestionType</td><td>MCQ, ASSERTION_REASON, MATCH_THE_COLUMN</td><td>Per-question value on NeetTestGenerator_Test rows (uppercase — model's own output convention)</td></tr>
+      <tr><td>JobStatus</td><td>Pending, In progress, Done, Failed, Partially Failed</td><td>Jobs.status</td></tr>
+      <tr><td>AnswerStatus</td><td>Pending, Processing, Done, Failed</td><td>Test.answers_status</td></tr>
+      <tr><td>BatchStatus</td><td>Pending, Processing, Done, Failed</td><td>each batch_processing_detail entry's status</td></tr>
+    </table>
+  </div>
+  <p><code>question_category</code> (MCQ-hard only — <code>multiple_correct</code>, <code>identify_incorrect</code>, <code>sequence_order</code>, <code>true_false</code>) is intentionally <strong>not</strong> an enum — it's a free-text field, since every NEET MCQ still has exactly one correct final answer regardless of this internal statement-evaluation style.</p>
+
+  <p>On the Jobs row, <code>question_type</code> and <code>difficulty</code> are always <strong>lists</strong>, never a "mixed" sentinel string — derived from the distinct values across <code>components</code>:</p>
+  <pre>Single-type job:  question_type: ["mcq"]                          difficulty: ["easy"]
+Mixed job:        question_type: ["mcq", "assertion_reason"]      difficulty: ["easy", "hard"]</pre>
+
+  <h3>Polling Endpoint</h3>
+  <pre>GET /status/{test_id}</pre>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Status</th><th>Response</th></tr>
+      <tr><td><span class="tag">Pending</span></td><td>Job is waiting in the SQS queue</td></tr>
+      <tr><td><span class="tag">In progress</span></td><td>Worker is running — live per-chunk progress from Redis</td></tr>
+      <tr><td><span class="tag green">Done</span></td><td>All batches succeeded — full questions array returned</td></tr>
+      <tr><td><span class="tag yellow">Partially Failed</span></td><td>Some batches failed, or generated 0/N questions — partial questions + message returned</td></tr>
+      <tr><td><span class="tag red">Failed</span></td><td>The whole job errored before any content was produced — error message returned</td></tr>
+    </table>
+  </div>
+
+  <h4>Done response</h4>
+  <pre>{
+  "test_id":               "job-abc-123",
+  "status":                "Done",
+  "questions":              [ ...10 question objects, correct_answer filled in once answers finish... ],
+  "final_question_count":   10,
+  "batches_completed":      4,
+  "total_batches":          4,
+  "batch_processing_detail": { "mcq_hard_chunk_0": {...}, "mcq_hard_chunk_1": {...}, ... },
+  "message":                null,
+  "completed_at":           "2026-07-03T14:32:23Z"
+}</pre>
+
+  <h4>Partially Failed response</h4>
+  <pre>{
+  "test_id":              "job-abc-123",
+  "status":               "Partially Failed",
+  "questions":             [ ...7 question objects... ],
+  "final_question_count":  7,
+  "message":               "7/10 questions generated. Some chunks could not be processed."
+}</pre>
+
+  <h4>Failed response</h4>
+  <pre>{
+  "test_id":  "job-abc-123",
+  "status":   "Failed",
+  "message":  "Abhi hum generate nahi kar paye. Please try again."
+}</pre>
+
+  <hr>
+
+  <h3>Prompt Folder Structure</h3>
+  <p>One file per (subject / language / type / difficulty) combination. Adding a new subject means creating a folder — no code changes needed. The selector auto-discovers at startup by scanning for <code>metadata.json</code>.</p>
+
+  <pre>prompts/
+  schemas/
+    mcq.txt  mcq_hard.txt  ar.txt  mtc.txt  mtc_hard.txt   ← shared JSON output schemas
+  answer_prompt.txt              ← single system prompt covering answer evaluation for all types
+
+  biology/
+    metadata.json
+    base_template.txt            ← shared/English default outer wrapper
+    latex_block.txt
+    difficulty_extras.txt
+    english/
+      mcq/  assertion_reason/  match_the_column/
+        prompt_easy.txt  prompt_medium.txt  prompt_hard.txt
+        checklist_easy.txt  checklist_medium.txt  checklist_hard.txt   ← merged into the
+                                                                          final prompt, not sent separately
+    hindi/
+      base_template.txt  latex_block.txt  difficulty_extras.txt   ← full native-language override
+      metadata.json
+      mcq/  assertion_reason/  match_the_column/  ...
+
+  chemistry/
+    english/  ...
+    hindi/  ...</pre>
+
+  <div class="callout">
+    <strong>Language override pattern</strong>
+    <code>base_template.txt</code>, <code>latex_block.txt</code>, and <code>difficulty_extras.txt</code> are read from <code>{subject}/{language}/</code> first if present (full native-language prompt, no English boilerplate mixed in); otherwise the shared <code>{subject}/</code> root file is used. This is how Hindi got fully-localized prompts without touching English.
+  </div>
+
+  <hr>
+
+  <h3>PDF Handling — Topic-Based Chunking, Shared Across Components</h3>
+
+  <p>PDFs are split into topic-based chunks using an LLM — not by fixed page count. Topic detection runs <strong>once per job</strong>, shared across every component in a mixed test; each component then independently distributes its own requested count across those same topics.</p>
+
+  <div class="flow"><strong>Step 1 — Topic Detection (LLM call, once per job)</strong>
+Upload full PDF to OpenAI Files API → file_id
+LLM identifies topics with page ranges and estimates question density per topic
+
+<strong>Step 2 — Per-component distribution</strong>
+For each component in job.components:
+  distribute_questions(topics, component.question_count)
+  → density-weighted, every topic gets at least 1 question where possible
+
+<strong>Step 3 — Flatten into one work list across ALL components</strong>
+mcq_easy_chunk_0, mcq_easy_chunk_1, ar_hard_chunk_0, mtc_easy_chunk_0, ...
+
+<strong>Step 4 — Generation (parallel across chunks AND components)</strong>
+ThreadPoolExecutor(max_workers=4) — one thread per (component, chunk) pair
+Each chunk: extract those pages → upload just that slice → generate_chunk()
+             using that component's own type/difficulty prompt → delete upload
+
+<strong>Step 5 — Merge, dedup, validate, save</strong>
+All components' questions merge into ONE list
+dedup_questions() — Jaccard similarity, removes near-duplicates from page overlap
+Type-specific validators route by each question's own type/difficulty
+create_test() writes the merged, mixed-type list to NeetTestGenerator_Test</div>
+
+  <h3>Batch Keys — Component-Prefixed</h3>
+  <p>Every batch entry in <code>batch_processing_detail</code> is prefixed by its component's abbreviation and difficulty, so per-component progress is visible even inside a mixed test:</p>
+  <pre>mcq_easy_chunk_0, mcq_easy_chunk_1        ← from the {question_type: mcq, difficulty: easy} component
+ar_hard_chunk_0                           ← from the {question_type: assertion_reason, difficulty: hard} component
+mtc_easy_chunk_0, mtc_easy_chunk_1        ← from the {question_type: match_the_column, difficulty: easy} component</pre>
+
+  <h3>Retry Logic Per Batch</h3>
+  <p>Each batch gets a maximum of 3 attempts before being marked as failed.</p>
+
+  <pre>Attempt 1 → fails → wait 2s → retry
+Attempt 2 → fails → wait 4s → retry
+Attempt 3 → fails → mark batch as failed, record error_message</pre>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Outcome</th><th>Action</th></tr>
+      <tr><td>All batches succeed</td><td>status = Done — return all questions</td></tr>
+      <tr><td>Some batches fail, some succeed</td><td>status = Partially Failed — return successful questions + message</td></tr>
+      <tr><td>All batches fail / job errors before any content</td><td>status = Failed — do not delete SQS message, let SQS retry</td></tr>
+    </table>
+  </div>
+
+  <h3>SQS Retry — Job Level</h3>
+
+  <div class="flow">All batches fail (or the job throws before generation starts)
+     ↓
+Worker does NOT delete SQS message
+     ↓
+SQS visibility timeout expires (5 minutes)
+     ↓
+SQS re-delivers → ECS worker picks it up again
+     ↓
+Worker reads job status — already "Failed" → logs and exits without reprocessing
+     ↓
+After SQS maxReceiveCount is exhausted:
+     ↓
+SQS sends the message to the Dead Letter Queue (DLQ)</div>
+
+  <div class="callout">
+    <strong>Idempotency</strong>
+    <code>process_message()</code> always re-reads the job's current status before doing any work: <code>Done</code>/<code>Partially Failed</code> → delete the message, nothing to do. <code>Failed</code> → leave the message alone, let SQS's own retry/DLQ machinery run. This is what made a message that got redelivered after its underlying job row was deleted (during our schema testing) self-clean safely — the worker just logged <code>job_not_found</code> and deleted the message.
+  </div>
+
+  <h3>Full ECS Worker Flow (worker/main.py)</h3>
+  <div class="flow">ECS worker: sqs.receive_message(WaitTimeSeconds=20, VisibilityTimeout=300, MaxNumberOfMessages=1)
+     ↓
+Read job details from DynamoDB by test_id
+     ↓
+Already Done/Partially Failed? → delete SQS message, done.
+Already Failed?                → leave message alone (let SQS retry/DLQ), done.
+     ↓
+update_job_status(IN_PROGRESS, retry_count=ApproximateReceiveCount)
+     ↓
+image job  → for each component: generate_chunk() once against the presigned URL
+pdf job    → detect_topics() ONCE, shared across all components
+             → for each component: distribute_questions() over the same topics
+             → flatten into one work list across all components' chunks
+             → ThreadPoolExecutor(4) runs them all in parallel
+     ↓
+Merge all components' questions → dedup_questions() → type-specific validators
+     ↓
+Determine outcome:
+  0 generated       → Partially Failed
+  some but not all  → Partially Failed
+  all requested     → Done
+  everything failed → Failed (do not ack SQS)
+     ↓
+create_test()   → writes merged questions to NeetTestGenerator_Test
+complete_job()  → writes final status/count to NeetTestGenerator_Jobs
+record_test_generated() → increments the user's usage counters (only now, post-completion)
+_enqueue_answers(test_id) → pushes to NeetTestGeneratorAnswer queue
+     ↓
+delete_job_progress(test_id)  (Redis cleanup)
+Done/Partially Failed → delete SQS message
+Failed                → do NOT delete SQS message (SQS will retry)</div>
+
+  <h3>Frontend Polling Flow</h3>
+  <div class="flow">Submit job → receive test_id
+     ↓
+Poll GET /status/{test_id} every 2 seconds
+     ↓
+Pending       → "Preparing your test..."
+In progress   → "Generating questions... (3 of 4 batches done)"
+Done          → stop polling → show test → start polling GET /answers/{test_id}
+Partially Failed → stop polling → show test + warning message
+Failed        → stop polling → show error + retry button</div>
+</div>
+
+<!-- ════════════════════════ 6. ANSWER GENERATION PIPELINE ═════════════════════ -->
+<div class="section" id="answers">
+  <div class="section-label">Section 06</div>
+  <h2>Answer Generation Pipeline</h2>
+
+  <p>After question generation completes (<code>status = Done</code> or <code>Partially Failed</code>), the system automatically generates correct answers as a separate, independent pipeline. Questions are delivered to the student the moment they are ready — answer generation runs in the background with <strong>zero impact on question delivery latency</strong>.</p>
+
+  <p>
+    <span class="tag">Async</span>
+    <span class="tag">Separate SQS Queue</span>
+    <span class="tag">Separate Worker</span>
+    <span class="tag">Independent Retry</span>
+  </p>
+
+  <div class="callout warn">
+    <strong>Answers live in NeetTestGenerator_Test, not Jobs</strong>
+    <p>Earlier this stored a <code>final_answers</code> list and <code>answers_status</code> field directly on the Jobs row. That has moved: <code>correct_answer</code> is now a field directly <em>inside each question object</em> in <code>NeetTestGenerator_Test.questions[]</code> — there is no separate parallel answers list anywhere. <code>answers_status</code> also now lives on the Test row, not the Jobs row, since answers are test content, not pipeline state.</p>
+  </div>
+
+  <h3>Why a Separate Queue and Worker?</h3>
+  <ul>
+    <li><strong>Zero overhead for questions</strong> — <code>status=Done</code> is set and the question SQS message is deleted <em>before</em> answer generation starts.</li>
+    <li><strong>Independent retry</strong> — if answer generation fails, it retries independently without touching the already-saved questions.</li>
+    <li><strong>Independent DLQ</strong> — answer failures go to their own dead letter queue.</li>
+    <li><strong>Independent scaling</strong> — the answer worker can scale separately from question generation.</li>
+  </ul>
+
+  <h3>Architecture Flow</h3>
+
+  <div class="flow">Question Worker (worker/main.py)
+  ... generates questions, writes NeetTestGenerator_Test with
+      each question's correct_answer = None and answers_status = "Pending" ...
+  Enqueues { test_id } to NeetTestGeneratorAnswer SQS queue
+  Deletes its own SQS message  ←  student sees questions immediately
+     ↓
+Answer Worker (worker/answer_worker.py)
+  Receives { test_id }
+  Reads the Test row — if answers_status == "Done", delete message, exit (idempotency)
+  update_answers_status(test_id, "Processing")
+  Loads questions from NeetTestGenerator_Test (not Jobs)
+  Strips to slim fields: question_id, question_type, question_text, options
+  Batches 20 questions per LLM call (text-only, no file upload)
+  save_answers() merges each {question_number, correct_answer} directly into
+    questions[question_number - 1].correct_answer via a targeted UpdateExpression
+  answers_status = "Done"
+  Deletes answer SQS message</div>
+
+  <h3>answers_status Lifecycle (on NeetTestGenerator_Test)</h3>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Status</th><th>When set</th></tr>
+      <tr><td><code>Pending</code></td><td>Test row created — initial value, every question's correct_answer is null</td></tr>
+      <tr><td><code>Processing</code></td><td>Answer worker received the message and is calling the LLM</td></tr>
+      <tr><td><span class="tag green">Done</span></td><td>Every question's correct_answer has been filled in</td></tr>
+      <tr><td><span class="tag red">Failed</span></td><td>Answer generation exhausted all SQS retries (→ DLQ)</td></tr>
+    </table>
+  </div>
+
+  <h3>SQS Queue: NeetTestGeneratorAnswer</h3>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Property</th><th>Value</th></tr>
+      <tr><td>Queue URL</td><td><code>https://sqs.us-east-1.amazonaws.com/524814437057/NeetTestGeneratorAnswer</code></td></tr>
+      <tr><td>Visibility timeout</td><td>120 seconds</td></tr>
+      <tr><td>Long-poll wait time</td><td>20 seconds</td></tr>
+      <tr><td>Message body</td><td><code>{"test_id": "&lt;uuid&gt;"}</code></td></tr>
+    </table>
+  </div>
+
+  <h3>GET /answers/{test_id}</h3>
+
+  <p>Reads directly from <code>NeetTestGenerator_Test</code> — extracts <code>correct_answer</code> from each question that has one set.</p>
+
+  <h4>Response — answers ready</h4>
+  <pre>{
+  "test_id":         "job-abc-123",
+  "answers_status":  "Done",
+  "answers": [
+    { "question_number": 1, "correct_answer": "b" },
+    { "question_number": 2, "correct_answer": "a" }
+  ]
+}</pre>
+
+  <h4>Response — answers not yet ready</h4>
+  <pre>{
+  "test_id":         "job-abc-123",
+  "answers_status":  "Pending",
+  "answers":         []
+}</pre>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Case</th><th>HTTP</th><th>Detail</th></tr>
+      <tr><td>test_id not found</td><td>404</td><td><code>Test not found</code></td></tr>
+      <tr><td>answers not ready</td><td>200</td><td><code>answers_status: Pending</code>/<code>Processing</code>, empty <code>answers</code> array</td></tr>
+      <tr><td>answers ready</td><td>200</td><td><code>answers_status: Done</code>, full <code>answers</code> array</td></tr>
+    </table>
+  </div>
+
+  <h3>Answer Prompt Architecture</h3>
+
+  <p>The answer worker uses a single system prompt (<code>prompts/answer_prompt.txt</code>) that covers all question types. The model evaluates each question independently and returns <code>[{question_id, correct_answer}]</code> — <code>question_id</code> here is the LLM-facing protocol field name; the worker maps it to <code>question_number</code> when merging into the Test row.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Question Type</th><th>Evaluation Rule</th></tr>
+      <tr><td>MCQ easy / medium</td><td>Identify the single correct option</td></tr>
+      <tr><td>MCQ hard — multiple_correct</td><td>Determine which statement numbers are true, match to the option listing exactly those</td></tr>
+      <tr><td>MCQ hard — identify_incorrect</td><td>Find the option stating a false fact</td></tr>
+      <tr><td>MCQ hard — sequence_order</td><td>Determine the correct sequence, match to the option stating it</td></tr>
+      <tr><td>MCQ hard — true_false</td><td>Classify each statement, match to the option with that T/F pattern</td></tr>
+      <tr><td>Assertion-Reason</td><td>Evaluate Assertion and Reason truth independently, then whether Reason explains Assertion</td></tr>
+      <tr><td>Match the Column</td><td>Determine the correct pairing, match to the option stating that sequence</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ 7. TABLES ═══════════════════════════════ -->
+<div class="section" id="tables">
+  <div class="section-label">Section 07</div>
+  <h2>Database Tables</h2>
+
+  <p>Four tables, all with descriptive names, none with a TTL — rows are kept indefinitely.</p>
+
+  <h3>NeetTestGenerator_User</h3>
+  <p>Usage counters only — no email, no plan, no stored daily-quota-limit field. Plan tier is supplied per-request from the UI's own auth state; the corresponding daily limit is looked up from a hardcoded map in <code>core/config.py</code> (<code>PLAN_DAILY_LIMITS</code>), never stored in DynamoDB.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td>user_id</td><td>string</td><td>Primary key</td></tr>
+      <tr><td>questions_generated_total</td><td>number</td><td>Lifetime, never resets</td></tr>
+      <tr><td>tests_generated_total</td><td>number</td><td>Lifetime</td></tr>
+      <tr><td>tests_generated_from_images_total</td><td>number</td><td>Lifetime</td></tr>
+      <tr><td>tests_generated_from_pdf_total</td><td>number</td><td>Lifetime</td></tr>
+      <tr><td>questions_generated_today</td><td>number</td><td>Reset lazily, see below</td></tr>
+      <tr><td>tests_generated_today</td><td>number</td><td>This is what the daily plan limit is checked against</td></tr>
+      <tr><td>tests_generated_from_images_today</td><td>number</td><td></td></tr>
+      <tr><td>tests_generated_from_pdf_today</td><td>number</td><td></td></tr>
+      <tr><td>created_at</td><td>ISO timestamp</td><td></td></tr>
+      <tr><td>updated_at</td><td>ISO timestamp</td><td>Used to detect a new day</td></tr>
+    </table>
+  </div>
+
+  <h4>Daily Reset — Lazy, IST, No Cron</h4>
+  <p>Every counter update first compares the IST (<code>Asia/Kolkata</code>) date-part of <code>updated_at</code> to today's IST date. If they differ, all four <code>*_today</code> fields are zeroed before applying the new update — no scheduled job needed, and correct the moment a user makes their next request past midnight IST. (Trade-off: a row for a user who is inactive on a given day still shows the previous day's numbers if read directly, e.g. by an admin dashboard — acceptable since nothing currently needs a cross-user "today" aggregate at arbitrary read time.)</p>
+
+  <h4>Plan Limits</h4>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Plan</th><th>Daily Limit (tests/day)</th></tr>
+      <tr><td>free</td><td>5 (placeholder — confirm real number)</td></tr>
+      <tr><td>pro</td><td>50 (placeholder — confirm real number)</td></tr>
+    </table>
+  </div>
+
+  <hr>
+
+  <h3>NeetTestGenerator_Jobs</h3>
+  <p>Pipeline state only — status, retries, batch tracing. Question content and answers live in <code>NeetTestGenerator_Test</code>, keyed by the same <code>test_id</code>.</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td>test_id</td><td>string</td><td>Primary key, uuid — always freshly minted by /generate</td></tr>
+      <tr><td>user_id</td><td>string</td><td>GSI (user-created-index) for user history</td></tr>
+      <tr><td>subject</td><td>string</td><td>biology / chemistry</td></tr>
+      <tr><td>medium</td><td>string</td><td>english / hindi</td></tr>
+      <tr><td>components</td><td>list</td><td><code>[{question_type, difficulty, question_count}, ...]</code> — the actual generation request</td></tr>
+      <tr><td>question_type</td><td>list</td><td>Distinct types across components, e.g. <code>["mcq"]</code> or <code>["mcq", "assertion_reason"]</code>. Never a "mixed" string.</td></tr>
+      <tr><td>difficulty</td><td>list</td><td>Distinct difficulties across components, same "never a sentinel string" rule</td></tr>
+      <tr><td>question_count</td><td>number</td><td>Sum of every component's question_count</td></tr>
+      <tr><td>file_reference</td><td>string</td><td>S3 URI, reused from /detect's response</td></tr>
+      <tr><td>file_type</td><td>string</td><td>image / pdf</td></tr>
+      <tr><td>test_series_name</td><td>string</td><td></td></tr>
+      <tr><td>source_test_id</td><td>string</td><td>Optional — the originating detection's test_id, traceability only</td></tr>
+      <tr><td>status</td><td>string</td><td>Pending / In progress / Done / Failed / Partially Failed</td></tr>
+      <tr><td>batch_processing_detail</td><td>map</td><td>Embedded per-chunk trace, keyed by component-prefixed batch key (see below)</td></tr>
+      <tr><td>total_batches</td><td>number</td><td>Known upfront, before any chunk starts</td></tr>
+      <tr><td>active_batches</td><td>number</td><td>Atomically decremented as each batch finishes</td></tr>
+      <tr><td>failed_batches</td><td>number</td><td>Atomically incremented on batch failure</td></tr>
+      <tr><td>successful_batches</td><td>number</td><td>Atomically incremented on batch success</td></tr>
+      <tr><td>final_question_count</td><td>number</td><td>Actual count generated (may be less than question_count on partial)</td></tr>
+      <tr><td>partial_message</td><td>string</td><td>present only when Partially Failed</td></tr>
+      <tr><td>error_message</td><td>string</td><td>present only when Failed</td></tr>
+      <tr><td>retry_count</td><td>number</td><td>SQS's own ApproximateReceiveCount, informational</td></tr>
+      <tr><td>created_at</td><td>ISO timestamp</td><td></td></tr>
+      <tr><td>updated_at</td><td>ISO timestamp</td><td></td></tr>
+      <tr><td>completed_at</td><td>ISO timestamp</td><td>set once terminal</td></tr>
+    </table>
+  </div>
+
+  <h4>batch_processing_detail entry shape</h4>
+  <pre>"batch_processing_detail": {
+  "mcq_easy_chunk_0": {
+    "trace_id":                 "t1-uuid",
+    "component_question_type":  "mcq",
+    "component_difficulty":     "easy",
+    "pdf_split_page_range":     "1-4",
+    "question_count":           5,
+    "generated":                5,
+    "status":                   "Done",
+    "retry_count":              0,
+    "error_message":            null,
+    "started_at":               "2026-07-03T14:32:05Z",
+    "completed_at":             "2026-07-03T14:32:09Z"
+  },
+  "ar_hard_chunk_0": {
+    "trace_id":                 "t2-uuid",
+    "component_question_type":  "assertion_reason",
+    "component_difficulty":     "hard",
+    "pdf_split_page_range":     "4-8",
+    "question_count":           3,
+    "generated":                0,
+    "status":                   "Failed",
+    "retry_count":              0,
+    "error_message":            "OpenAI API timeout after 3 retries",
+    "started_at":               "2026-07-03T14:32:05Z",
+    "completed_at":             "2026-07-03T14:32:22Z"
+  }
+}</pre>
+  <p>No <code>questions</code> array inside a batch entry — question content lives only in <code>NeetTestGenerator_Test</code>. <code>pdf_split_page_range</code> replaces the earlier separate <code>start_page</code>/<code>end_page</code> fields with one string (e.g. <code>"1-4"</code>).</p>
+
+  <hr>
+
+  <h3>NeetTestGenerator_Detector</h3>
+  <p>See Section 04 for the full field list — primary key is <code>test_id</code>, generated by <code>/detect</code> itself.</p>
+
+  <hr>
+
+  <h3>NeetTestGenerator_Test</h3>
+  <p>The finished test's content and answers. Written once, when generation completes (not created empty at job-start).</p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td>test_id</td><td>string</td><td>Primary key — same value as the Jobs row that produced it</td></tr>
+      <tr><td>test_series_name</td><td>string</td><td></td></tr>
+      <tr><td>difficulty_level</td><td>list</td><td>Derived from the questions' own difficulty fields — <code>["hard"]</code> or <code>["easy", "hard"]</code> for a mixed test. Never a "mixed" string.</td></tr>
+      <tr><td>total_questions</td><td>number</td><td></td></tr>
+      <tr><td>answers_status</td><td>string</td><td>Pending / Processing / Done / Failed</td></tr>
+      <tr><td>questions</td><td>list</td><td>See question object shape below</td></tr>
+      <tr><td>created_at</td><td>ISO timestamp</td><td></td></tr>
+      <tr><td>updated_at</td><td>ISO timestamp</td><td></td></tr>
+    </table>
+  </div>
+
+  <h4>question object shape</h4>
+  <pre>{
+  "question_number":  1,
+  "question_type":    "MCQ",              // uppercase — MCQ | ASSERTION_REASON | MATCH_THE_COLUMN
+  "difficulty":       "hard",             // this question's own difficulty (mixed tests can vary per question)
+  "question_category": "sequence_order",  // MCQ-hard only, free text (not an enum)
+  "question":          "[latex/text of the question]",
+  "answer_options":    {"a": "...", "b": "...", "c": "...", "d": "..."},
+  "correct_answer":    "a"                // null until the answer worker fills it in
+}</pre>
+  <p>Every question type shares this exact shape, including Match-the-Column — the raw LaTeX table is stored as-is in <code>question</code> for rendering; no separate parsed column structure is persisted (a validator briefly parses it in-memory pre-save to catch duplicate Column-II entries, then discards the parsed form).</p>
+</div>
+
+<!-- ═══════════════════════════════ 8. REDIS ═══════════════════════════════ -->
+<div class="section" id="redis">
+  <div class="section-label">Section 08</div>
+  <h2>Redis — Temporary State During Processing</h2>
+
+  <p>Redis holds live per-chunk progress while a job is running, so the status endpoint doesn't need to hit DynamoDB on every poll. When the job finishes, final state is committed to DynamoDB and the Redis key is deleted.</p>
+
+  <pre>Key:   "test:{test_id}"
+TTL:   REDIS_JOB_TTL (default 3600s)
+
+Value (hash): {
+  "mcq_easy_chunk_0": { "trace_id": "...", "status": "processing" },
+  "mcq_easy_chunk_1": { "trace_id": "...", "status": "done"       },
+  "ar_hard_chunk_0":  { "trace_id": "...", "status": "pending"    }
+}</pre>
+
+  <p>All Redis operations are no-ops if Redis is unavailable — graceful degradation, generation still completes, only live progress display is lost.</p>
+</div>
+
+<!-- ═══════════════════════════════ 9. ANALYTICS ═══════════════════════════════ -->
+<div class="section" id="analytics">
+  <div class="section-label">Section 09</div>
+  <h2>ClickHouse Analytics</h2>
+
+  <p>Every completed job logs one event to ClickHouse. Failed jobs log a separate event. Fire-and-forget — analytics failure does not affect the student's test. (Not yet wired up — calls are currently no-ops.)</p>
+
+  <h4>test_generated event</h4>
+  <pre>{
+  "event":               "test_generated",
+  "user_id":              "user-123",
+  "test_id":              "job-abc-123",
+  "subject":              "biology",
+  "medium":               "english",
+  "question_type":        ["mcq", "assertion_reason"],
+  "difficulty":           ["easy", "hard"],
+  "questions_requested":  8,
+  "questions_generated":  7,
+  "batches_total":        4,
+  "batches_failed":       1,
+  "file_type":            "pdf",
+  "time_taken_seconds":   18,
+  "partial":              true,
+  "timestamp":            "2026-07-03T14:32:23Z"
+}</pre>
+
+  <h4>Queries this enables</h4>
+  <ul>
+    <li>Tests generated per day / week</li>
+    <li>Unique students per week</li>
+    <li>Most popular subject + difficulty + type combination</li>
+    <li>Batch failure rate per subject</li>
+    <li>Mixed-test adoption rate (components.length &gt; 1)</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════ 10. ALERTING ═══════════════════════════════ -->
+<div class="section" id="alerting">
+  <div class="section-label">Section 10</div>
+  <h2>Grafana Alerting</h2>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Alert</th><th>Trigger</th><th>Action</th></tr>
+      <tr><td>High batch failure rate</td><td>Batch fail % &gt; 20% in last 1 hour</td><td>Slack + email to engineering</td></tr>
+      <tr><td>Generation time spike</td><td>Avg time &gt; 60 seconds</td><td>Slack to engineering</td></tr>
+      <tr><td>DLQ messages</td><td>DLQ depth &gt; 0 on either queue</td><td>Immediate — jobs are permanently failing</td></tr>
+      <tr><td>SQS queue depth</td><td>Queue &gt; 50 jobs</td><td>Auto-scale ECS tasks</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ 11. INFRA ═══════════════════════════════ -->
+<div class="section" id="infra">
+  <div class="section-label">Section 11</div>
+  <h2>Infrastructure Summary</h2>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Component</th><th>Choice</th><th>Reason</th></tr>
+      <tr><td>API Framework</td><td>FastAPI</td><td>Native async, SSE support, fast</td></tr>
+      <tr><td>Worker</td><td>ECS Fargate</td><td>No 15-min Lambda timeout. ThreadPoolExecutor for chunk/component-level parallelism.</td></tr>
+      <tr><td>Question Queue</td><td>SQS — NeetTestGenerator</td><td>Decouples Generator API from slow question generation</td></tr>
+      <tr><td>Answer Queue</td><td>SQS — NeetTestGeneratorAnswer</td><td>Separate queue for answer generation, independent DLQ/retry/scaling</td></tr>
+      <tr><td>Temp State</td><td>Redis</td><td>Live per-chunk progress without hammering DynamoDB</td></tr>
+      <tr><td>Persistent Storage</td><td>DynamoDB</td><td>4 tables — User, Jobs, Detector, Test</td></tr>
+      <tr><td>Analytics</td><td>ClickHouse</td><td>Time-series aggregations (not yet wired up)</td></tr>
+      <tr><td>Files</td><td>S3</td><td>Images and PDFs, dated + time-sorted folder structure</td></tr>
+      <tr><td>Dashboards + Alerts</td><td>Grafana</td><td>Connected to ClickHouse, Slack/email alerting</td></tr>
+      <tr><td>Detector API</td><td>Sync HTTP + SSE heartbeat, unmetered</td><td>Student waits, must be fast</td></tr>
+      <tr><td>Generator API</td><td>Async via SQS, quota-checked</td><td>Student gets progress screen, job can take 10–120s</td></tr>
+    </table>
+  </div>
+
+  <h3>DynamoDB Tables</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Table</th><th>Primary Key</th><th>GSI</th></tr>
+      <tr><td>NeetTestGenerator_User</td><td>user_id</td><td>none</td></tr>
+      <tr><td>NeetTestGenerator_Jobs</td><td>test_id</td><td>user-created-index (user_id + created_at)</td></tr>
+      <tr><td>NeetTestGenerator_Detector</td><td>test_id</td><td>user-created-index (user_id + created_at)</td></tr>
+      <tr><td>NeetTestGenerator_Test</td><td>test_id</td><td>none</td></tr>
+    </table>
+  </div>
+  <p>Created/verified via <code>scripts/create_tables.py</code> — safe to re-run, skips tables that already exist.</p>
+
+  <h3>What Still Needs to Be Built</h3>
+  <ul>
+    <li>Physics subject prompts (biology + chemistry done)</li>
+    <li>ClickHouse event logging (currently no-ops)</li>
+    <li>Grafana dashboards + alert rules</li>
+    <li>Confirm real free/pro daily limit numbers (currently placeholders: 5 / 50)</li>
+    <li>Frontend UI for building a <code>components[]</code> mixed-test request from the detector's per-cell ranges</li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════ 12. CODE STRUCTURE ══════════════════════════ -->
+<div class="section" id="codestructure">
+  <div class="section-label">Section 12</div>
+  <h2>Code Structure</h2>
+
+  <h3>Repository Layout</h3>
+  <pre>test-generator/
+├── api/                     ← FastAPI routes
+├── core/                    ← All business logic and infrastructure wrappers
+├── worker/                  ← SQS long-poll workers (run separately)
+├── prompts/                 ← LLM prompt files (no code changes for new subjects)
+├── scripts/                 ← create_tables.py and other one-time ops scripts
+├── tests/                   ← Dev console HTML + test PDFs
+├── Dockerfile
+├── docker-compose.yml
+└── requirements.txt</pre>
+
+  <h3>API Layer — api/</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>File</th><th>Purpose</th></tr>
+      <tr><td><code>api/main.py</code></td><td>FastAPI app. Registers all routers. <code>APIKeyMiddleware</code>. <code>GET /health</code>, <code>GET /health/deep</code>.</td></tr>
+      <tr><td><code>api/detect.py</code></td><td><code>POST /detect</code> — SSE stream. Generates test_id, uploads to S3, calls detector, saves to NeetTestGenerator_Detector.</td></tr>
+      <tr><td><code>api/generate.py</code></td><td><code>POST /generate</code> + <code>GET /status/{test_id}</code> — validates components against enums and (optionally) the source detection's ranges, checks quota, mints a fresh test_id, publishes to SQS.</td></tr>
+      <tr><td><code>api/answers.py</code></td><td><code>GET /answers/{test_id}</code> — reads correct_answer straight off each question in NeetTestGenerator_Test.</td></tr>
+    </table>
+  </div>
+
+  <h3>Core Modules — core/</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>File</th><th>Purpose</th></tr>
+      <tr><td><code>config.py</code></td><td>Single source of truth for all env vars, including the 4 table names and <code>PLAN_DAILY_LIMITS</code>.</td></tr>
+      <tr><td><code>enums.py</code></td><td>Every enum (Subject, Medium, FileType, Difficulty, QuestionType, QuestionTypeInput, JobStatus, AnswerStatus, BatchStatus) plus <code>validate()</code>/<code>validate_list()</code> helpers.</td></tr>
+      <tr><td><code>db_base.py</code></td><td>DynamoDB boto3 resource singleton, fast timeouts, <code>now_iso()</code>.</td></tr>
+      <tr><td><code>db_users.py</code></td><td>NeetTestGenerator_User: <code>get_user</code>, <code>create_user</code>, <code>check_and_reserve_quota(user_id, plan)</code>, <code>record_test_generated(user_id, count, source)</code>. Lazy IST daily reset, no cron.</td></tr>
+      <tr><td><code>db_detection.py</code></td><td>NeetTestGenerator_Detector: <code>create_detection_result</code>, <code>get_detection_result</code> — keyed by test_id.</td></tr>
+      <tr><td><code>db_jobs.py</code></td><td>NeetTestGenerator_Jobs: <code>create_job</code> (takes <code>components</code>, derives list-valued question_type/difficulty), <code>get_job</code>, <code>update_job_status</code>, <code>complete_job</code>, <code>init_batches</code>, <code>update_batch_in_job</code> (atomic active/failed/successful deltas).</td></tr>
+      <tr><td><code>db_test.py</code></td><td>NeetTestGenerator_Test: <code>create_test</code> (derives difficulty_level list from questions), <code>get_test</code>, <code>save_answers</code> (merges correct_answer into each question via targeted UpdateExpression), <code>update_answers_status</code>.</td></tr>
+      <tr><td><code>db.py</code></td><td>Backward-compatible re-exporter across all four db_*.py files.</td></tr>
+      <tr><td><code>detector.py</code></td><td>Gemini 2.5 Flash (default) / OpenAI provider. 9-bucket result; min/max range computation.</td></tr>
+      <tr><td><code>topic_detector.py</code></td><td>LLM topic chunking + <code>distribute_questions()</code> — called once per job, once per component against the same topics.</td></tr>
+      <tr><td><code>generator.py</code></td><td><code>generate_chunk()</code> — the actual per-batch LLM call, sequential batches within a chunk, retry with 2s/4s backoff.</td></tr>
+      <tr><td><code>validators.py</code></td><td>Post-generation checks: AR type-distribution (observability), MCQ-hard statement-consistency filter, MTC option/duplicate-content filters — routed per question's own type/difficulty via <code>_apply_type_validators</code> in worker/main.py.</td></tr>
+      <tr><td><code>dedup.py</code></td><td>Jaccard similarity dedup (threshold 0.72), Devanagari-aware.</td></tr>
+      <tr><td><code>messages.py</code></td><td><code>build_generator_message()</code> (carries <code>components</code>), <code>build_answer_message()</code>.</td></tr>
+      <tr><td><code>pdf.py</code></td><td>PDF page-range extraction, chunk upload to OpenAI Files API.</td></tr>
+      <tr><td><code>storage.py</code></td><td>S3 upload + presigned URLs. Key structure now <code>{prefix}/{user_id}/{upload_date}/{context_id}/{filename}</code>; image filenames time-prefixed for chronological sort.</td></tr>
+      <tr><td><code>redis_client.py</code></td><td>Redis singleton, key <code>test:{test_id}</code>.</td></tr>
+      <tr><td><code>logger.py</code></td><td>structlog-based logger.</td></tr>
+    </table>
+  </div>
+
+  <h3>Workers — worker/</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>File</th><th>Queue</th><th>Purpose</th></tr>
+      <tr><td><code>worker/main.py</code></td><td>NeetTestGenerator</td><td>Receives test_id. Runs topic detection once, loops generation per component (image: one generate_chunk call each; PDF: distribute + parallel chunks across all components), merges + dedups + validates, writes NeetTestGenerator_Test, enqueues to answer queue.</td></tr>
+      <tr><td><code>worker/answer_worker.py</code></td><td>NeetTestGeneratorAnswer</td><td>Receives test_id. Reads questions from NeetTestGenerator_Test (not Jobs). Idempotency via Test row's answers_status. Merges correct_answer into each question.</td></tr>
+    </table>
+  </div>
+
+  <h3>Prompts — prompts/</h3>
+  <pre>prompts/
+  answer_prompt.txt
+  schemas/  mcq.txt  mcq_hard.txt  ar.txt  mtc.txt  mtc_hard.txt
+
+  {subject}/
+    metadata.json
+    base_template.txt  latex_block.txt  difficulty_extras.txt
+    {language}/
+      [optional override: base_template.txt  latex_block.txt  difficulty_extras.txt]
+      metadata.json
+      {mcq, assertion_reason, match_the_column}/
+        prompt_easy.txt  prompt_medium.txt  prompt_hard.txt
+        checklist_easy.txt  checklist_medium.txt  checklist_hard.txt
+
+  Currently populated: biology (english + hindi), chemistry (english + hindi)
+  Not yet built: physics (folder does not exist — auto-discovered once created)</pre>
+
+  <div class="callout">
+    <strong>Adding a new subject</strong>
+    Create <code>prompts/physics/</code> with the same structure. No code changes required — <code>prompts/selector.py</code> auto-discovers by scanning for <code>metadata.json</code> at startup.
+  </div>
+
+  <h3>Adaptive-Test Integration</h3>
+  <p>Deployment is one API service + two worker processes, unchanged from the original design — <code>include_router()</code> mounts all test-generator routes into the shared adaptive-test FastAPI app, one Swagger at <code>/docs</code>. See the repository's deployment docs for the current supervisord/ECS configuration; endpoint paths now use <code>{test_id}</code> in place of <code>{job_id}</code>/<code>{detection_id}</code> throughout:</p>
+  <pre>/test-generator/detect            → POST, SSE stream, returns test_id
+/test-generator/generate          → POST, accepts components[], returns a NEW test_id
+/test-generator/status/{test_id}  → GET, poll for completion
+/test-generator/answers/{test_id} → GET, returns answer key</pre>
+
+  <h4>GitHub Repositories</h4>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Service</th><th>Repository</th><th>Branch</th></tr>
+      <tr><td>test-generator</td><td><code>KirasCodebook/test-generator</code></td><td>main</td></tr>
+      <tr><td>adaptive-test</td><td><code>arivihan/neet-adaptive-test-generator</code></td><td>main</td></tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

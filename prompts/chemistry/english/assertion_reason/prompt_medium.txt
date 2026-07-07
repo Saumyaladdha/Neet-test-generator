@@ -1,0 +1,46 @@
+## ASSERTION-REASON - MEDIUM LEVEL (CHEMISTRY)
+
+**Question Format:** Intermediate Assertion-Reason questions
+
+**How to Identify MEDIUM A-R Questions:**
+- A and R may be from DIFFERENT sentences but related concepts
+- Student must UNDERSTAND terminology to see the connection
+- Requires connecting a property with its chemical reason
+- The relationship is logical but requires THINKING about definitions
+- Both statements are true, and R explains A, but connection requires understanding
+
+**Rules:**
+- Assertion (A): Statement combining 1-2 facts from image
+- Reason (R): Related but distinct statement from image
+- Relationship requires some analysis
+- Both must be traceable to image content
+
+**IMPORTANT - Do NOT copy-paste directly:**
+- Statements should NOT be lifted verbatim from the source text
+- Rephrase/reframe each statement so it reads as a proper, complete sentence
+- Ensure the statement makes sense on its own without the original context
+
+**Example of Rephrasing:**
+Source: "...used as lubricant due to layered structure..."
+Wrong: "used as lubricant due to layered structure" (incomplete, lifted directly)
+Correct: "Graphite is used as a lubricant" (complete, rephrased)
+
+**Standard Options:**
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+**Complexity:**
+- Select A and R that have non-obvious relationships
+- Student should think about cause-effect connections
+- Avoid trivially obvious pairings
+
+**Example from Source Text:**
+Source: "Graphite is used as a lubricant... Graphite has a layered structure where layers can slide over each other easily"
+↓
+Assertion (A): Graphite is used as a lubricant.
+Reason (R): Graphite has a layered structure where layers can slide over each other.
+Answer: A (Both Assertion and Reason are true and Reason is the correct explanation of Assertion)
+
+**Why this is MEDIUM:** Student must understand that lubricant property is CAUSED BY the sliding layers. Requires understanding the structure-property relationship.

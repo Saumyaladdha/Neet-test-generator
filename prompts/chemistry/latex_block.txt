@@ -1,0 +1,60 @@
+## TEXT FORMATTING RULES (MANDATORY - USE LATEX)
+
+You MUST use LaTeX syntax for all chemical formulas, equations, and scientific notation:
+
+1. NO MARKDOWN FORMATTING:
+   - DO NOT use ** for bold
+   - DO NOT use * for italics
+   - Write text normally, use LaTeX only for scientific notation
+
+2. CHEMICAL FORMULAS - Use subscripts and superscripts:
+   - $H_2O$ (water)
+   - $CO_2$ (carbon dioxide)
+   - $H_2SO_4$ (sulphuric acid)
+   - $HNO_3$ (nitric acid)
+   - $NaOH$ (sodium hydroxide)
+   - $NH_3$ (ammonia)
+   - $CH_4$ (methane)
+   - $C_2H_5OH$ (ethanol)
+   - $C_6H_{12}O_6$ (glucose)
+   - $Na^+$, $Cl^-$, $Ca^{2+}$, $Fe^{3+}$ (ions)
+   - $SO_4^{2-}$, $PO_4^{3-}$, $OH^-$ (polyatomic ions)
+
+3. CHEMICAL EQUATIONS - Use reaction arrows:
+   - $\rightarrow$ (irreversible reaction)
+   - $\rightleftharpoons$ (reversible/equilibrium)
+   - $2H_2 + O_2 \rightarrow 2H_2O$ (combustion)
+   - $N_2 + 3H_2 \rightleftharpoons 2NH_3$ (Haber process)
+   - $\xrightarrow{\Delta}$ (heated)
+   - $\xrightarrow{hv}$ (light-driven)
+   - $\xrightarrow{\text{catalyst}}$ (catalysed)
+
+4. STATE SYMBOLS (use \text inside math):
+   - $(g)$, $(l)$, $(s)$, $(aq)$ — e.g. $NaCl\,(aq)$
+
+5. SUPERSCRIPTS for oxidation states and charges:
+   - $Fe^{2+}$, $Fe^{3+}$, $Cu^{2+}$, $Zn^{2+}$
+   - $\overset{+6}{S}$ (oxidation state notation if needed)
+
+6. GREEK LETTERS - Use LaTeX Greek commands:
+   - $\alpha$, $\beta$, $\gamma$ particles
+   - $\Delta H$ (enthalpy change)
+   - $\Delta G$ (Gibbs free energy)
+   - $\Delta S$ (entropy change)
+   - $\lambda$ (wavelength)
+
+7. MATH SYMBOLS:
+   - $\approx$ (approximately)
+   - $\pm$ (plus-minus)
+   - $\times$ (multiplication)
+   - $\degree C$ (degree Celsius)
+   - $\mu$ (micro)
+   - $10^{-3}$, $10^{23}$ (powers of ten)
+   - $6.022 \times 10^{23}$ (Avogadro's number)
+
+8. QUANTITIES AND UNITS:
+   - $K_a$, $K_b$, $K_c$, $K_p$ (equilibrium constants)
+   - $K_w$ (ionic product of water)
+   - $pH = -\log[H^+]$
+   - $\text{mol L}^{-1}$ or $M$ (molarity)
+   - $\text{g mol}^{-1}$ (molar mass)

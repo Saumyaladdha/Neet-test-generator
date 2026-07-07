@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Detector API — Test</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0f1117; color: #e2e8f0; padding: 32px; }
+    h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 24px; color: #fff; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 700px; }
+    label { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 6px; letter-spacing: .04em; text-transform: uppercase; }
+    input, select { width: 100%; padding: 9px 12px; background: #1e2330; border: 1px solid #2d3748; border-radius: 8px; color: #e2e8f0; font-size: 0.9rem; outline: none; }
+    input[type="file"] { cursor: pointer; }
+    input:focus, select:focus { border-color: #4f8ef7; }
+    .full { grid-column: 1 / -1; }
+    button { margin-top: 20px; padding: 11px 28px; background: #4f8ef7; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+    button:disabled { background: #2d3748; color: #64748b; cursor: not-allowed; }
+    button:hover:not(:disabled) { background: #3b78e7; }
+
+    #log { margin-top: 28px; max-width: 900px; }
+    .event { display: flex; gap: 12px; align-items: flex-start; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; font-size: 0.82rem; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .event .badge { min-width: 110px; font-weight: 700; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; text-align: center; }
+    .event .body { color: #cbd5e1; word-break: break-all; flex: 1; }
+    .ev-heartbeat { background: #1a2035; } .ev-heartbeat .badge { background: #1e3a5f; color: #60a5fa; }
+    .ev-complete  { background: #112220; } .ev-complete  .badge { background: #14532d; color: #4ade80; }
+    .ev-error     { background: #2a1515; } .ev-error     .badge { background: #7f1d1d; color: #fca5a5; }
+    .ev-upload_done { background: #1a2035; } .ev-upload_done .badge { background: #312e81; color: #a5b4fc; }
+    .ev-info { background: #161b2e; color: #64748b; }
+
+    #results { margin-top: 24px; max-width: 700px; }
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .diff-card { background: #1e2330; border-radius: 10px; padding: 16px; }
+    .diff-card h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .diff-easy h3  { color: #4ade80; } .diff-medium h3 { color: #fbbf24; } .diff-hard h3 { color: #f87171; }
+    .type-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #2d3748; }
+    .type-row:last-child { border: none; }
+    .type-label { font-size: 0.78rem; color: #94a3b8; font-weight: 600; }
+    .type-range { font-size: 0.82rem; color: #e2e8f0; }
+    .type-range span { color: #64748b; font-size: 0.72rem; margin-left: 4px; }
+    #meta { font-size: 0.8rem; color: #64748b; margin-top: 12px; }
+  </style>
+</head>
+<body>
+
+<h1>Detector API — Test UI</h1>
+
+<div class="form-grid">
+  <div>
+    <label>User ID</label>
+    <input id="user_id" value="test-user-001" />
+  </div>
+  <div>
+    <label>Subject</label>
+    <select id="subject">
+      <option value="biology">Biology</option>
+      <option value="chemistry">Chemistry</option>
+      <option value="physics">Physics</option>
+    </select>
+  </div>
+  <div>
+    <label>Medium</label>
+    <select id="medium">
+      <option value="english">English</option>
+      <option value="hindi">Hindi</option>
+    </select>
+  </div>
+  <div>
+    <label>File Type</label>
+    <select id="file_type" onchange="toggleFileType()">
+      <option value="image">Image (JPG / PNG / WEBP)</option>
+      <option value="pdf">PDF</option>
+    </select>
+  </div>
+  <div class="full">
+    <label>Files</label>
+    <input type="file" id="files" accept="image/jpeg,image/png,image/webp" multiple />
+    <div id="file_hint" style="font-size:0.75rem;color:#64748b;margin-top:4px;">Max 5 images, each ≤ 5 MB</div>
+  </div>
+  <div class="full">
+    <label>API URL</label>
+    <input id="api_url" value="http://localhost:8001/detect" />
+  </div>
+</div>
+
+<button id="btn" onclick="runDetect()">Run Detection</button>
+
+<div id="log"></div>
+<div id="results"></div>
+<div id="meta"></div>
+
+<script>
+function toggleFileType() {
+  const ft = document.getElementById('file_type').value;
+  const fi = document.getElementById('files');
+  const hint = document.getElementById('file_hint');
+  if (ft === 'pdf') {
+    fi.accept = 'application/pdf';
+    fi.multiple = false;
+    hint.textContent = 'Max 1 PDF, ≤ 5 MB';
+  } else {
+    fi.accept = 'image/jpeg,image/png,image/webp';
+    fi.multiple = true;
+    hint.textContent = 'Max 5 images, each ≤ 5 MB';
+  }
+}
+
+function addEvent(type, data) {
+  const log = document.getElementById('log');
+  const div = document.createElement('div');
+  div.className = `event ev-${type}`;
+  let body = data;
+  try { body = JSON.stringify(JSON.parse(data), null, 0); } catch(e) {}
+  div.innerHTML = `<span class="badge">${type}</span><span class="body">${escHtml(body)}</span>`;
+  log.appendChild(div);
+  div.scrollIntoView({behavior: 'smooth'});
+}
+
+function addInfo(msg) {
+  const log = document.getElementById('log');
+  const div = document.createElement('div');
+  div.className = 'event ev-info';
+  div.textContent = msg;
+  log.appendChild(div);
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showResults(data) {
+  const r = data.results;
+  const diffs = [
+    {key:'easy',   label:'Easy',   cls:'diff-easy'},
+    {key:'medium', label:'Medium', cls:'diff-medium'},
+    {key:'hard',   label:'Hard',   cls:'diff-hard'},
+  ];
+  const types = [
+    {key:'mcq', label:'MCQ'},
+    {key:'ar',  label:'Assertion-Reason'},
+    {key:'mtc', label:'Match Column'},
+  ];
+  let html = '<div class="result-grid">';
+  for (const d of diffs) {
+    html += `<div class="diff-card ${d.cls}"><h3>${d.label}</h3>`;
+    for (const t of types) {
+      const v = r[d.key][t.key];
+      const range = v.count === 0 ? '—' : `${v.min}–${v.max}`;
+      html += `<div class="type-row">
+        <span class="type-label">${t.label}</span>
+        <span class="type-range">${range}<span>(count: ${v.count})</span></span>
+      </div>`;
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('meta').textContent =
+    `detection_id: ${data.detection_id}  •  elapsed: ${data.elapsed_seconds}s`;
+}
+
+async function runDetect() {
+  const btn = document.getElementById('btn');
+  const log = document.getElementById('log');
+  const results = document.getElementById('results');
+  const meta = document.getElementById('meta');
+
+  log.innerHTML = '';
+  results.innerHTML = '';
+  meta.innerHTML = '';
+
+  const files = document.getElementById('files').files;
+  if (!files.length) { alert('Select at least one file'); return; }
+
+  const fd = new FormData();
+  fd.append('user_id', document.getElementById('user_id').value);
+  fd.append('subject', document.getElementById('subject').value);
+  fd.append('medium', document.getElementById('medium').value);
+  fd.append('file_type', document.getElementById('file_type').value);
+  for (const f of files) fd.append('files', f);
+
+  const url = document.getElementById('api_url').value;
+  btn.disabled = true;
+  btn.textContent = 'Running…';
+  addInfo(`→ POST ${url}  (${files.length} file${files.length>1?'s':''})`);
+
+  try {
+    const resp = await fetch(url, { method: 'POST', body: fd });
+    if (!resp.ok) {
+      const txt = await resp.text();
+      addEvent('error', txt);
+      return;
+    }
+
+    const reader = resp.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      const lines = buf.split('\n');
+      buf = lines.pop();
+
+      let curEvent = '', curData = '';
+      for (const line of lines) {
+        if (line.startsWith('event:')) curEvent = line.slice(6).trim();
+        else if (line.startsWith('data:')) curData = line.slice(5).trim();
+        else if (line === '' && curEvent) {
+          addEvent(curEvent, curData);
+          if (curEvent === 'complete') {
+            try { showResults(JSON.parse(curData)); } catch(e) {}
+          }
+          curEvent = ''; curData = '';
+        }
+      }
+    }
+  } catch(e) {
+    addEvent('error', e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Run Detection';
+  }
+}
+</script>
+</body>
+</html>

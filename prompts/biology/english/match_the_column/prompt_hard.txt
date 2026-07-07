@@ -1,0 +1,524 @@
+## MATCH THE COLUMN — HARD LEVEL (BIOLOGY)
+
+---
+
+## WHAT "HARD" MEANS (READ BEFORE GENERATING)
+
+A HARD Match-the-Column question tests the student's ability to **navigate interconnected, closely related pairings where multiple matches seem plausible**, and only precise, multi-step biological reasoning eliminates the wrong ones.
+
+**Hard = "Multiple Column II items look correct for each Column I item. I must use precise knowledge of mechanisms and downstream consequences to resolve the ambiguity."**
+
+| Aspect | Easy | Medium | Hard |
+|--------|------|--------|------|
+| Pairing type | Direct factual (Term↔Definition) | Functional relationship (Process↔Outcome) | Multi-layered interconnection (Mechanism↔Specific downstream consequence) |
+| Column II items | Clearly distinct from each other | Related but distinguishable | Closely related — multiple items seem to fit each Column I item |
+| Reasoning needed | Recall one fact | Understand one relationship | Chain 2+ logical steps to resolve ambiguity |
+| Elimination | Easy — items are obviously different | Moderate — 1 confusable pair | Hard — 2-3 Column II items seem plausible per Column I item |
+| What traps students | Not studying | Confusing similar concepts | Knowing the concepts but not the PRECISE mechanism/consequence |
+
+**The defining feature of Hard:** In Easy/Medium, each Column I item has only ONE plausible Column II match. In Hard, each Column I item has 2-3 plausible-LOOKING matches, and only one is the MOST IMMEDIATE or MOST PRECISE match. The student must use deep mechanistic understanding to select the correct one.
+
+**If a pair can be resolved with a single cause-effect link → it is Medium, not Hard.**
+**If most Column II items are obviously unrelated to most Column I items → it is Easy, not Hard.**
+
+---
+
+## QUESTION STRUCTURE — 4×5 FORMAT (MANDATORY)
+
+- **Column I:** EXACTLY 4 items (numbered 1-4) — all from the SAME category type
+- **Column II:** EXACTLY 5 items (roman numerals i-v) — all from a DIFFERENT but consistent category type
+- ONE of the 5 items is a **scientifically plausible distractor** that matches NO Column I item. Its position (i, ii, iii, iv, or v) is **randomly assigned** — the distractor is NEVER always at position v.
+- ONE-TO-ONE matching: every Column I item matches exactly one Column II item. One Column II item remains unmatched.
+
+**Table format (use LaTeX):**
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. [Item] & i. [Item] \\
+2. [Item] & ii. [Item] \\
+3. [Item] & iii. [Item] \\
+4. [Item] & iv. [Item] \\
+ & v. [Item] \\
+\hline
+\end{{tabular}}
+
+**CRITICAL — NEVER label the distractor item:** Do NOT write "(distractor)", "(unused)", "(trap)", or any annotation next to ANY Column II item. All 5 items must appear as plain biological statements — identical in appearance to each other. Students must not know which item is the distractor.
+
+**CRITICAL — Randomize the distractor's position:** The distractor must NOT always be placed at roman numeral v. Assign the distractor to any of i–v at random. If across 10 questions the distractor always lands at v, students will trivially eliminate it.
+
+**Options format:** Each option is a complete matching sequence (4 pairs — one Column II item unused):
+a) 1-iv, 2-iii, 3-ii, 4-i
+b) 1-iii, 2-iv, 3-i, 4-v
+c) 1-ii, 2-i, 3-iv, 4-iii
+d) 1-i, 2-ii, 3-iii, 4-iv
+
+---
+
+## ONE-TO-ONE MATCHING RULE — OPTIONS (HARD FAILURE)
+
+Every option represents a complete one-to-one matching. This means within ANY single option:
+- Each Column I number (1, 2, 3, 4) appears EXACTLY ONCE
+- Each Column II roman numeral appears AT MOST ONCE
+- Exactly ONE roman numeral from i–v is left unused (unmatched)
+
+Any option containing a DUPLICATE roman numeral is a HARD FAILURE.
+- ❌ HARD FAILURE: 1-ii, 2-i, 3-i, 4-iv — roman numeral "i" used TWICE
+- ❌ HARD FAILURE: 1-iii, 2-iii, 3-iv, 4-ii — roman numeral "iii" used TWICE
+- ✅ VALID: 1-iii, 2-i, 3-iv, 4-ii — all four roman numerals are different, "v" unused
+- ✅ VALID: 1-iv, 2-i, 3-v, 4-ii — all four roman numerals are different, "iii" unused
+
+Validation method: After writing each option, list the 4 roman numerals used. If any numeral appears more than once → REWRITE that option immediately.
+
+---
+
+## THE MULTI-LAYERED INTERCONNECTION PRINCIPLE (CORE OF HARD LEVEL)
+
+This is what separates Hard from Medium. In Hard, Column II items are deliberately designed to be **closely related to each other** so that multiple items appear to match each Column I item. The student must use precise knowledge to resolve the ambiguity.
+
+### How to achieve interconnection:
+
+**Method 1 — Shared Domain, Different Specificity:**
+All Column II items belong to the same biological domain but differ in ONE specific detail (location, timing, molecule, mechanism). The student must know the PRECISE detail.
+
+Example concept: All Column II items describe nitrogen-related biochemical transformations. $\textit{{Nitrosomonas}}$ converts $NH_3$ to $NO_2^-$, while $\textit{{Nitrobacter}}$ converts $NO_2^-$ to $NO_3^-$. A student who knows "nitrification" but not the precise two-step mechanism will confuse them.
+
+**Method 2 — Cascading Chain:**
+Column I items represent steps in a connected biological chain. Column II items represent the IMMEDIATE outcomes of each step. Since the outcome of step 1 feeds into step 2, the outcomes are inherently interconnected and easy to confuse.
+
+Example concept: In sewage treatment, aeration → microbial growth → floc formation → BOD reduction. Each step's outcome sounds like it could be the outcome of the adjacent step.
+
+**Method 3 — Parallel Systems:**
+Column I items come from parallel biological systems that share structural or functional similarities. Column II items describe features that belong to ONE system but sound applicable to the other.
+
+Example concept: Chondrichthyes vs Osteichthyes share many features but differ in specific ones (cartilage vs bone, placoid vs cycloid scales, air bladder presence). A question matching fish classes to specific features forces the student to differentiate parallel systems.
+
+**Method 4 — Multi-Parameter Matching:**
+Each Column I item requires matching based on 2+ parameters simultaneously (e.g., organism + process + product). Column II items describe combinations that differ in only one parameter.
+
+Example concept: Different bacteria in the nitrogen cycle all work with nitrogen compounds but differ in: which compound they START with, which compound they PRODUCE, and whether the process is aerobic or anaerobic.
+
+---
+
+## OPTION CONSTRUCTION — CLOSE OPTIONS (CRITICAL)
+
+The defining quality of Hard-level options: **wrong options must be CLOSE to the correct answer.** Each wrong option should differ from the correct answer by exactly 1-2 swapped pairs.
+
+### Option Construction Rules:
+
+1. **Start with the correct matching sequence**
+2. **For each wrong option, swap exactly 1-2 pairs from the correct answer**
+3. **At least one wrong option must use the distractor numeral** — replacing one correct match with the distractor's roman numeral
+4. **At least one wrong option must swap two closely related Column II items** — items students commonly confuse
+5. **No option should share fewer than 2 correct pairs with the correct answer**
+6. **No two options should be identical**
+
+### ✓ GOOD option set (correct answer: 1-iii, 2-i, 3-iv, 4-ii):
+a) 1-iii, 2-i, 3-iv, 4-ii ← correct
+b) 1-iii, 2-i, 3-ii, 4-iv ← swaps pairs 3 and 4 (closely related)
+c) 1-iii, 2-iv, 3-i, 4-ii ← swaps pairs 2 and 3
+d) 1-iii, 2-i, 3-[D], 4-ii ← uses distractor numeral [D] for pair 3
+
+### ✗ BAD option set (correct answer: 1-iii, 2-i, 3-iv, 4-ii):
+a) 1-iii, 2-i, 3-iv, 4-ii ← correct
+b) 1-i, 2-ii, 3-iii, 4-iv ← completely different — 0 shared pairs, trivially eliminable
+c) 1-iv, 2-iii, 3-ii, 4-i ← reverse of correct — 0 shared pairs
+d) 1-v, 2-v, 3-v, 4-v ← absurd
+
+---
+
+## SHUFFLE COLUMN II (MANDATORY)
+
+- Column II items MUST be in RANDOM order — the correct answer must NEVER be 1-i, 2-ii, 3-iii, 4-iv (sequential)
+- Correct matching should be scrambled like: 1-iii, 2-i, 3-iv, 4-ii
+
+---
+
+## DISTRACTOR DESIGN (CRITICAL FOR HARD LEVEL)
+
+At Hard level, the distractor must be a GENUINE trap — not an obviously out-of-place item.
+
+### Good Distractor Qualities:
+1. **Same domain AND same specificity level** as the other Column II items
+2. **Describes a real biological fact** — just one that doesn't match ANY of the 4 Column I items
+3. **Maximally confusable** with at least one correct Column II match
+4. **Used in at least one wrong option** — if the distractor doesn't appear in any option, it serves no purpose
+
+### Distractor Construction Method:
+- Identify the MOST commonly confused concept in the topic
+- Write a Column II item that describes this confused concept accurately
+- Verify it does NOT match any Column I item
+- Place it in at least one wrong option, replacing the Column II item it is most easily confused with
+
+### Example:
+Topic: Meiosis substages. Correct Column II items describe events of leptotene, zygotene, pachytene, diplotene.
+Distractor: "Bivalents align at the equatorial plate with kinetochore fibres from opposite poles" — describes metaphase I, which is NOT a prophase substage but sounds like it could follow diplotene.
+
+---
+
+## CATEGORY FRAMEWORK (SELECT ONE PER QUESTION)
+
+Before writing each question, select ONE category from below.
+
+**Distribution rule:** Across all generated questions, use at least 3 different categories. Do not generate more than 40% of questions from any single category.
+
+---
+
+### H1: Mechanism / Condition ↔ Immediate Downstream Consequence
+
+**Column I:** Specific biological conditions, mechanisms, or events.
+**Column II:** The MOST IMMEDIATE consequence or outcome of each — not a final-stage effect.
+**Interconnection type:** Cascading chain — outcomes are interconnected because each feeds into the next.
+**Critical rule:** If step A leads to B leads to C, and both A and C are in Column I, then A must match B's outcome, NOT C's outcome.
+
+**✓ GOOD:**
+Column I: 1. Aeration of effluent  2. Growth of aerobic microbes in flocs  3. Settling of flocs in sedimentation tank  4. Anaerobic digestion of sludge
+Column II: a. Activated sludge that can serve as inoculum for new batches  b. Vigorous proliferation of aerobic heterotrophic communities  c. Reduction of dissolved organic load measured as decreased BOD  d. Generation of biogas mixture rich in $CH_4$ and $CO_2$  e. Elimination of residual pathogenic organisms via chemical disinfection
+
+**✗ BAD:**
+Column I: 1. Aeration  2. Settling  3. Digestion  4. Chlorination
+Column II: a. Clean water  b. Less pollution  c. Kills germs  d. Removes solids  e. Treats sewage
+
+---
+
+### H2: Organism / Agent ↔ Specific Biochemical Transformation (Multi-Parameter)
+
+**Column I:** Specific organisms or biological agents.
+**Column II:** The precise biochemical transformation each performs — described with substrate, product, and condition.
+**Interconnection type:** Multi-parameter matching. All Column II items describe transformations in the same pathway but differ in which substrate is converted to which product.
+
+**✓ GOOD:**
+Column I: 1. $\textit{{Nitrosomonas}}$  2. $\textit{{Nitrobacter}}$  3. $\textit{{Pseudomonas}}$ (denitrifier)  4. $\textit{{Rhizobium}}$
+Column II: a. Oxidizes $NO_2^-$ to $NO_3^-$ under aerobic conditions  b. Converts $NH_3$ to $NO_2^-$ as the first step of nitrification  c. Reduces $NO_3^-$ to gaseous $N_2$ under anaerobic conditions  d. Converts atmospheric $N_2$ to $NH_3$ in root nodule symbiosis  e. Converts organic nitrogen to $NH_3$ through mineralization
+
+**✗ BAD:**
+Column I: 1. $\textit{{Nitrosomonas}}$  2. $\textit{{Lactobacillus}}$  3. Yeast  4. $\textit{{E. coli}}$
+Column II: a. Makes yogurt  b. Makes bread  c. Found in gut  d. Found in soil  e. Found in water
+
+---
+
+### H3: Structure / Organ ↔ Specific Functional Detail (Parallel Systems)
+
+**Column I:** Structures or organs from parallel or analogous biological systems.
+**Column II:** Specific functional or structural details that belong to ONE system but sound applicable to others.
+**Interconnection type:** Parallel systems — Column I items are structurally similar. Column II items describe features students commonly mis-assign between them.
+
+**✓ GOOD:**
+Column I: 1. Proximal convoluted tubule  2. Loop of Henle  3. Distal convoluted tubule  4. Collecting duct
+Column II: a. Conditional reabsorption of water regulated by ADH concentration  b. Obligatory reabsorption of nearly 70% of filtered water and all glucose  c. Creates medullary osmotic gradient through countercurrent multiplication  d. Selective secretion of $H^+$ and $K^+$ ions for acid-base homeostasis  e. Ultrafiltration of blood plasma driven by hydrostatic pressure differential
+
+**✗ BAD:**
+Column I: 1. Heart  2. Kidney  3. Lung  4. Liver
+Column II: a. Pumps blood  b. Filters waste  c. Gas exchange  d. Detoxification  e. Digestion
+
+---
+
+### H4: Phase / Sub-stage ↔ Defining Molecular Event (Fine Discrimination)
+
+**Column I:** Phases or sub-stages of a single biological process.
+**Column II:** The specific molecular or cellular event that DEFINES each phase — described at the mechanism level.
+**Interconnection type:** Fine discrimination — all events happen during the same overall process and involve similar molecular machinery. Student must know the precise SEQUENCE and MECHANISM.
+
+**✓ GOOD:**
+Column I: 1. Leptotene  2. Zygotene  3. Pachytene  4. Diplotene
+Column II: a. Synaptonemal complex formation enables intimate pairing of homologous chromosomes along their entire length  b. Recombination nodules facilitate exchange of genetic material between non-sister chromatids of bivalents  c. Progressive dissolution of synaptonemal complex reveals X-shaped chiasmata at crossover sites  d. Chromatin threads condense into distinct chromosomes visible as elongated thin filaments within the nuclear envelope  e. Kinetochore microtubules attach to centromeres of bivalents aligned at the equatorial plate
+
+**✗ BAD:**
+Column I: 1. Prophase  2. Metaphase  3. Anaphase  4. Telophase
+Column II: a. Chromosomes condense  b. Chromosomes align  c. Chromosomes separate  d. Nuclear envelope reforms  e. DNA replicates
+
+---
+
+### H5: Comparative Feature ↔ Specific Taxon (Multi-Way Comparison)
+
+**Column I:** Specific biological features or characteristics.
+**Column II:** The specific taxon that UNIQUELY possesses each feature — among a set of closely related taxa.
+**Interconnection type:** Multi-way comparison — all Column I features and Column II taxa are from the SAME classification level. Features are ones students commonly misattribute between the taxa.
+
+**✓ GOOD:**
+Column I: 1. Lateral line sensory system for detecting water pressure changes  2. Three-chambered heart with incompletely divided ventricle  3. Oil-filled hepatopancreas for buoyancy regulation  4. Pneumatic bones with air cavities connected to respiratory system
+Column II: a. Osteichthyes  b. Amphibia  c. Chondrichthyes  d. Aves  e. Reptilia
+
+**✗ BAD:**
+Column I: 1. Feathers  2. Gills  3. Mammary glands  4. Scales
+Column II: a. Aves  b. Pisces  c. Mammalia  d. Reptilia  e. Amphibia
+
+---
+
+## ZERO KEYWORD OVERLAP RULE (CRITICAL — HARD FAILURE)
+
+**NO word or root word may appear in BOTH a Column I item AND its correct Column II match.**
+
+- ❌ "Microbial degradation" → "Decomposition by microbes" (shares "microb-")
+- ❌ "Water vascular system" → "System using water pressure for locomotion" (shares "water" and "system")
+- ✅ "Eutrophication" → "Algal bloom depletes dissolved $O_2$ at night"
+- ✅ "Activated sludge" → "Serves as inoculum for fresh batches"
+
+---
+
+## CATEGORICAL CONSISTENCY RULE (CRITICAL — HARD FAILURE)
+
+**Column I must be ALL one type.** Column II must be ALL one different type.
+**BANNED:** Mixing organisms + equipment + processes in Column I. Mixing definitions + outcomes + locations in Column II.
+
+---
+
+## NO COMMON-SENSE / TAUTOLOGY RULE (HARD FAILURE)
+
+Every pair MUST require specific biological knowledge AND multi-step reasoning.
+
+**Pattern 1: Common-Sense (No Biology Needed)**
+- ❌ "Effective treatment" → "Less pollution" — anyone can guess
+
+**Pattern 2: Tautology (Column II Restates Column I)**
+- ❌ "Microbial degradation" → "Decomposition of organic matter by microbes" — identity mapping
+
+**Pattern 3: Definitional Echo (Column II Expands Column I)**
+- ❌ "Nitrification" → "Conversion of ammonia to nitrate" — dictionary definition
+- ✅ Fix: "Nitrification" → "Sequential two-step oxidation first yielding $NO_2^-$ then $NO_3^-$ by chemoautotrophic bacteria"
+
+---
+
+## IMMEDIATE CONSEQUENCE RULE (NO CHAIN-SKIPPING)
+
+Each Column I item maps to its **MOST IMMEDIATE** downstream consequence — NOT a final-stage effect.
+
+If the causal chain is A → B → C → D:
+- Column I item "A" → Column II must be "B" (immediate), NOT "C" or "D"
+- If both A and C are in Column I: A maps to B and C maps to D — each gets its OWN immediate outcome
+
+- ❌ Chain-skipping: Aeration → Effluent released into rivers
+- ✅ Immediate: Aeration → Vigorous proliferation of aerobic heterotrophic communities
+
+---
+
+## SOURCE-FACT VERIFICATION PROCEDURE (MANDATORY — EVERY PAIR)
+
+For EVERY Column I ↔ Column II pair, internally perform this check before including it:
+
+**Step 1: LOCATE** — Identify the EXACT sentence or phrase in the source content where this pair's relationship is stated. If you cannot point to a specific line, DO NOT use this pair.
+
+**Step 2: QUOTE-CHECK** — The fact in Column II must be a rephrased version of what the source ACTUALLY says. Do NOT:
+- Expand a source fact with additional detail from your training knowledge
+- Combine facts from the source with facts you "know" to be true
+- Use a fact that is biologically correct but NOT stated in the provided source content
+- Assume a fact is in the source because it is standard NCERT -- only the PROVIDED text counts
+
+**Step 3: NEGATIVE CHECK** — Ask: "Does Column II contain anything that goes BEYOND what the source explicitly states?" If YES → rewrite Column II to contain ONLY what the source says, or drop the pair.
+
+This applies to the distractor as well — it must describe a real biological fact from the same topic area, but NOT one stated in the source as matching any Column I item.
+
+---
+
+## UNIQUE MATCH TEST (MANDATORY — EVERY TABLE)
+
+After building the table but BEFORE generating options, run this test:
+
+For EACH Column I item, ask: "Could more than one Column II item be a defensible correct match?"
+
+If YES for any Column I item → the Column II items are not distinct enough. You MUST fix this by adding a distinguishing qualifier to the confusable Column II items that makes only ONE match defensible.
+
+Example of failure:
+Column I: 1. Light-harvesting complex  2. Reaction centre chlorophyll a
+Column II: ii. Absorbs photons and transfers excitation energy
+PROBLEM: BOTH Column I items absorb photons — "ii" matches both 1 and 2.
+Fix by adding distinguishing qualifiers:
+- For item matching "1": "Funnels absorbed photon energy to the reaction centre without undergoing photochemistry"
+- For item matching "2": "Undergoes oxidation upon photon absorption and donates electron to primary acceptor"
+
+The test passes when: Every Column I item has exactly ONE defensible Column II match, and no Column II item (except the distractor) can validly match more than one Column I item.
+
+If you cannot make the matches unambiguous after two attempts → discard the topic and choose a different one.
+
+---
+
+## PRE-GENERATION STEP (MANDATORY)
+
+Before writing each question, internally perform these steps:
+
+1. **Select a category** from H1–H5. If the question does not fit any category, do not generate it.
+2. **Identify the interconnection type** and verify that Column II items are genuinely interconnected and confusable.
+3. **Build all 4 correct pairs** from the source content. Verify each requires multi-step reasoning.
+4. **Design the distractor** — maximally confusable with at least one correct Column II match, same domain and specificity level.
+5. **Run the keyword overlap check** on every pair.
+6. **Run the tautology/definitional check** on every pair. If Column II merely defines Column I, rewrite at mechanism level.
+7. **Run the chain-skipping check.** Does each Column I item map to its IMMEDIATE consequence?
+8. **Build options** using the close-option method: each wrong option differs from correct by exactly 1-2 swapped pairs. At least one wrong option uses the distractor.
+9. **Verify interconnection quality:** For each Column I item, can at least 2 Column II items seem plausible at first glance? If not, the question lacks Hard-level ambiguity.
+10. **Shuffle Column II** so correct answer is not 1-i, 2-ii, 3-iii, 4-iv. Assign all 5 items (4 correct + 1 distractor) to positions i–v randomly — the distractor must NOT always land at position v. Vary the distractor's position across questions.
+
+---
+
+## OPTION GENERATION PROCEDURE — ANCHOR-AND-DERIVE METHOD (MANDATORY)
+
+This method eliminates the most common Hard MTF failure: no correct option present. Follow these steps IN ORDER — do not skip or reorder.
+
+**Step 1 — ANCHOR the correct sequence:**
+After constructing the table, immediately write the correct matching as a standalone line:
+CORRECT = 1-[x], 2-[y], 3-[z], 4-[w] (unused: [D])
+where [D] is the numeral assigned to the distractor (could be any of i–v, not always v).
+Verify: all four roman numerals in CORRECT are different and [D] is unused.
+
+**Step 2 — WRITE option (a) by COPYING the CORRECT line exactly:**
+a) 1-[x], 2-[y], 3-[z], 4-[w]
+This is a CHARACTER-BY-CHARACTER copy. Do not retype from memory — copy the exact string from Step 1. Option (a) is ALWAYS the correct answer during generation.
+
+**Step 3 — Derive option (b) by swapping TWO MOST CONFUSABLE Column II numerals in (a):**
+Pick two Column II numerals from option (a) that students are most likely to confuse. Swap them.
+Write: (b) = (a) with numerals [x] and [z] swapped in their positions
+Then write the full option: b) 1-[z], 2-[y], 3-[x], 4-[w]
+CHECK: Does (b) contain 4 DIFFERENT roman numerals? If not → fix.
+
+**Step 4 — Derive option (c) by making a DIFFERENT swap of 1–2 pairs from (a):**
+Must touch DIFFERENT Column I items than option (b) touched.
+Write: (c) = (a) with numerals [y] and [w] swapped in their positions
+Then write the full option: c) 1-[x], 2-[w], 3-[z], 4-[y]
+CHECK: Does (c) contain 4 DIFFERENT roman numerals? Does (c) differ from (b)? If not → fix.
+
+SPREAD RULE: Across options (b) and (c), the swapped pairs must collectively touch at least 3 of the 4 Column I items.
+- ❌ BAD — All options agree on items 1 and 4, only items 2 and 3 vary (student skips checking 1 and 4):
+  a) 1-iii, 2-i, 3-iv, 4-ii
+  b) 1-iii, 2-iv, 3-i, 4-ii
+  c) 1-iii, 2-i, 3-ii, 4-iv
+  d) 1-iv, 2-i, 3-v, 4-ii
+- ✅ GOOD — Swaps spread across different pairs, distractor [D]=ii placed at position ii in table:
+  a) 1-iii, 2-i, 3-iv, 4-v    ← correct (distractor is ii, unused)
+  b) 1-iii, 2-iv, 3-i, 4-v    ← swaps 2↔3
+  c) 1-iii, 2-i, 3-v, 4-iv    ← swaps 3↔4
+  d) 1-iv, 2-i, 3-ii, 4-v     ← swaps 1 + distractor in 3
+
+**Step 5 — Derive option (d) by replacing ONE correct numeral with the distractor numeral [D]:**
+Take option (a). Pick one Column I item. Replace its Column II numeral with [D] (the distractor's numeral from Step 1).
+Write: (d) = (a) with pair [item]-[numeral] replaced by [item]-[D]
+Then write the full option: d) 1-[x], 2-[D], 3-[z], 4-[w]
+CHECK: Does (d) contain 4 DIFFERENT roman numerals? If not → fix.
+
+**Step 6 — FINAL VERIFICATION (ALL 4 OPTIONS):**
+For each option, answer these TWO questions:
+
+Q1: "Are all 4 roman numerals in this option DIFFERENT from each other?"
+- If NO → HARD FAILURE. Rewrite the option.
+
+Q2: "Does this option exactly match the CORRECT line from Step 1?"
+- Option (a): must be YES
+- Options (b), (c), (d): must be NO
+- If option (a) does NOT match CORRECT → you made a copy error. Re-copy from Step 1.
+- If any of (b), (c), (d) accidentally matches CORRECT → you didn't actually swap. Redo the swap.
+
+**Step 7 — RANDOMIZE the position of the correct answer:**
+After verification passes, randomly reassign which letter (a/b/c/d) holds the correct sequence. Move the option CONTENTS, not the labels. Distribute evenly across all questions: no more than 3 consecutive questions with correct answer in the same position.
+
+### REAL FAILURE EXAMPLE — No correct option present:
+
+Generated question (prophase substages):
+Column I: 1. Leptotene  2. Zygotene  3. Pachytene  4. Diplotene
+Column II:
+i. Synaptonemal complex forms as homologous chromosomes pair along their entire length
+ii. Chiasmata become visible as synaptonemal complex dissolves
+iii. Chromatin condenses into thin elongated filaments within the nucleus
+iv. Crossing over occurs between non-sister chromatids at recombination nodules
+v. Bivalents align at the equatorial plate with kinetochore fibres from opposite poles
+
+Correct sequence: 1-iii, 2-i, 3-iv, 4-ii
+
+OPTIONS generated (independent permutations — WRONG METHOD):
+a. 1-i, 2-iii, 3-ii, 4-iv
+b. 1-iv, 2-i, 3-iii, 4-ii
+c. 1-iii, 2-iv, 3-i, 4-v
+d. 1-ii, 2-iii, 3-iv, 4-i
+
+TEACHER FEEDBACK: Unsolvable — none of the four options matches the correct sequence (1-iii, 2-i, 3-iv, 4-ii).
+
+ROOT CAUSE: Options generated as independent permutations — correct sequence was never placed in a slot first. Use Anchor-and-Derive: anchor CORRECT as (a), derive (b)/(c)/(d) by swapping pairs, verify, then randomize position.
+
+---
+
+## GOOD EXAMPLES
+
+### Example 1 — Category H2: Organism ↔ Biochemical Transformation (Nitrogen Cycle)
+
+Q. Match the following organisms with their specific biochemical role in the nitrogen cycle:
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. $\textit{{Nitrosomonas}}$ & i. Reduces $NO_3^-$ to gaseous $N_2$ under anaerobic conditions \\
+2. $\textit{{Nitrobacter}}$ & ii. Converts $NH_3$ to $NO_2^-$ as the first oxidative step \\
+3. $\textit{{Pseudomonas}}$ (denitrifier) & iii. Oxidizes $NO_2^-$ to $NO_3^-$ as the second oxidative step \\
+4. $\textit{{Rhizobium}}$ & iv. Converts atmospheric $N_2$ to $NH_3$ within root nodule symbiosomes \\
+ & v. Mineralizes organic nitrogen to $NH_3$ through decomposition of detritus \\
+\hline
+\end{{tabular}}
+
+a) 1-ii, 2-iii, 3-i, 4-iv
+b) 1-iii, 2-ii, 3-i, 4-iv
+c) 1-ii, 2-iii, 3-iv, 4-i
+d) 1-ii, 2-iii, 3-i, 4-v
+
+Answer: a
+*All 5 Column II items are nitrogen transformations — highly interconnected. Option (b) swaps $\textit{{Nitrosomonas}}$ and $\textit{{Nitrobacter}}$ (step 1 vs step 2 of nitrification — most common student confusion). Option (c) swaps $\textit{{Pseudomonas}}$ and $\textit{{Rhizobium}}$ (confuses denitrification with nitrogen fixation). Option (d) uses the distractor numeral for $\textit{{Pseudomonas}}$ (traps students who confuse denitrification with ammonification).*
+
+---
+
+### Example 2 — Category H3: Structure ↔ Functional Detail (Nephron Segments)
+
+Q. Match the following nephron segments with their primary physiological role:
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. Proximal convoluted tubule & i. Creates medullary osmotic gradient through countercurrent multiplication \\
+2. Loop of Henle & ii. Conditional reabsorption of water regulated by circulating ADH levels \\
+3. Distal convoluted tubule & iii. Obligatory reabsorption of approximately 70% of filtered water and all glucose \\
+4. Collecting duct & iv. Selective secretion of $H^+$ and $K^+$ ions contributing to acid-base balance \\
+ & v. Pressure-driven filtration of blood plasma across fenestrated capillary endothelium \\
+\hline
+\end{{tabular}}
+
+a) 1-iii, 2-i, 3-iv, 4-ii
+b) 1-iii, 2-i, 3-ii, 4-iv
+c) 1-ii, 2-i, 3-iv, 4-iii
+d) 1-iii, 2-i, 3-iv, 4-v
+
+Answer: a
+*All Column II items describe water/ion handling in the nephron — closely interconnected. Option (b) swaps DCT and collecting duct (both involve fine-tuning of reabsorption). Option (c) swaps PCT and collecting duct (confuses obligatory vs conditional reabsorption). Option (d) uses the distractor numeral — traps students who confuse the collecting duct with glomerular filtration.*
+
+---
+
+## BAD EXAMPLES — NEVER generate questions like these
+
+**BAD 1 — No interconnection (Easy-level disguised as Hard):**
+Column I: 1. Heart  2. Kidney  3. Lung  4. Liver
+Column II: i. Pumps blood  ii. Filters waste  iii. Gas exchange  iv. Detoxification  v. Digestion
+*Completely different organ systems. No ambiguity.*
+
+**BAD 2 — Keyword overlap:**
+Column I: 1. Microbial degradation  |  Column II: a. Degradation by microbes
+*Column II restates Column I.*
+
+**BAD 3 — Chain-skipping:**
+Column I: 1. Aeration of effluent  |  Column II: a. Clean water released into river
+*Skips 5 intermediate steps. Should map to IMMEDIATE consequence (microbial growth).*
+
+**BAD 4 — Non-close options (correct: 1-iii, 2-i, 3-iv, 4-ii):**
+a) 1-iii, 2-i, 3-iv, 4-ii  b) 1-i, 2-ii, 3-iii, 4-iv  c) 1-iv, 2-iii, 3-ii, 4-i  d) 1-v, 2-v, 3-v, 4-v
+*Wrong options share 0 pairs with correct answer — trivially eliminable.*
+
+**BAD 5 — Definitional echo (Medium-level, not Hard):**
+Column I: 1. BOD  2. COD  3. DO  4. STP
+Column II: i. Oxygen consumed by microbes  ii. Total oxidizable load  iii. Dissolved oxygen  iv. Treatment facility  v. pH level
+*Each pair is a straight definition. No multi-step reasoning.*
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+## ADDITIONAL WRITING RULES
+
+- NEVER use parenthetical translations as hints: ❌ "Chondrichthyes (cartilaginous fishes)" — write the term and let the student identify it

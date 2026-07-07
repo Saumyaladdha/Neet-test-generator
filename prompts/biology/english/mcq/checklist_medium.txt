@@ -1,0 +1,32 @@
+**Category distribution:**
+- [ ] Category A (Statement Evaluation): ___ questions (min 2, max 4)
+- [ ] Category B (Standard MCQ): ___ questions (min 2, max 4)
+- [ ] Category C (Which is correct?): ___ questions (min 1)
+- [ ] Category D (NOT correct?): ___ questions (min 1)
+- [ ] Category E (INCORRECT?): ___ questions (min 1)
+- [ ] Category F (NOT INCORRECT?): ___ questions (max 1)
+- [ ] If any required category has 0 questions, REWRITE to add variety
+
+**Category A specific:**
+- [ ] Answer distribution across a/b/c/d is roughly balanced (no single answer > 35%)
+- [ ] Each statement is 20+ words or 2+ sentences
+- [ ] Target answer was decided BEFORE constructing statements
+
+**Single-Error Rule (ALL categories):**
+- [ ] Every incorrect statement contains exactly ONE specific factual error
+- [ ] No incorrect statement has 2+ errors stacked together
+- [ ] Each error is subtle and reflects a plausible student misconception
+- [ ] Fixing the single error makes the statement fully correct
+
+**Statement quality (Categories C/D/E/F):**
+- [ ] Each option-statement is exactly 1 sentence, ≤ 25 words
+- [ ] All 4 statements in a question are about the SAME topic or system
+- [ ] No statement contains exaggerated phrasing ("always", "never", "any stage") designed to be obviously false
+
+**Medium-specific checks:**
+- [ ] No "All of the above", "None of the above", "Both A and B", or any option referencing another option
+- [ ] No Hard MCQ format (numbered statements + combination options like "1, 2 and 3 only")
+- [ ] Category B options are ≤ 10 words each
+- [ ] Every question tests conceptual understanding, not single-fact recall
+- [ ] Every Category B question passes the Medium Filter — no single-fact recall
+- [ ] Each Category B question uses at least one framing: conditional/scenario, distinction, functional why, multi-step, or exception

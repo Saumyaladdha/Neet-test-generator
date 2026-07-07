@@ -1,0 +1,86 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक शब्द अपवाद हैं
+
+वैज्ञानिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द (जैसे NCERT हिंदी में हैं):
+  DNA, RNA, mRNA, tRNA, rRNA, ATP, ADP, AMP, NADPH, NADH, FADH₂,
+  CO₂, O₂, H₂O, pH, BOD, COD — सभी रासायनिक सूत्र और अंतर्राष्ट्रीय प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  कोशिका (cell), केन्द्रक (nucleus), माइटोकॉण्ड्रिया (mitochondria),
+  क्लोरोप्लास्ट (chloroplast), प्रकाश संश्लेषण (photosynthesis),
+  श्वसन (respiration), पाचन (digestion), गुणसूत्र (chromosome),
+  जीन (gene), उत्परिवर्तन (mutation), पारिस्थितिकी (ecology),
+  जैव विविधता (biodiversity), कोशिका भित्ति (cell wall),
+  कोशिका झिल्ली (cell membrane), राइबोसोम (ribosome),
+  गॉल्जी उपकरण (Golgi apparatus), लाइसोसोम (lysosome),
+  अन्तःप्रद्रव्य जालिका (endoplasmic reticulum), केन्द्रिका (nucleolus)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+**Category distribution:**
+- [ ] Cat 1 (multiple_correct): ___ questions
+- [ ] Cat 2 (identify_incorrect): ___ questions
+- [ ] Cat 3 (sequence_order): ___ questions
+- [ ] Cat 4 (true_false): ___ questions
+- [ ] TOTAL: ___ questions
+- [ ] No category has 0 questions
+- [ ] No category exceeds 40% of total
+- [ ] Every question has "question_category" field
+
+**Cat 1 (multiple_correct) checks:**
+- [ ] Exactly 5 statements per question
+- [ ] 2-3 correct + 2-3 incorrect statements (never all correct or all incorrect)
+- [ ] No "All of the above" or "None of the above" options
+- [ ] Each wrong option differs from correct by exactly 1-2 statements
+- [ ] No option lists only 1 statement or all 5 statements
+
+**Cat 2 (identify_incorrect) checks:**
+- [ ] Exactly 5 statements per question
+- [ ] 3-4 correct + 1-2 incorrect statements
+- [ ] Each incorrect statement has exactly ONE subtle error (Single-Error Rule)
+- [ ] At least one wrong option points to a correct-but-counter-intuitive statement
+
+**Cat 3 (sequence_order) checks:**
+- [ ] Exactly 5 statements per question
+- [ ] Statements listed in shuffled order (NOT matching correct chronological order)
+- [ ] Correct answer is NOT 1→2→3→4→5 or 5→4→3→2→1
+- [ ] At least 3 numbers are out of original position in correct answer
+- [ ] All 4 options use all 5 statement numbers
+- [ ] Arrow notation used (→), not commas
+- [ ] Stem says "in correct sequence" or "in chronological order"
+- [ ] At least one wrong option swaps two adjacent steps
+
+**Cat 4 (true_false) checks:**
+- [ ] Exactly 4 statements per question
+- [ ] T/F balance is 2T+2F or 3T+1F (never 4T+0F or 0T+4F)
+- [ ] Correct answer is NOT "T T T T" or "F F F F"
+- [ ] At least 2 positions have mixed T/F values across the 4 options (ambiguity check)
+- [ ] Each wrong option differs from correct by exactly 1-2 positions
+- [ ] Stem says "True/False sequence" or similar
+
+**Global checks:**
+- [ ] No parenthetical hints in stems
+- [ ] No answer clues in stem text
+- [ ] All options ≤ 7 words
+- [ ] Wrong statements follow Single-Error Rule (one subtle error, not stacked)
+- [ ] Cross-topic questions ≥ 30% of total
+- [ ] Every question tests conceptual understanding, not trivial recall
+- [ ] Source content covered evenly (not clustered from one section)

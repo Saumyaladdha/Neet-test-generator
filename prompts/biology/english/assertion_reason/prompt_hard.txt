@@ -1,0 +1,167 @@
+## ASSERTION-REASON — HARD LEVEL (BIOLOGY) | PDF-AWARE GENERATION
+
+You will receive up to 50 pages of PDF content via file_id. Process ALL pages before generating questions. A and R statements should draw from DIFFERENT sections/pages of the PDF where possible.
+
+---
+
+## CHEMICAL & MATHEMATICAL NOTATION
+
+Use standard LaTeX for all chemical formulas and mathematical symbols. Wrap expressions in dollar signs ($...$).
+- Chemical formulas: $CO_2$, $H_2O$, $Ca^{2+}$, $O^{2-}$, $NH_3$
+- Greek letters: $\alpha$, $\beta$, $\gamma$, $\delta$, $\omega$
+- Arrows: $\rightarrow$, $\leftarrow$, $\rightleftharpoons$
+- Math operators: $\times$, $\div$, $\pm$, $\frac{a}{b}$
+
+---
+
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
+
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+**HARD FAILURE** if any TYPE has 0 questions or same TYPE appears consecutively.
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
+
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these". Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE (HARD LEVEL)
+
+- **TYPE 1:** Both A and R are factually accurate. R provides a multi-step mechanistic explanation for A. The causal chain requires deep understanding of biological mechanisms.
+- **TYPE 2:** Both A and R are factually accurate. R is true and topically related but NOT the actual cause/mechanism of A — tests correlation vs causation. Students who skim will assume the connection.
+- **TYPE 3:** A is factually accurate. R contains a SUBTLE mechanistic error — reversed cause-effect, misassigned pathway, or exaggerated scope ("all"/"always") — embedded in otherwise correct-sounding mechanistic language. Not an obvious blunder.
+- **TYPE 4:** A contains a common student misconception (not an absurd error) embedded in otherwise correct-sounding mechanistic language. R is a factually accurate mechanistic statement.
+
+---
+
+## SAME-ENTITY RULE (MANDATORY — ZERO EXCEPTIONS)
+
+A and R must address THE SAME specific entity, concept, element, ion, molecule, or organism.
+
+**BANNED patterns (instant HARD FAILURE):**
+- A is about a cation → R is about an anion (different ionic species)
+- A is about element X (e.g., Beryllium) → R is about element Y (e.g., Boron) — different elements
+- A is about one enzyme → R is about a different enzyme
+- A is about one organism/phylum → R is about a different organism/phylum
+
+**ALLOWED for TYPE 2:** A and R may be about different *aspects* of the SAME entity — e.g., A discusses the ionization enthalpy of nitrogen, R discusses the electron configuration of nitrogen. Same element, different property.
+
+**Test:** Before finalising any question, ask "Are A and R talking about the same specific thing?" If NO — REWRITE.
+
+---
+
+## NO-DIRECT-CONTRADICTION RULE (MANDATORY)
+
+A and R must NEVER be mirror-opposite statements where one simply negates the other's property value for the same entity.
+
+**BANNED patterns (instant HARD FAILURE):**
+- A: "Successive ionization enthalpies INCREASE" → R: "The second IE is LOWER than the first" — trivially detectable contradiction
+- A: "2p electrons have GREATER penetration" → R: "2s electrons penetrate CLOSER to nucleus" — trivially detectable contradiction
+- A says property P of entity X is HIGH → R says property P of entity X is LOW
+- A says a process goes in direction D → R says the same process goes in the opposite direction
+
+**What SUBTLE errors look like instead:**
+- R attributes the correct effect to the WRONG mechanism (correct outcome, wrong pathway)
+- R uses a real fact from a different context where it does NOT apply here
+- R exaggerates scope with "always"/"all" when the rule has known exceptions
+- R reverses cause and effect without reversing the observable property
+- A overstates a trend that has a well-known exception the student should know
+
+**Test:** If a student can spot the error purely by noticing "A says X but R says not-X about the same property" — no subject knowledge required — REWRITE.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about different *aspects* of the SAME entity — never about completely different entities. No student should be able to argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
+
+---
+
+## WHAT MAKES IT HARD (NOT Medium)
+
+**Assertion (A):**
+- Must involve mechanism-level reasoning (HOW/WHY) — never simple definitional recall
+- Describe through properties/functions/consequences — NOT direct labels
+  - Wrong: "Mitochondria are called powerhouse of the cell"
+  - Correct: "The organelle responsible for oxidative phosphorylation and maximum ATP yield is termed the powerhouse of the cell"
+- May combine concepts from different PDF sections
+
+**Reason (R):**
+- TYPE 1: R provides a multi-step mechanistic explanation for A
+- TYPE 2: R is true and topically related but NOT the actual cause/mechanism of A (tests correlation vs causation)
+- TYPE 3: R contains a SUBTLE mechanistic error — reversed cause-effect, misassigned pathway, or exaggerated scope ("all"/"always") — not an obvious blunder
+- TYPE 4: A contains a common student misconception; R is a correct mechanistic fact
+
+---
+
+## CROSS-PAGE INTERCONNECTION (PDF MODE)
+
+**Rule 1 — Cross-Section Pairing:** Where possible, draw A from one section/chapter and R from another. This tests whether students can evaluate relationships across topics.
+
+**Rule 2 — Cross-Reference Traps (TYPE 2):** Use a true fact from a related section as R — it's scientifically correct and topically adjacent, but doesn't actually explain A. Students who skim will assume the connection.
+
+**Rule 3 — At least 25% of questions should be cross-page** (A and R from different sections of the PDF).
+
+---
+
+## QUALITY RULES
+
+1. Both A and R must be traceable to PDF content — no external knowledge
+2. A and R must each be independently meaningful as standalone sentences
+3. NEVER copy-paste from source — always rephrase with mechanistic depth
+4. Difficulty comes from understanding mechanisms and relationships, NOT obscure terminology
+5. Every question must have exactly ONE valid option among the four
+
+---
+
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
+
+Questions MUST cycle through all 4 logical types:
+
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
+... continue cyclically
+
+For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, answer_type, question_text, and options. The "answer_type" field is an internal quality-check value (see schema) that is stripped automatically before delivery to students — populating it is not a violation of this rule. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template.

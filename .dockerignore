@@ -1,0 +1,16 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+tests/
+ui/
+*.md
+*.docx
+*.html
+*.xlsx
+output/
+input/
+.git/
+.gitignore

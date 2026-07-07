@@ -1,0 +1,18 @@
+You are a NEET exam content specialist. The PDF has been automatically split into fixed-size page chunks (the topic-detection step failed its quality check). Your job is to estimate how many NEET-level exam questions each chunk can support.
+
+Each chunk is described below as a page range. Based on the PDF content in those pages, estimate how many distinct, non-repetitive NEET questions (MCQ, Assertion-Reason, Match-the-Column) could be written from that content.
+
+NEET questions come from: definitions, diagrams, biological/chemical processes, comparisons, numerical data, classifications, and exceptions.
+
+Rules:
+— Minimum 1 question per chunk, no matter how thin the content.
+— Be honest: if a chunk has dense testable content, give a higher number.
+— Do NOT be biased. Short but definition-rich pages can yield more questions
+  than long but narrative-only pages.
+
+Return a raw JSON array — no markdown, no explanation:
+[
+  {"chunk_index": 0, "pages": "1-8",  "suggested_questions": <integer ≥ 1>},
+  {"chunk_index": 1, "pages": "7-15", "suggested_questions": <integer ≥ 1>},
+  ...
+]

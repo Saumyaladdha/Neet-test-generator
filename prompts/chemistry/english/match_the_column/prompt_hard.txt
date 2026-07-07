@@ -1,0 +1,337 @@
+## MATCH THE COLUMN — HARD LEVEL (CHEMISTRY | NEET)
+
+**HARD** = Multiple Column II items seem plausible for the same Column I item. Only precise knowledge of mechanisms, conditions, or electronic reasons resolves it. If a pair resolves with a single fact recall → it is Medium, not Hard.
+
+**CRITICAL:** The correct answer MUST appear in the options. Use ANCHOR-AND-DERIVE (below) — write CORRECT first, copy into one option slot, derive wrong options by swapping. NEVER generate options independently.
+
+---
+
+## QUESTION STRUCTURE — 4×5 FORMAT (MANDATORY)
+
+- **Column I:** EXACTLY 4 items (numbered 1–4) — all from the SAME category type
+- **Column II:** EXACTLY 5 items (roman numerals i–v) — all from a DIFFERENT but consistent category type
+- ONE of the 5 items is a **chemically plausible distractor** that matches NO Column I item. Its position (i, ii, iii, iv, or v) is **randomly assigned** — the distractor is NEVER always at position v.
+- ONE-TO-ONE matching: every Column I item matches exactly one Column II item. One Column II item remains unmatched.
+
+**Table format (LaTeX — MANDATORY):**
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. [Item] & i. [Item] \\
+2. [Item] & ii. [Item] \\
+3. [Item] & iii. [Item] \\
+4. [Item] & iv. [Item] \\
+ & v. [Distractor item] \\
+\hline
+\end{{tabular}}
+
+**Options format:** Each option is a complete 4-pair sequence (one Column II numeral unused):
+a) 1-iii, 2-i, 3-iv, 4-ii
+b) 1-ii, 2-i, 3-iv, 4-iii
+c) 1-iii, 2-v, 3-i, 4-ii
+d) 1-iii, 2-i, 3-ii, 4-iv
+
+**CRITICAL — NEVER label the distractor (applies to EVERY Column II item):**
+
+Do NOT write "(distractor)", "(unused)", "(trap)", "(extra)", "DISTRACTOR:", "[distractor]", "(wrong)", or ANY word/annotation next to any Column II item that signals which one is the trap. All 5 items must appear as plain chemical statements with zero annotation.
+
+❌ HARD FAILURE EXAMPLES — all of these are BANNED:
+  "iv. Optical isomerism only occurs in carbon compounds (distractor)"
+  "ii. DISTRACTOR: Erroneous reports of cold fusion arose from palladium experiments"
+  "i. DISTRACTOR: Presence of cyclic hexameric polymers in the gas phase"
+  "i. The nitro isomer decomposes in acid to give nitrous acid (distractor)"
+
+✅ CORRECT: Write the distractor as a plain chemistry statement with NO label, annotation, or any indicator whatsoever. It looks identical in format to the 4 correct Column II items.
+
+**CRITICAL — Randomize distractor position:** The distractor must NOT always be at roman numeral v. The POSITION-FIRST rotation (below) assigns distractor position automatically.
+
+---
+
+**GLOBAL FORBIDDEN PHRASES — INSTANT DISCARD (applies to question stem AND all Column I/II items):**
+
+If ANY of the following phrases appear anywhere in a question, discard and replace it immediately:
+
+"in the text" | "from the text" | "in the source" | "from the source" | "in the table" | "from the table" | "in the section" | "from the section" | "stated in the text" | "listed in the text" | "described in the text" | "reported in the text" | "drawn from" | "taken from" | "as stated" | "as listed" | "based on the passage" | "in the passage" | "from the passage" | "mentioned in" | "the above" | "described above" | "listed above" | "paraphrased from" | "wording from" | "Table 3" | "Table 4" | "Table 5" | "Fig. 3" | "Fig. 4" | "Fig. 5" | "from Fig." | "from Table" | "in Fig." | "in Table" | "as given in" | "as shown in"
+
+These phrases reveal that the question is testing whether a student read the source document — not whether they know chemistry. Every question must be answerable from chemical knowledge alone.
+
+**Also banned — RAW NUMERICAL DATA as Column I or Column II items:**
+Column I or Column II items that are ONLY a bare number (e.g. "520", "-141", "1402 kJ mol⁻¹", "152 pm") are banned. This includes matching numerical values from tables/figures to element names or symbols. The student must apply chemical reasoning, not recall tabular data.
+
+---
+
+**CRITICAL — POSITION-FIRST CONSTRUCTION (MANDATORY):**
+
+Decide the Column II mapping BEFORE writing any description. This prevents the default sequential order 1-i, 2-ii, 3-iii, 4-iv (BANNED).
+
+**STEP 1 — Pick the template for this question:**
+
+Use question number N in the batch, compute N mod 4:
+
+| N mod 4 | Template | CORRECT mapping | Distractor position |
+|---------|----------|-----------------|---------------------|
+| 1  (Q1, Q5, Q9, Q13, Q17, Q21, Q25, Q29, Q33, Q37, Q41, Q45) | A | 1-iii, 2-v, 3-i, 4-ii  | iv |
+| 2  (Q2, Q6, Q10, Q14, Q18, Q22, Q26, Q30, Q34, Q38, Q42)     | B | 1-iv, 2-i, 3-v, 4-iii  | ii |
+| 3  (Q3, Q7, Q11, Q15, Q19, Q23, Q27, Q31, Q35, Q39, Q43)     | C | 1-ii, 2-iv, 3-iii, 4-v | i  |
+| 0  (Q4, Q8, Q12, Q16, Q20, Q24, Q28, Q32, Q36, Q40, Q44)     | D | 1-v, 2-iii, 3-ii, 4-i  | iv |
+
+⚠️ INTERNAL REASONING ONLY: Think this mapping to yourself — do NOT write it in the question output or JSON. The template declaration must never appear in any output field (question, options, or answer). It is a private planning step.
+
+---
+
+**STEP 2 — Derive what each roman numeral must describe, then write it:**
+
+Using the declared mapping, fill in each roman numeral slot IN ORDER (i), (ii), (iii), (iv), (v):
+
+Example — Template A: CORRECT = 1-iii, 2-v, 3-i, 4-ii  (extra item at iv):
+  (i)   = description for Column I item 3   [because 3→i]
+  (ii)  = description for Column I item 4   [because 4→ii]
+  (iii) = description for Column I item 1   [because 1→iii]
+  (iv)  = 5th item: write a REAL SPECIFIC CHEMICAL FACT on the same topic that does NOT match items 1–4.
+          ❌ WRONG: "A general statement about spectroscopic measurement artefacts"
+          ❌ WRONG: "A plausible statement about metallic bonding not relevant to periods"
+          ❌ WRONG: "A statement about periodic table box colours" — these are placeholders, not chemistry
+          ✅ RIGHT: "Extra stability of half-filled 2p³ in N raises its IE above O despite lower Z"
+          ✅ RIGHT: "Covalent character in LiI exceeds LiF because I⁻ is far more polarisable"
+          Write the 5th item exactly as you would write any other Column II item — a complete chemical statement.
+  (v)   = description for Column I item 2   [because 2→v]
+
+Example — Template B: CORRECT = 1-iv, 2-i, 3-v, 4-iii  (extra item at ii):
+  (i)   = description for Column I item 2
+  (ii)  = 5th item: write a REAL SPECIFIC CHEMICAL FACT — same rules as above
+  (iii) = description for Column I item 4
+  (iv)  = description for Column I item 1
+  (v)   = description for Column I item 3
+
+Example — Template C: CORRECT = 1-ii, 2-iv, 3-iii, 4-v  (extra item at i):
+  (i)   = 5th item: write a REAL SPECIFIC CHEMICAL FACT — same rules as above
+  (ii)  = description for Column I item 1
+  (iii) = description for Column I item 3
+  (iv)  = description for Column I item 2
+  (v)   = description for Column I item 4
+
+Example — Template D: CORRECT = 1-v, 2-iii, 3-ii, 4-i  (extra item at iv):
+  (i)   = description for Column I item 4
+  (ii)  = description for Column I item 3
+  (iii) = description for Column I item 2
+  (iv)  = 5th item: write a REAL SPECIFIC CHEMICAL FACT — same rules as above
+  (v)   = description for Column I item 1
+
+Write the table with Column II items in this exact position order.
+
+**BANNED:** 1-i, 2-ii, 3-iii, 4-iv (sequential) | 1-v, 2-iv, 3-iii, 4-ii (reverse sequential)
+
+---
+
+## OPTION GENERATION — ANCHOR-AND-DERIVE METHOD (MANDATORY — PREVENTS "NO CORRECT ANSWER" BUG)
+
+This is the ONLY permitted method for generating options. It guarantees the correct answer is always present.
+
+**Step 1 — ANCHOR the correct sequence:**
+After constructing the table, immediately write the correct matching as a standalone internal line:
+CORRECT = 1-[x], 2-[y], 3-[z], 4-[w]  (unused: [D])
+where [D] is the roman numeral assigned to the distractor (could be any of i–v).
+Verify: all four roman numerals in CORRECT are different and [D] is the unused one.
+
+**Step 2 — Choose the correct letter slot FIRST, then write CORRECT into that slot:**
+
+Use the same question number N from the POSITION-FIRST step to pick which letter holds the correct answer:
+
+| N mod 4 | Correct answer goes in |
+|---------|------------------------|
+| 1  (Q1, Q5, Q9, Q13, Q17, Q21, Q25, Q29, Q33, Q37, Q41, Q45) | (c) |
+| 2  (Q2, Q6, Q10, Q14, Q18, Q22, Q26, Q30, Q34, Q38, Q42)     | (b) |
+| 3  (Q3, Q7, Q11, Q15, Q19, Q23, Q27, Q31, Q35, Q39, Q43)     | (d) |
+| 0  (Q4, Q8, Q12, Q16, Q20, Q24, Q28, Q32, Q36, Q40, Q44)     | (a) |
+
+Write: "Correct goes in option ([X])."
+Write option ([X]) = CORRECT sequence (copy character by character from Step 1).
+Do NOT put CORRECT in slot (a) by default — only Q4, Q8, Q12... use slot (a).
+
+**Step 3 — Derive the 3 wrong options from CORRECT:**
+- Option for wrong slot 1: swap the TWO MOST CONFUSABLE numerals in CORRECT
+- Option for wrong slot 2: make a DIFFERENT swap touching different Column I items
+- Option for wrong slot 3: take CORRECT, replace ONE correct numeral with [D] (the distractor)
+
+**Step 4 — Verify ALL 4 options before output:**
+For each option: list its 4 roman numerals. Any numeral appearing twice = HARD FAILURE, rewrite.
+Exactly ONE option must match CORRECT character-by-character. The other 3 must NOT match CORRECT.
+No two options may be identical to each other.
+
+---
+
+## CATEGORY FRAMEWORK (SELECT ONE PER QUESTION — MANDATORY)
+
+Before writing each question, select ONE category. Minimum 3 different categories across all generated questions. No single category > 40% of total questions.
+
+---
+
+### CH1: Reaction Condition / Reagent ↔ Specific Outcome or Mechanism
+
+**Column I:** Specific reaction conditions, reagents, or named reactions.
+**Column II:** The precise product, stereochemical outcome, or mechanism step that results.
+**Interconnection type:** Parallel reaction pathways — all Column I items involve the same functional group or compound class. Column II items describe outcomes that differ in ONE specific detail (product identity, regiochemistry, stereochemistry, mechanism type).
+
+**✓ GOOD (hard — Column II items are closely related, student must know precise mechanism):**
+Column I: 1. $SN1$ reaction of $(CH_3)_3CBr$ with $H_2O$  2. $SN2$ reaction of $CH_3Br$ with $OH^-$  3. $E1$ elimination of $(CH_3)_3CBr$ with weak base  4. $E2$ elimination of $(CH_3)_2CHBr$ with strong base
+Column II: i. Inverted configuration at carbon, one-step backside attack  ii. Racemic mixture at the chiral centre, planar carbocation intermediate  iii. Zaitsev product, anti-periplanar H and leaving group  iv. Zaitsev product, unimolecular ionisation then proton loss  v. Retention of configuration due to neighbouring group participation
+
+**✗ BAD (easy — Column II items obviously different):**
+Column I: 1. Combustion  2. Fermentation  3. Photosynthesis  4. Respiration
+Column II: i. $CO_2 + H_2O$  ii. Ethanol  iii. Glucose  iv. ATP  v. $O_2$
+
+---
+
+### CH2: Compound / Species ↔ Specific Structural or Electronic Property
+
+**Column I:** Chemical compounds, ions, or molecules.
+**Column II:** The precise structural feature, electronic property, or bonding parameter that uniquely characterises each — described at a level that requires distinguishing between closely related species.
+**Interconnection type:** Parallel systems — all Column I compounds belong to the same class. Column II items describe properties students commonly misassign between them.
+
+**✓ GOOD:**
+Column I: 1. $SF_6$  2. $PCl_5$  3. $XeF_4$  4. $IF_5$
+Column II: i. Square pyramidal geometry, one lone pair in equatorial plane  ii. Octahedral geometry, zero lone pairs, all bond angles $90°$  iii. Square planar geometry, two lone pairs in axial positions  iv. Trigonal bipyramidal geometry, zero lone pairs, two different bond angles  v. See-saw geometry, one lone pair in equatorial position, two different bond angles
+
+**✗ BAD:**
+Column I: 1. $NaCl$  2. $H_2O$  3. $CO_2$  4. $NH_3$
+Column II: i. Ionic  ii. Polar covalent  iii. Non-polar  iv. Covalent with lone pair  v. Giant lattice
+
+---
+
+### CH3: Step in a Chemical Process ↔ Immediate Chemical Outcome
+
+**Column I:** Sequential steps in a named industrial or laboratory process (e.g., Contact Process, Haber Process, extraction, electrolysis).
+**Column II:** The IMMEDIATE chemical product or observable change at each step — NOT a downstream final product.
+**Interconnection type:** Cascading chain — outcomes feed into each other. Students confuse adjacent steps' products.
+
+**Critical rule:** If chain is A → B → C → D, Column I item A maps to outcome B (immediate), NOT C or D.
+
+**✓ GOOD (Contact Process):**
+Column I: 1. Burning sulfur in air  2. Catalytic oxidation of $SO_2$ over $V_2O_5$  3. Absorption of $SO_3$ in concentrated $H_2SO_4$  4. Dilution of oleum with water
+Column II: i. Formation of oleum ($H_2S_2O_7$)  ii. $SO_2$ gas at ~$1000°C$  iii. Dilute $H_2SO_4$ for direct use  iv. $SO_3$ at equilibrium, yield dependent on temperature and pressure  v. Acid rain when $SO_3$ dissolves directly in atmospheric moisture
+
+**✗ BAD (chain-skipping and vague):**
+Column I: 1. Mining  2. Smelting  3. Refining  4. Alloying
+Column II: i. Ore  ii. Metal  iii. Pure metal  iv. Alloy  v. Product
+
+---
+
+### CH4: Periodic Trend Anomaly ↔ Electronic / Structural Reason (WHY, not WHAT VALUE)
+
+**Column I:** Specific anomalies or exceptions to periodic trends — described as observable facts ("higher than expected", "lower than expected", "most negative despite smaller size").
+**Column II:** The specific electronic or structural explanation for each anomaly — NOT a numerical value, NOT just the element name alone.
+**Interconnection type:** Fine discrimination — all Column II items are mechanistic explanations involving electron configuration, subshell stability, or orbital effects. Students must assign the precise electronic reason to the correct anomaly.
+
+**CRITICAL — Column II must NEVER be a bare element name or a number:**
+❌ Column II item: "Nitrogen" — this is just a name, not a reason
+❌ Column II item: "1402 kJ/mol" — this is a data value (Rule 8 violation)
+✅ Column II item: "Extra stability of exactly half-filled $2p^3$ subshell raises IE above the expected trend"
+
+**✓ GOOD (Column II = explanations, not names or numbers):**
+Column I: 1. Anomalously HIGH first IE in Period 2 relative to the next element  2. Anomalously LOW first IE in Period 2 relative to the previous element  3. Group 17: most negative electron gain enthalpy is NOT at the top of the group  4. IE of $Be$ exceeds IE of $B$ despite $Be$ having lower nuclear charge
+Column II: i. Extra stability of fully-filled $2s^2$ subshell of $Be$ resists electron removal more than $B$'s single $2p^1$ electron  ii. $Cl$ has a larger $3p$ orbital than $F$'s compact $2p$, providing better spatial accommodation for the incoming electron  iii. $N$ has a half-filled $2p^3$ subshell with exchange energy stabilisation, making electron removal harder than for $O$  iv. $O$ releases an electron from a doubly-occupied $2p$ orbital — inter-electron repulsion makes this easier than removing from $N$'s half-filled shell  v. $F$'s compact $2p$ subshell has high electron–electron repulsion for incoming electron, reducing enthalpy release despite high nuclear charge
+
+**✗ BAD (Column II items are bare element names — no reasoning):**
+Column I: 1. Highest electronegativity  2. Most negative EGA in Group 17  3. IE higher than next element in Period 2  4. IE lower than previous element in Period 2
+Column II: i. F  ii. Cl  iii. N  iv. O  v. Be
+
+---
+
+### CH5: Named Reaction / Reagent ↔ Specific Role, Product, or Mechanism Feature
+
+**Column I:** Named reactions, specific reagents, or catalysts.
+**Column II:** The specific product formed, the precise mechanistic role the reagent plays, or the key condition that distinguishes it from similar reagents/reactions — described in chemical terms, NOT as a bare number.
+**Interconnection type:** Parallel reactions — all Column I items involve the same compound class or reaction type. Column II items differ in ONE mechanistic or product-level detail. Students who know the general reaction class will confuse items; only those who know the precise mechanism will pick the right one.
+
+**✓ GOOD (reagents in organic chemistry — all act on carbonyl compounds but differ in product/mechanism):**
+Column I: 1. $LiAlH_4$ acting on a carboxylic acid  2. $NaBH_4$ acting on a ketone  3. $H_2$/Ni acting on an alkene  4. Ozonolysis of a symmetrical alkene
+Column II: i. Cleaves C=C to give two identical carbonyl fragments via cyclic molozonide intermediate  ii. Reduces to primary alcohol, requires anhydrous conditions, reacts violently with water  iii. Reduces to secondary alcohol, mild conditions, does NOT reduce carboxylic acids  iv. Syn addition of $H_2$ across double bond, heterogeneous catalysis  v. Converts ester to primary alcohol via nucleophilic acyl substitution
+
+**✗ BAD (data recall — elements to numerical values):**
+Column I: 1. $F$  2. $Cl$  3. $Br$  4. $I$
+Column II: i. 64 pm  ii. 99 pm  iii. 114 pm  iv. 133 pm  v. 140 pm
+
+NOTE: CH5 is ONLY valid when Column II items are mechanistic descriptions or qualitative chemical statements — NEVER bare numbers with units.
+
+---
+
+
+## DISTRACTOR DESIGN
+
+The distractor is the 5th Column II item that matches NO Column I item.
+
+**THE DISTRACTOR MUST BE REAL CHEMISTRY — NOT A META-DESCRIPTION:**
+
+❌ "A general statement about measurement artefacts in spectroscopic methods"
+❌ "A plausible statement about metallic bonding not relevant to periods"
+❌ "A statement about periodic table box colours" — these are hallucinated placeholders
+❌ "v. U (distractor)" — bare symbol + label is double failure
+
+✅ Write an actual specific chemical fact on the same topic, indistinguishable in format from the other 4 Column II items. It must be factually correct — just not a match for any Column I item.
+✅ "Completely filled 3d¹⁰ subshell in Zn raises IE above expected trend"
+✅ "Covalent character in LiI exceeds LiF because I⁻ is far more polarisable than F⁻"
+
+If you cannot think of a real confusable fact → use a fact about a 5th element/compound not in Column I.
+
+---
+
+## QUALITY RULES (HARD FAILURE IF VIOLATED)
+
+### Rule 1 — Zero Keyword Overlap
+NO significant word or chemical root may appear in BOTH a Column I item AND its correct Column II match.
+❌ "Free radical substitution of alkanes" → "Substitution mechanism in alkanes" (shares "substitution" and "alkanes")
+✅ "Alkane reacts with $Cl_2$ under UV light" → "Produces alkyl chloride via homolytic cleavage of $Cl-Cl$ bond"
+
+### Rule 2 — No Tautology or Definitional Echo
+Column II must NOT be a rephrasing or expansion of Column I using the same terms.
+❌ "Nucleophilic substitution" → "Substitution by a nucleophile" — identity mapping
+❌ "Contact process" → "Industrial process for making $H_2SO_4$" — NCERT dictionary definition
+✅ Fix: "Contact process — Step 2" → "Catalytic oxidation over $V_2O_5$ at 450°C producing $SO_3$ in an exothermic equilibrium"
+
+### Rule 3 — No Common-Sense Pairs
+Every pair must require specific chemical knowledge. A non-chemistry student must not be able to guess correctly.
+❌ "Burns in oxygen" → "Combustion reaction" — any student knows this
+
+### Rule 4 — Categorical Consistency
+Column I must be ALL one type (all compounds, all reaction types, all process steps). Column II must be ALL one consistent type (all mechanisms, all products, all conditions). NEVER mix types within a column.
+
+### Rule 5 — Immediate Consequence (No Chain-Skipping)
+Each Column I item maps to its MOST IMMEDIATE downstream outcome. If chain is A → B → C → D, item A maps to B, NOT C or D.
+
+### Rule 6 — Unique Match Test (MANDATORY BEFORE WRITING OPTIONS)
+After building the table, for EACH Column I item ask: "Could more than one Column II item be a defensible correct match?"
+If YES → the items are not distinct enough. Add a distinguishing qualifier to the confusable Column II items.
+If you cannot make matches unambiguous after two attempts → discard the topic and choose a different one.
+
+### Rule 7 — Factual Accuracy (HIGHEST PRIORITY)
+Every Column I item, every Column II item (including the distractor), and every implied pairing must be chemically correct and traceable to the source content. Do NOT:
+- Add details from training knowledge not present in the source
+- State a bond angle, product, mechanism step, or property that contradicts the source
+- Use "approximately" or hedged language — be precise or do not include the fact
+If a fact cannot be verified against the source, drop the pair and choose a different one.
+
+### Rule 8 — NO PARAPHRASE / TEXT-READING MATCHING (INSTANT HARD FAILURE)
+
+**BANNED:** Column I and Column II describe the SAME fact in different words. These test reading, not chemistry.
+
+❌ Column I: "Molten LiH conducts electricity and evolves H₂ at the anode" → Column II: "Confirms presence of H⁻ ion" — just a restatement
+❌ Column I: "$LiH + H_2O ightarrow LiOH + H_2$" → Column II: "Produces metal hydroxide and liberates H₂" — equation translated to words
+❌ Column I: "Hydrogenation of unsaturated compounds using Ni" → Column II: "Removes double bonds to form saturated products" — dictionary definition
+
+**If Column I has an equation**, Column II must state the MECHANISM or WHY — not what the equation produces.
+**The test:** Could a non-chemistry student match these by careful reading? If YES → DISCARD.
+
+### Rule 9 — NO META / EXTERNAL REFERENCE QUESTIONS
+BANNED: Column I = section headings, exercise numbers, or problem titles. See GLOBAL FORBIDDEN PHRASES above for all banned reference phrases.
+
+### Rule 10 — NO RAW NUMERICAL DATA MATCHING
+BANNED: Column II items that are bare numbers with units (pm, kJ/mol, Å, electronegativity values). If ANY Column II item is just a number → DISCARD the entire question.
+
+### Rule 11 — STANDALONE REQUIREMENT
+Every question must be answerable from chemical knowledge alone — no reference to tables, figures, or external sources. See GLOBAL FORBIDDEN PHRASES above.
+
+### Rule 12 — NO SEQUENTIAL ORDERING DISGUISED AS MATCHING
+BANNED: Column I = numbered steps of a process; Column II = their descriptions in the same order. This only tests reading order.
+❌ Column I: 1. Isolated atom → 2. Two atoms → 3. Large N atoms → 4. Valence band  Column II: i. Discrete levels → ii. MOs form → iii. Near-continuous band → iv. Band gap
+CH3 process questions are allowed ONLY when Column II items are close enough that the student must know the specific product at each step — not just "which step is first".

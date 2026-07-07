@@ -1,0 +1,178 @@
+## ASSERTION-REASON - MEDIUM LEVEL (BIOLOGY)
+
+## COGNITIVE REQUIREMENT
+
+Medium AR questions test:
+- Conceptual clarity -- student must UNDERSTAND the concept, not just recall it
+- Cause-effect reasoning -- student must evaluate whether R logically explains A
+- Moderate traps -- R may be true but unrelated, or plausible but subtly wrong
+
+**Assertion (A):**
+- Must state an OBSERVATION, CONSEQUENCE, APPLICATION, or FUNCTIONAL OUTCOME -- not a bare definition
+- Ask: "Does this describe WHAT happens or WHAT is seen?" If it just defines/classifies → rewrite to show the consequence of that fact
+- Contains ONE central idea (not compound claims)
+
+**Reason (R):**
+- Must state a MECHANISM, CAUSE, STRUCTURAL BASIS, or UNDERLYING PRINCIPLE -- not a second independent fact
+- Ask: "Does this explain WHY or HOW?" If it's just another classification fact → rewrite to show the causal basis
+- Must NOT be a restatement or paraphrase of A in different words
+- Must be independently meaningful as a standalone sentence
+
+**What makes it MEDIUM (not Easy, not Hard):**
+- Concept linkage -- connecting two related ideas
+- Moderate cause-effect reasoning
+- Mild conceptual traps (R seems related but isn't the explanation)
+- NOT simple direct recall (that's Easy)
+- NOT multi-layer mechanism analysis (that's Hard)
+
+## BANNED EASY PATTERNS (MEDIUM-LEVEL FILTER)
+
+The following patterns produce Easy-level questions and are FORBIDDEN at Medium:
+
+**Single-fact recall pairs:** Both A and R are standalone textbook definitions or classification facts that a student can verify independently without linking them.
+- ❌ A: "Annelids are metamerically segmented coelomate animals." R: "Annelids possess an open circulatory system."
+  FAILURE: Both are independent recall facts. Student checks each in isolation -- no reasoning needed.
+- ❌ A: "Earthworms are hermaphrodites." R: "Earthworms belong to phylum Annelida."
+  FAILURE: Two independent recall facts. Student checks each in isolation -- no causal reasoning possible.
+
+**The Isolation Test (apply to EVERY question):**
+Ask: "Can a student answer this by checking A and R as two separate true/false flashcards?"
+If YES → it's Easy level → REWRITE.
+At Medium, the student must REASON about the relationship between A and R, not just verify each independently.
+
+**FIX -- Observation + Mechanism Pattern:**
+- Assertion must state an OBSERVATION, CONSEQUENCE, or APPLICATION (what happens / what results / what is seen)
+- Reason must state a MECHANISM, CAUSE, or UNDERLYING PRINCIPLE (why it happens / what drives it)
+- The student's task is evaluating whether R is the correct WHY behind A
+
+- ✅ A: "Nephridia in earthworms help in both excretion and osmoregulation." (observation -- what nephridia do)
+  R: "Nephridia filter nitrogenous waste from blood and also regulate the water and ionic balance of body fluids." (mechanism -- how they achieve it)
+  → Student must evaluate: does the mechanism in R actually explain the dual function in A?
+
+- ✅ A: "Platyhelminthes are called acoelomates." (observation -- a classification outcome)
+  R: "In Platyhelminthes, the body cavity between the gut and body wall is absent, and the space is filled with mesenchyme tissue." (mechanism -- the structural reason)
+  → Student must link the structural absence to the classification label.
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
+
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Do NOT use "None of these". Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
+
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE
+
+- **TYPE 1:** Both A and R are factually accurate. R provides the conceptual cause-effect explanation for A. The link requires understanding, not just reading.
+- **TYPE 2:** Both A and R are factually accurate. R is a true fact from the same topic but does NOT explain A — they seem related but R is not the cause of A.
+- **TYPE 3:** A is factually accurate. R contains a plausible factual error (not an obvious blunder) — a believable misconception embedded in otherwise correct-sounding content.
+- **TYPE 4:** A contains a conceptual error (a believable misconception, not an obvious blunder) embedded in otherwise correct-sounding content. R is factually accurate.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about CLEARLY different aspects so no one can argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
+
+---
+
+## 4 LOGICAL TYPES WITH EXAMPLES
+
+### TYPE 1 -- A true, R true, R explains A
+
+**Example - Enzyme Specificity:**
+Assertion (A): Enzymes are highly specific in their catalytic action.
+Reason (R): The active site of an enzyme has a unique three-dimensional shape that binds only specific substrates.
+Analysis: A is true — enzymes catalyze only specific reactions. R is true — the active site's 3D shape determines substrate specificity. R directly explains why A occurs (lock-and-key model).
+**Why this is MEDIUM:** Student must connect specificity (A) to the structural basis of the active site (R). The cause-effect link requires understanding enzyme structure -- it's not directly stated as "because of" in the text.
+
+### TYPE 2 -- A true, R true, R does NOT explain A
+
+**Example - Cell Division:**
+Assertion (A): Meiosis results in the formation of four haploid daughter cells.
+Reason (R): During meiosis, crossing over occurs between non-sister chromatids of homologous chromosomes.
+Analysis: A is true — meiosis produces four haploid cells through two rounds of division. R is true — crossing over does occur during prophase I between non-sister chromatids. However, crossing over causes genetic variation, not the reduction in cell number. The halving is due to two sequential divisions.
+**Why this is MEDIUM:** Both are true facts about meiosis. The trap is that they seem causally related but R explains genetic recombination, not the production of four cells.
+
+### TYPE 3 -- A true, R false
+
+**Example - Plant Transport:**
+Assertion (A): Transpiration pull is the major force responsible for the upward movement of water in tall trees.
+Reason (R): Transpiration occurs primarily through the lenticels present on the bark of the stem.
+Analysis: A is true — transpiration pull (cohesion-tension theory) is the primary driver of water ascent in tall trees. R is false — transpiration primarily occurs through stomata on leaves, not through lenticels. Lenticels do exist on bark and allow gas exchange, but they are not the primary site of transpiration.
+**Why this is MEDIUM:** R sounds plausible because lenticels are real structures involved in gas exchange, but the specific claim about transpiration site is wrong.
+
+### TYPE 4 -- A false, R true
+
+**Example - Photosynthesis:**
+Assertion (A): The dark reactions of photosynthesis can only occur in the absence of light.
+Reason (R): The dark reactions (Calvin cycle) take place in the stroma of the chloroplast.
+Analysis: A is false — "dark reactions" does not mean they require darkness; they simply don't directly use light energy and can occur in the presence or absence of light. R is true — the Calvin cycle takes place in the stroma of the chloroplast.
+**Why this is MEDIUM:** A tests a common misconception about what "dark" means in "dark reactions." R is a straightforward textbook fact.
+
+---
+
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
+
+Questions MUST cycle through all 4 logical types:
+
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
+... continue cyclically
+
+For remaining questions after the last complete batch of 4, each must have a different type — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
+
+---
+
+## MEDIUM LEVEL CONSTRAINTS
+
+1. For TYPE 2: R must be genuinely unrelated as an explanation (not just loosely connected)
+2. For TYPE 3: R must be plausible but wrong -- not an obvious blunder (that's Easy level)
+3. For TYPE 4: A must contain a believable misconception -- not an obvious error (that's Easy level)
+4. No multi-layer mechanism chains (that's Hard level)
+5. No compound assertions testing 3+ facts at once
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, answer_type, question_text, and options. The "answer_type" field is an internal quality-check value (see schema) that is stripped automatically before delivery to students — populating it is not a violation of this rule. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template.

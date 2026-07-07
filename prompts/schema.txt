@@ -1,0 +1,95 @@
+# Output JSON Schemas
+# This file is appended to every prompt at generation time.
+# One schema per question type. The selector picks the right one based on question_type + difficulty.
+# Do NOT edit the field names — the parser and renderer depend on them exactly.
+
+# ── MCQ (Easy + Medium) ───────────────────────────────────────────────────────
+
+MCQ_SCHEMA:
+{
+  "question_id": 1,
+  "question_type": "MCQ",
+  "question_text": "[Question — use LaTeX where needed: $H_2O$, $CO_2$, $\\textit{species name}$]",
+  "options": {
+    "a": "[Option — LaTeX where needed, max 7 words for easy]",
+    "b": "[Option]",
+    "c": "[Option]",
+    "d": "[Option]"
+  }
+}
+
+# ── MCQ Hard ─────────────────────────────────────────────────────────────────
+# CRITICAL: Each numbered statement MUST be on its own line using \n.
+# BAD:  "Which are correct? 1. Statement one. 2. Statement two."
+# GOOD: "Which are correct?\n1. Statement one.\n2. Statement two."
+
+MCQ_HARD_SCHEMA:
+{
+  "question_id": 1,
+  "question_type": "MCQ",
+  "question_category": "multiple_correct | identify_incorrect | sequence_order | true_false",
+  "question_text": "[Stem sentence ending with colon]:\n1. [First statement.]\n2. [Second statement.]\n3. [Third statement.]\n4. [Fourth statement.]\n5. [Fifth statement.]",
+  "options": {
+    "a": "[MAX 7 WORDS — combination/sequence/T-F only]",
+    "b": "[MAX 7 WORDS]",
+    "c": "[MAX 7 WORDS]",
+    "d": "[MAX 7 WORDS]"
+  }
+}
+
+# ── Assertion-Reason (All difficulties) ───────────────────────────────────────
+# Options are FIXED — copy them verbatim every time. Do NOT paraphrase or shorten.
+
+AR_SCHEMA:
+{
+  "question_id": 1,
+  "question_type": "ASSERTION_REASON",
+  "question_text": "Assertion (A): [Statement — LaTeX where needed: $H_2O$, $\\alpha$]\n\nReason (R): [Statement — LaTeX where needed]",
+  "options": {
+    "a": "Both Assertion and Reason are true and Reason is the correct explanation of Assertion",
+    "b": "Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion",
+    "c": "Assertion is true but Reason is false",
+    "d": "Assertion is false but Reason is true"
+  }
+}
+
+# ── Match the Column (Easy + Medium — 4 pairs) ────────────────────────────────
+
+MTC_SCHEMA:
+{
+  "question_id": 1,
+  "question_type": "MATCH_THE_COLUMN",
+  "question_text": "Match the following:\n\n\\begin{tabular}{|l|l|}\n\\hline\nColumn I & Column II \\\\\n\\hline\n1. [Item] & i. [Item] \\\\\n2. [Item] & ii. [Item] \\\\\n3. [Item] & iii. [Item] \\\\\n4. [Item] & iv. [Item] \\\\\n\\hline\n\\end{tabular}",
+  "options": {
+    "a": "1-iii, 2-i, 3-iv, 4-ii",
+    "b": "1-iv, 2-iii, 3-ii, 4-i",
+    "c": "1-i, 2-ii, 3-iii, 4-iv",
+    "d": "1-ii, 2-iv, 3-i, 4-iii"
+  }
+}
+
+# ── Match the Column Hard (5+ pairs) ─────────────────────────────────────────
+# IMPORTANT: Column II has 5 items (i–v). Options MUST use roman numerals only.
+# Write "1-iii" not "1-c". Write "2-v" not "2-e".
+
+MTC_HARD_SCHEMA:
+{
+  "question_id": 1,
+  "question_type": "MATCH_THE_COLUMN",
+  "question_text": "Match the following:\n\n\\begin{tabular}{|l|l|}\n\\hline\nColumn I & Column II \\\\\n\\hline\n1. [Item] & i. [Item] \\\\\n2. [Item] & ii. [Item] \\\\\n3. [Item] & iii. [Item] \\\\\n4. [Item] & iv. [Item] \\\\\n         & v. [Distractor item] \\\\\n\\hline\n\\end{tabular}",
+  "options": {
+    "a": "1-iii, 2-i, 3-iv, 4-ii",
+    "b": "1-ii, 2-i, 3-iv, 4-iii",
+    "c": "1-iii, 2-v, 3-iv, 4-ii",
+    "d": "1-iii, 2-i, 3-ii, 4-iv"
+  }
+}
+
+# ── Schema selection rules ────────────────────────────────────────────────────
+# question_type=mcq,  difficulty=easy   → MCQ_SCHEMA
+# question_type=mcq,  difficulty=medium → MCQ_SCHEMA
+# question_type=mcq,  difficulty=hard   → MCQ_HARD_SCHEMA
+# question_type=assertion_reason        → AR_SCHEMA  (all difficulties)
+# question_type=match_the_column, difficulty=easy   → MTC_SCHEMA
+# question_type=match_the_column, difficulty=medium → MTC_SCHEMA
+# question_type=match_the_column, difficulty=hard   → MTC_HARD_SCHEMA

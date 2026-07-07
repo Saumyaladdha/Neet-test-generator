@@ -1,83 +1,109 @@
 """
-NEET Test Generator - Dynamic Prompt Selector
+NEET Test Generator — Dynamic Prompt Selector
 
-Auto-discovers every file in prompts/subjects/ that exports a METADATA dict.
-To add a new subject or language: drop a new file in subjects/ — nothing else changes.
+Auto-discovers subjects by scanning prompts/ for metadata.json files.
+To add a new subject: create prompts/{subject}/metadata.json and all prompt .txt files.
+No code changes needed.
 
-File contract (every subject file must export):
-    METADATA = {
-        "id":           str,   # subject family e.g. "biology"
-        "language":     str,   # "en" (default) or "hi" etc.
-        "display_name": str,
-        "aliases":      list,  # all strings that should route to this file
-        "supported_types":        list,
-        "supported_difficulties": list,
-    }
-    def get_prompt(question_type, difficulty, subject, question_count) -> str: ...
+Each metadata.json must have:
+  {
+    "id":                     str,   e.g. "biology"
+    "language":               str,   "en" or "hi"
+    "display_name":           str,
+    "aliases":                list,
+    "supported_types":        list,
+    "supported_difficulties": list
+  }
 """
 
-import importlib
-import pkgutil
+import json
 from pathlib import Path
 
-_REGISTRY: dict = {}
+from prompts.loader import assemble_prompt
+
+_PROMPTS_DIR = Path(__file__).parent
+
+# Registry: (subject_id_or_alias, language) → metadata dict
+_REGISTRY = {}
 
 
 def _bootstrap():
-    subjects_path = Path(__file__).parent / "subjects"
-    for _, name, _ in pkgutil.iter_modules([str(subjects_path)]):
-        mod = importlib.import_module(f"prompts.subjects.{name}")
-        if not hasattr(mod, "METADATA"):
-            continue
-        meta = mod.METADATA
-
-        # Smoke test: verify get_prompt works at startup
+    for meta_path in sorted(_PROMPTS_DIR.rglob("metadata.json")):
         try:
-            result = mod.get_prompt("mcq", "easy", meta["id"], 1)
-            assert isinstance(result, str) and len(result) > 100
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
         except Exception as e:
-            raise RuntimeError(
-                f"Subject '{name}' failed startup smoke test: {e}. "
-                "Fix the subject file before deploying."
-            )
+            raise RuntimeError(f"Could not read {meta_path}: {e}")
+
+        required = {"id", "language", "supported_types", "supported_difficulties"}
+        missing = required - meta.keys()
+        if missing:
+            raise RuntimeError(f"{meta_path} is missing fields: {missing}")
 
         language = meta.get("language", "en")
-        _REGISTRY[(meta["id"].lower(), language)] = mod
+        subject_id = meta["id"].lower()
+
+        _REGISTRY[(subject_id, language)] = meta
         for alias in meta.get("aliases", []):
-            _REGISTRY[(alias.lower(), language)] = mod
+            _REGISTRY[(alias.lower(), language)] = meta
+
+        # Smoke test — verify at least one prompt file exists for this language
+        lang_folder = {"en": "english", "hi": "hindi"}.get(language, language)
+        sample_path = _PROMPTS_DIR / subject_id / lang_folder / "mcq" / "prompt_easy.txt"
+        if not sample_path.exists():
+            raise RuntimeError(
+                f"Subject '{meta['id']}' ({language}) registered but "
+                f"prompts/{subject_id}/{lang_folder}/mcq/prompt_easy.txt not found. "
+                "Add the prompt .txt files before deploying."
+            )
 
 
 _bootstrap()
 
 
-def get_prompt(question_type: str, difficulty: str, subject: str,
-               question_count: int, language: str = "en") -> str:
+def get_prompt_with_path(question_type, difficulty, subject, question_count, language="en"):
     """
-    Get the formatted prompt for a subject + language.
-    Falls back to English if the requested language file does not exist yet.
+    Assemble and return (prompt_text, prompt_file_path) for logging.
+
+    Discovery order:
+      1. Exact match: (subject, language)
+      2. English fallback if requested language not available
+      3. ValueError if subject unknown
     """
     key = (subject.lower().strip(), language)
-    mod = _REGISTRY.get(key)
+    meta = _REGISTRY.get(key)
 
-    if not mod and language != "en":
-        mod = _REGISTRY.get((subject.lower().strip(), "en"))
+    if not meta and language != "en":
+        meta = _REGISTRY.get((subject.lower().strip(), "en"))
 
-    if not mod:
-        available = list_subjects()
+    if not meta:
+        available = [m["id"] for m in list_subjects()]
         raise ValueError(
-            f"Unknown subject: '{subject}'. "
-            f"Available: {[s['id'] for s in available]}"
+            f"Unknown subject: '{subject}'. Available: {available}"
         )
 
-    return mod.get_prompt(question_type, difficulty, subject, question_count)
+    lang_folder = {"en": "english", "hi": "hindi"}.get(language, language)
+
+    return assemble_prompt(
+        subject=meta["id"],
+        language=lang_folder,
+        question_type=question_type,
+        difficulty=difficulty,
+        subject_name=subject,
+        question_count=question_count,
+    )
 
 
-def list_subjects() -> list:
-    """Return unique subjects (one entry per id+language pair)."""
+def get_prompt(question_type, difficulty, subject, question_count, language="en"):
+    """Return prompt string only (existing callers unchanged)."""
+    text, _ = get_prompt_with_path(question_type, difficulty, subject, question_count, language)
+    return text
+
+
+def list_subjects():
+    """Return one metadata dict per unique (id, language) pair."""
     seen = set()
     result = []
-    for mod in _REGISTRY.values():
-        meta = mod.METADATA
+    for meta in _REGISTRY.values():
         key = (meta["id"], meta.get("language", "en"))
         if key not in seen:
             seen.add(key)
@@ -85,6 +111,6 @@ def list_subjects() -> list:
     return result
 
 
-def get_supported_subjects() -> list:
-    """Return flat list of all registered (alias, language) keys."""
+def get_supported_subjects():
+    """Return all registered (alias, language) keys."""
     return list(_REGISTRY.keys())

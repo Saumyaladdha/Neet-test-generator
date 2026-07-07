@@ -1,0 +1,323 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए रसायन विज्ञान प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम रसायन विज्ञान पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक/रासायनिक शब्द अपवाद हैं
+
+वैज्ञानिक/रासायनिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द:
+  सभी रासायनिक सूत्र: H₂O, CO₂, NaCl, H₂SO₄, HCl, NaOH, CH₄, C₂H₅OH आदि
+  सभी अंतर्राष्ट्रीय प्रतीक: pH, mol, L, kJ, atm, K, M, N आदि
+  अंग्रेजी में प्रयुक्त इकाइयाँ और SI प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  परमाणु (atom), अणु (molecule), तत्व (element), यौगिक (compound),
+  मिश्रण (mixture), विलयन (solution), अभिक्रिया (reaction),
+  ऑक्सीकरण (oxidation), अपचयन (reduction), आयन (ion),
+  इलेक्ट्रॉन (electron), प्रोटॉन (proton), न्यूट्रॉन (neutron),
+  आवर्त सारणी (periodic table), रासायनिक बंध (chemical bond),
+  सहसंयोजक बंध (covalent bond), आयनिक बंध (ionic bond),
+  ऊष्मागतिकी (thermodynamics), साम्यावस्था (equilibrium),
+  कार्बनिक रसायन (organic chemistry), बहुलक (polymer),
+  अम्ल (acid), क्षार (base), लवण (salt), ऑक्साइड (oxide),
+  उत्प्रेरक (catalyst), सक्रियण ऊर्जा (activation energy)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT रसायन विज्ञान पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+## ASSERTION-REASON — HARD LEVEL (CHEMISTRY | NEET)
+
+---
+
+## THE GOLDEN RULE OF AR QUESTIONS (READ FIRST)
+
+A and R MUST always be about the SAME chemical compound, reaction, or phenomenon.
+NEVER pair an assertion about one topic with a reason about a completely different topic.
+
+❌ असम्बद्ध (तुरन्त असफल — शून्य रसायन विज्ञान सिखाता है):
+A: "बेन्जीन एक ऐरोमैटिक यौगिक है।"
+R: "सोडियम क्लोराइड जल में घुलनशील है।"
+← भिन्न यौगिक, भिन्न परिघटनाएँ। कोई संबंध ही नहीं है।
+
+❌ असम्बद्ध (तुरन्त असफल):
+A: "हीरा ज्ञात सबसे कठोर पदार्थ है।"
+R: "नाइट्रोजन गैस द्विपरमाणुक होती है।"
+← कोई साझा विषय नहीं, कोई रासायनिक तर्क नहीं।
+
+✅ सम्बद्ध (सही दृष्टिकोण):
+A: "ग्रेफाइट विद्युत का सुचालक है।"
+R: "ग्रेफाइट की संरचना स्तरित (layered) होती है।"
+← समान यौगिक (ग्रेफाइट)। R, ग्रेफाइट के बारे में एक सत्य तथ्य है, परन्तु परतें चालकता का कारण नहीं हैं — विस्थानीकृत (delocalized) π इलेक्ट्रॉन इसका वास्तविक कारण हैं। उत्तर: B.
+
+✅ सम्बद्ध (सही दृष्टिकोण):
+A: "ताँबे (कॉपर) का उपयोग विद्युत तारों में किया जाता है।"
+R: "ताँबा आघातवर्ध्य (malleable) और तन्य (ductile) होता है।"
+← समान यौगिक (ताँबा)। R सत्य है परन्तु यांत्रिक गुणों का वर्णन करता है, विद्युतीय गुणों का नहीं। उत्तर: B.
+
+THE CONNECTION TEST (run before writing R):
+"Is R about the same compound / reaction / phenomenon as A?"
+→ If NO → REWRITE R. Do not output until YES.
+
+---
+
+## THE 4 ANSWER TYPES — WHEN TO USE EACH
+
+(a) A और R दोनों सही हैं और R, A की सही व्याख्या करता है
+→ उपयोग करें जब R, A के पीछे की वास्तविक रासायनिक क्रियाविधि/कारण बताता हो
+→ उदाहरण: A: "$NaCl$ का गलनांक उच्च होता है।" R: "$Na^+$ और $Cl^-$ आयन प्रबल वैद्युत-स्थैतिक बलों द्वारा बंधे होते हैं।" (आयनिक बंधन ही उच्च गलनांक का वास्तविक कारण है)
+
+(b) A और R दोनों सही हैं परन्तु R, A की व्याख्या नहीं करता — सबसे कठिन प्रकार
+→ उपयोग करें जब R उसी यौगिक/निकाय के बारे में एक सत्य तथ्य हो, परन्तु एक भिन्न गुण का वर्णन करता हो, A के कारण का नहीं
+→ जाल: छात्र एक ही वस्तु के बारे में दो सत्य कथन देखकर मान लेता है कि एक दूसरे की व्याख्या करता है
+→ उदाहरण: A: "ग्रेफाइट विद्युत का सुचालक है।" R: "ग्रेफाइट की संरचना स्तरित होती है।" (परतें स्नेहन गुण की व्याख्या करती हैं, चालकता की नहीं)
+
+(c) A सही है, R गलत है
+→ उपयोग करें जब R प्रशंसनीय लगे परन्तु उसमें एक सूक्ष्म तथ्यात्मक त्रुटि हो
+→ R एक सामान्य भ्रांति होनी चाहिए, स्पष्ट भूल नहीं
+→ उदाहरण: A: "$CO_2$ एक रैखिक अणु है।" R: "$CO_2$ में दो $C=O$ बंधों के कारण एक शुद्ध द्विध्रुव आघूर्ण होता है।" (A सही है; R गलत है — रैखिक ज्यामिति में द्विध्रुव आघूर्ण परस्पर निरस्त हो जाते हैं)
+
+(d) A is false, R is true
+→ Use when A contains a subtle error (wrong value, wrong trend, overgeneralisation) and R is a correct, independently verifiable fact
+
+---
+
+## ROUND-ROBIN TYPE ASSIGNMENT (MANDATORY — DO THIS BEFORE WRITING ANY QUESTION)
+
+Before writing question N, look up its assigned type from this cycle:
+
+Q1 → type (b) | Q2 → type (c) | Q3 → type (d) | Q4 → type (a)
+Q5 → type (b) | Q6 → type (c) | Q7 → type (d) | Q8 → type (a)
+Q9 → type (b) | Q10 → type (c) | Q11 → type (d) | Q12 → type (a)
+... continue cyclically
+
+The cycle always starts with (b) because type (b) is the hardest and most important for this difficulty level. NEVER start a batch with (a).
+
+For batches not divisible by 4, the remainder continues the cycle: e.g. 6 questions = b,c,d,a,b,c.
+
+HARD FAILURE: Skipping the assignment step. HARD FAILURE: Any type appearing 0 times. HARD FAILURE: Same type appearing 3+ times.
+
+---
+
+## MANDATORY QUESTION WRITING PROCEDURE
+
+Step 0 — ASSIGN TYPE: Look up the assigned type for question N from the round-robin table above. Write it down internally: "This question is type ___". Do NOT proceed until type is assigned.
+
+Step 1 — PICK ONE TOPIC: Choose a single chemical compound, reaction, or concept from the source that FITS the assigned type. Both A and R will be about this topic.
+
+Step 2 — WRITE A to match the assigned type:
+- Types (a) and (b): A must be a true, observable fact about the topic
+- Type (c): A must be a true, observable fact about the topic
+- Type (d): A must contain ONE subtle factual error — wrong value, wrong trend, or overgeneralisation
+
+Step 3 — WRITE R to match the assigned type:
+- Type (a): R must be the ACTUAL mechanism/cause behind A. Test: "A is true BECAUSE R" must be unambiguously correct.
+- Type (b): R must be a TRUE fact about the SAME topic, but describing a DIFFERENT property — NOT the cause of A. The student must be tempted to think R explains A, but it doesn't.
+- Type (c): R must contain ONE subtle factual error — a plausible-sounding misconception, NOT an obvious blunder.
+- Type (d): R must be a true, correct, independently verifiable fact about the same topic.
+
+Step 4 — VERIFY type assignment:
+  a) Re-read A — is it true/false as intended by the assigned type?
+  b) Re-read R — is it true/false as intended by the assigned type?
+  c) Does R mechanistically explain A? Answer must match the assigned type.
+  d) CONNECTION TEST: same compound/phenomenon? If no → REWRITE R.
+  e) If the question does not cleanly fit the assigned type → REWRITE, do not change the type assignment.
+
+---
+
+## HOW TO CONSTRUCT TYPE (b) — THE HARDEST TYPE (most questions in this set)
+
+Type (b) requires finding two TRUE facts about the same topic where one PLAUSIBLY SEEMS to explain the other but does NOT.
+
+Strategy: Pick a property of the compound for A. Then write R as a different property of the same compound that students commonly (wrongly) link to A.
+
+✅ हार्ड — R, A की व्याख्या करता प्रतीत होता है परन्तु नहीं करता:
+A: "ग्रेफाइट विद्युत का सुचालक है।" R: "ग्रेफाइट की संरचना स्तरित होती है।" ← अनेक छात्र गलती से परतों को चालकता से जोड़ देते हैं। वास्तविक कारण: विस्थानीकृत π इलेक्ट्रॉन।
+
+✅ हार्ड — R एक सही तथ्य है परन्तु गलत क्रियाविधि:
+A: "$NH_3$, $PH_3$ की तुलना में एक बेहतर लिगन्ड है।" R: "नाइट्रोजन, फॉस्फोरस से अधिक विद्युत-ऋणात्मक है।" ← सत्य है, परन्तु वास्तविक कारण एकाकी युग्म की उपलब्धता/आकार है, विद्युत-ऋणात्मकता नहीं।
+
+✅ हार्ड — R एक परिणाम बताता है, कारण नहीं:
+A: "सोडियम का घनत्व कम होता है।" R: "सोडियम की क्रिस्टल संरचना काय-केंद्रित घनीय (BCC) होती है।" ← BCC संरचना सत्य है, परन्तु घनत्व मुख्यतः परमाणु द्रव्यमान और परमाण्विक त्रिज्या से समझाया जाता है, केवल क्रिस्टल प्रकार से नहीं।
+
+❌ हार्ड नहीं — R स्पष्ट रूप से A की व्याख्या नहीं करता:
+A: "ताँबा विद्युत का सुचालक है।" R: "ताँबे का रंग लाल-भूरा होता है।" ← कोई भी छात्र यह नहीं सोचता कि रंग चालकता का कारण है। यह प्रकार (b) तो है परन्तु बहुत सरल है — हार्ड स्तर के लिए स्वीकार्य नहीं।
+
+The trap that makes type (b) hard: student sees two true statements about the same thing and assumes one explains the other. Design the question so this trap is real.
+
+---
+
+## WHAT MAKES A QUESTION HARD
+
+Hard = both statements are about the same topic AND both sound plausible, but the causal link is absent or wrong.
+
+The student who MEMORISED facts picks (a) because both statements are true and related.
+The student who UNDERSTANDS chemistry picks (b) because they know R describes a different property.
+
+---
+
+## STANDARD OPTIONS (use exactly as written — copy verbatim into JSON)
+
+question_text MANDATORY FORMAT (use exactly this structure in Hindi):
+अभिकथन (A): [assertion text in Hindi]
+कारण (R): [reason text in Hindi]
+
+a) अभिकथन (A) और कारण (R) दोनों सही हैं और कारण (R), अभिकथन (A) की सही व्याख्या करता है।
+b) अभिकथन (A) और कारण (R) दोनों सही हैं, परन्तु कारण (R), अभिकथन (A) की सही व्याख्या नहीं करता।
+c) अभिकथन (A) सही है, परन्तु कारण (R) गलत है।
+d) अभिकथन (A) गलत है, परन्तु कारण (R) सही है।
+
+Do NOT change wording. Do NOT abbreviate. Do NOT paraphrase. Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## उदाहरण — चारों उत्तर प्रकार (Hindi)
+
+**प्रकार (a) — दोनों सही, R सही व्याख्या करता है:**
+अभिकथन (A): $NaCl$ का गलनांक उच्च होता है।
+कारण (R): $Na^+$ और $Cl^-$ आयन प्रबल वैद्युत-स्थैतिक बलों द्वारा बंधे होते हैं।
+उत्तर: a). आयनिक बंधन ही उच्च गलनांक का वास्तविक कारण है — R, A की सही व्याख्या करता है।
+
+**प्रकार (b) — दोनों सही, परन्तु R व्याख्या नहीं करता (सबसे कठिन प्रकार):**
+अभिकथन (A): ग्रेफाइट विद्युत का सुचालक है।
+कारण (R): ग्रेफाइट की संरचना स्तरित (layered) होती है।
+उत्तर: b). दोनों कथन सही हैं, परन्तु स्तरित संरचना स्नेहन (lubrication) के गुण की व्याख्या करती है, विद्युत चालकता की नहीं — चालकता विस्थानीकृत (delocalized) π इलेक्ट्रॉनों के कारण होती है।
+
+**प्रकार (c) — A सही, R गलत:**
+अभिकथन (A): $CO_2$ एक रैखिक अणु है।
+कारण (R): $CO_2$ में दो $C=O$ बंधों के कारण एक शुद्ध द्विध्रुव आघूर्ण होता है।
+उत्तर: c). अभिकथन सही है; कारण गलत है — रैखिक ज्यामिति में दोनों द्विध्रुव आघूर्ण परस्पर निरस्त हो जाते हैं, इसलिए $CO_2$ का शुद्ध द्विध्रुव आघूर्ण शून्य होता है।
+
+**प्रकार (d) — A गलत, R सही:**
+अभिकथन (A): परमाणु त्रिज्या आवर्त में बायें से दायें बढ़ती है।
+कारण (R): आवर्त में नाभिकीय आवेश बढ़ने से संयोजी इलेक्ट्रॉनों पर आकर्षण बल बढ़ता है।
+उत्तर: d). अभिकथन गलत है (त्रिज्या घटती है, बढ़ती नहीं); कारण सही है — नाभिकीय आवेश में वृद्धि ही त्रिज्या के घटने का सही कारण है।
+
+---
+
+## BANNED PATTERNS (HARD FAILURE)
+
+- A and R about different compounds or completely different phenomena → CONNECTION TEST fails
+- R that is obviously unrelated (any student can see it doesn't explain A) → not hard, just wrong
+- Copy-pasting sentences directly from the source → always rephrase
+- R that contains multiple errors stacked together → single error only (c/d types)
+- A that bundles multiple unrelated facts together (formula + unit conversion + definition all in one assertion) → write ONE clean fact per statement
+
+❌ ILLUSTRATIVE FAILURE EXAMPLES (patterns to avoid — never generate questions like these):
+
+FAILURE 1 — A bundles unrelated facts, R is about a different aspect:
+A: "The dipole moment $\mu$ is given by $\mu = Q \times r$ and is expressed in Debye units where $1\,D = 3.33564 \times 10^{{-30}}\,C\,m$."
+R: "The crossed-arrow convention places the cross on the negative end and the arrow head on the positive end when depicting dipole on a Lewis structure."
+WHY IT FAILS: A contains two separate facts (formula + unit conversion). R is about notation convention — has zero causal link to the formula or units. CONNECTION TEST fails.
+CORRECT VERSION: A: "Dipole moment is a vector quantity." R: "Dipole moment has both magnitude ($\mu = Q \times r$) and a defined direction from positive to negative charge." → Same topic, R adds mechanistic context.
+
+हिंदी विफलता उदाहरण — A में असंबंधित तथ्य इकट्ठे हैं, R एक भिन्न पहलू के बारे में है:
+A: "द्विध्रुव आघूर्ण $\mu$, $\mu = Q \times r$ द्वारा दिया जाता है और इसे डिबाई मात्रक में व्यक्त किया जाता है, जहाँ $1\,D = 3.33564 \times 10^{{-30}}\,C\,m$ होता है।"
+R: "लुईस संरचना में द्विध्रुव दर्शाने के लिए क्रॉस-तीर संकेतन में ऋणात्मक सिरे पर क्रॉस तथा धनात्मक सिरे पर तीर का सिरा रखा जाता है।"
+यह क्यों असफल है: A में दो अलग-अलग तथ्य (सूत्र + मात्रक रूपांतरण) एक साथ बंधे हैं। R संकेतन-परम्परा के बारे में है — सूत्र या मात्रकों से इसका कोई कारणात्मक संबंध नहीं है। कनेक्शन टेस्ट असफल।
+सही संस्करण: A: "द्विध्रुव आघूर्ण एक सदिश राशि है।" R: "द्विध्रुव आघूर्ण का परिमाण ($\mu = Q \times r$) तथा धनात्मक से ऋणात्मक आवेश की ओर एक निश्चित दिशा, दोनों होते हैं।" → समान विषय, R क्रियाविधि-संदर्भ जोड़ता है।
+
+FAILURE 2 — A and R about completely different compounds:
+A: "The net dipole moment of $H_2O$ is $1.85\,D$ arising from two O–H bond dipoles at $104.5°$."
+R: "In linear $BeF_2$ the two equal bond dipoles are collinear and opposite, producing zero net dipole moment."
+WHY IT FAILS: A is about $H_2O$, R is about $BeF_2$. Different compounds, different molecular geometries. CONNECTION TEST fails immediately.
+CORRECT VERSION: A: "Water has a net dipole moment of $1.85\,D$." R: "The two O–H bond dipoles in water are arranged at an angle of $104.5°$ and do not cancel each other." → Same compound, R directly explains A.
+
+हिंदी विफलता उदाहरण — A और R पूर्णतः भिन्न यौगिकों के बारे में हैं:
+A: "$H_2O$ का शुद्ध द्विध्रुव आघूर्ण $1.85\,D$ है, जो $104.5°$ पर स्थित दो O–H बंध द्विध्रुवों से उत्पन्न होता है।"
+R: "रैखिक $BeF_2$ में दोनों समान बंध द्विध्रुव संरेख (collinear) और विपरीत दिशा में होते हैं, जिससे शुद्ध द्विध्रुव आघूर्ण शून्य हो जाता है।"
+यह क्यों असफल है: A, $H_2O$ के बारे में है, R, $BeF_2$ के बारे में है। भिन्न यौगिक, भिन्न आणविक ज्यामिति। कनेक्शन टेस्ट तुरन्त असफल।
+सही संस्करण: A: "जल का शुद्ध द्विध्रुव आघूर्ण $1.85\,D$ है।" R: "जल में दोनों O–H बंध द्विध्रुव $104.5°$ के कोण पर स्थित होते हैं और परस्पर निरस्त नहीं होते।" → समान यौगिक, R सीधे A की व्याख्या करता है।
+
+FAILURE 3 — A and R about different ionic species (cation vs anion):
+A: "A cation is smaller than its parent atom."
+R: "An anion is smaller than its parent atom because addition of electrons reduces repulsion."
+WHY IT FAILS: A is about cations, R is about anions — completely different ionic entities. The CONNECTION TEST fails: R is not about the same species as A. The scientific error in R (anions are actually LARGER) is also detectable at a glance.
+CORRECT VERSION: A: "A cation is smaller than its parent atom." R: "Removal of an electron from the outermost shell of the atom increases electron–electron repulsion among the remaining electrons." → Same entity (cation / electron removal). R contains a subtle error: removal of electrons REDUCES repulsion, making the ion smaller, not increases it. Hard type (c).
+
+FAILURE 4 — A and R about different elements from the same chapter:
+A: "In beryllium, the electron removed during first ionisation is a 2s-electron."
+R: "In boron, the electron removed during first ionisation is a 2p-electron."
+WHY IT FAILS: A is about beryllium, R is about boron — two different elements. Even if they appear in the same chapter, a question pairing them is COMPARING two entities, not connecting A and R about one entity. A student can check both facts independently with no causal reasoning required.
+CORRECT VERSION: A: "Beryllium has a higher first ionisation enthalpy than boron." R: "Beryllium has a fully-filled 2s subshell, which is more stable than the half-filled 2p subshell of boron." → Same comparative phenomenon (Be vs B IE trend), R provides the mechanistic explanation. Hard type (a).
+
+हिंदी विफलता उदाहरण — A और R एक ही अध्याय के भिन्न तत्वों के बारे में हैं:
+A: "बेरिलियम में, प्रथम आयनन के दौरान हटाया गया इलेक्ट्रॉन एक 2s-इलेक्ट्रॉन होता है।"
+R: "बोरॉन में, प्रथम आयनन के दौरान हटाया गया इलेक्ट्रॉन एक 2p-इलेक्ट्रॉन होता है।"
+यह क्यों असफल है: A, बेरिलियम के बारे में है, R, बोरॉन के बारे में है — दो भिन्न तत्व। भले ही वे एक ही अध्याय में आते हों, इन्हें जोड़ने वाला प्रश्न दो द्रव्यों की तुलना कर रहा है, न कि एक ही द्रव्य के बारे में A और R को जोड़ रहा है। छात्र बिना किसी कारणात्मक तर्क के दोनों तथ्यों की स्वतंत्र रूप से जाँच कर सकता है।
+सही संस्करण: A: "बेरिलियम की प्रथम आयनन एन्थैल्पी बोरॉन से अधिक होती है।" R: "बेरिलियम का 2s उपकोश पूर्ण भरा हुआ है, जो बोरॉन के अर्ध-भरित 2p उपकोश से अधिक स्थायी है।" → समान तुलनात्मक परिघटना (Be बनाम B की आयनन ऊर्जा प्रवृत्ति), R क्रियाविधि-व्याख्या प्रदान करता है। हार्ड प्रकार (a)।
+
+FAILURE 5 — Direct negation: A and R are mirror-opposite statements (trivially detectable):
+A: "Atomic radius decreases across a period from left to right."
+R: "Atomic radius increases across a period as atomic number increases."
+WHY IT FAILS: A says X decreases, R says X increases — for the same property, same direction, same period. Any student can see one is false without any chemistry knowledge. This is NOT hard; it requires only logic, not understanding.
+CORRECT VERSION: A: "Atomic radius decreases across a period from left to right." R: "Shielding effect increases steadily across a period, weakening the nuclear attraction on valence electrons." → A is true; R contains a subtle error (shielding from inner electrons stays roughly constant across a period — it is the increasing nuclear charge that dominates). Hard type (c).
+
+हिंदी विफलता उदाहरण 1 — भिन्न आयनिक स्पीशीज़ (धनायन बनाम ऋणायन):
+A: "एक धनायन अपने मूल परमाणु से छोटा होता है।"
+R: "एक ऋणायन अपने मूल परमाणु से छोटा होता है क्योंकि इलेक्ट्रॉन जुड़ने से प्रतिकर्षण घटता है।"
+यह क्यों असफल है: A धनायन के बारे में है, R ऋणायन के बारे में है — पूर्णतः भिन्न आयनिक स्पीशीज़। कनेक्शन टेस्ट असफल। R में वैज्ञानिक त्रुटि भी है (ऋणायन वास्तव में बड़े होते हैं, छोटे नहीं)।
+सही संस्करण: A: "एक धनायन अपने मूल परमाणु से छोटा होता है।" R: "परमाणु के बाह्यतम कोश से एक इलेक्ट्रॉन हटाने से शेष इलेक्ट्रॉनों के बीच इलेक्ट्रॉन-इलेक्ट्रॉन प्रतिकर्षण बढ़ जाता है।" → समान द्रव्य (धनायन/इलेक्ट्रॉन हटाना)। R में एक सूक्ष्म त्रुटि है: इलेक्ट्रॉन हटाने से प्रतिकर्षण घटता है, बढ़ता नहीं, जिससे आयन छोटा होता है। हार्ड प्रकार (c)।
+
+हिंदी विफलता उदाहरण 2 — सीधा खंडन: A और R परस्पर-विपरीत कथन हैं (तुरन्त पहचाने जा सकते हैं):
+A: "परमाणु त्रिज्या आवर्त में बायें से दायें घटती है।"
+R: "परमाणु त्रिज्या आवर्त में परमाणु क्रमांक बढ़ने के साथ बढ़ती है।"
+यह क्यों असफल है: A कहता है त्रिज्या घटती है, R कहता है त्रिज्या बढ़ती है — समान गुण, समान आवर्त के लिए। कोई भी छात्र रसायन विज्ञान के ज्ञान के बिना ही देख सकता है कि एक कथन गलत है। यह हार्ड स्तर नहीं है; इसमें केवल तर्क चाहिए, समझ नहीं।
+सही संस्करण: A: "परमाणु त्रिज्या आवर्त में बायें से दायें घटती है।" R: "परिरक्षण प्रभाव (shielding effect) आवर्त में क्रमिक रूप से बढ़ता है, जिससे संयोजी इलेक्ट्रॉनों पर नाभिकीय आकर्षण कमजोर होता है।" → A सही है; R में एक सूक्ष्म त्रुटि है (आवर्त में भीतरी इलेक्ट्रॉनों से परिरक्षण लगभग स्थिर रहता है — यह बढ़ता हुआ नाभिकीय आवेश ही प्रभावी होता है)। हार्ड प्रकार (c)।
+
+---
+
+## TYPE DISTRIBUTION (MANDATORY — HARD FAILURE if violated)
+
+In every batch of 4 questions, each answer type must appear EXACTLY ONCE, in round-robin order starting with (b):
+- Q1, Q5, Q9, ...: answer (b) — both true, R does NOT explain A
+- Q2, Q6, Q10, ...: answer (c) — A true, R false
+- Q3, Q7, Q11, ...: answer (d) — A false, R true
+- Q4, Q8, Q12, ...: answer (a) — both true, R explains A
+
+NEVER have 3 or more questions with the same answer type. NEVER skip a type.
+
+---
+
+## PRE-OUTPUT MENTAL COUNT (Internal — Do NOT include in output)
+
+Before writing JSON output, count your questions by type:
+  type (a): ___
+  type (b): ___
+  type (c): ___
+  type (d): ___
+
+If ANY count is 0 → STOP and REWRITE the missing type.
+If ANY type exceeds 35% of total → STOP and REBALANCE.
+If the round-robin order is broken → STOP and REORDER.
+
+Do not include this count in the output.
+
+---
+
+## PRE-OUTPUT CHECKLIST (verify every question before outputting)
+
+- [ ] Round-robin type assignment followed for this question number
+- [ ] Type was DECIDED before writing A and R — not after
+- [ ] CONNECTION TEST: Is R about the same compound/reaction/phenomenon as A? If NO → REWRITE
+- [ ] A contains ONE clean fact only — not multiple facts bundled together
+- [ ] R contains ONE clean fact only — not multiple facts bundled together
+- [ ] A is factually correct per the source (types a, b, c) OR contains exactly ONE subtle error (type d)
+- [ ] R is factually correct per the source (types a, b) OR contains exactly ONE subtle error (types c, d)
+- [ ] The answer type (a/b/c/d) correctly follows from the evaluation above
+- [ ] No correct_answer, explanation, or extra fields in the JSON output beyond question_id, question_type, answer_type, question_text, options ("answer_type" is an internal quality-check value, see schema — stripped automatically before delivery to students)
+- [ ] ENTITY CHECK: A and R are about the SAME specific compound/ion/element — no cation/anion splits, no "element X in A, element Y in R" splits (FAILURE 3 and 4)
+- [ ] NO-MIRROR CHECK: For types (c) and (d), the false statement is NOT a simple property-value reversal of the true statement. A student must need chemistry knowledge to detect the error — not just logic (FAILURE 5)
+- [ ] DIFFICULTY CHECK: Would a student who has memorised all NCERT facts find this easy or medium? If YES → REWRITE. Hard means the error is subtle enough that rote memorisers will get it wrong.

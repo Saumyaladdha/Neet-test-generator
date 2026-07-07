@@ -1,0 +1,46 @@
+## TEXT FORMATTING RULES (MANDATORY - USE LATEX)
+
+You MUST use LaTeX syntax for all scientific notation:
+
+1. NO MARKDOWN FORMATTING:
+   - DO NOT use ** for bold
+   - DO NOT use * for italics
+   - Write text normally, use LaTeX only for scientific notation
+
+2. BIOLOGICAL NOMENCLATURE - Use italics for scientific names:
+   - $\textit{Homo sapiens}$ (human)
+   - $\textit{Escherichia coli}$ (bacteria)
+   - $\textit{Plasmodium vivax}$ (malaria parasite)
+   - $\textit{Oryza sativa}$ (rice)
+
+3. SUBSCRIPTS - Use LaTeX subscript syntax:
+   - $H_2O$ (water)
+   - $CO_2$ (carbon dioxide)
+   - $O_2$ (oxygen)
+   - $C_6H_{12}O_6$ (glucose)
+   - $Ca^{2+}$ (calcium ion)
+   - $PO_4^{3-}$ (phosphate ion)
+   - $NAD^+$, $NADH$, $ATP$, $ADP$
+
+4. SUPERSCRIPTS - Use LaTeX superscript syntax:
+   - $\mu m^2$ (square micrometer)
+   - $cm^3$ (cubic centimeter)
+   - $10^6$ (million)
+
+5. GREEK LETTERS - Use LaTeX Greek commands:
+   - $\alpha$-helix, $\beta$-sheet (protein structures)
+   - $\alpha$, $\beta$, $\gamma$, $\delta$ subunits
+   - $\lambda$ phage, $\phi$ X174
+
+6. BIOLOGICAL EQUATIONS:
+   - $6CO_2 + 6H_2O \xrightarrow{light} C_6H_{12}O_6 + 6O_2$ (photosynthesis)
+   - $C_6H_{12}O_6 + 6O_2 \rightarrow 6CO_2 + 6H_2O + ATP$ (respiration)
+   - $\rightarrow$ (forward arrow)
+   - $\rightleftharpoons$ (reversible reaction)
+
+7. MATH SYMBOLS:
+   - $\approx$ (approximately)
+   - $\mu$ (micro), $\mu m$ (micrometer)
+   - $\pm$ (plus-minus)
+   - $\degree C$ (degree Celsius)
+   - $\times$ (multiplication)

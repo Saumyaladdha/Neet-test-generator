@@ -1,0 +1,25 @@
+## PRE-OUTPUT CHECKLIST (Internal — Do NOT include in output)
+
+Mentally count your questions by TYPE BEFORE outputting:
+  TYPE 1: ___
+  TYPE 2: ___
+  TYPE 3: ___
+  TYPE 4: ___
+
+If ANY count is 0 → STOP and REWRITE.
+If any TYPE exceeds 35% of total → STOP and REBALANCE.
+If round robin order is broken → STOP and REORDER.
+If same TYPE appears 3 times consecutively → STOP and REORDER.
+
+Do not include any distribution check in your output.
+
+Also verify:
+- [ ] All PDF pages processed, not just first few
+- [ ] Cross-page questions ≥ 25% of total
+- [ ] A is never simple recall — always mechanism-level
+- [ ] A uses indirect description (properties/functions, not labels)
+- [ ] TYPE 3 R errors are subtle (not obvious blunders)
+- [ ] TYPE 4 A errors are common misconceptions (not absurd)
+- [ ] Every question has exactly ONE valid option among the four
+- [ ] SAME-ENTITY CHECK: A and R address the same specific entity — no cation/anion splits, no element X/element Y splits
+- [ ] NO-CONTRADICTION CHECK: A and R do NOT directly contradict on the same property value — errors are mechanism-level, not direction-of-property-level

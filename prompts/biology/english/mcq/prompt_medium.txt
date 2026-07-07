@@ -1,0 +1,318 @@
+## MCQ — MEDIUM LEVEL (BIOLOGY)
+
+---
+
+## WHAT "MEDIUM" MEANS (READ BEFORE GENERATING)
+
+A MEDIUM MCQ tests whether the student **understands** a concept well enough to evaluate statements about it, distinguish correct from incorrect claims, or identify subtle errors in otherwise correct-sounding text.
+
+**Medium = "I understand this concept well enough to spot a specific error in a statement about it."**
+
+**What it tests:**
+Easy → Single-fact recall
+Medium → Conceptual understanding + error detection
+
+**Option style:**
+Easy → Short terms or phrases
+Medium → Full statements requiring evaluation
+
+**Wrong options:**
+Easy → Clearly different terms
+Medium → Statements with ONE subtle factual error
+
+**Student who gets it right:**
+Easy → Read the chapter once
+Medium → Understood the concepts and can spot mistakes
+
+If a question can be answered by recalling a single bolded term from one NCERT line → it is Easy, not Medium.
+
+---
+
+## MEDIUM-SPECIFIC RULES
+
+### BANNED OPTION PATTERNS (HARD FAILURE)
+- NEVER use "All of the above", "None of the above", "None of these", "All of these"
+- NEVER use "Both A and B", "Both A and C", "Both B and D", or any option that references another option
+- NEVER use "All are correct", "None is correct", or any variant
+- Every option must be a standalone, independent answer
+
+### DO NOT USE HARD MCQ FORMAT
+Medium MCQ questions must NOT use numbered statements in the stem + combination options like "1, 2 and 3 only". Medium questions use direct questions, statement evaluation, or "which is correct/incorrect" formats ONLY.
+
+---
+
+## THE SINGLE-ERROR RULE (CRITICAL — APPLIES TO ALL CATEGORIES)
+
+This is the most important quality rule for Medium MCQ. It governs how incorrect statements are constructed across ALL categories (A through F).
+
+**Every incorrect statement must contain exactly ONE specific factual error.**
+
+The error must be:
+- **Specific:** A wrong name, wrong number, wrong location, wrong process, reversed cause-effect, or swapped attribute
+- **Subtle:** The rest of the statement must be factually correct and sound convincing
+- **Testable:** If you FIX the single error, the statement becomes fully correct
+- **Plausible:** The error should reflect a real student misconception, not an absurd fabrication
+
+### ✓ GOOD incorrect statements (single, subtle error):
+- "The left atrium receives **deoxygenated** blood from the lungs through pulmonary veins." → Only ONE error: should be "oxygenated." Everything else is correct.
+- "DNA replication occurs during the **$G_2$** phase of interphase." → Only ONE error: should be "S phase." The rest is accurate.
+- "Cartilage has a hard matrix due to heavy **calcium** deposition." → Only ONE error: should be "chondroitin." The rest is accurate.
+- "Chromosome **number** doubles during S phase." → Only ONE error: DNA content doubles, not chromosome number.
+
+### ✗ BAD incorrect statements (multiple stacked errors — HARD FAILURE):
+- "Arthropods have a **hydrostatic** skeleton and **lack** jointed appendages." → TWO errors stacked. Student spots it instantly without biology knowledge.
+- "Chondrichthyes possess a **bony** endoskeleton with an **air bladder** for buoyancy." → TWO errors. Obvious trap.
+- "Vertebrates **lack** a notochord at **any stage** of embryonic development." → Exaggerated phrasing ("any stage") makes it obviously false.
+
+### The Litmus Test:
+After writing an incorrect statement, ask: "If I showed this to a student who studied casually, would they hesitate before deciding it's wrong?" If the answer is NO (it's obviously wrong), you have stacked too many errors or made them too blatant. REWRITE with a single, subtle error.
+
+---
+
+## MANDATORY: USE A DIVERSE MIX OF ALL CATEGORIES
+
+### Distribution for 10+ questions:
+| Category | Minimum | Maximum | Notes |
+|----------|---------|---------|-------|
+| A — Statement Evaluation (True/False) | 2 | 4 | Distribute answers across a/b/c/d |
+| B — Standard MCQ | 2 | 4 | Core NEET format |
+| C — "Which is correct?" | 1 | 3 | |
+| D — "Which is NOT correct?" | 1 | 3 | |
+| E — "Which is INCORRECT?" | 1 | 2 | |
+| F — "Which is NOT INCORRECT?" | 0 | 1 | Use sparingly — max 1 per test |
+
+### For 5 questions: at least 3 different categories.
+
+**Before outputting, count questions per category. If any category with minimum ≥ 1 has 0 questions, REWRITE to add variety.**
+
+---
+
+## OPTION LENGTH RULES (BY CATEGORY)
+
+| Category | Option type | Length limit |
+|----------|------------|-------------|
+| A — Statement Evaluation | Fixed 4 options (both correct / both incorrect / etc.) | Standard — no limit needed |
+| B — Standard MCQ | Short terms, names, phrases | ≤ 10 words per option |
+| C, D, E, F — Statement options | Full statements | ≤ 25 words per option, 1 sentence only |
+
+**For Categories C/D/E/F:** Each option-statement must be exactly ONE sentence. No option may contain two sentences, a semicolon-joined compound, or 26+ words. If a statement needs more detail, shorten it or split the concept into two separate questions.
+
+**For Category B:** All context and detail goes in the question stem. Options are short terms or names.
+
+---
+
+## CATEGORY A: Statement Evaluation (True/False)
+
+**Format:** Two statements to evaluate as True or False.
+
+**STATEMENT LENGTH RULE (MANDATORY):** Each statement MUST be at least 2 sentences or 20+ words. This differentiates Medium from Easy — statements must be detailed and substantive, not simple one-line facts.
+
+**Question format in question_text:**
+"Given below are two statements:\nStatement I: [First statement]\nStatement II: [Second statement]"
+
+**Standard options (use these EXACT options every time):**
+a) Both Statement I and Statement II are correct
+b) Both Statement I and Statement II are incorrect
+c) Statement I is correct but Statement II is incorrect
+d) Statement I is incorrect but Statement II is correct
+
+### CRITICAL: Answer Distribution Rules (MANDATORY)
+When generating N questions in this category, answers MUST be distributed approximately equally:
+- ~25% Answer a (Both correct)
+- ~25% Answer b (Both incorrect)
+- ~25% Answer c (Only Statement I correct)
+- ~25% Answer d (Only Statement II correct)
+
+**Process:** Before writing each Category A question, DECIDE the target answer FIRST, then construct the statements to match that answer.
+
+### How to construct each answer type:
+- **Answer a:** Both statements are factually accurate and complete
+- **Answer b:** Both statements contain ONE specific factual error each (follow Single-Error Rule)
+- **Answer c:** Statement I is fully correct; Statement II has ONE specific error embedded in otherwise correct content
+- **Answer d:** Statement I has ONE specific error embedded in otherwise correct content; Statement II is fully correct
+
+### Example — Answer a (Both Correct):
+Q. Given below are two statements:
+Statement I: In the RNA world hypothesis, RNA is considered the first genetic material to have evolved. It acts both as genetic material and as a catalyst for biochemical reactions, though being reactive makes it inherently unstable.
+Statement II: DNA evolved from RNA as a more chemically stable genetic material. Its complementary double-stranded structure allows repair mechanisms to correct errors using the intact strand as a template.
+
+a) Both Statement I and Statement II are correct
+b) Both Statement I and Statement II are incorrect
+c) Statement I is correct but Statement II is incorrect
+d) Statement I is incorrect but Statement II is correct
+Answer: a
+
+### Example — Answer c (Only Statement I Correct):
+Q. Given below are two statements:
+Statement I: The inter-ventricular septum is a thick muscular wall that separates the left and right ventricles, preventing mixing of oxygenated and deoxygenated blood in a four-chambered heart.
+Statement II: The left atrium receives deoxygenated blood from the lungs through the pulmonary veins, which then flows into the left ventricle through the bicuspid valve for systemic circulation.
+
+a) Both Statement I and Statement II are correct
+b) Both Statement I and Statement II are incorrect
+c) Statement I is correct but Statement II is incorrect
+d) Statement I is incorrect but Statement II is correct
+Answer: c
+*Statement II has ONE error: "deoxygenated" should be "oxygenated." Everything else in Statement II is correct.*
+
+---
+
+## CATEGORY B: Standard MCQ (Single Correct Answer)
+
+**Format:** Direct question with 4 short options, all plausible related terms from the same domain.
+
+**Option limit:** ≤ 10 words per option. All context goes in the question stem.
+
+**Distractor quality:** All 4 options must be real biological terms from the same category. If the answer is a hormone, all options must be hormones. If the answer is a phylum, all options must be phyla.
+
+### CATEGORY B MEDIUM FILTER (MANDATORY)
+
+Category B questions must test application, comparison, or functional reasoning — NOT single-fact recall. Before outputting any Category B question, apply this filter:
+
+**BANNED in Category B:**
+- "Which [thing] is responsible for [X]?" → single recall
+- "Which [disorder/structure/organism] is associated with [single fact]?" → single recall
+- "What is the [number/name/type] of [X]?" → single recall
+- Any question answerable by memorizing ONE line from NCERT
+
+**REQUIRED in Category B — use at least ONE of these framings:**
+- Conditional/Scenario: "If [condition], which [outcome]?" — student must apply knowledge to a situation
+- Distinction: "What distinguishes [X] from [Y]?" — student must compare two related concepts
+- Functional Why: "Why does [process] require [X] rather than [Y]?" — student must reason about function
+- Multi-step: Question stem provides 2–3 clues narrowing to one answer — student must integrate multiple facts
+- Exception/Unusual case: "Which of the following is an exception to [general rule]?" — student must know the rule AND its exceptions
+
+The framing must force harder reasoning in the ANSWER, not just change the surface wording of the question stem. A conditional wrapper around a single memorized fact is still a FAIL.
+
+❌ EASY (REJECTED for Category B):
+Q: "Which chromosomal disorder results from the gain of an extra copy of chromosome 21?"
+Why rejected: Single-fact recall — student memorizes "chromosome 21 = Down's syndrome" and is done.
+
+❌ EASY (REJECTED for Category B):
+Q: "During human spermatogenesis, what fraction of sperm carry the Y chromosome?"
+Why rejected: Direct numerical recall from one NCERT line.
+
+✅ MEDIUM (ACCEPTED for Category B):
+Q: "A child is born with an extra autosome and shows features such as short stature, broad palm, and intellectual disability. The most likely chromosomal condition is:"
+a) Turner's syndrome
+b) Klinefelter's syndrome
+c) Down's syndrome
+d) Edward's syndrome
+Answer: c
+Why medium: Student must connect clinical features → autosome trisomy → specific disorder. Tests application, not label recall.
+
+✅ MEDIUM (ACCEPTED for Category B):
+Q: "In a cross between a carrier female and a normal male for haemophilia, what is the probability that a son born to them will be affected?"
+a) 25%
+b) 50%
+c) 75%
+d) 100%
+Answer: b
+Why medium: Student must work through X-linked inheritance logic, not recall a stored number.
+
+---
+
+## CATEGORY C: "Which of the following statements is correct?"
+
+**Format:** 4 statement-options. Exactly ONE is correct. The other 3 each contain ONE specific factual error.
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+### Construction rules:
+1. Write the CORRECT statement first (from source)
+2. For each wrong statement: take a CORRECT fact and introduce ONE specific error (wrong term, wrong number, wrong location, swapped attribute)
+3. Verify: fixing the single error in each wrong option should make it correct
+4. All 4 statements must be about the SAME topic or system — do not mix unrelated topics
+
+### Example:
+Q. Which of the following statements is correct?
+a) Chondrichthyes possess a bony endoskeleton and gill slits covered by an operculum.
+b) Chondrichthyes have a cartilaginous endoskeleton with separate gill slits that lack an operculum.
+c) Chondrichthyes are jawless vertebrates that feed using a circular, suctorial mouth.
+d) Chondrichthyes possess an air bladder that regulates buoyancy during swimming.
+Answer: b
+
+*Option (a): ONE error — "bony" should be "cartilaginous" and operculum is absent.*
+*Option (c): ONE error — "jawless" is wrong; they are jawed vertebrates.*
+*Option (d): ONE error — they LACK an air bladder.*
+
+---
+
+## CATEGORY D: "Which of the following statements is NOT correct?"
+
+**Format:** 4 statement-options. Exactly THREE are correct. ONE contains a specific factual error. Student identifies the wrong one.
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+### Construction rules:
+1. Write THREE correct statements from the source
+2. Write ONE statement with a single specific error — it should sound convincing
+3. The error must be subtle enough that a casual reader might miss it
+4. All 4 statements must be about the SAME topic
+
+### Example:
+Q. Which of the following statements is NOT correct regarding the human skeletal system?
+a) The axial skeleton comprises 80 bones including the skull, vertebral column, and rib cage.
+b) The skull consists of cranial bones and facial bones held together by sutures.
+c) There are 14 cranial bones that form the protective casing around the brain.
+d) Bone matrix contains calcium salts deposited as hydroxyapatite crystals.
+Answer: c
+
+*Option (c) has ONE error: cranial bones number 8, not 14. (14 is the number of facial bones — a classic student mix-up.) The other three statements are fully correct.*
+
+---
+
+## CATEGORY E: "Which of the following statements is INCORRECT?"
+
+**Format:** Same logic as Category D — THREE correct, ONE wrong. Uses stronger negative phrasing "INCORRECT" instead of "NOT correct."
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+The incorrect statement should exploit a common student misconception — a number swap, a left/right confusion, a name swap between related structures, etc.
+
+### Example:
+Q. Which of the following statements is INCORRECT about heart anatomy?
+a) The pericardium is a double-layered membrane enclosing the heart with pericardial fluid between the layers.
+b) The atrio-ventricular septum separates the left ventricle from the right ventricle.
+c) The heart has four chambers: two atria and two ventricles.
+d) The atria are thin-walled upper chambers that receive blood from veins.
+Answer: b
+
+*Option (b) has ONE error: the INTER-VENTRICULAR septum separates the ventricles, not the atrio-ventricular septum (which separates atria from ventricles). Classic name-swap misconception.*
+
+---
+
+## CATEGORY F: "Which of the following statements is NOT INCORRECT?"
+
+**Format:** DOUBLE NEGATIVE — "NOT INCORRECT" = which statement IS CORRECT. 4 statements, only ONE is correct, the other 3 each have ONE error. Tests careful reading of double negative phrasing.
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+**Usage limit:** Maximum 1 question per test. This format tests reading comprehension as much as biology — overuse frustrates students without testing more biology.
+
+### Example:
+Q. Which of the following statements is NOT INCORRECT?
+a) DNA replication occurs during the M phase of the cell cycle.
+b) Interphase consists of $G_1$, S, and $G_2$ phases.
+c) The S phase occurs after cytokinesis and before the $G_1$ phase.
+d) Centriole duplication takes place during the $G_2$ phase.
+Answer: b
+
+*NOT INCORRECT = CORRECT. Option (b) is the only fully correct statement.*
+*Option (a): ONE error — replication occurs in S phase, not M phase.*
+*Option (c): ONE error — S phase occurs WITHIN interphase between $G_1$ and $G_2$, not after cytokinesis.*
+*Option (d): ONE error — centriole duplication occurs during S phase, not $G_2$.*
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+## ADDITIONAL WRITING RULES
+
+**Option length per category:**
+- Category A (Statement Evaluation): no word limit — options are "a only", "b only", "a and b", "b and c" patterns; keep as short as possible
+- Category B (Standard MCQ): options ≤ 10 words
+- Categories C, D, E, F (Statement-based): each option-statement ≤ 25 words

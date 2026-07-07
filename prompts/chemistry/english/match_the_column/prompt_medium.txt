@@ -1,0 +1,75 @@
+## MATCH THE COLUMN - MEDIUM LEVEL (CHEMISTRY)
+
+**Question Format:** Intermediate matching with 4-5 pairs
+
+**How to Identify MEDIUM Match the Column:**
+- Matching requires understanding SPECIFIC properties or REACTIONS
+- Some properties may SEEM to apply to multiple compounds (but don't)
+- Column II contains more TECHNICAL terms or reaction products
+- Student must know specific details, not just general properties
+- May include reaction products or specific applications
+
+**Rules:**
+- Use 4-5 pairs
+- Pairs from image content
+- Some pairs may require combining information
+- All elements must be from the image
+
+**TABLE FORMAT (MANDATORY - USE LaTeX):**
+Use LaTeX tabular format for tables, with EXACTLY 4 items per column:
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. [Item] & i. [Match] \\
+2. [Item] & ii. [Match] \\
+3. [Item] & iii. [Match] \\
+4. [Item] & iv. [Match] \\
+\hline
+\end{{tabular}}
+
+**Options Format (roman numerals ONLY — never letters for Column II references):**
+a) 1-iii, 2-i, 3-iv, 4-ii
+b) 1-ii, 2-i, 3-iv, 4-iii
+c) 1-iii, 2-iv, 3-i, 4-ii
+d) 1-iv, 2-iii, 3-ii, 4-i
+
+**IMPORTANT - SHUFFLE COLUMN II (MANDATORY):**
+- Column II items MUST be shuffled/randomized so correct matches are NON-SEQUENTIAL
+- NEVER arrange Column II so that correct answer is 1-i, 2-ii, 3-iii, 4-iv (sequential)
+- The correct matching should be scrambled like: 1-iii, 2-i, 3-iv, 4-ii
+- This ensures students must actually know the content, not just match by position
+
+**Example of Proper Shuffling:**
+Wrong setup: 1-i, 2-ii, 3-iii, 4-iv (too easy - sequential match)
+Correct setup: 1-iii, 2-i, 3-iv, 4-ii (shuffled - requires knowledge)
+
+**Complexity:**
+- Include related but distinct concepts as distractors
+- Shuffled options should be plausible at first glance
+
+**Example from Source Text:**
+Source 1: "Sodium reacts vigorously with water producing hydrogen gas"
+Source 2: "Calcium reacts slowly with cold water"
+Source 3: "Iron reacts with steam to form iron oxide"
+Source 4: "Gold does not react with water"
+↓
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. Sodium & i. No reaction with water \\
+2. Calcium & ii. Reacts with steam \\
+3. Iron & iii. Vigorous reaction with cold water \\
+4. Gold & iv. Slow reaction with cold water \\
+\hline
+\end{{tabular}}
+
+a) 1-iii, 2-iv, 3-ii, 4-i
+b) 1-i, 2-ii, 3-iii, 4-iv
+c) 1-ii, 2-i, 3-iv, 4-iii
+d) 1-iv, 2-iii, 3-i, 4-ii
+
+Answer: a (1-iii, 2-iv, 3-ii, 4-i)
+
+**Why this is MEDIUM:** All metals are mentioned but with different reactivity. Student must remember specific reaction conditions for each metal.

@@ -8,6 +8,8 @@ import io
 import json
 import logging
 import math
+import re
+import time
 from pathlib import Path
 from typing import Literal, Optional, Union
 from openai import OpenAI
@@ -15,6 +17,63 @@ from PIL import Image
 from prompts.selector import get_prompt
 
 logger = logging.getLogger(__name__)
+
+_DEVANAGARI_RE = re.compile(r"[ऀ-ॿ]")
+_LATIN_RE = re.compile(r"[A-Za-z]")
+_DOLLAR_MATH_RE = re.compile(r"\$[^$]*\$")
+
+
+def _hindi_purity_failures(questions: list, min_devanagari_ratio: float = 0.3) -> list:
+    """
+    Return indices of questions whose text is not predominantly Devanagari.
+
+    Content inside $...$ (chemical formulas, LaTeX) is excluded before counting,
+    since those are expected to stay in Roman script per NCERT Hindi convention.
+    A question with no alphabetic content at all (e.g. a pure numeral sequence)
+    is skipped rather than flagged.
+    """
+    failures = []
+    for i, q in enumerate(questions):
+        text = q.get("question_text", "")
+        opts = q.get("options", {})
+        combined = text + " " + " ".join(str(v) for v in (opts.values() if isinstance(opts, dict) else opts))
+        combined = _DOLLAR_MATH_RE.sub("", combined)
+        devanagari_count = len(_DEVANAGARI_RE.findall(combined))
+        latin_count = len(_LATIN_RE.findall(combined))
+        total = devanagari_count + latin_count
+        if total == 0:
+            continue
+        if (devanagari_count / total) < min_devanagari_ratio:
+            failures.append(i)
+    return failures
+
+
+def _assert_hindi_purity(questions: list, batch_label: str, attempt: int) -> None:
+    """
+    Hindi-only guard: raise if too many questions in this batch are not
+    predominantly Devanagari. Raising here (instead of branching the shared
+    retry loop) lets the existing except-Exception handler in generate_chunk
+    retry/back off exactly like it does for any other batch failure — English
+    and other-language calls never execute this function at all.
+    """
+    if not questions:
+        return
+    bad_idxs = _hindi_purity_failures(questions)
+    if len(bad_idxs) > len(questions) // 2:
+        _log.warning("batch.language_check_failed",
+                      batch=batch_label,
+                      attempt=attempt + 1,
+                      failed=len(bad_idxs),
+                      total=len(questions))
+        raise ValueError(
+            f"medium=hindi requested but {len(bad_idxs)}/{len(questions)} "
+            f"questions were not predominantly Devanagari"
+        )
+
+# Structured logger for the worker-oriented generate_chunk path
+from core.logger import get_logger as _get_logger
+from core.parser import strip_markdown_fences
+_log = _get_logger(__name__)
 
 
 def calculate_image_tokens(image_bytes: bytes, detail: str = "high") -> dict:
@@ -209,16 +268,7 @@ def generate_neet_test(
                 result_text += item.text
 
     try:
-        clean_text = result_text.strip()
-        if clean_text.startswith("```json"):
-            clean_text = clean_text[7:]
-        if clean_text.startswith("```"):
-            clean_text = clean_text[3:]
-        if clean_text.endswith("```"):
-            clean_text = clean_text[:-3]
-        clean_text = clean_text.strip()
-
-        result = json.loads(clean_text)
+        result = json.loads(strip_markdown_fences(result_text))
     except json.JSONDecodeError:
         result = {
             "raw_response": result_text,
@@ -296,16 +346,7 @@ def generate_neet_test_from_url(
                 result_text += item.text
 
     try:
-        clean_text = result_text.strip()
-        if clean_text.startswith("```json"):
-            clean_text = clean_text[7:]
-        if clean_text.startswith("```"):
-            clean_text = clean_text[3:]
-        if clean_text.endswith("```"):
-            clean_text = clean_text[:-3]
-        clean_text = clean_text.strip()
-
-        result = json.loads(clean_text)
+        result = json.loads(strip_markdown_fences(result_text))
     except json.JSONDecodeError:
         result = {
             "raw_response": result_text,
@@ -439,16 +480,7 @@ def _make_single_batch_request(
 
     # Parse JSON from text response
     try:
-        clean_text = result_text.strip()
-        if clean_text.startswith("```json"):
-            clean_text = clean_text[7:]
-        if clean_text.startswith("```"):
-            clean_text = clean_text[3:]
-        if clean_text.endswith("```"):
-            clean_text = clean_text[:-3]
-        clean_text = clean_text.strip()
-
-        return json.loads(clean_text)
+        return json.loads(strip_markdown_fences(result_text))
     except json.JSONDecodeError:
         return {
             "raw_response": result_text,
@@ -873,6 +905,245 @@ def generate_neet_test_from_url_batched(
             }
 
     return combined_result
+
+
+# ── Worker-oriented chunk generator ───────────────────────────────────────────
+
+_LANG_CODE = {"english": "en", "hindi": "hi"}
+
+
+def generate_chunk(
+    *,
+    file_type: str,
+    presigned_url: str = None,
+    openai_file_id: str = None,
+    subject: str,
+    medium: str = "english",
+    question_type: str,
+    difficulty: str,
+    question_count: int,
+    previous_questions: list = None,
+    batch_size: int = None,
+    model: str = None,
+    api_key: str = None,
+    user_id: str = None,
+    test_id: str = None,
+    batch_id: str = None,
+) -> list:
+    """
+    Generate questions from a single chunk (image or PDF chunk).
+
+    For images:  pass presigned_url (S3 HTTPS URL accepted by OpenAI).
+    For PDFs:    pass openai_file_id (from OpenAI Files API upload).
+
+    Returns list of question dicts. Returns partial list on batch failure.
+    """
+    from core.config import OPENAI_MODEL, BATCH_SIZE, BATCH_MAX_RETRIES, BATCH_RETRY_DELAYS
+
+    if batch_size is None:
+        batch_size = BATCH_SIZE
+    if model is None:
+        model = OPENAI_MODEL
+
+    client = OpenAI(api_key=api_key) if api_key else OpenAI()
+    lang = _LANG_CODE.get(medium.lower(), "en")
+
+    # Accept both "pdf" and "application/pdf" from worker
+    is_pdf = file_type in ("pdf", "application/pdf")
+    if is_pdf:
+        if not openai_file_id:
+            raise ValueError("openai_file_id required for PDF chunks")
+        media_item = {"type": "input_file", "file_id": openai_file_id}
+        file_hint = f"file_id={openai_file_id[:12]}..."
+    else:
+        if not presigned_url:
+            raise ValueError("presigned_url required for image chunks")
+        media_item = {"type": "input_image", "image_url": presigned_url}
+        file_hint = "presigned_url"
+
+    # Divide into batches
+    question_count = int(question_count)  # guard against DynamoDB Decimal
+    batch_counts = []
+    remaining = question_count
+    while remaining > 0:
+        batch_counts.append(min(batch_size, remaining))
+        remaining -= batch_counts[-1]
+
+    chunk_start = time.time()
+    _log.info("chunk.start",
+              user_id=user_id, test_id=test_id, batch_id=batch_id,
+              file_type=file_type,
+              subject=subject,
+              medium=medium,
+              question_type=question_type,
+              difficulty=difficulty,
+              question_count=question_count,
+              # This chunk's questions are split into N LLM calls ("sub-batches"),
+              # each capped at BATCH_SIZE questions — distinct from batch_id, which
+              # identifies this whole chunk within the job.
+              sub_batch_count=len(batch_counts),
+              sub_batch_sizes=batch_counts,
+              model=model,
+              is_pdf=is_pdf,
+              file=file_hint,
+              prev_questions=len(previous_questions or []))
+
+    all_questions = []
+    prev_texts = list(previous_questions or [])
+
+    for batch_idx, batch_count in enumerate(batch_counts):
+        batch_label = f"{batch_idx + 1}/{len(batch_counts)}"
+        batch_start = time.time()
+
+        prompt = get_prompt(question_type, difficulty, subject, batch_count, language=lang)
+
+        user_content = [media_item]
+        if prev_texts:
+            avoid_text = (
+                "IMPORTANT: Do NOT repeat or create similar questions to these:\n\n"
+                + "\n".join(f"{i+1}. {q}" for i, q in enumerate(prev_texts))
+                + "\n\nGenerate completely NEW and DIFFERENT questions."
+            )
+            user_content.append({"type": "input_text", "text": avoid_text})
+
+        messages = [
+            {"role": "system", "content": [{"type": "input_text", "text": prompt}]},
+            {"role": "user", "content": user_content},
+        ]
+
+        _log.info("batch.start",
+                  user_id=user_id, test_id=test_id, batch_id=batch_id,
+                  sub_batch=batch_label,
+                  sub_batch_question_count=batch_count,
+                  avoid_repeat_of_n_questions=len(prev_texts),
+                  prompt_length_chars=len(prompt))
+
+        batch_result = None
+        last_error = None
+
+        for attempt in range(BATCH_MAX_RETRIES):
+            api_start = time.time()
+            try:
+                response = client.responses.create(
+                    model=model,
+                    input=messages,
+                    max_output_tokens=10000,
+                    store=True,
+                    text={"format": {"type": "text"}},
+                    reasoning={},
+                )
+                latency = round(time.time() - api_start, 2)
+
+                # Log token usage from response
+                if hasattr(response, "usage") and response.usage:
+                    _log.info("batch.api_ok",
+                              user_id=user_id, test_id=test_id, batch_id=batch_id,
+                              sub_batch=batch_label,
+                              attempt=attempt + 1,
+                              latency_seconds=latency,
+                              tokens_in=response.usage.input_tokens,
+                              tokens_out=response.usage.output_tokens,
+                              tokens_total=response.usage.total_tokens)
+                else:
+                    _log.info("batch.api_ok",
+                              user_id=user_id, test_id=test_id, batch_id=batch_id,
+                              sub_batch=batch_label,
+                              attempt=attempt + 1,
+                              latency_seconds=latency,
+                              tokens="unavailable")
+
+                # Extract response text
+                result_text = ""
+                for item in response.output:
+                    if getattr(item, "type", None) == "message":
+                        for block in getattr(item, "content", []):
+                            if hasattr(block, "text"):
+                                result_text += block.text
+                    elif getattr(item, "type", None) == "text":
+                        result_text += getattr(item, "text", "")
+
+                batch_result = json.loads(strip_markdown_fences(result_text))
+
+                questions_found = len(batch_result.get("questions", []))
+                _log.info("batch.parse_ok",
+                          user_id=user_id, test_id=test_id, batch_id=batch_id,
+                          sub_batch=batch_label,
+                          questions_found=questions_found,
+                          raw_response_length_chars=len(result_text))
+
+                if lang == "hi":
+                    _assert_hindi_purity(batch_result["questions"], batch_label, attempt)
+
+                break
+
+            except json.JSONDecodeError as exc:
+                latency = round(time.time() - api_start, 2)
+                last_error = exc
+                raw_preview = result_text[:300] if "result_text" in dir() else ""
+                _log.warning("batch.parse_error",
+                             user_id=user_id, test_id=test_id, batch_id=batch_id,
+                             sub_batch=batch_label,
+                             attempt=attempt + 1,
+                             max_attempts=BATCH_MAX_RETRIES,
+                             latency_seconds=latency,
+                             error=f"Model response was not valid JSON: {exc}",
+                             raw_response_preview=raw_preview)
+
+            except Exception as exc:
+                latency = round(time.time() - api_start, 2)
+                last_error = exc
+                _log.warning("batch.api_error",
+                             user_id=user_id, test_id=test_id, batch_id=batch_id,
+                             sub_batch=batch_label,
+                             attempt=attempt + 1,
+                             max_attempts=BATCH_MAX_RETRIES,
+                             latency_seconds=latency,
+                             error=str(exc))
+
+            # Retry backoff
+            if attempt < BATCH_MAX_RETRIES - 1:
+                delay = BATCH_RETRY_DELAYS[attempt] if attempt < len(BATCH_RETRY_DELAYS) else 4
+                _log.warning("batch.retry",
+                             user_id=user_id, test_id=test_id, batch_id=batch_id,
+                             sub_batch=batch_label,
+                             attempt_that_failed=attempt + 1,
+                             next_attempt=attempt + 2,
+                             wait_seconds_before_retry=delay,
+                             error=str(last_error))
+                time.sleep(delay)
+
+        if batch_result is None:
+            _log.error("batch.exhausted",
+                       user_id=user_id, test_id=test_id, batch_id=batch_id,
+                       sub_batch=batch_label,
+                       reason=f"All {BATCH_MAX_RETRIES} attempts failed",
+                       last_error=str(last_error),
+                       questions_generated_before_giving_up=len(all_questions))
+            break
+
+        batch_questions = batch_result.get("questions", [])
+        for q in batch_questions:
+            prev_texts.append(q.get("question_text", ""))
+        all_questions.extend(batch_questions)
+
+        _log.info("batch.done",
+                  user_id=user_id, test_id=test_id, batch_id=batch_id,
+                  sub_batch=batch_label,
+                  questions_generated=len(batch_questions),
+                  total_questions_so_far=len(all_questions),
+                  elapsed_seconds=round(time.time() - batch_start, 2))
+
+    elapsed = round(time.time() - chunk_start, 2)
+    _log.info("chunk.done",
+              user_id=user_id, test_id=test_id, batch_id=batch_id,
+              total_questions_generated=len(all_questions),
+              questions_requested=question_count,
+              elapsed_seconds=elapsed,
+              subject=subject,
+              question_type=question_type,
+              difficulty=difficulty)
+
+    return all_questions
 
 
 # Example usage

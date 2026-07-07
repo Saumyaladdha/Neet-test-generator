@@ -1,0 +1,92 @@
+
+============================================================================================================
+  DETECTOR BENCHMARK — NCERT-Class-11-Biology.pdf  (52 pages)
+============================================================================================================
+Model                     Provider Status    Pages   Latency  Total Qs   In Tok  Out Tok       Cost
+------------------------------------------------------------------------------------------------------------
+Gemini 3.5 Flash          gemini   OK           52     14.5s       131    30452      121 $  0.04677
+GPT-5.4                   openai   OK           52     16.2s      1377   191750       93 $  0.48077
+Gemini 3.1 Flash-Lite     gemini   OK           52     18.9s       111    30452      118 $  0.00779
+Gemini 2.5 Flash-Lite     gemini   FAIL         52     19.2s         0        0        0 $  0.00000
+Gemini 2.5 Flash          gemini   OK           52     19.4s       245    16828      122 $  0.00535
+GPT-4.1 nano              openai   OK           52     21.0s       103   218560       90 $  0.02189
+GPT-5.4-mini              openai   OK           52     22.7s       309   191750       93 $  0.14423
+Claude Sonnet 4.6         claude   FAIL         52     31.7s         0        0        0 $  0.00000
+GPT-5.5                   openai   FAIL         52     45.7s         0   191750     1024 $  0.98947
+============================================================================================================
+
+COUNTS BREAKDOWN (easy/medium/hard × mcq/ar/mtc):
+Model                      E-MCQ   E-AR  E-MTC  M-MCQ   M-AR  M-MTC  H-MCQ   H-AR  H-MTC  TOTAL
+------------------------------------------------------------------------------------------------------------
+GPT-5.5                    FAIL: No JSON object found: 
+GPT-5.4                      534    171     44    238    132     28    126     84     20   1377
+GPT-5.4-mini                 164     18     14     48     16      9     22     11      7    309
+GPT-4.1 nano                  42      0      0     50      4      2      4      1      0    103
+Gemini 3.5 Flash              45      8      4     28     12      5     15     10      4    131
+Gemini 3.1 Flash-Lite         55      8      4     18      5      3      9      6      3    111
+Gemini 2.5 Flash             133     27      2     48     14      2     12      6      1    245
+Gemini 2.5 Flash-Lite      FAIL: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is cur
+Claude Sonnet 4.6          FAIL: Claude refused to process this document (copyright/policy).
+============================================================================================================
+
+
+============================================================================================================
+  DETECTOR BENCHMARK — kebo101.pdf  (9 pages)
+============================================================================================================
+Model                     Provider Status    Pages   Latency  Total Qs   In Tok  Out Tok       Cost
+------------------------------------------------------------------------------------------------------------
+Gemini 3.1 Flash-Lite     gemini   OK            9      9.8s        77     8272      118 $  0.00225
+GPT-5.4                   openai   OK            9     10.6s       244    16084       93 $  0.04161
+GPT-5.4-mini              openai   OK            9     13.6s        53    16084       65 $  0.01236
+Gemini 2.5 Flash-Lite     gemini   OK            9     14.2s        54     5734      118 $  0.00062
+Gemini 3.5 Flash          gemini   OK            9     14.4s        92     8272      119 $  0.01348
+GPT-4.1 nano              openai   OK            9     16.2s        96    24806       90 $  0.00252
+Gemini 2.5 Flash          gemini   OK            9     16.4s        66     5734      118 $  0.00201
+Claude Sonnet 4.6         claude   FAIL          9     27.5s         0    22562     1024 $  0.08305
+GPT-5.5                   openai   FAIL          9     35.9s         0    16084     1024 $  0.11114
+============================================================================================================
+
+COUNTS BREAKDOWN (easy/medium/hard × mcq/ar/mtc):
+Model                      E-MCQ   E-AR  E-MTC  M-MCQ   M-AR  M-MTC  H-MCQ   H-AR  H-MTC  TOTAL
+------------------------------------------------------------------------------------------------------------
+GPT-5.5                    FAIL: No JSON object found: 
+GPT-5.4                       99     27     12     41     24      8     18      9      6    244
+GPT-5.4-mini                  29      4      1      8      5      2      2      1      1     53
+GPT-4.1 nano                  40     12      4     15      8      3      7      4      3     96
+Gemini 3.5 Flash              35      6      3     18     10      4      8      5      3     92
+Gemini 3.1 Flash-Lite         35      6      2     12      8      2      6      4      2     77
+Gemini 2.5 Flash              35      5      2     10      6      1      4      2      1     66
+Gemini 2.5 Flash-Lite         30      0      1     12      5      2      3      0      1     54
+Claude Sonnet 4.6          FAIL: No JSON object found: I'll systematically analyze all content sources:
+============================================================================================================
+
+
+============================================================================================================
+  DETECTOR BENCHMARK — kech101.pdf  (28 pages)
+============================================================================================================
+Model                     Provider Status    Pages   Latency  Total Qs   In Tok  Out Tok       Cost
+------------------------------------------------------------------------------------------------------------
+Gemini 3.1 Flash-Lite     gemini   OK           28     14.2s       120    18532      119 $  0.00481
+GPT-5.4-mini              openai   OK           28     15.5s       158    51830       93 $  0.03929
+Gemini 2.5 Flash-Lite     gemini   OK           28     16.5s        80    10636      119 $  0.00111
+GPT-4.1 nano              openai   OK           28     18.2s        51    78963       90 $  0.00793
+Gemini 3.5 Flash          gemini   OK           28     19.2s       146    18532      122 $  0.02890
+Gemini 2.5 Flash          gemini   OK           28     23.0s       162    10636      120 $  0.00349
+GPT-5.4                   openai   OK           28     23.7s       832    51830       93 $  0.13097
+Claude Sonnet 4.6         claude   FAIL         28     25.0s         0    72998     1024 $  0.23435
+GPT-5.5                   openai   FAIL         28     47.2s         0    51830     1024 $  0.28987
+============================================================================================================
+
+COUNTS BREAKDOWN (easy/medium/hard × mcq/ar/mtc):
+Model                      E-MCQ   E-AR  E-MTC  M-MCQ   M-AR  M-MTC  H-MCQ   H-AR  H-MTC  TOTAL
+------------------------------------------------------------------------------------------------------------
+GPT-5.5                    FAIL: No JSON object found: 
+GPT-5.4                      286     96     54    154     81     20     92     36     13    832
+GPT-5.4-mini                  74      8      6     28     10      4     22      4      2    158
+GPT-4.1 nano                  13      0      0      3      0      0     27      4      4     51
+Gemini 3.5 Flash              48     10      4     28     14      5     22     12      3    146
+Gemini 3.1 Flash-Lite         55      8      2     25      6      3     15      4      2    120
+Gemini 2.5 Flash              80     13      4     30      8      1     20      4      2    162
+Gemini 2.5 Flash-Lite         29      1      1     22      3      2     18      1      3     80
+Claude Sonnet 4.6          FAIL: No JSON object found: I'll systematically analyze the content across a
+============================================================================================================

@@ -1,0 +1,15 @@
+IMPORTANT: Column II has 5 items (i, ii, iii, iv, v). In option values, ALWAYS use roman numerals — NEVER use letters a/b/c/d for Column II references.
+
+{
+      "question_id": 1,
+      "question_type": "MATCH_THE_COLUMN",
+      "question_text": "Match the following:\n\n\\begin{tabular}{|l|l|}\n\\hline\nColumn I & Column II \\\\\n\\hline\n1. [Item] & i. [Item] \\\\\n2. [Item] & ii. [Item] \\\\\n3. [Item] & iii. [Item] \\\\\n4. [Item] & iv. [Item] \\\\\n & v. [Distractor item] \\\\\n\\hline\n\\end{tabular}",
+      "options": {
+        "a": "1-iii, 2-i, 3-iv, 4-ii",
+        "b": "1-ii, 2-i, 3-iv, 4-iii",
+        "c": "1-iii, 2-v, 3-iv, 4-ii",
+        "d": "1-iii, 2-i, 3-ii, 4-iv"
+      }
+    }
+
+Option values use roman numerals ONLY: i, ii, iii, iv, v. Write "1-iii" not "1-c". Write "2-v" not "2-e".

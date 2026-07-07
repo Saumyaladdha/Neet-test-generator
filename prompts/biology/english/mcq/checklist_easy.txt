@@ -1,0 +1,14 @@
+- [ ] Category A (Standard MCQ): ___ questions (minimum 4 for 10+ questions)
+- [ ] Category B (Fill in the Blank): ___ questions (minimum 3 for 10+ questions)
+- [ ] If EITHER category has 0 questions, REWRITE to add variety
+- [ ] No negative phrasing used: "NOT correct", "NOT INCORRECT", "EXCEPT", "all are true EXCEPT"
+- [ ] No scrambled sequence questions at Easy level
+- [ ] No "All of the above", "None of the above", "Both A and B", or any combination/meta options
+- [ ] No comparative/superlative questions: "Which is THE defining/most important/key feature?"
+- [ ] No answer visible in the question stem — correct option (or synonym) must not appear in the question text
+- [ ] Question word matches options — "Which cell type?" → options are cell names, not durations/locations
+- [ ] Every option is ≤ 7 words
+- [ ] Numeric options are in ascending order
+- [ ] Fill-in-the-blank: blank replaces a KEY biology term, not a filler word (verb/preposition/article)
+- [ ] Fill-in-the-blank: stem is 1–2 sentences maximum
+- [ ] Every question tests single-fact recall — no multi-step reasoning, no cause-effect chains

@@ -1,0 +1,327 @@
+MCQ — HARD LEVEL (CHEMISTRY | NEET)
+
+You are generating NEET-level HARD MCQs from a textbook PDF.
+Read EVERY page of the PDF before generating. The student has NO textbook — questions must be fully self-contained.
+
+------------ WHAT MAKES A QUESTION HARD ------------
+
+NEET Hard MEANS: a student who MEMORISED the textbook gets it WRONG. A student who UNDERSTOOD gets it RIGHT.
+Every Hard question MUST contain a TRAP.
+
+THE TRAP TEST: "Would a student who memorised but doesn't understand pick the WRONG answer?"
+YES → genuinely Hard. NO → REWRITE.
+
+THE 7 TRAP TYPES (use at least one per question):
+
+(a) NEGATIVE STEM TRAP — "CANNOT occur / is INCORRECT / does NOT / which is FALSE"
+(b) DIRECTION REVERSAL TRAP — state correct fact but invert the mechanism direction in one option
+(c) TREND EXCEPTION TRAP — general trend is true; question targets the known exception
+(d) BOTH-TRUE-WRONG-EXPLANATION TRAP — both statements true, but Reason explains a DIFFERENT aspect
+(e) ERROR-PROPAGATION TRAP — multi-step reaction where mistake at step 2 gives wrong final product
+(f) NCERT-SCOPE PRECISION TRAP — chemistry correct, but NCERT defines a narrower scope
+(g) SCOPE PRECISION TRAP — question targets a known exception or boundary case within a general rule (e.g., why does F have lower electron affinity than Cl despite being more electronegative?)
+
+BANNED — DATA LOOKUP / ARITHMETIC ON TABULATED VALUES (INSTANT REWRITE):
+BAD: "Fe 7.8, Co 8.7, Ni 8.9 — which has the highest density?" — reads biggest number = EASY
+BAD: "Using the atomic radii listed for Period 2, the decrease from B to F is approximately:" — trivial subtraction
+BAD: "Which element has an electron gain enthalpy of approximately −349 kJ mol⁻¹ according to the tabulated values?" with options "S (≈ −200)", "F (≈ −328)", "Cl (≈ −349)", "P (≈ −73)" — student just matches numbers to names, teaches ZERO chemistry. The values in options make it trivial lookup, not reasoning.
+CONVERT to WHY: "Vanadium has the highest enthalpy of atomisation among Sc, Ti, V, Cr BECAUSE:"
+(A) Maximum unpaired d-electrons strengthening metallic bonding
+(B) Highest nuclear charge among the four
+(C) Strongest d-d orbital overlap due to optimal atomic radius
+(D) Greater 4s electron contribution to bonding
+
+STATEMENTS MUST CONTAIN REASONING (not bare facts):
+BAD: "1. NaCl shows Schottky defect  2. ZnS shows Frenkel defect  3. CsCl has BCC structure" — bare recall
+GOOD: "1. NaCl shows Schottky rather than Frenkel because both $Na^+$ and $Cl^-$ are too large to occupy interstitial sites"
+
+FALSE STATEMENT QUALITY:
+False statements must fail for a MECHANISM ERROR, not an obvious blunder.
+BAD false: "(2) NaCl shows Frenkel defect" — every student eliminates this in 1 second
+GOOD false: "(2) NaCl shows Schottky rather than Frenkel defect because its high lattice energy prevents ionic displacement" — fact is correct but REASON is wrong
+
+------------ 7 QUESTION CATEGORIES — DISTRIBUTE EVENLY ------------
+
+MANDATORY DISTRIBUTION (HARD FAIL if violated):
+
+Cat D (Arrange in order) is DISABLED — do NOT generate Cat D questions. Trivial ordering (same-group elements, same-period elements by simple trends) produces questions that test recall, not understanding. Use Cat A/B/C/E/F/G only.
+
+For 5 questions:
+- Category A or C (multi-statement): at least 1 — MANDATORY
+- Category E (True/False pattern): at least 1 — MANDATORY
+- Category G (deep WHY/HOW): at least 1
+- Remaining from A, B, C, E, F, G
+
+For 10 questions:
+- Category A (Which are correct?): 2 questions
+- Category C (How many are correct?): 2 questions — HARDEST NEET FORMAT
+- Category E (True/False pattern): 2 questions
+- Category F (Numerical): 1 question (only if PDF has quantitative data)
+- Category G (Deep WHY/HOW): 2 questions
+- Category B (Which are incorrect?): 1 question
+
+For 20+ questions:
+- Category A: 5 questions
+- Category C: 5 questions — HIGHEST PRIORITY
+- Category B: 3 questions
+- Category E: 3 questions
+- Category F: 2 questions (if PDF supports numericals)
+- Category G: 4 questions
+
+HARD FAIL — if ALL questions are plain "X is because:" MCQ (Category G only) with ZERO multi-statement / T-F / numerical → REWRITE the entire set.
+HARD FAIL — if no question uses numbered statements in the stem → at least 50% MUST have numbered statements (Categories A/B/C/E).
+
+CYCLE RULE: Never use the same category for 2 consecutive questions.
+Pattern example: Q1=A, Q2=G, Q3=C, Q4=E, Q5=G, Q6=B, Q7=A, Q8=F, Q9=C, Q10=E
+
+QUESTION_CATEGORY FIELD (MANDATORY — HARD FAIL IF MISSING):
+Every question JSON must include "question_category" with one of: "cat_a" | "cat_b" | "cat_c" | "cat_e" | "cat_f" | "cat_g"
+HARD FAIL — Cat D ("cat_d") is banned — if any question has "cat_d" → regenerate that question.
+
+---- A — WHICH ARE CORRECT? (multi-statement + combination options) ----
+
+4-5 numbered statements in the stem. Options are SHORT combinations.
+Each statement must test UNDERSTANDING with "because" / "due to" reasoning.
+
+CRITICAL — STATEMENTS MUST BE IN question_text (NOT IN OPTIONS):
+ALL numbered statements (1)(2)(3)(4) MUST appear inside the question_text field.
+Options must contain ONLY the combination labels like "(1) and (2) only".
+NEVER reference statements in options that do not appear in question_text.
+
+BAD question_text: "Which of the following statements about Dobereiner's triads are CORRECT?"
+(options then reference (1),(2),(3),(4) that appear NOWHERE) — INSTANT FAIL
+
+GOOD question_text (JSON field value):
+"Which of the following statements are CORRECT?\n(1) NaCl shows Schottky defect rather than Frenkel because its cation and anion are of similar size, making interstitial displacement energetically unfavourable\n(2) Frenkel defects do not change the density of a crystal because the displaced ion stays within the lattice\n(3) ZnS shows Frenkel defect because $Zn^{{2+}}$ is small enough to occupy interstitial sites\n(4) Doping Si with B creates p-type semiconductor because B contributes an extra valence electron to the conduction band"
+
+NEET 2023 Example:
+Q. Which of the following statements are CORRECT?
+(1) Baking soda decomposes on heating because $NaHCO_3$ is thermally less stable than $Na_2CO_3$
+(2) Washing soda is efflorescent because it loses water of crystallisation to dry air
+(3) Plaster of Paris hardens on adding water because it converts to $CaSO_4 \cdot 2H_2O$ exothermically
+(4) Bleaching powder is a mixed salt because it contains both $ClO^-$ and $Cl^-$ ions
+
+(A) (1), (2) and (3) only  (B) (1) and (3) only  (C) (2), (3) and (4) only  (D) (1), (2), (3) and (4)
+
+OPTION GENERATION PROCEDURE FOR CAT A (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY against the PDF. Record:
+  - Statement (I): CORRECT / INCORRECT
+  - Statement (II): CORRECT / INCORRECT
+  - Statement (III): CORRECT / INCORRECT
+  - Statement (IV): CORRECT / INCORRECT (if used)
+
+Step 3 — COLLECT the correct statement labels. This is your CORRECT COMBINATION. For Hard level, 1–2 statements should be correct (majority incorrect with subtle mechanism errors). If 3+ are correct → go back and rewrite statements to introduce subtle errors per the FALSE STATEMENT QUALITY rule.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots (A, B, C, D). Vary placement across questions — never consistently put it in the same slot.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Each must differ from the correct combination by exactly 1 statement (add one incorrect label OR remove one correct label OR swap one of each).
+
+Step 6 — TRIPLE VERIFICATION (skip = HARD FAILURE):
+  a) Re-read each statement independently
+  b) Re-confirm CORRECT/INCORRECT for each, strictly from PDF content
+  c) Confirm your correct combination from Step 3 still holds
+  d) Confirm EXACTLY ONE option matches this combination
+  e) If any verification fails → regenerate the question from Step 1
+
+FAILURE EXAMPLE (CAT A — READ THIS):
+Generated question (transition metals):
+(I) Fe shows +2 and +3 oxidation states because 4s electrons are lost before 3d
+(II) All transition metal ions are coloured in aqueous solution due to d-d transitions
+(III) Cu has anomalous configuration [Ar]$3d^{{10}}4s^1$ due to extra stability of completely filled d subshell
+(IV) Catalytic activity of transition metals is due to variable oxidation states and ability to form intermediates
+
+Options built WITHOUT doing Step 2:
+(A) (I) and (II) only  (B) (II) and (III) only  (C) (I), (II) and (IV) only  (D) (I), (III) and (IV) only
+
+Step 2 evaluation AFTER building options: (I)=CORRECT, (II)=INCORRECT ($Sc^{{3+}}$, $Ti^{{4+}}$, $Zn^{{2+}}$ are colourless — $d^0$/$d^{{10}}$ have no d-d transition), (III)=CORRECT, (IV)=CORRECT.
+Correct combination = (I), (III) and (IV) only → ZERO options match this → CATASTROPHIC FAILURE.
+
+ROOT CAUSE: Model intended (II) to be correct (sounds right as a general rule), skipped Step 2, built options assuming (II) is correct. Statement (II) is a classic overgeneralisation — "all" fails for $d^0$ and $d^{{10}}$ ions.
+LESSON: ALWAYS complete Step 2 before writing a single option. Never build options from intent — build them from verified truth values.
+
+---- B — WHICH ARE INCORRECT? (multi-statement, find the wrong ones) ----
+
+Same structure as A but asks for INCORRECT statements.
+Include traps: statements that sound right but have a subtle error (reversed trend, wrong reason, partial truth).
+CRITICAL — same JSON format rule as A: ALL statements must be in question_text, NOT in options.
+
+OPTION GENERATION PROCEDURE FOR CAT B (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY. Record CORRECT or INCORRECT for each.
+
+Step 3 — COLLECT the INCORRECT statement labels. This is your CORRECT COMBINATION (the answer to "which are incorrect"). Verify exactly 1–2 are incorrect. If 0 → rewrite. If 3+ → fix until only 1–2 contain errors.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots. Vary placement.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Include at least one option pointing to a correct-but-suspicious-sounding statement — something students might flag as wrong but is actually right.
+
+Step 6 — TRIPLE VERIFICATION: same as Cat A Step 6.
+
+---- C — HOW MANY ARE CORRECT? (hardest NEET format — no elimination) ----
+
+4-5 statements. Options: "Only one / Only two / Only three / All four".
+Student must evaluate EVERY statement — cannot use elimination.
+CRITICAL — same JSON format rule: ALL statements must be in question_text, NOT in options.
+
+OPTION GENERATION PROCEDURE FOR CAT C (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all 4 statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY. Record CORRECT or INCORRECT for each.
+
+Step 3 — COUNT the correct statements. This determines your answer: "Only one" / "Only two" / "Only three" / "All four". Verify count is 1, 2, or 3 — never 0 or 4 (both make the question trivial or unanswerable). If 0 or 4 → rewrite statements until balanced.
+
+Step 4 — ASSIGN the count-option to one of the four slots.
+
+Step 5 — GENERATE 3 WRONG OPTIONS using adjacent counts (e.g., correct = "Only two" → wrong options include "Only one", "Only three", "All four").
+
+Step 6 — TRIPLE VERIFICATION: same as Cat A Step 6.
+
+CAT C FAILURE PATTERN: Model intends 2 correct, builds options around "Only two", but 3 of the 4 statements are actually correct (unintentional correctness creep — statements that were meant to have subtle errors end up being true per the PDF). "Only three" is the real answer but no option says that. Always do Step 2 BEFORE writing any option.
+
+---- D — ARRANGE IN ORDER — DISABLED (DO NOT GENERATE) ----
+
+Cat D is banned. Ordering questions (arrange elements/periods/compounds by a property) consistently produce trivial questions that test recall of trends, not chemical understanding.
+
+BANNED examples (HARD FAILURE — instant regenerate):
+- "Arrange Li, Na, K, Cs in increasing order of metallic character" → trivial: same group, obvious trend
+- "Arrange periods in increasing order of number of elements" → trivial: just counting
+- "Arrange halogens in decreasing order of electronegativity" → trivial: standard trend recall
+- ANY question whose answer is just "follow the periodic trend down the group / across the period"
+
+If you are about to generate a Cat D question → STOP → replace with Cat A, B, C, E, F, or G instead.
+
+---- E — TRUE/FALSE PATTERN ----
+
+4 statements. Options are T/F combinations: "T F T F" / "T T F T" / etc. (4 letters, space-separated).
+At least 1 trap statement that sounds true but is false, and at least 1 that sounds false but is true.
+
+STEM FORMAT (MANDATORY):
+The instruction line MUST come FIRST, before any numbered statements. Never put it at the end.
+
+BAD (instruction at end — HARD FAILURE):
+"(1) $NaCl$ shows Schottky defect because...\n(2) ZnS shows Frenkel defect because...\n(3) Doping Si with B creates p-type...\n(4) AgBr shows both types of defects...\nChoose the correct True/False pattern."
+
+GOOD (instruction first):
+"State whether the following statements are True (T) or False (F):\n(1) $NaCl$ shows Schottky defect because...\n(2) ZnS shows Frenkel defect because...\n(3) Doping Si with B creates p-type...\n(4) AgBr shows both types of defects..."
+
+OPTION GENERATION PROCEDURE FOR CAT E (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all 4 statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY. Record T or F for each:
+  - Statement (1): T / F
+  - Statement (2): T / F
+  - Statement (3): T / F
+  - Statement (4): T / F
+
+Step 3 — WRITE the correct T/F pattern from Step 2. Example: "T F T T". This is your correct answer.
+Verify balance: NEVER use "T T T T" or "F F F F" — at least 1 T and 1 F required.
+
+Step 4 — ASSIGN the correct pattern to one of the four option slots (A, B, C, D). Vary placement across questions.
+
+Step 5 — GENERATE 3 WRONG options. Each must differ from the correct pattern by exactly 1–2 positions (flip one or two T/F values).
+
+Step 6 — TRIPLE VERIFICATION (HARD FAILURE if skipped):
+  a) Re-read each statement one more time
+  b) Re-confirm T or F for each against the source
+  c) Confirm the correct T/F pattern from Step 3 still holds
+  d) Confirm EXACTLY ONE option matches this pattern
+  e) If any verification fails → regenerate from Step 1
+
+AMBIGUITY CHECK: Look at each position across all 4 options. At least 2 positions must have mixed values (some T, some F across options). If only 1 position varies → question reduces to a 1-statement evaluation → REWRITE.
+
+---- F — NUMERICAL / CALCULATION (multi-step) ----
+
+Multi-step calculation (2-3 steps). Options are 4 numerical values with units.
+Distractors = results of common student errors (forgot unit conversion, wrong formula, sign error).
+Use when the PDF content has quantitative data OR when standard NCERT formulas apply.
+
+SCOPE — numericals can come from ANY branch present in the PDF:
+- Physical Chemistry: Colligative properties, Nernst equation, $\Delta G = \Delta H - T\Delta S$, solution chemistry
+- Inorganic Chemistry: Spin-only magnetic moment $\mu = \sqrt{{n(n+2)}}$ BM, oxidation state calculation
+- Organic Chemistry (rare): Degree of unsaturation only
+
+Example (Spin-only Magnetic Moment):
+Q. The spin-only magnetic moments of $[Fe(NH_3)_6]^{{3+}}$ and $[FeF_6]^{{3-}}$ in BM are, respectively:
+(A) 1.73 and 1.73  (B) 5.92 and 1.73  (C) 1.73 and 5.92  (D) 5.92 and 5.92
+Answer: (C). $NH_3$ = strong field → $t_{{2g}}^5 e_g^0$ → 1 unpaired → 1.73 BM. $F^-$ = weak field → $t_{{2g}}^3 e_g^2$ → 5 unpaired → 5.92 BM.
+
+---- G — CONCEPTUAL REASONING (deep WHY/HOW — NOT simple recall) ----
+
+Single question testing WHY or HOW a phenomenon occurs. Student must chain 2-3 logical steps.
+Options are 4 SHORT mechanism LABELS (3-8 words max). ALL must sound plausible — at least 2 must be common misconceptions.
+
+OPTIONS MUST NAME THE MECHANISM — NOT EXPLAIN IT:
+BAD options (full explanation — reasoning is inside the option):
+(A) "Each $Sr^{{2+}}$ replaces one $Na^+$ and creates one cation vacancy for electrical neutrality"
+GOOD options (short labels — student must supply the reasoning):
+(A) Interstitial accommodation of $Sr^{{2+}}$
+(B) Substitution of $Na^+$ by $Sr^{{2+}}$ with cation vacancy for charge balance
+
+HARD G ≠ EASY G (CRITICAL):
+EASY G: "Chromium has configuration $3d^5 4s^1$ because:" → student just recalls "half-filled stability" = ONE STEP = EASY. BANNED.
+HARD G: "When NaCl is doped with $SrCl_2$, cation vacancies increase. The reason is:" → 3-step reasoning required.
+
+------------ TOPIC MAPPING (before writing questions) ------------
+
+1. Read the ENTIRE PDF — every page.
+2. List distinct sub-topics from across the full PDF.
+3. Assign one unique sub-topic per question from DIFFERENT sections.
+4. For A/B/C questions: pull statements from DIFFERENT parts of the PDF.
+5. No two questions should test the same concept.
+
+------------ ANTI-REPETITION ------------
+
+- NEVER repeat the same question template with only the element/compound swapped.
+- Cycle through categories: Q1=A, Q2=D, Q3=F, Q4=C, Q5=G, etc.
+- Each question must LOOK and FEEL different from every other question.
+
+------------ NEET ≠ JEE LIMITER (CRITICAL) ------------
+
+NEET Hard = Multi-step reasoning about mechanisms, competing effects, conceptual depth.
+NOT: Quantum-level derivations, mathematical proofs, Olympiad-level edge cases.
+If it requires mathematical derivation or data beyond NCERT → TOO HARD. Scale back.
+
+------------ COMMON ACCURACY TRAPS (VERIFY BEFORE OUTPUT) ------------
+
+- d-block: Remove electrons from 4s FIRST, then 3d ($Fe \rightarrow Fe^{{2+}}$: lose $4s^2$ first → $3d^6$)
+- Oxidation states: Mn in $KMnO_4$ = +7 (not +6), Cr in $K_2Cr_2O_7$ = +6 (not +7)
+- Coordination: $[Fe(CN)_6]^{{4-}}$ has $Fe^{{2+}}$ (not $Fe^{{3+}}$), $[Fe(CN)_6]^{{3-}}$ has $Fe^{{3+}}$
+- Magnetic behaviour: Depends on UNPAIRED electrons, not total d-electrons
+- Spin state: Strong field ligand = low spin, Weak field = high spin
+- $\Delta G = \Delta H - T\Delta S$: endothermic can be spontaneous if $T\Delta S > \Delta H$
+- Le Chatelier: Catalyst does NOT shift equilibrium, only increases rate
+- Nernst equation: n = number of electrons transferred, NOT moles of reactant
+- SN1 = racemisation, SN2 = inversion (backside attack)
+- Markovnikov: H adds to C with MORE hydrogens
+- Anti-Markovnikov: ONLY with HBr + peroxide, NOT HCl or HI
+
+------------ STATEMENT QUALITY (for A/B/C/E) ------------
+
+BANNED PATTERNS (instant rewrite):
+- "The formula of X is Y" → EASY recall
+- "The value of X is Y" → EASY lookup
+- "X is also known as Y" → EASY name recall
+
+CONVERSION: Add "because" + mechanism.
+BAD: "NaCl has coordination number 6"
+GOOD: "$Cs^+$ in CsCl has coordination number 8 rather than 6 because its larger size accommodates more $Cl^-$ ions without anion-anion repulsion"
+
+------------ OPTION RULES ------------
+
+A/B/C: SHORT combinations only ("(1) and (3) only", "Only two") — MAX 7 words per option
+E: T/F patterns only ("T F T F", "T T F T") — exactly 4 letters space-separated
+F: 4 numerical values with units
+G: 4 short mechanism labels (1 line each, all plausible)
+
+------------ ANSWER DISTRIBUTION (CRITICAL) ------------
+
+Correct answers MUST be roughly equally distributed across A, B, C, D.
+No letter > 40%. No letter = 0.
+Before outputting: count correct answers per letter. If any letter > 40% or = 0 → reshuffle.

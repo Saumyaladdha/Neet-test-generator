@@ -1,0 +1,230 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक शब्द अपवाद हैं
+
+वैज्ञानिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द (जैसे NCERT हिंदी में हैं):
+  DNA, RNA, mRNA, tRNA, rRNA, ATP, ADP, AMP, NADPH, NADH, FADH₂,
+  CO₂, O₂, H₂O, pH, BOD, COD — सभी रासायनिक सूत्र और अंतर्राष्ट्रीय प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  कोशिका (cell), केन्द्रक (nucleus), माइटोकॉण्ड्रिया (mitochondria),
+  क्लोरोप्लास्ट (chloroplast), प्रकाश संश्लेषण (photosynthesis),
+  श्वसन (respiration), पाचन (digestion), गुणसूत्र (chromosome),
+  जीन (gene), उत्परिवर्तन (mutation), पारिस्थितिकी (ecology),
+  जैव विविधता (biodiversity), कोशिका भित्ति (cell wall),
+  कोशिका झिल्ली (cell membrane), राइबोसोम (ribosome),
+  गॉल्जी उपकरण (Golgi apparatus), लाइसोसोम (lysosome),
+  अन्तःप्रद्रव्य जालिका (endoplasmic reticulum), केन्द्रिका (nucleolus)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+## ASSERTION-REASON - MEDIUM LEVEL (BIOLOGY)
+
+## COGNITIVE REQUIREMENT
+
+Medium AR questions test:
+- Conceptual clarity -- student must UNDERSTAND the concept, not just recall it
+- Cause-effect reasoning -- student must evaluate whether R logically explains A
+- Moderate traps -- R may be true but unrelated, or plausible but subtly wrong
+
+**अभिकथन (A):**
+- Must state an OBSERVATION, CONSEQUENCE, APPLICATION, or FUNCTIONAL OUTCOME -- not a bare definition
+- Ask: "Does this describe WHAT happens or WHAT is seen?" If it just defines/classifies → rewrite to show the consequence of that fact
+- Contains ONE central idea (not compound claims)
+
+**कारण (R):**
+- Must state a MECHANISM, CAUSE, STRUCTURAL BASIS, or UNDERLYING PRINCIPLE -- not a second independent fact
+- Ask: "Does this explain WHY or HOW?" If it's just another classification fact → rewrite to show the causal basis
+- Must NOT be a restatement or paraphrase of A in different words
+- Must be independently meaningful as a standalone sentence
+
+**What makes it MEDIUM (not Easy, not Hard):**
+- Concept linkage -- connecting two related ideas
+- Moderate cause-effect reasoning
+- Mild conceptual traps (R seems related but isn't the explanation)
+- NOT simple direct recall (that's Easy)
+- NOT multi-layer mechanism analysis (that's Hard)
+
+## BANNED EASY PATTERNS (MEDIUM-LEVEL FILTER)
+
+The following patterns produce Easy-level questions and are FORBIDDEN at Medium:
+
+**Single-fact recall pairs:** Both A and R are standalone textbook definitions or classification facts that a student can verify independently without linking them.
+- ❌ A: "एनेलिडा संघ के प्राणी पिण्डखण्डीय (metamerically segmented) प्रगुहीय (coelomate) होते हैं।" R: "एनेलिडा संघ में बन्द परिसंचरण तन्त्र पाया जाता है।"
+  FAILURE: Both are independent recall facts. Student checks each in isolation -- no reasoning needed.
+- ❌ A: "केंचुआ उभयलिंगी (hermaphrodite) होता है।" R: "केंचुआ एनेलिडा संघ का सदस्य है।"
+  FAILURE: Two independent recall facts. Student checks each in isolation -- no causal reasoning possible.
+
+**The Isolation Test (apply to EVERY question):**
+Ask: "Can a student answer this by checking A and R as two separate true/false flashcards?"
+If YES → it's Easy level → REWRITE.
+At Medium, the student must REASON about the relationship between A and R, not just verify each independently.
+
+**FIX -- Observation + Mechanism Pattern:**
+- Assertion must state an OBSERVATION, CONSEQUENCE, or APPLICATION (what happens / what results / what is seen)
+- Reason must state a MECHANISM, CAUSE, or UNDERLYING PRINCIPLE (why it happens / what drives it)
+- The student's task is evaluating whether R is the correct WHY behind A
+
+- ✅ A: "केंचुए में उत्सर्जिकाएँ (nephridia) उत्सर्जन और परासरण-नियमन दोनों में सहायक होती हैं।" (observation -- उत्सर्जिकाएँ क्या करती हैं)
+  R: "उत्सर्जिकाएँ रक्त से नाइट्रोजनी अपशिष्ट को छानती हैं तथा शरीर द्रवों के जल एवं आयनिक संतुलन को भी नियंत्रित करती हैं।" (mechanism -- वे इसे कैसे प्राप्त करती हैं)
+  → Student must evaluate: does the mechanism in R actually explain the dual function in A?
+
+- ✅ A: "प्लेटीहेल्मिन्थीज़ (Platyhelminthes) को अप्रगुही (acoelomate) कहा जाता है।" (observation -- a classification outcome)
+  R: "प्लेटीहेल्मिन्थीज़ में आहारनाल और शरीर भित्ति के बीच का शरीर गुहा अनुपस्थित होता है, और यह स्थान मध्यजनस्तरी (mesenchyme) ऊतक से भरा रहता है।" (mechanism -- the structural reason)
+  → Student must link the structural absence to the classification label.
+
+---
+
+## FIXED OPTIONS (DO NOT MODIFY -- use these EXACTLY as written, VERBATIM in JSON output)
+
+a) अभिकथन (A) और कारण (R) दोनों सही हैं और कारण (R), अभिकथन (A) की सही व्याख्या करता है।
+b) अभिकथन (A) और कारण (R) दोनों सही हैं, परन्तु कारण (R), अभिकथन (A) की सही व्याख्या नहीं करता।
+c) अभिकथन (A) सही है, परन्तु कारण (R) गलत है।
+d) अभिकथन (A) गलत है, परन्तु कारण (R) सही है।
+
+Rules: Do NOT change wording. Do NOT abbreviate. Do NOT shorten. Do NOT paraphrase. Do NOT reorder. Do NOT add extra options. Copy each option string EXACTLY as written above into the JSON "options" object for EVERY question.
+
+---
+
+## TYPE DISTRIBUTION RULES (MANDATORY — READ BEFORE GENERATING)
+
+**Batch-of-4 Rule (Non-Negotiable):** Every 4 consecutive questions MUST contain exactly one of each TYPE (TYPE 1, TYPE 2, TYPE 3, TYPE 4) — in any order. This is the primary enforcement mechanism.
+
+**Distribution Constraints:**
+- ~25% of total questions must be each TYPE
+- NEVER have more than 35% of total questions as the same TYPE
+- NEVER place the same TYPE for 3 consecutive questions
+- For remaining questions after the last complete batch of 4, each must have a different TYPE — no repeats within the remainder group
+
+**Generation Process (MANDATORY):**
+1. DECIDE the target TYPE (1, 2, 3, or 4) FIRST based on the batch-of-4 cycle
+2. THEN construct the assertion and reason to match that TYPE
+3. For TYPEs 2, 3, 4: errors must be subtle and scientifically plausible, targeting real student misconceptions — not obvious nonsense
+
+**Internal Verification (Do NOT include in output):**
+Before outputting, mentally verify your TYPE distribution across every batch of 4. Do not include any distribution check in your output.
+
+---
+
+## HOW TO CONSTRUCT EACH TYPE
+
+- **TYPE 1:** Both A and R are factually accurate. R provides the conceptual cause-effect explanation for A. The link requires understanding, not just reading.
+- **TYPE 2:** Both A and R are factually accurate. R is a true fact from the same topic but does NOT explain A — they seem related but R is not the cause of A.
+- **TYPE 3:** A is factually accurate. R contains a plausible factual error (not an obvious blunder) — a believable misconception embedded in otherwise correct-sounding content.
+- **TYPE 4:** A contains a conceptual error (a believable misconception, not an obvious blunder) embedded in otherwise correct-sounding content. R is factually accurate.
+
+---
+
+## QUESTION CLARITY RULE (MANDATORY — ZERO AMBIGUITY)
+
+Every AR question must have exactly ONE unambiguously correct option. The most common flaw is TYPE 1 vs TYPE 2 ambiguity (both A and R are true — but is R the explanation or not?).
+
+**To avoid this:**
+- For TYPE 1 questions: R must DIRECTLY explain A. Test: "A is true BECAUSE R" must feel natural. R contains the mechanism or cause behind A.
+- For TYPE 2 questions: A and R must be about CLEARLY different aspects so no one can argue R explains A.
+- If a question could be argued as either TYPE 1 or TYPE 2, REWRITE it until only one interpretation is defensible.
+- Never generate a question where two options could both be considered correct.
+
+---
+
+## 4 LOGICAL TYPES WITH EXAMPLES
+
+### TYPE 1 -- A true, R true, R explains A
+
+**उदाहरण - एन्जाइम विशिष्टता:**
+अभिकथन (A): एन्जाइम अपनी उत्प्रेरक क्रिया में अत्यधिक विशिष्ट होते हैं।
+कारण (R): एन्जाइम के सक्रिय स्थल की एक अनूठी त्रि-आयामी संरचना होती है जो केवल विशिष्ट क्रियाधारों से जुड़ती है।
+Analysis: A is true — enzymes catalyze only specific reactions. R is true — active site 3D shape determines substrate specificity. R directly explains A (lock-and-key model).
+**Why this is MEDIUM:** Student must connect specificity (A) to the structural basis of the active site (R) — not directly stated as "because of" in the text.
+
+### TYPE 2 -- A true, R true, R does NOT explain A
+
+**उदाहरण - कोशिका विभाजन:**
+अभिकथन (A): अर्धसूत्री विभाजन के परिणामस्वरूप चार अगुणित पुत्री कोशिकाओं का निर्माण होता है।
+कारण (R): अर्धसूत्री विभाजन के दौरान समजात गुणसूत्रों की अनन-भगिनी क्रोमेटिड्स के बीच विनिमय (crossing over) होता है।
+Analysis: A is true — meiosis produces four haploid cells through two rounds of division. R is true — crossing over does occur in prophase I. However, crossing over causes genetic variation, not the reduction in cell number.
+**Why this is MEDIUM:** Both are true facts about meiosis — the trap is that they seem causally related but R explains recombination, not the production of four cells.
+
+### TYPE 3 -- A true, R false
+
+**उदाहरण - पादप परिवहन:**
+अभिकथन (A): वाष्पोत्सर्जन खिंचाव (transpiration pull) ऊँचे वृक्षों में जल के ऊपर की ओर गति के लिए प्रमुख बल है।
+कारण (R): वाष्पोत्सर्जन मुख्य रूप से तने की छाल पर उपस्थित वातरंध्रों (lenticels) द्वारा होता है।
+Analysis: A is true — transpiration pull (cohesion-tension theory) is the primary driver of water ascent. R is false — transpiration occurs primarily through stomata on leaves, not lenticels.
+**Why this is MEDIUM:** R sounds plausible because lenticels are real structures involved in gas exchange, but the claim about transpiration site is wrong.
+
+### TYPE 4 -- A false, R true
+
+**उदाहरण - प्रकाश संश्लेषण:**
+अभिकथन (A): प्रकाश संश्लेषण की अंधकार अभिक्रियाएँ केवल अंधकार में ही हो सकती हैं।
+कारण (R): अंधकार अभिक्रियाएँ (केल्विन चक्र) क्लोरोप्लास्ट के स्ट्रोमा में सम्पन्न होती हैं।
+Analysis: A is false — "dark reactions" do not require darkness; they can occur in light or dark. R is true — Calvin cycle takes place in the stroma of chloroplast.
+**Why this is MEDIUM:** A tests a common misconception about what "dark" means in "dark reactions." R is a straightforward textbook fact.
+
+---
+
+## ROUND ROBIN DISTRIBUTION (MANDATORY)
+
+Questions MUST cycle through all 4 logical types:
+
+Q1 -> TYPE 1
+Q2 -> TYPE 2
+Q3 -> TYPE 3
+Q4 -> TYPE 4
+Q5 -> TYPE 1
+Q6 -> TYPE 2
+Q7 -> TYPE 3
+Q8 -> TYPE 4
+... continue cyclically
+
+For remaining questions after the last complete batch of 4, each must have a different type — no repeats within the remainder group.
+
+DO NOT break the cycle. DO NOT repeat the same logical type consecutively. Distribution MUST be balanced. The batch-of-4 rule above is the primary enforcement — round robin is the implementation pattern.
+
+---
+
+## MEDIUM LEVEL CONSTRAINTS
+
+1. For TYPE 2: R must be genuinely unrelated as an explanation (not just loosely connected)
+2. For TYPE 3: R must be plausible but wrong -- not an obvious blunder (that's Easy level)
+3. For TYPE 4: A must contain a believable misconception -- not an obvious error (that's Easy level)
+4. No multi-layer mechanism chains (that's Hard level)
+5. No compound assertions testing 3+ facts at once
+
+---
+
+## QUESTION VALIDITY VERIFICATION (MANDATORY)
+
+After writing EACH question, verify:
+- Is Assertion (A) factually accurate or does it contain a specific, identifiable error?
+- Is Reason (R) factually accurate or does it contain a specific, identifiable error?
+- If both are true, does R actually EXPLAIN A (cause-effect link) or is it unrelated?
+- Does the question match the intended TYPE from the round-robin cycle?
+- Would a knowledgeable student be able to determine the relationship between A and R?
+- For TYPE 3: Is R's error plausible, not an obvious blunder?
+- For TYPE 4: Is A's error a believable misconception, not an absurd claim?
+
+If any statement is ambiguous or the relationship is unclear, REWRITE the question. Every question must have exactly ONE valid option among the four.
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Assertion-Reason questions. Output ONLY: question_id, question_type, answer_type, question_text, and options. The "answer_type" field is an internal quality-check value (see schema) that is stripped automatically before delivery to students — populating it is not a violation of this rule. The "options" object is MANDATORY in every question — never omit it, even though it is the same for every question. This overrides any explanation instructions in the base template.

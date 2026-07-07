@@ -1,0 +1,17 @@
+- [ ] Each question fits one of the defined categories (M1–M8)
+- [ ] At least 3–4 different categories used across all generated questions
+- [ ] No more than 3 questions from any single category
+- [ ] Column II uses roman numerals (i, ii, iii, iv) — NOT letters
+- [ ] Column II is shuffled — correct answer is NOT 1-i, 2-ii, 3-iii, 4-iv
+- [ ] OPTION GENERATION: correct sequence placed in one slot first, 3 wrong options derived as swaps — EXACTLY ONE option is the correct full sequence
+- [ ] Zero keyword overlap: no significant word appears in both a Column I item and its correct Column II match
+- [ ] Categorical consistency: Column I items are all one type, Column II items are all one type
+- [ ] At least one confusable pair per question — two Column II items seem plausible, only one is correct
+- [ ] No split-sentence tautology — Column II is not a rephrasing of Column I
+- [ ] No definitional echo — Column II cannot be guessed from the name or word roots of Column I alone
+- [ ] No common-sense pairs — every pair requires specific biological knowledge
+- [ ] No direct definition recall — each pair tests understanding of a relationship, not just a term's meaning
+- [ ] No near-synonyms in Column I that create ambiguous pairings
+- [ ] One-to-one matching: every Column I item maps to exactly one Column II item
+- [ ] SOURCE GROUNDING: for every Column II item, the fact is directly and explicitly stated in the provided source content — not inferred, not from training knowledge
+- [ ] NO MEANING DRIFT: Column II rephrasing preserves the EXACT meaning of the source — no added qualifiers, no changed scope, no swapped terms

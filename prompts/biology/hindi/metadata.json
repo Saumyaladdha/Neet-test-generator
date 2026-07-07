@@ -1,0 +1,31 @@
+{
+  "id": "biology",
+  "version": "v1.0",
+  "prompt_version": "v1",
+  "language": "hi",
+  "display_name": "Biology (Hindi Medium)",
+  "aliases": [
+    "biology",
+    "botany",
+    "zoology",
+    "cell biology",
+    "genetics",
+    "ecology",
+    "human physiology",
+    "plant physiology",
+    "microbiology",
+    "jiv vigyan",
+    "vanaspatik vigyan",
+    "praani vigyan"
+  ],
+  "supported_types": [
+    "mcq",
+    "assertion_reason",
+    "match_the_column"
+  ],
+  "supported_difficulties": [
+    "easy",
+    "medium",
+    "hard"
+  ]
+}

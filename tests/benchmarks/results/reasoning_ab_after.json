@@ -1,0 +1,185 @@
+{
+  "label": "after",
+  "runs": [
+    {
+      "server_elapsed_seconds": 14.9,
+      "wall_clock_seconds": 16.52,
+      "total_questions_detected": 161,
+      "results": {
+        "easy": {
+          "mcq": {
+            "count": 68,
+            "min": 63,
+            "max": 68
+          },
+          "ar": {
+            "count": 8,
+            "min": 6,
+            "max": 8
+          },
+          "mtc": {
+            "count": 4,
+            "min": 2,
+            "max": 4
+          }
+        },
+        "medium": {
+          "mcq": {
+            "count": 30,
+            "min": 25,
+            "max": 30
+          },
+          "ar": {
+            "count": 14,
+            "min": 9,
+            "max": 14
+          },
+          "mtc": {
+            "count": 5,
+            "min": 3,
+            "max": 5
+          }
+        },
+        "hard": {
+          "mcq": {
+            "count": 15,
+            "min": 10,
+            "max": 15
+          },
+          "ar": {
+            "count": 10,
+            "min": 5,
+            "max": 10
+          },
+          "mtc": {
+            "count": 7,
+            "min": 5,
+            "max": 7
+          }
+        }
+      },
+      "pdf": "5-page",
+      "path": "tests/5pagePdf.pdf"
+    },
+    {
+      "server_elapsed_seconds": 13.4,
+      "wall_clock_seconds": 13.79,
+      "total_questions_detected": 133,
+      "results": {
+        "easy": {
+          "mcq": {
+            "count": 55,
+            "min": 50,
+            "max": 55
+          },
+          "ar": {
+            "count": 8,
+            "min": 6,
+            "max": 8
+          },
+          "mtc": {
+            "count": 3,
+            "min": 1,
+            "max": 3
+          }
+        },
+        "medium": {
+          "mcq": {
+            "count": 25,
+            "min": 20,
+            "max": 25
+          },
+          "ar": {
+            "count": 10,
+            "min": 5,
+            "max": 10
+          },
+          "mtc": {
+            "count": 5,
+            "min": 3,
+            "max": 5
+          }
+        },
+        "hard": {
+          "mcq": {
+            "count": 14,
+            "min": 9,
+            "max": 14
+          },
+          "ar": {
+            "count": 7,
+            "min": 5,
+            "max": 7
+          },
+          "mtc": {
+            "count": 6,
+            "min": 4,
+            "max": 6
+          }
+        }
+      },
+      "pdf": "10-page",
+      "path": "tests/10pagePdf.pdf"
+    },
+    {
+      "server_elapsed_seconds": 24.64,
+      "wall_clock_seconds": 25.21,
+      "total_questions_detected": 323,
+      "results": {
+        "easy": {
+          "mcq": {
+            "count": 140,
+            "min": 135,
+            "max": 140
+          },
+          "ar": {
+            "count": 18,
+            "min": 13,
+            "max": 18
+          },
+          "mtc": {
+            "count": 8,
+            "min": 6,
+            "max": 8
+          }
+        },
+        "medium": {
+          "mcq": {
+            "count": 65,
+            "min": 60,
+            "max": 65
+          },
+          "ar": {
+            "count": 25,
+            "min": 20,
+            "max": 25
+          },
+          "mtc": {
+            "count": 12,
+            "min": 7,
+            "max": 12
+          }
+        },
+        "hard": {
+          "mcq": {
+            "count": 30,
+            "min": 25,
+            "max": 30
+          },
+          "ar": {
+            "count": 15,
+            "min": 10,
+            "max": 15
+          },
+          "mtc": {
+            "count": 10,
+            "min": 5,
+            "max": 10
+          }
+        }
+      },
+      "pdf": "NCERT-Class-11-Biology (large)",
+      "path": "tests/NCERT-Class-11-Biology.pdf"
+    }
+  ]
+}

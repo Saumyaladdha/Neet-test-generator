@@ -1,0 +1,461 @@
+## MCQ — HARD LEVEL (BIOLOGY)
+
+---
+
+## WHAT "HARD" MEANS (READ BEFORE GENERATING)
+
+A HARD MCQ tests whether the student can **integrate multiple facts, evaluate several claims simultaneously, and apply precise biological knowledge under cognitive load.** The difficulty comes from the FORMAT (multiple statements to evaluate in a single question) combined with SUBTLE errors that exploit real student misconceptions.
+
+**Hard = "I must evaluate 4-5 statements against my deep understanding, and the wrong statements are designed to trap me."**
+
+| Aspect | Easy | Medium | Hard |
+|--------|------|--------|------|
+| What it tests | Single-fact recall | Conceptual understanding + error detection | Multi-statement evaluation + integration |
+| Format | Direct question → 4 short options | Statement evaluation or "which is correct" | 4-5 numbered statements → combination options |
+| Wrong options | Clearly different terms | Statements with ONE subtle error | Plausible statement COMBINATIONS that include/exclude traps |
+| Cognitive load | Low — recall one fact | Medium — evaluate 1-2 statements | High — evaluate 4-5 statements simultaneously |
+| Student who gets it right | Read the chapter | Understood the concepts | Can apply precise knowledge under multi-statement pressure |
+
+If a question can be answered by evaluating just ONE statement and ignoring the rest → it is Medium, not Hard. Hard questions require the student to correctly evaluate MOST or ALL statements to arrive at the answer.
+
+---
+
+## GLOBAL RULES (APPLY TO ALL CATEGORIES)
+
+### BANNED: BIOGRAPHICAL / TRIVIAL QUESTIONS (HARD FAILURE — ZERO TOLERANCE)
+- NEVER ask about: birth date, birth place, death date, school/college name, degree year, awards, honours, prizes, Nobel Prize year, fellowship year, nationality, hometown, career timeline
+- The test: does the answer teach BIOLOGY? If removing the scientist's name makes the question meaningless, it is biographical and MUST NOT be generated
+
+### BANNED: PARENTHETICAL HINTS IN STEM (HARD FAILURE)
+- ❌ "...regarding Chondrichthyes (cartilaginous fishes)?"
+- ❌ "...about Platyhelminthes (flatworms)?"
+- ✅ "...regarding Chondrichthyes?"
+- Exception: Parenthetical adds genuinely NEW contextual info, not a translation
+
+### BANNED: ANSWER VISIBLE IN STEM (HARD FAILURE)
+The correct combination (or any obvious clue to it) must NOT be deducible from the question stem alone.
+
+---
+
+## STRUCTURE (HARD FAILURE IF VIOLATED)
+
+Every question has exactly 2 parts:
+
+**STEM:** Question text + 4–5 numbered statements (1, 2, 3, 4, 5). ALL content lives here.
+**OPTIONS (a–d):** Short combination references ONLY. Maximum 7 words per option. No sentences, no explanations.
+
+**Allowed option formats:**
+- Combination references: "1, 2 and 3" / "Only 3 and 4" / "1, 3 and 5"
+- Sequence arrows: "2 → 1 → 4 → 5 → 3" (ALWAYS arrows, NEVER commas for sequences)
+- True/False patterns: "T F T T" (4 letters, space-separated)
+
+**If an option contains a sentence → STOP → move it into the stem as a numbered statement.**
+
+### BANNED IN STATEMENT TEXT AND STEM (HARD FAILURE)
+
+Every numbered statement and the question stem must be fully self-contained. The student has NO access to any source material. It is a HARD FAILURE if ANY statement or the stem contains:
+
+- "the text states/notes/mentions/describes/discusses/concludes"
+- "described in the text/passage/chapter"
+- "according to the text/passage"
+- "as given/shown/mentioned/described in the text/passage"
+- "the passage states", "from the passage", "given in the passage"
+
+❌ HARD FAILURE — stem references source: "Arrange the following events described in the text in correct sequence:"
+✅ CORRECT: "Arrange the following events in the life cycle of cyclostome fishes in correct sequence:"
+
+❌ HARD FAILURE — statement references source: "5. The text states that consciousness becomes the defining property of living organisms."
+✅ CORRECT: "5. Consciousness is identified as the defining property of living organisms."
+
+Every statement must assert a standalone biological fact. If removing the phrase "the text states that" leaves a grammatically correct sentence, rewrite the statement to be that sentence directly.
+
+---
+
+## THE SINGLE-ERROR RULE (APPLIES TO ALL WRONG STATEMENTS)
+
+Every intentionally incorrect statement (in Cat 1, 2, and 4) must follow this discipline:
+
+**Each wrong statement must contain exactly ONE specific factual error.**
+
+- **Specific:** A wrong name, wrong number, wrong location, wrong process, reversed cause-effect, or swapped attribute
+- **Subtle:** The rest of the statement must be factually correct and sound convincing
+- **Testable:** Fixing the single error makes the statement fully correct
+- **Misconception-based:** The error should reflect a real confusion students have
+
+### ✓ GOOD wrong statements:
+- "Chromosome number doubles during S phase." → ONE error: DNA content doubles, not chromosome number
+- "The left atrium receives deoxygenated blood from the lungs via pulmonary veins." → ONE error: should be "oxygenated"
+- "Crossing over occurs during the leptotene substage of prophase I." → ONE error: occurs during pachytene
+
+### ✗ BAD wrong statements (HARD FAILURE):
+- "Arthropods have a hydrostatic skeleton and lack jointed appendages." → TWO errors stacked — obviously wrong
+- "Mitosis produces four haploid cells with recombined chromosomes." → THREE errors stacked — absurdly wrong
+
+**Litmus test:** Would a student who studied casually hesitate before marking this wrong? If NO → too many errors stacked. REWRITE.
+
+---
+
+## ⚠️ MANDATORY CATEGORY MIX — READ THIS FIRST ⚠️
+
+**GENERATION ORDER (follow this exact sequence):**
+1. First, generate ALL Cat 1 questions (multiple_correct)
+2. Then, generate ALL Cat 2 questions (identify_incorrect)
+3. Then, generate ALL Cat 3 questions (sequence_order)
+4. Finally, generate ALL Cat 4 questions (true_false)
+
+**EXACT DISTRIBUTION for N total questions:**
+| Total | Cat 1 | Cat 2 | Cat 3 | Cat 4 |
+|-------|-------|-------|-------|-------|
+| 50 | 13 | 13 | 12 | 12 |
+| 30 | 8 | 8 | 7 | 7 |
+| 20 | 5 | 5 | 5 | 5 |
+| 10 | 3 | 3 | 2 | 2 |
+| 5 | 2 | 1 | 1 | 1 |
+
+**HARD FAILURE CONDITIONS (if ANY is true, REWRITE entire output):**
+- Any category has 0 questions
+- Any category has more than 40% of total questions
+- "question_category" field is missing from any question
+
+**Every question JSON MUST include:**
+"question_category": "multiple_correct" | "identify_incorrect" | "sequence_order" | "true_false"
+
+---
+
+## 4 CATEGORIES — DETAILED RULES
+
+---
+
+### CAT 1: multiple_correct ("Which of the following are correct?")
+
+**Purpose:** Student identifies which statements among 4-5 are factually correct. Tests ability to evaluate multiple claims simultaneously.
+
+**Statement construction rules:**
+- Use exactly 5 statements
+- Mix: 2-3 statements must be CORRECT, 2-3 must be INCORRECT (never all correct, never all incorrect)
+- Wrong statements follow the Single-Error Rule — one subtle error each
+- All 5 statements must be about ONE core concept (or one bridged pair for cross-topic questions)
+- Stem MUST contain "correct" or "true" to signal this is a positive-identification question
+
+**OPTION GENERATION PROCEDURE FOR CAT 1 (MANDATORY — FOLLOW IN ORDER):**
+
+Step 1 — WRITE ALL 5 STATEMENTS first. Do not think about options yet.
+
+Step 2 — EVALUATE EACH STATEMENT INDEPENDENTLY. For each statement (1 through 5), determine: is it CORRECT or INCORRECT based strictly on the source content? Write down the verdict internally:
+  - Statement 1: CORRECT / INCORRECT
+  - Statement 2: CORRECT / INCORRECT
+  - Statement 3: CORRECT / INCORRECT
+  - Statement 4: CORRECT / INCORRECT
+  - Statement 5: CORRECT / INCORRECT
+
+Step 3 — COLLECT the correct statement numbers into a set. This is your CORRECT COMBINATION. Verify it contains 2-3 numbers (never 0, 1, 4, or 5). If it does not, go back and rewrite statements until you have exactly 2-3 correct and 2-3 incorrect.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots (a, b, c, or d). Distribute randomly across questions.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Each wrong option must:
+  - Differ from the correct combination by exactly 1-2 statements (add one wrong number OR remove one correct number OR swap one of each)
+  - Contain 2-3 statement numbers (never 1 or all 5)
+  - NOT be identical to the correct combination
+  - NOT use "All of the above" or "None of the above"
+
+Step 6 — TRIPLE VERIFICATION (HARD FAILURE if skipped):
+  a) Re-read each of the 5 statements one more time
+  b) For each statement, re-confirm CORRECT or INCORRECT against the source
+  c) Check that your correct combination from Step 3 still matches
+  d) Check that EXACTLY ONE of the four options matches this combination
+  e) If the verification fails at ANY point, regenerate from Step 1
+
+### REAL FAILURE EXAMPLES FROM PAST GENERATIONS
+
+**FAILURE 1 — Correct combination not present in options:**
+
+Generated question about mitosis stages:
+Statements:
+1. Prophase completion is marked by centrosomes moving towards opposite poles and chromosomal condensation.
+2. Metaphase is characterised by formation of a new nuclear envelope around condensed chromosomes.
+3. Anaphase begins with splitting of centromeres and migration of chromatids to opposite poles.
+4. Telophase shows reformation of nucleolus, Golgi complex and ER around chromosome clusters.
+5. Cytokinesis in plant cells begins by formation of a cleavage furrow in the plasma membrane.
+
+Options provided:
+a) 1, 3 and 4
+b) 2, 3 and 5
+c) 1, 2 and 5
+d) 1, 4 and 5
+
+TEACHER FEEDBACK: Only statements 1 and 3 are correct. Statement 4 is partially wrong (Telophase details inaccurate per source). Statement 5 is wrong (cleavage furrow is animal cells, not plant cells). No option lists "1 and 3 only."
+
+ROOT CAUSE: The model wrote 5 statements, assumed statements 1, 3, and 4 were all correct, and built options around that assumption. But statement 4 contained a factual error the model did not catch. Result: the actual correct set (1 and 3) appears in ZERO options.
+
+LESSON: You MUST re-verify every statement against the source AFTER writing all 5, not just assume your initial intent held.
+
+
+**FAILURE 2 — Too many correct statements, no matching option:**
+
+Generated question about interphase:
+Statements:
+1. In a typical human cell cycle, interphase occupies more than 95% of the total duration.
+2. During S phase the amount of DNA per cell increases from $2C$ to $4C$.
+3. Chromosome number increases during S phase when DNA is replicated.
+4. During S phase the centriole duplicates in the cytoplasm.
+5. In an average human cell cycle, the M phase lasts for only about one hour.
+
+Options provided:
+a) 1, 2 and 4
+b) 1, 2 and 5
+c) 2, 3 and 5
+d) 1, 4 and 5
+
+TEACHER FEEDBACK: Statements 1, 2, 4, and 5 are ALL correct. Only statement 3 is wrong (DNA content doubles, not chromosome number). The actual correct set is {1, 2, 4, 5} — four correct statements — but no option lists all four.
+
+ROOT CAUSE: The model intended to have 2-3 correct and 2-3 incorrect, but accidentally wrote 4 correct statements and only 1 incorrect. Since all options list only 3 numbers, none can capture 4 correct answers.
+
+LESSON: After writing all 5 statements, COUNT your correct ones. If you have 4 or 5 correct, you MUST rewrite 1-2 of them to introduce a subtle error (following the Single-Error Rule). If you have 0 or 1 correct, rewrite incorrect ones to make them correct. The target is ALWAYS 2-3 correct + 2-3 incorrect.
+
+
+### HOW TO AVOID THESE FAILURES
+
+1. NEVER skip Step 2. Evaluate each statement INDEPENDENTLY against the source — do not rely on your intent when writing them.
+
+2. After evaluation, COUNT correct statements. If the count is not 2 or 3, rewrite statements before proceeding to options.
+
+3. Common traps that cause accidental correctness:
+   - You intend statement X to be wrong, but the "error" you introduced is actually correct per the source
+   - You intend statement Y to be wrong, but the detail you changed is not addressed in the source (making it ambiguous, not wrong)
+   - You write a statement that is wrong per your training knowledge but correct per the source content
+
+4. Common traps that cause accidental incorrectness:
+   - You intend statement X to be correct, but you accidentally add a detail the source does not support
+   - You rephrase a source fact and subtly change its meaning (meaning drift)
+   - You combine two source facts into one statement, but the combination creates an inaccuracy
+
+5. Ambiguous-not-wrong trap: You write a statement intended to be incorrect, but the "error" makes it ambiguous rather than definitively wrong. Evaluate each statement against the source: if you cannot say it is DEFINITIVELY wrong based on the source, treat it as correct for counting purposes.
+
+### Example — Cat 1:
+Q. Consider the following statements regarding the phylum Arthropoda and identify the correct ones:
+1. The body is covered by a chitinous exoskeleton that is shed periodically during growth
+2. Respiration occurs exclusively through lungs in all arthropod classes
+3. The body is segmented and the appendages are jointed
+4. The circulatory system is of the open type with haemolymph as the circulatory fluid
+5. Excretion is carried out through nephridia located in each body segment
+
+a) 1, 3 and 4
+b) 1, 2 and 3
+c) 2, 3 and 5
+d) 1, 4 and 5
+
+Answer: a
+*Statement 2 wrong: arthropods respire through gills, book lungs, or trachea — not "exclusively through lungs." Statement 5 wrong: arthropods excrete through Malpighian tubules, not nephridia (Annelida).*
+
+---
+
+### CAT 2: identify_incorrect ("Which of the following is/are NOT correct?")
+
+**Purpose:** Student identifies the WRONG statement(s) among mostly correct ones. Tests ability to spot subtle errors under pressure of correct-sounding context.
+
+**Statement construction rules:**
+- Use exactly 5 statements
+- Mix: 3-4 statements must be CORRECT, 1-2 must be INCORRECT
+- Incorrect statements follow the Single-Error Rule — one subtle error each, embedded in otherwise correct-sounding content
+- Error types: swapped terms, wrong numbers, reversed cause-effect, exaggerated scope ("all"/"always"/"never"), misattributed mechanism
+- Stem MUST contain "NOT correct", "incorrect", or "false"
+
+**OPTION GENERATION PROCEDURE FOR CAT 2 (MANDATORY — FOLLOW IN ORDER):**
+
+Step 1 — WRITE ALL 5 STATEMENTS first. Do not think about options yet.
+
+Step 2 — EVALUATE EACH STATEMENT INDEPENDENTLY. For each statement (1 through 5), determine: is it CORRECT or INCORRECT based strictly on the source content? Write down the verdict internally:
+  - Statement 1: CORRECT / INCORRECT
+  - Statement 2: CORRECT / INCORRECT
+  - Statement 3: CORRECT / INCORRECT
+  - Statement 4: CORRECT / INCORRECT
+  - Statement 5: CORRECT / INCORRECT
+
+Step 3 — COLLECT the INCORRECT statement numbers into a set. This is your CORRECT COMBINATION (the answer to "which are NOT correct"). Verify it contains exactly 1-2 numbers. If it contains 0, you have no question. If it contains 3 or more, go back and rewrite the over-specified correct statements until only 1-2 are incorrect.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots (a, b, c, or d). Distribute randomly across questions.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Each wrong option must:
+  - Differ from the correct combination by exactly 1 statement number (add one correct-but-tricky number OR remove the actual incorrect number OR swap one of each)
+  - At least one wrong option should include a correct-but-counter-intuitive statement number — something that sounds suspicious but is actually right
+  - NOT be identical to the correct combination
+
+Step 6 — TRIPLE VERIFICATION (HARD FAILURE if skipped):
+  a) Re-read each of the 5 statements one more time
+  b) For each statement, re-confirm CORRECT or INCORRECT against the source
+  c) Check that your incorrect-statement set from Step 3 still matches
+  d) Check that EXACTLY ONE of the four options matches this set
+  e) If the verification fails at ANY point, regenerate from Step 1
+
+### Example — Cat 2:
+Q. Which of the following statements regarding Chondrichthyes is/are NOT correct?
+1. The endoskeleton is entirely cartilaginous and does not ossify with age
+2. Gill slits are separate and not covered by an operculum
+3. Most species possess an air bladder that aids in maintaining buoyancy
+4. The skin is tough and covered with minute placoid scales
+5. Teeth are modified placoid scales that are replaced continuously throughout life
+
+a) Only 3
+b) 3 and 5
+c) 1 and 3
+d) Only 2
+
+Answer: a
+*Step 2 evaluation: 1=CORRECT, 2=CORRECT, 3=INCORRECT (Chondrichthyes LACK an air bladder), 4=CORRECT, 5=CORRECT. Step 3: incorrect set = {3}. Step 6 confirms exactly one option matches "Only 3". Option (d) is a trap: statement 2 sounds unusual but is correct.*
+
+**FAILURE EXAMPLE FOR CAT 2:**
+
+Generated question about root systems:
+1. In dicotyledons the direct elongation of the radicle leads to formation of a primary root that bears lateral roots.
+2. The primary roots and their branches constitute the tap root system as seen in mustard.
+3. In monocotyledons the primary root is persistent and forms the fibrous root system.
+4. Adventitious roots arise from parts of the plant other than the radicle.
+5. Functions of the root system include absorption, anchorage, storage and synthesis of plant growth regulators.
+
+Step 2 evaluation: 1=CORRECT, 2=CORRECT, 3=INCORRECT (primary root is short-lived in monocots — it is replaced by adventitious roots, not persistent), 4=CORRECT, 5=CORRECT.
+Incorrect set = {3}. Correct option must be "Only 3".
+
+COMMON FAILURE: Model writes options like "3 and 4", "2 and 3", "1 and 5", "3 and 5" — none of which is "Only 3". This happens when the model skips Step 2 and builds options from intent rather than from verified evaluation. LESSON: Always complete Step 2 before writing a single option.
+
+---
+
+### CAT 3: sequence_order ("Arrange in correct sequence")
+
+**Purpose:** Student arranges biological process steps in the correct chronological or functional order.
+
+**Statement construction rules:**
+- Use exactly 5 statements, each describing ONE step of a biological process
+- Statements MUST be listed in SHUFFLED order — numbering (1-5) must NOT match correct chronological order
+- Each statement describes the step without naming its position
+
+**Shuffling verification (MANDATORY):**
+- Correct sequence must NEVER be 1 → 2 → 3 → 4 → 5 (sequential)
+- Correct sequence must NEVER be 5 → 4 → 3 → 2 → 1 (reverse sequential)
+- At least 3 out of 5 numbers must be OUT of their original position in the correct answer
+
+**Option construction rules:**
+- Use arrow notation: "3 → 1 → 5 → 2 → 4"
+- All 4 options must use ALL 5 statement numbers (no partial sequences)
+- At least one wrong option should swap two ADJACENT steps in the correct sequence
+- Stem MUST include "in correct sequence", "in chronological order", or similar
+
+### Example — Cat 3:
+Q. Arrange the following events of meiosis I in the correct chronological sequence:
+1. Homologous chromosomes separate and move to opposite poles
+2. Chromosomes condense and become visible; synapsis begins
+3. Bivalents align at the metaphase plate attached to spindle fibres
+4. Nuclear envelope reforms around each haploid set of chromosomes
+5. Crossing over occurs between non-sister chromatids at chiasmata
+
+a) 2 → 5 → 3 → 1 → 4
+b) 5 → 2 → 3 → 1 → 4
+c) 2 → 3 → 5 → 1 → 4
+d) 2 → 5 → 1 → 3 → 4
+
+Answer: a
+*Option (b) swaps 2 and 5. Option (c) swaps 3 and 5. Option (d) swaps 1 and 3.*
+
+---
+
+### CAT 4: true_false ("Evaluate each statement as True or False")
+
+**Purpose:** Student independently evaluates EACH of 4 statements as True or False, then selects the matching T/F pattern.
+
+**Statement construction rules:**
+- Use EXACTLY 4 statements about ONE topic
+- Each statement must be independently evaluable
+- T/F balance: use either 2T+2F or 3T+1F pattern. NEVER use 4T+0F or 0T+4F
+- Wrong statements follow the Single-Error Rule — one subtle error each
+- Stem MUST include "Choose the correct True/False sequence" or "Select the correct combination of True (T) and False (F)"
+
+**Option construction rules:**
+- 4 options, each a 4-letter T/F sequence separated by spaces: "T F T T"
+- Each option must differ from correct by exactly 1-2 positions
+
+**Ambiguity check (MANDATORY):**
+Look at each position across all 4 options. At least 2 positions must have MIXED values (some T, some F). If only 1 position varies → question reduces to a 1-statement evaluation → REWRITE.
+
+### ✓ GOOD option set (forces evaluation of multiple statements):
+a) T T F T
+b) T F T T
+c) F T F T
+d) T F F T
+
+### ✗ BAD option set (only 1 position varies):
+a) T T T T
+b) T T T F
+c) T T F T
+d) T T T T
+
+### Example — Cat 4:
+Q. Evaluate the following statements about the cell cycle and choose the correct True/False sequence:
+1. Interphase occupies more than 95% of the total duration of the cell cycle
+2. DNA replication occurs during the $G_2$ phase of interphase
+3. The $G_1$ phase is the interval between the completion of mitosis and the initiation of DNA replication
+4. During S phase, the DNA content doubles from 2C to 4C while chromosome number remains unchanged
+
+a) T F T T
+b) T T T F
+c) T F T F
+d) F F T T
+
+Answer: a
+
+---
+
+## CROSS-TOPIC INTERCONNECTION
+
+Questions MUST exploit connections across different sections/topics of the source content:
+
+**Rule 1 — Concept Bridging:** Create statements that connect concepts from DIFFERENT sections of the source.
+
+**Rule 2 — Progressive Depth:** Within a question, statements should span from foundational to advanced aspects of a topic.
+
+**Rule 3 — Cross-Reference Traps:** Use correct facts from one topic as plausible-but-wrong statements in the context of another. Example: A feature of Annelida used as a distractor in an Arthropoda question.
+
+**Rule 4 — At least 30% of questions must be cross-topic** (drawing content from 2+ distinct sections/topics of the source).
+
+---
+
+## QUESTION QUALITY RULES
+
+1. **Conceptual depth over random facts.** Test WHY and HOW, not just WHAT.
+2. **Indirect description.** Don't name categories directly — describe through properties and functions.
+3. **Plausible distractors.** Every wrong option should include at least one correct statement number AND exclude at least one correct statement number (or include a wrong one).
+4. **One concept per question.** All statements should relate to one core idea (or one bridged pair for cross-topic questions).
+5. **No trivial definitional recall.** If a statement tests only "what is the name of X?" it belongs in Easy, not Hard.
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_category, correct_statement_numbers, question_text, and options. The "correct_statement_numbers" field is an internal quality-check value (see schema) that is stripped automatically before delivery to students — populating it is not a violation of this rule. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+## UNIVERSAL OPTION VERIFICATION PROTOCOL (ALL CATEGORIES — HARD FAILURE IF SKIPPED)
+
+After constructing EVERY question (regardless of category), perform this 3-step verification:
+
+**V1 — RE-EVALUATE all statements against the source.** Do not trust your initial intent. Re-read each statement and independently judge it against the source content.
+
+**V2 — DERIVE the correct answer from V1.** Based on your fresh evaluation:
+  - Cat 1: Which statements are correct? → That combination must appear in exactly one option
+  - Cat 2: Which statements are incorrect? → That combination must appear in exactly one option
+  - Cat 3: What is the correct chronological order? → That sequence must appear in exactly one option
+  - Cat 4: What is the T/F pattern? → That pattern must appear in exactly one option
+
+**V3 — MATCH against options.** Does EXACTLY ONE option match your V2 answer?
+  - If YES → proceed
+  - If NO (zero or multiple matches) → regenerate options starting from the verified answer in V2
+  - If the verified answer is structurally incompatible with your options (e.g., 4 correct statements but all options list 3) → rewrite statements first, then regenerate options
+
+This protocol catches the most common generation failure: the model writes statements with one intended answer, but the statements as written have a DIFFERENT actual answer, and no option matches reality.
+
+---
+
+## ADDITIONAL WRITING RULES
+
+**Option length:**
+- STEMS can be long (question text + 4-5 numbered statements)
+- OPTIONS must be ≤ 7 words — combination references ONLY, never sentences

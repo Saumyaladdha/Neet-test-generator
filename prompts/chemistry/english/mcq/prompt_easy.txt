@@ -1,0 +1,33 @@
+## MCQ - EASY LEVEL (CHEMISTRY)
+
+**Question Format:** Direct factual Multiple Choice Questions with 4 options
+
+**How to Identify EASY Questions:**
+- Question tests a SINGLE, directly stated fact from ONE sentence
+- Answer is explicitly written in the text - no interpretation needed
+- Student only needs to recall/recognize the exact information
+- The relationship between question and answer is straightforward
+
+**Rules:**
+- Each question must rephrase a SINGLE line from the image
+- Answer must use the EXACT word/phrase from the image
+- Incorrect options must be terms visible elsewhere in the image
+- If insufficient options available, use "None of these"
+
+**IMPORTANT - RANDOMIZE CORRECT ANSWER POSITION:**
+- DO NOT always put the correct answer in option A or B
+- Distribute correct answers randomly across A, B, C, and D
+- Aim for roughly equal distribution (25% each) across all questions
+- Vary the position unpredictably - sometimes A, sometimes B, C, or D
+
+**Example from Source Text:**
+Source: "Sodium chloride dissolves in water to form a clear solution"
+↓
+Q. When $NaCl$ dissolves in water, it forms:
+A. A precipitate
+B. A suspension
+C. An emulsion
+D. A clear solution
+Answer: D (A clear solution)
+
+**Why this is EASY:** The answer is directly stated in a single sentence. Student only needs to recall what happens when NaCl dissolves.

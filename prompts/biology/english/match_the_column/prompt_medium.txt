@@ -1,0 +1,219 @@
+## MATCH THE COLUMN — MEDIUM LEVEL (BIOLOGY)
+
+A MEDIUM Match-the-Column question tests whether the student understands a biological relationship well enough to distinguish the correct pairing from closely related alternatives. If a pair is recoverable from the definition of a term alone, it is TOO EASY for Medium.
+
+---
+
+## QUESTION CATEGORIES
+
+Each question must fit ONE of these categories. **The ✅ examples below illustrate the PATTERN only — do NOT use them as source material. All pairs MUST come from the provided source content.**
+
+**M1 — Process ↔ Primary Outcome:**
+- ✅ Glycolysis ↔ Net yield of 2 ATP and 2 NADH per glucose
+- ❌ Photosynthesis ↔ Occurs in chloroplast (definition, not outcome)
+
+**M2 — Organism ↔ Biological Role:**
+- ✅ $\textit{{Nitrosomonas}}$ ↔ Oxidises $NH_3$ to $NO_2^-$ in the nitrogen cycle
+- ❌ Mycorrhiza ↔ A type of fungus (definition)
+
+**M3 — Structure ↔ Function:**
+- ✅ Sarcoplasmic reticulum ↔ Releases $Ca^{{2+}}$ to trigger muscle contraction
+- ❌ Mitochondria ↔ Powerhouse of the cell (too generic)
+
+**M4 — Stage ↔ Key Event:**
+- ✅ Leptotene ↔ Chromosomes begin to condense and become visible
+- ❌ Interphase ↔ Cell is not dividing (observation, not event)
+
+**M5 — Enzyme/Molecule ↔ Substrate or Action:**
+- ✅ Pepsin ↔ Cleaves peptide bonds adjacent to aromatic amino acids
+- ❌ Amylase ↔ Breaks down starch (definitional echo from name)
+
+**M6 — Condition ↔ Biological Response:**
+- ✅ High $CO_2$ concentration in guard cells ↔ Stomata close
+- ❌ Drought ↔ Plant wilts (common sense)
+
+**M7 — Hormone/Chemical ↔ Target Effect:**
+- ✅ Gibberellins ↔ Breaks dormancy in seeds requiring cold treatment
+- ❌ Auxin ↔ Promotes growth (too vague)
+
+**M8 — Technique ↔ Application:**
+- ✅ Southern blotting ↔ Detects specific DNA sequences after gel separation
+- ❌ PCR ↔ Amplifies DNA (too obvious from definition)
+
+---
+
+## QUESTION STRUCTURE — 4×4 FORMAT (MANDATORY)
+
+- **Column I:** 4 items — all from the SAME category type
+- **Column II:** 4 items — all from a DIFFERENT but consistent category type
+- One-to-one matching: every Column I item maps to exactly one Column II item
+- **Column II must be shuffled** — correct answer must NEVER be 1-i, 2-ii, 3-iii, 4-iv
+- At least one pair must require elimination reasoning (two Column II items seem plausible, only one is correct)
+
+---
+
+## QUALITY RULES (HARD FAILURE IF VIOLATED)
+
+### 1. Zero Keyword Overlap
+NO word or root word may appear in BOTH a Column I item AND its correct Column II match.
+- ❌ "Aerobic microbes" → "Microbes that use oxygen" (shares "microbes")
+- ❌ "BOD reduction" → "Reduces biological oxygen demand" (shares "reduce" and "BOD")
+- ✅ "Activated sludge" → "Serves as inoculum for fresh batches"
+
+Self-check: For EVERY pair, verify no significant word (noun, verb, adjective) appears in both items.
+
+### 2. Categorical Consistency
+Column I must be ALL one type. Column II must be ALL one different type.
+- ❌ Column I mixing organisms + equipment + chemicals
+- ❌ Column II mixing definitions + outcomes + locations
+
+### 3. No Common-Sense / Tautology
+Every pair must require specific biological knowledge. Three banned patterns:
+
+**Common-Sense:** Logic alone answers it, no biology needed.
+- ❌ "Untreated sewage discharged" → "Leads to pollution"
+
+**Split-Sentence Tautology:** Column II is a grammatical rearrangement of Column I.
+- ❌ Column I: "Agitating effluent" → Column II: "Effluent agitated mechanically"
+
+**Definitional Echo:** Column II restates what the Column I name implies.
+- ❌ Column I: "Nitrifying bacteria" → Column II: "Bacteria involved in nitrification"
+
+---
+
+## OPTION GENERATION PROCEDURE (MANDATORY — FOLLOW IN ORDER)
+
+Step 1: After constructing the table, write down the CORRECT matching sequence internally (e.g., 1-iii, 2-i, 3-iv, 4-ii).
+
+Step 2: Randomly assign this correct sequence to one of the four option slots (a, b, c, or d). Distribute roughly evenly across all questions.
+
+Step 3: Generate exactly 3 WRONG sequences by swapping 2 or more pairings from the correct sequence. Each wrong option must differ from the correct one in at least 2 pairings. Exploit the confusable pair identified in PRE-GENERATION step 6.
+
+Step 4 — VERIFICATION (HARD FAILURE if skipped): Re-read all 4 options. Trace each option against your correct sequence. Confirm that EXACTLY ONE option produces all correct pairs and the other three do NOT. If zero or multiple options match → regenerate.
+
+### REAL FAILURE EXAMPLE — No correct option present:
+
+Generated question (process ↔ outcome):
+Column I: 1. Aeration  2. Floc formation  3. Sedimentation  4. Anaerobic digestion
+Column II:
+i. Biogas rich in methane produced from settled sludge
+ii. Dissolved organic load reduced as microbes feed on it
+iii. Activated sludge formed as aerobic microbes proliferate
+iv. Sediment-laden water separates into clear effluent and sludge layer
+
+Correct sequence: 1-iii, 2-ii, 3-iv, 4-i
+
+OPTIONS generated:
+a. 1-ii, 2-iii, 3-i, 4-iv
+b. 1-iv, 2-i, 3-ii, 4-iii
+c. 1-iii, 2-iv, 3-i, 4-ii
+d. 1-i, 2-ii, 3-iii, 4-iv
+
+TEACHER FEEDBACK: The question is unsolvable. None of the four options matches the correct sequence (1-iii, 2-ii, 3-iv, 4-i).
+
+ROOT CAUSE: Options were generated as independent permutations without first placing the correct sequence in a slot. Always derive options FROM the correct sequence, not independently.
+
+---
+
+## GOOD EXAMPLES
+
+**Example 1 — Process ↔ Outcome:**
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. Primary settling & i. Volume of solid residue decreases via methanogenic activity \\
+2. Trickling filter & ii. Particulates separate by gravity without chemical agents \\
+3. Anaerobic digester & iii. Biofilm of decomposers breaks down dissolved organics \\
+4. Chlorination basin & iv. Residual viable microorganisms are eliminated \\
+\hline
+\end{{tabular}}
+
+a) 1-ii, 2-iii, 3-i, 4-iv
+b) 1-iii, 2-ii, 3-i, 4-iv
+c) 1-ii, 2-iii, 3-iv, 4-i
+d) 1-i, 2-iii, 3-ii, 4-iv
+
+Answer: a
+
+**Example 2 — Organism ↔ Role:**
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+Column I & Column II \\
+\hline
+1. $\textit{{Nitrosomonas}}$ & i. Converts $NO_3^-$ to $N_2$ gas \\
+2. $\textit{{Thiobacillus}}$ & ii. Oxidises reduced sulfur compounds \\
+3. Methanogens & iii. Produces $CH_4$ under strict anoxic conditions \\
+4. Denitrifying bacteria & iv. Converts $NH_3$ to $NO_2^-$ \\
+\hline
+\end{{tabular}}
+
+a) 1-iv, 2-ii, 3-iii, 4-i
+b) 1-ii, 2-i, 3-iii, 4-iv
+c) 1-iv, 2-ii, 3-i, 4-iii
+d) 1-iii, 2-ii, 3-iv, 4-i
+
+Answer: a
+
+---
+
+## BAD EXAMPLES
+
+**BAD 1 — Keyword overlap:**
+Column I: 1. Pathogenic microbes  2. Organic matter  3. Sewage treatment  4. Untreated sewage
+Column II: i. Pathogens cause disease  ii. Organic material consumed  iii. Treatment makes it safer  iv. Sewage increases BOD
+*Every pair shares keywords — student pattern-matches words, not biology.*
+
+**BAD 2 — Mixed categories:**
+Column I: 1. Heterotrophs (organism)  2. Aeration tank (equipment)  3. Flocs settling (event)  4. Biogas (substance)
+*Mixing organism + equipment + event + substance makes elimination trivial.*
+
+**BAD 3 — Definitional echo:**
+Column I: 1. Nitrifying bacteria  2. Denitrifying bacteria  3. Nitrogen-fixing bacteria  4. Ammonifying bacteria
+Column II: i. Fix atmospheric nitrogen  ii. Perform denitrification  iii. Carry out nitrification  iv. Decompose nitrogen compounds
+*Column II rephrases Column I — no understanding needed.*
+
+---
+
+## SOURCE-FACT VERIFICATION PROCEDURE (MANDATORY — EVERY PAIR)
+
+For EVERY Column I ↔ Column II pair, internally perform this check before including it:
+
+**Step 1: LOCATE** — Identify the EXACT sentence or phrase in the source content where this pair's relationship is stated. If you cannot point to a specific line, DO NOT use this pair.
+
+**Step 2: QUOTE-CHECK** — The fact in Column II must be a rephrased version of what the source ACTUALLY says. Do NOT:
+- Expand a source fact with additional detail from your training knowledge
+- Combine facts from the source with facts you "know" to be true
+- Use a fact that is biologically correct but NOT stated in the provided source content
+- Assume a fact is in the source because it is standard NCERT -- only the PROVIDED text counts
+
+**Step 3: NEGATIVE CHECK** — Ask: "Does Column II contain anything that goes BEYOND what the source explicitly states?" If YES → rewrite Column II to contain ONLY what the source says, or drop the pair.
+
+See GOOD EXAMPLES for source-accurate pairs. The key principle: if you cannot point to a specific sentence in the source for a fact, that fact does not exist for your purposes.
+
+---
+
+## PRE-GENERATION STEP (MANDATORY)
+
+1. Choose a category from M1–M8
+2. Identify 4 pairs from the source content — not from general knowledge
+3. Verify zero keyword overlap on every pair
+4. Verify no near-synonyms across Column I items
+5. Shuffle Column II — confirm correct answer is NOT 1-i, 2-ii, 3-iii, 4-iv
+6. Identify one confusable pair; construct wrong options that exploit it
+
+---
+
+## MEDIUM-LEVEL CONSTRAINTS
+
+1. **No multi-step chains** — if matching requires 3+ linked steps, it belongs in Hard
+2. **No synonym confusion** — Column I items must be clearly distinct concepts
+3. **At least one confusable pair** — one pair must require elimination to distinguish from a nearby Column II option
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field. Output ONLY: question_id, question_type, question_text, and options. Exactly ONE of the four options must be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.

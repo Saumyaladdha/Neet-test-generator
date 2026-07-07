@@ -1,0 +1,40 @@
+**Structure:**
+- [ ] Column I has exactly 4 items, Column II has exactly 5 items (4 correct + 1 distractor)
+- [ ] Column II uses roman numerals (i, ii, iii, iv, v) — NOT letters
+- [ ] Distractor is NOT always at position v — its position varies across questions
+- [ ] Column II is shuffled — correct answer is NOT 1-i, 2-ii, 3-iii, 4-iv
+- [ ] Each question fits one of the defined categories (H1–H5)
+- [ ] At least 3 different categories used across all questions
+- [ ] No more than 40% of questions from any single category
+
+**Interconnection quality (CORE OF HARD):**
+- [ ] For each Column I item, at least 2 Column II items look plausible at first glance
+- [ ] All Column II items are from the same domain and closely related to each other
+- [ ] Each pair requires multi-step reasoning (not a single cause-effect or definition)
+- [ ] No pair is solvable by single-fact recall or definitional matching
+
+**Option quality (CLOSE OPTIONS):**
+- [ ] OPTION GENERATION: correct sequence placed in one slot first, 3 wrong options derived as swaps — EXACTLY ONE option is the correct full sequence
+- [ ] Each wrong option differs from correct by exactly 1-2 swapped pairs
+- [ ] Each wrong option shares at least 2 correct pairs with the correct answer
+- [ ] At least one wrong option uses the distractor numeral [D]
+- [ ] At least one wrong option swaps two closely related Column II items
+- [ ] No two options are identical
+
+**Distractor quality:**
+- [ ] Same domain and specificity level as other Column II items
+- [ ] Describes a real biological fact
+- [ ] Maximally confusable with at least one correct Column II match
+- [ ] Used in at least one wrong option
+
+**Standard rules:**
+- [ ] Zero keyword overlap on every pair
+- [ ] Categorical consistency in both columns
+- [ ] No common-sense or tautological pairs
+- [ ] No definitional echo (Column II ≠ definition of Column I)
+- [ ] Each pair maps to IMMEDIATE consequence (no chain-skipping)
+- [ ] No two Column I items map to the same Column II item
+- [ ] No parenthetical hints in question stem
+- [ ] Source content covered from multiple sections (cross-topic ≥ 25%)
+- [ ] SOURCE GROUNDING: for every Column II item (including distractor), the fact is directly and explicitly stated in the provided source content — not inferred, not from training knowledge
+- [ ] NO MEANING DRIFT: Column II rephrasing preserves the EXACT meaning of the source — no added qualifiers, no changed scope, no swapped terms

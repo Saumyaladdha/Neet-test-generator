@@ -1,0 +1,10 @@
+## QUESTION VALIDITY VERIFICATION (MANDATORY)
+
+After writing EACH question, verify:
+- Is Assertion (A) factually accurate or does it contain a specific, identifiable error?
+- Is Reason (R) factually accurate or does it contain a specific, identifiable error?
+- If both are true, does R actually EXPLAIN A (cause-effect link) or is it unrelated?
+- Does the question match the intended TYPE from the round-robin cycle?
+- Would a knowledgeable student be able to determine the relationship between A and R?
+
+If any statement is ambiguous or the relationship is unclear, REWRITE the question. Every question must have exactly ONE valid option among the four.

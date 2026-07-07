@@ -1,0 +1,41 @@
+## ASSERTION-REASON - EASY LEVEL (CHEMISTRY)
+
+**Question Format:** Simple Assertion-Reason questions
+
+**How to Identify EASY A-R Questions:**
+- Both A and R are from the SAME paragraph or closely related sentences
+- The cause-effect relationship is DIRECTLY stated or OBVIOUS
+- Both statements are clearly true as per the text
+- R clearly and directly explains A (or clearly does NOT relate)
+- No deep analysis required - relationship is straightforward
+
+**Rules:**
+- Assertion (A): One clear statement from the image
+- Reason (R): Another clear statement from the image
+- Both must be based on image content
+- Relationship should be obvious
+
+**IMPORTANT - Do NOT copy-paste directly:**
+- Statements should NOT be lifted verbatim from the source text
+- Rephrase/reframe each statement so it reads as a proper, complete sentence
+- Ensure the statement makes sense on its own without the original context
+
+**Example of Rephrasing:**
+Source: "...good conductors because free electrons move..."
+Wrong: "good conductors because free electrons move" (incomplete, lifted directly)
+Correct: "Metals are good conductors of electricity" (complete, rephrased)
+
+**Standard Options:**
+a) Both Assertion and Reason are true and Reason is the correct explanation of Assertion
+b) Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion
+c) Assertion is true but Reason is false
+d) Assertion is false but Reason is true
+
+**Example from Source Text:**
+Source: "Metals are good conductors of electricity... This is because metals have free electrons that can move through the metal lattice"
+↓
+Assertion (A): Metals are good conductors of electricity.
+Reason (R): Metals have free electrons that can move through the metal lattice.
+Answer: A (Both Assertion and Reason are true and Reason is the correct explanation of Assertion)
+
+**Why this is EASY:** Both statements are from the same paragraph. The free electrons directly explain why metals conduct electricity. The relationship is straightforward.

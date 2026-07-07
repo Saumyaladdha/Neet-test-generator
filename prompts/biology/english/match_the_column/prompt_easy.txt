@@ -1,0 +1,184 @@
+## MATCH THE COLUMN — EASY LEVEL (BIOLOGY)
+
+**EASY = single-fact recall of an explicitly stated one-to-one pairing. No comparison, inference, cause-effect, or multi-step reasoning. "I read this exact fact and I remember it."**
+
+### STRUCTURE
+- Column I: 3–4 items numbered 1–4, all one category type
+- Column II: same count, roman numerals i–iv, all one different category type
+- One-to-one only — every item maps to exactly one counterpart
+- Column II MUST be shuffled — never sequential (1-i, 2-ii, 3-iii, 4-iv)
+
+### QUESTION STEM FORMAT (MANDATORY)
+The stem must be exactly one of:
+- "Match the following:"
+- "Match the [category] in Column I with the [category] in Column II."
+
+BANNED — any attribution to a source document. This means the stem must end after the category names — NEVER append any phrase that references where the content came from.
+
+Explicitly banned tail patterns (all violate this rule):
+- "…from the chapter" / "…in the chapter" / "…of the chapter"
+- "…from the text" / "…in the text" / "…from the passage"
+- "…described in the chapter" / "…given in the chapter" / "…stated in the chapter"
+- "…provided in the chapter" / "…mentioned in the chapter" / "…as per the chapter"
+- "…with the statements in the chapter" / "…with the descriptions from the chapter"
+- "…with their characteristics described in the chapter"
+- "…with the chapter figures" / "…with chapter descriptions"
+- "…with the conclusions stated in the chapter"
+- "…with the distinguishing details from the chapter"
+- ANY phrase ending in "the chapter", "the text", "the passage", or "the source"
+
+The student has no source material — the stem must read as a standalone exam item. If you cannot form a valid stem without referencing the source, use "Match the following:" instead.
+
+---
+
+### CATEGORIES (use ≥3–4 different ones across all questions; max 3 per category)
+
+| ID | Column I | Column II | Key failure to avoid |
+|----|----------|-----------|----------------------|
+| E1 | Biological terms | One-line definitions | Don't pick terms with overlapping definitions (e.g., Taxonomy ≠ Systematics) |
+| E2 | Organisms (common or scientific name) | Kingdom/Phylum/Class/Division | Don't pick organisms all from the same phylum |
+| E3 | Scientists | Specific discovery or contribution | Contributions must uniquely identify exactly one scientist; not "studied classification" |
+| E4 | Organs, organelles, or structures | Primary function | No generic functions ("found inside cells", "important for the body") |
+| E5 | Hormones | Source gland (specific name) | Pick hormones from different glands |
+| E6 | Diseases | Causative pathogen (scientific name) | Column II must be organism names, not "causes fever" or "spread by vectors" |
+| E7 | Vitamins or minerals | Deficiency disease or specific symptom | — |
+| E8 | Binomial scientific names | Common names | Each common name must be distinct; never "a plant species" for all |
+| E9 | Organisms | Specific reproduction method (budding, binary fission, spores, regeneration, etc.) | — |
+| E10 | Taxonomic aids | Specific purpose or description | — |
+
+If a question doesn't fit any category above → don't generate it.
+
+E3 note — A "contribution" means a theory/model, experimental discovery, or method/tool invented. BANNED as Column II items: PhD thesis titles, PhD completion years, experiment date ranges (e.g., "1856–1863"), where or when a collaborator was met. These are biographical facts, not scientific contributions.
+
+---
+
+### COLUMN II QUALITY RULES (ALL MANDATORY — HARD FAILURE IF VIOLATED)
+
+**1. Zero keyword overlap.** No significant word (noun, verb, adjective, or root) in a Column I item may appear in its correct Column II match. Articles, prepositions, conjunctions exempt.
+- FAIL: "Binary fission" → "Cell divides by fission" | PASS: "Binary fission" → "Parent cell splits into two equal halves"
+- FAIL: "Floc formation" → "Flocs settle in tank" | PASS: "Floc formation" → "Sediment aggregates settle during secondary treatment"
+- When Column I is a technical term or mechanism name, Column II must describe its biological consequence, organism affected, or observable outcome — never restate the label. FAIL: "XY type" → "Males are XY and females are XX" | PASS: "XY type" → "Males produce two types of gametes; the sperm determines offspring sex"
+
+**2. Discrimination.** After writing all Column II items, read each one in isolation and ask: "Could this describe any other Column I item?" If yes → rewrite. Each Column II item must contain at least ONE anchoring detail (proper noun, chemical name, number, anatomical location, or unique mechanism) that eliminates all other Column I items. The anchoring detail must not repeat a word already in the Column I item.
+- FAIL: "Helps in digestion" (matches stomach, small intestine, liver, pancreas)
+- PASS: "Secretes hydrochloric acid and pepsinogen" (only matches stomach)
+
+**3. Categorical consistency.** All Column I items = same type (all Terms, all Organisms, all Structures, etc.). All Column II items = same type (all Definitions, all Functions, all Phyla, etc.). Mixed types allow category-based elimination — no biology needed.
+- FAIL Column I: organisms + equipment + processes + substances in same question
+- FAIL Column II: organism type + equipment + physical process + outcome in same question
+
+**4. No tautology or common sense.**
+- Split-sentence tautology: Column II restates Column I in different words — FAIL ("Flocs settle in sedimentation" → "Sedimentation of flocs")
+- Definitional echo: Column II deducible from word roots of Column I alone — FAIL ("Herbivore → Eats plants"); fix by using non-deducible facts ("Herbivore → Has longer small intestine relative to body size")
+- Common sense: any literate person answers without biology knowledge — FAIL ("Urbanization → More waste")
+
+**5. No identical Column II answers.** At least 3 of 4 must be distinct. No vague fillers: "Found in organisms", "Important for life", "A type of division" = HARD FAILURE.
+
+**6. Column II length limit.** Each Column II item: one sentence, maximum 20 words. Strip to the single most distinguishing fact. If you cannot express it in 20 words, you are including too much detail for Easy level.
+
+---
+
+### COLUMN I ITEM TEST (MANDATORY — BEFORE WRITING ANY PAIR)
+
+Every Column I item must pass this test: "Could this item appear as a bolded term, a table header, or an organism name in an NCERT textbook?"
+
+FAILS — do not use:
+- "Reason Mendel's work remained unrecognised until 1900" (narrative explanation)
+- "Parental genotypes used by Mendel in the example" (description of a procedure)
+- "Result of independent assortment of two chromosome pairs" (process outcome)
+- "General outcome when genes are located on the same chromosome" (summary statement)
+
+PASSES — safe to use:
+- "Linkage" (bolded term) | "$\textit{{Drosophila melanogaster}}$" (organism name) | "Trisomy" (textbook term) | "Law of Independent Assortment" (named law)
+
+Only after exhausting all valid pairs across all categories (E1–E10) throughout the entire source — if you still cannot reach the requested count without violating the rules above — generate as many as you can. Do not pad with narrative descriptions or relax any quality rule to meet the count. This is a last resort, not an early exit.
+
+---
+
+### EASY LEVEL RESTRICTIONS
+
+**Banned Column I item types (HARD FAILURE):** figure references (Figure 8.7, diagrams, illustrations), process stages, sequential operations, method descriptions. Column I must be TERMS, NAMES, ORGANISMS, STRUCTURES, or CONCEPTS — not procedures.
+
+**Banned cognitive demand:** comparing two similar concepts; knowing HOW a process works (not just WHAT it is); chaining two facts; near-synonym items in Column I (e.g., Taxonomy + Systematics in the same question).
+
+---
+
+### SOURCE VERIFICATION (EVERY PAIR — MANDATORY)
+
+1. **Locate:** Find the exact sentence in the source where this pairing is stated. No exact sentence → drop the pair.
+2. **Quote-check:** Column II must rephrase what the source actually says. No training knowledge. No combining facts from different parts. Standard NCERT does not count — only the provided text.
+3. **Preserve meaning:** Rephrasing must not change scope, add qualifiers, or swap terms. "Not lined by mesoderm" ≠ "Mesoderm forms pouches."
+
+**Confusion-prone pairs:** When Column I items all come from the same sub-topic (e.g., all from the linkage chapter, all from chromosome history), write and verify each pair ONE AT A TIME by re-reading the source for that specific item before writing its Column II. Never write all four Column II items in one pass from memory — related concepts get swapped this way.
+
+**Common hallucination failures to avoid:**
+- Organism listed under a phylum but reproduction method not described in source → do NOT write reproduction facts for it
+- Rephrasing that reverses source meaning ("body cavity not lined by mesoderm" rephrased as "mesoderm forms pouches") → FAIL
+
+---
+
+### PRE-GENERATION CHECKLIST (BEFORE EACH QUESTION)
+
+1. Select category (E1–E10). Doesn't fit → don't generate.
+2. Identify 4 pairs from source; verify each is explicitly stated.
+3. Keyword overlap check on every pair; rewrite any that share significant words.
+4. Discrimination check: read each Column II item in isolation — could it describe another Column I item? If yes → rewrite.
+5. Tautology check: Column II contains genuinely new information, not Column I restated.
+6. Categorical consistency: Label each Column I item's type in one word (TERM / ORGANISM / STRUCTURE / SCIENTIST / DISEASE / HORMONE / VITAMIN / etc.). All 4 must be the same type — if not, rewrite or drop. Do the same check for Column II.
+7. **Reverse verification:** Cover Column I entirely. For each Column II item, ask: "Which single Column I item does this describe?" If you arrive at a different item than intended → rewrite that Column II item before proceeding.
+8. Shuffle Column II.
+
+---
+
+### OPTION GENERATION (FOLLOW IN ORDER)
+
+**Prerequisite:** Complete all 8 pre-generation steps before generating options. If any pair was rewritten at step 7, restart from step 1.
+
+**Dependency check:** If you cannot determine a single unambiguous correct sequence, Column II is still too vague — fix it before generating options.
+
+**Step 1 — LOCK the correct sequence.**
+Write explicitly: `CORRECT = 1-[x], 2-[x], 3-[x], 4-[x]`
+
+**Step 2 — Verify shuffle, then assign CORRECT to one option slot (a/b/c/d).** First check: is CORRECT in sequential order (1-i, 2-ii, 3-iii, 4-iv)? If yes → return to pre-generation step 8, swap two Column II items, and update CORRECT before continuing. Then assign CORRECT to a slot, distributing evenly across a/b/c/d over all questions.
+
+**Step 3 — Build 3 wrong options as swaps FROM CORRECT.** Each wrong option must swap at least 2 pairings from CORRECT.
+
+**Step 4 — Trace-back verification.** For each of the 4 options, trace every pairing. Confirm exactly ONE option matches CORRECT entirely. If zero or more than one → regenerate.
+
+⚠️ Never generate 4 independent permutations. Wrong options must be derived as swaps from CORRECT — not generated independently.
+
+---
+
+### EXAMPLES
+
+**GOOD — E2 (Organism ↔ Phylum):**
+Column I: 1. $\textit{{Nereis}}$  2. $\textit{{Balanoglossus}}$  3. Starfish  4. Liver fluke
+Column II: i. Echinodermata  ii. Platyhelminthes  iii. Annelida  iv. Hemichordata
+CORRECT = 1-iii, 2-iv, 3-i, 4-ii
+Options: a. 1-iii, 2-iv, 3-i, 4-ii | b. 1-iv, 2-iii, 3-ii, 4-i | c. 1-i, 2-ii, 3-iv, 4-iii | d. 1-iii, 2-i, 3-iv, 4-ii → Answer: a
+
+**GOOD — E1 (Abbreviation ↔ Definition):**
+Column I: 1. BOD  2. COD  3. DO  4. STP
+Column II: i. Total oxidizable organic and inorganic load  ii. Concentration of molecular $O_2$ in water  iii. Amount of $O_2$ consumed by microbes per litre  iv. Facility converting liquid waste to safe effluent
+CORRECT = 1-iii, 2-i, 3-ii, 4-iv
+Options: a. 1-i, 2-iii, 3-ii, 4-iv | b. 1-iii, 2-i, 3-ii, 4-iv | c. 1-ii, 2-i, 3-iii, 4-iv | d. 1-iii, 2-ii, 3-i, 4-iv → Answer: b
+
+**FAIL PATTERNS — never generate:**
+- Keyword overlap: "Pathogenic microbes → Microbes causing disease"
+- Tautology: Column I "Flocs settle in sedimentation" → Column II "Sedimentation of flocs"
+- Mixed Column I types: organisms + equipment + processes in same question
+- Common sense: "Urbanization → Larger waste quantities"
+- Vague Column II: "Found inside cells", "Important for cell function"
+- Definitional echo: "Herbivore → Eats plants"
+- Identical Column II: all four items reading "Arthropoda"
+- No correct option present among the 4 choices
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+If ANY rule above is violated -> regenerate the question.

@@ -1,0 +1,12 @@
+======================================================================================================================
+  DETECTOR REASONING-FIELD REMOVAL — REPEATED TRIALS (n=3 before / n=3 after)
+======================================================================================================================
+PDF                             Latency before (min-max, mean)  Latency after (min-max, mean)   Qs before   Qs after  
+----------------------------------------------------------------------------------------------------------------------
+5-page                          12.99-17.73s (avg 15.47)        11.46-18.16s (avg 14.48)        106-143 (avg 126.7)151-172 (avg 160.3)
+    -> NO OVERLAP — reasoning removal may have shifted counts
+10-page                         13.05-15.52s (avg 14.52)        13.14-19.04s (avg 15.6)         150-168 (avg 156.7)166-193 (avg 182.3)
+    -> RANGES OVERLAP — likely just normal LLM variance
+NCERT-Class-11-Biology (large)  20.76-29.36s (avg 26.13)        20.47-22.9s (avg 21.89)         287-296 (avg 292.7)244-426 (avg 324.3)
+    -> RANGES OVERLAP — likely just normal LLM variance
+======================================================================================================================

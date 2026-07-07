@@ -1,0 +1,600 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक शब्द अपवाद हैं
+
+वैज्ञानिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द (जैसे NCERT हिंदी में हैं):
+  DNA, RNA, mRNA, tRNA, rRNA, ATP, ADP, AMP, NADPH, NADH, FADH₂,
+  CO₂, O₂, H₂O, pH, BOD, COD — सभी रासायनिक सूत्र और अंतर्राष्ट्रीय प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  कोशिका (cell), केन्द्रक (nucleus), माइटोकॉण्ड्रिया (mitochondria),
+  क्लोरोप्लास्ट (chloroplast), प्रकाश संश्लेषण (photosynthesis),
+  श्वसन (respiration), पाचन (digestion), गुणसूत्र (chromosome),
+  जीन (gene), उत्परिवर्तन (mutation), पारिस्थितिकी (ecology),
+  जैव विविधता (biodiversity), कोशिका भित्ति (cell wall),
+  कोशिका झिल्ली (cell membrane), राइबोसोम (ribosome),
+  गॉल्जी उपकरण (Golgi apparatus), लाइसोसोम (lysosome),
+  अन्तःप्रद्रव्य जालिका (endoplasmic reticulum), केन्द्रिका (nucleolus)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+## MATCH THE COLUMN — HARD LEVEL (BIOLOGY)
+
+---
+
+## WHAT "HARD" MEANS (READ BEFORE GENERATING)
+
+A HARD Match-the-Column question tests the student's ability to **navigate interconnected, closely related pairings where multiple matches seem plausible**, and only precise, multi-step biological reasoning eliminates the wrong ones.
+
+**Hard = "Multiple Column II items look correct for each Column I item. I must use precise knowledge of mechanisms and downstream consequences to resolve the ambiguity."**
+
+| Aspect | Easy | Medium | Hard |
+|--------|------|--------|------|
+| Pairing type | Direct factual (Term↔Definition) | Functional relationship (Process↔Outcome) | Multi-layered interconnection (Mechanism↔Specific downstream consequence) |
+| Column II items | Clearly distinct from each other | Related but distinguishable | Closely related — multiple items seem to fit each Column I item |
+| Reasoning needed | Recall one fact | Understand one relationship | Chain 2+ logical steps to resolve ambiguity |
+| Elimination | Easy — items are obviously different | Moderate — 1 confusable pair | Hard — 2-3 Column II items seem plausible per Column I item |
+| What traps students | Not studying | Confusing similar concepts | Knowing the concepts but not the PRECISE mechanism/consequence |
+
+**The defining feature of Hard:** In Easy/Medium, each Column I item has only ONE plausible Column II match. In Hard, each Column I item has 2-3 plausible-LOOKING matches, and only one is the MOST IMMEDIATE or MOST PRECISE match. The student must use deep mechanistic understanding to select the correct one.
+
+**If a pair can be resolved with a single cause-effect link → it is Medium, not Hard.**
+**If most Column II items are obviously unrelated to most Column I items → it is Easy, not Hard.**
+
+---
+
+## QUESTION STRUCTURE — 4×5 FORMAT (MANDATORY)
+
+- **Column I:** EXACTLY 4 items (numbered 1-4) — all from the SAME category type
+- **Column II:** EXACTLY 5 items (roman numerals i-v) — all from a DIFFERENT but consistent category type
+- ONE of the 5 items is a **scientifically plausible distractor** that matches NO Column I item. Its position (i, ii, iii, iv, or v) is **randomly assigned** — the distractor is NEVER always at position v.
+- ONE-TO-ONE matching: every Column I item matches exactly one Column II item. One Column II item remains unmatched.
+
+**Table format (use LaTeX):**
+\begin{{tabular}}{{|l|l|}}
+\hline
+स्तम्भ I & स्तम्भ II \\
+\hline
+1. [Item] & i. [Item] \\
+2. [Item] & ii. [Item] \\
+3. [Item] & iii. [Item] \\
+4. [Item] & iv. [Item] \\
+ & v. [Item] \\
+\hline
+\end{{tabular}}
+
+**CRITICAL — NEVER label the distractor item:** Do NOT write "(distractor)", "(unused)", "(trap)", or any annotation next to ANY Column II item. All 5 items must appear as plain biological statements — identical in appearance to each other. Students must not know which item is the distractor.
+
+**CRITICAL — Randomize the distractor's position:** The distractor must NOT always be placed at roman numeral v. Assign the distractor to any of i–v at random. If across 10 questions the distractor always lands at v, students will trivially eliminate it.
+
+**Options format:** Each option is a complete matching sequence (4 pairs — one Column II item unused):
+a) 1-iv, 2-iii, 3-ii, 4-i
+b) 1-iii, 2-iv, 3-i, 4-v
+c) 1-ii, 2-i, 3-iv, 4-iii
+d) 1-i, 2-ii, 3-iii, 4-iv
+
+---
+
+## ONE-TO-ONE MATCHING RULE — OPTIONS (HARD FAILURE)
+
+Every option represents a complete one-to-one matching. This means within ANY single option:
+- Each Column I number (1, 2, 3, 4) appears EXACTLY ONCE
+- Each Column II roman numeral appears AT MOST ONCE
+- Exactly ONE roman numeral from i–v is left unused (unmatched)
+
+Any option containing a DUPLICATE roman numeral is a HARD FAILURE.
+- ❌ HARD FAILURE: 1-ii, 2-i, 3-i, 4-iv — roman numeral "i" used TWICE
+- ❌ HARD FAILURE: 1-iii, 2-iii, 3-iv, 4-ii — roman numeral "iii" used TWICE
+- ✅ VALID: 1-iii, 2-i, 3-iv, 4-ii — all four roman numerals are different, "v" unused
+- ✅ VALID: 1-iv, 2-i, 3-v, 4-ii — all four roman numerals are different, "iii" unused
+
+---
+
+## CONTENT-LEVEL UNIQUENESS (CRITICAL — HARD FAILURE — DIFFERENT FROM THE OPTION-KEY RULE ABOVE)
+
+The rule above only checks that roman numerals aren't repeated inside one OPTION string. That is not enough — the ACTUAL TEXT of the table rows must also be unique, or the question has no single defensible answer even if the option letters look fine.
+
+### Rule A — NO TWO Column II items may say the same thing
+Every one of the 5 Column II items (i–v) must be a DISTINCT fact. If two items describe the identical concept — even in identical or near-identical wording — a student cannot tell which one is the "real" match, because both are equally correct.
+
+**REAL FAILURE FROM PAST GENERATION:**
+स्तम्भ II items generated:
+ii. समयुग्मक
+iii. विषमयुग्मक
+iv. विषमयुग्मक  ← IDENTICAL to item iii
+WHY THIS FAILS: items iii and iv say the exact same thing ("heterogamete"). Whichever Column I item is supposed to match "विषमयुग्मक" now has TWO equally valid answers (iii or iv) — the question is unanswerable with a single correct key.
+FIX: make iv a genuinely different fact on the same topic, e.g. "iv. समान आकृति और आकार के दो युग्मकों का संलयन" (a distinct concept, not a restatement of iii).
+
+**Self-check before output:** List all 5 Column II texts side by side. Do any two describe the same underlying fact, even worded differently? If yes → rewrite one of them to be a genuinely different, non-overlapping fact.
+
+### Rule B — NO TWO Column I items may be near-duplicate concepts
+All 4 Column I items must test 4 CLEARLY DIFFERENT things. If two Column I items are just rephrasings of the same underlying idea, more than one Column II item can defensibly match either of them, breaking the one-to-one requirement.
+
+**REAL FAILURE FROM PAST GENERATION:**
+स्तम्भ I items generated:
+1. पुंकेसर तथा स्त्रीकेसर दोनों एक ही पुष्प में उपस्थित रहने वाली स्थिति
+2. एक ही पौधे पर दोनों जनन संरचनाएँ होने वाली स्थिति
+WHY THIS FAILS: item 1 ("both organs in the same flower") and item 2 ("both organs on the same plant") describe essentially the same bisexuality concept from two angles — a student could reasonably match either one to a Column II definition of उभयलिंगी/द्विलिंगी, making the mapping ambiguous.
+FIX: item 2 should test something genuinely distinct — e.g. a different reproductive concept entirely, not a rephrased version of item 1.
+
+**Self-check before output:** Compare all 4 Column I items pairwise. Do any two test essentially the same underlying concept, just phrased differently? If yes → replace one of them with a topic from a different part of the source content.
+
+**REAL FAILURE FROM PAST GENERATION (do not repeat this pattern):**
+Generated options for a question:
+a) 1-v, 2-ii, 3-v, 4-iii
+b) 1-v, 2-iv, 3-v, 4-iii
+c) 1-ii, 2-v, 3-v, 4-iii
+d) 1-v, 2-ii, 3-iv, 4-iii
+WHY EVERY ONE OF THESE IS BROKEN: in (a), (b), and (c), roman numeral "v" is assigned to BOTH item 1 (or 2) AND item 3 — impossible, since "v" can only match ONE Column I item. In (d), "iii" is never assigned to any item at all yet appears fixed on every option for item 4, while "v" never appears anywhere — the distractor was never actually used. ALL FOUR options in this question were invalid; the question has no correct answer and must be entirely discarded and rewritten.
+
+Validation method (MANDATORY — perform for EVERY option before output): List the 4 roman numerals used in that option as a set. Count them. If the count is less than 4 (meaning at least one numeral repeats) → HARD FAILURE → rewrite that option immediately. Then verify across all 4 options that the excluded (unused) 5th numeral is not always the same one, and that it is actually used as the distractor in at least one wrong option.
+
+---
+
+## THE MULTI-LAYERED INTERCONNECTION PRINCIPLE (CORE OF HARD LEVEL)
+
+This is what separates Hard from Medium. In Hard, Column II items are deliberately designed to be **closely related to each other** so that multiple items appear to match each Column I item. The student must use precise knowledge to resolve the ambiguity.
+
+### How to achieve interconnection:
+
+**Method 1 — Shared Domain, Different Specificity:**
+All Column II items belong to the same biological domain but differ in ONE specific detail (location, timing, molecule, mechanism). The student must know the PRECISE detail.
+
+Example concept: सभी स्तम्भ II आइटम नाइट्रोजन-संबंधी जैव-रासायनिक रूपांतरणों का वर्णन करते हैं। $\textit{{Nitrosomonas}}$, $NH_3$ को $NO_2^-$ में बदलता है, जबकि $\textit{{Nitrobacter}}$, $NO_2^-$ को $NO_3^-$ में बदलता है। जो छात्र केवल "नाइट्रीकरण" शब्द जानता है परन्तु सटीक दो-चरणीय क्रियाविधि नहीं जानता, वह इन्हें भ्रमित कर देगा।
+
+**Method 2 — Cascading Chain:**
+Column I items represent steps in a connected biological chain. Column II items represent the IMMEDIATE outcomes of each step. Since the outcome of step 1 feeds into step 2, the outcomes are inherently interconnected and easy to confuse.
+
+Example concept: मल-जल उपचार में, वायुकरण → सूक्ष्मजीव वृद्धि → फ्लॉक निर्माण → BOD में कमी। प्रत्येक चरण का परिणाम ऐसा प्रतीत होता है मानो वह आसन्न चरण का ही परिणाम हो।
+
+**Method 3 — Parallel Systems:**
+Column I items come from parallel biological systems that share structural or functional similarities. Column II items describe features that belong to ONE system but sound applicable to the other.
+
+Example concept: कॉन्ड्रिक्थीज़ और अस्थिमीनी (Osteichthyes) में कई विशेषताएँ समान हैं परन्तु कुछ विशिष्ट बिंदुओं पर भिन्न हैं (उपास्थि बनाम अस्थि, प्लेकॉइड बनाम साइक्लॉइड शल्क, वायु-कोष की उपस्थिति)। मछली वर्गों को विशिष्ट विशेषताओं से मिलाने वाला प्रश्न छात्र को समानांतर तंत्रों में अंतर करने के लिए बाध्य करता है।
+
+**Method 4 — Multi-Parameter Matching:**
+Each Column I item requires matching based on 2+ parameters simultaneously (e.g., organism + process + product). Column II items describe combinations that differ in only one parameter.
+
+Example concept: Different bacteria in the nitrogen cycle all work with nitrogen compounds but differ in: which compound they START with, which compound they PRODUCE, and whether the process is aerobic or anaerobic.
+
+---
+
+## OPTION CONSTRUCTION — CLOSE OPTIONS (CRITICAL)
+
+The defining quality of Hard-level options: **wrong options must be CLOSE to the correct answer.** Each wrong option should differ from the correct answer by exactly 1-2 swapped pairs.
+
+### Option Construction Rules:
+
+1. **Start with the correct matching sequence**
+2. **For each wrong option, swap exactly 1-2 pairs from the correct answer**
+3. **At least one wrong option must use the distractor numeral** — replacing one correct match with the distractor's roman numeral
+4. **At least one wrong option must swap two closely related Column II items** — items students commonly confuse
+5. **No option should share fewer than 2 correct pairs with the correct answer**
+6. **No two options should be identical**
+
+### ✓ GOOD option set (correct answer: 1-iii, 2-i, 3-iv, 4-ii):
+a) 1-iii, 2-i, 3-iv, 4-ii ← correct
+b) 1-iii, 2-i, 3-ii, 4-iv ← swaps pairs 3 and 4 (closely related)
+c) 1-iii, 2-iv, 3-i, 4-ii ← swaps pairs 2 and 3
+d) 1-iii, 2-i, 3-[D], 4-ii ← uses distractor numeral [D] for pair 3
+
+### ✗ BAD option set (correct answer: 1-iii, 2-i, 3-iv, 4-ii):
+a) 1-iii, 2-i, 3-iv, 4-ii ← correct
+b) 1-i, 2-ii, 3-iii, 4-iv ← completely different — 0 shared pairs, trivially eliminable
+c) 1-iv, 2-iii, 3-ii, 4-i ← reverse of correct — 0 shared pairs
+d) 1-v, 2-v, 3-v, 4-v ← absurd
+
+---
+
+## SHUFFLE COLUMN II (MANDATORY)
+
+- Column II items MUST be in RANDOM order — the correct answer must NEVER be 1-i, 2-ii, 3-iii, 4-iv (sequential)
+- Correct matching should be scrambled like: 1-iii, 2-i, 3-iv, 4-ii
+
+---
+
+## DISTRACTOR DESIGN (CRITICAL FOR HARD LEVEL)
+
+At Hard level, the distractor must be a GENUINE trap — not an obviously out-of-place item.
+
+### Good Distractor Qualities:
+1. **Same domain AND same specificity level** as the other Column II items
+2. **Describes a real biological fact** — just one that doesn't match ANY of the 4 Column I items
+3. **Maximally confusable** with at least one correct Column II match
+4. **Used in at least one wrong option** — if the distractor doesn't appear in any option, it serves no purpose
+
+### Distractor Construction Method:
+- Identify the MOST commonly confused concept in the topic
+- Write a Column II item that describes this confused concept accurately
+- Verify it does NOT match any Column I item
+- Place it in at least one wrong option, replacing the Column II item it is most easily confused with
+
+### Example:
+विषय: अर्धसूत्री विभाजन की उप-अवस्थाएँ। सही स्तम्भ II आइटम लेप्टोटीन, जाइगोटीन, पैकीटीन, डिप्लोटीन की घटनाओं का वर्णन करते हैं।
+डिस्ट्रैक्टर: "द्विसंयोजक विपरीत ध्रुवों से काइनेटोकोर तन्तुओं के साथ मध्यपट्टिका पर संरेखित होते हैं" — यह मध्यावस्था-I का वर्णन करता है, जो पूर्वावस्था की उप-अवस्था नहीं है, परन्तु डिप्लोटीन के बाद आने वाला प्रतीत हो सकता है।
+
+---
+
+## CATEGORY FRAMEWORK (SELECT ONE PER QUESTION)
+
+Before writing each question, select ONE category from below.
+
+**Distribution rule:** Across all generated questions, use at least 3 different categories. Do not generate more than 40% of questions from any single category.
+
+---
+
+### H1: Mechanism / Condition ↔ Immediate Downstream Consequence
+
+**Column I:** Specific biological conditions, mechanisms, or events.
+**Column II:** The MOST IMMEDIATE consequence or outcome of each — not a final-stage effect.
+**Interconnection type:** Cascading chain — outcomes are interconnected because each feeds into the next.
+**Critical rule:** If step A leads to B leads to C, and both A and C are in Column I, then A must match B's outcome, NOT C's outcome.
+
+**✓ GOOD:**
+स्तम्भ I: 1. अपवाह (effluent) का वायुकरण  2. फ्लॉक्स में वातापेक्षी सूक्ष्मजीवों की वृद्धि  3. अवसादन टैंक में फ्लॉक्स का अवसादन  4. स्लज का अवायवीय पाचन
+स्तम्भ II: a. सक्रियित स्लज जो नए बैच के लिए टीका (inoculum) का कार्य कर सकता है  b. वातापेक्षी विषमपोषी समुदायों का तीव्र प्रवर्धन  c. घुलित कार्बनिक भार में कमी, जिसे घटित $BOD$ के रूप में मापा जाता है  d. $CH_4$ और $CO_2$ से भरपूर बायोगैस मिश्रण का निर्माण  e. रासायनिक विसंक्रमण द्वारा अवशिष्ट रोगजनक जीवों का उन्मूलन
+
+**✗ BAD:**
+स्तम्भ I: 1. वायुकरण  2. अवसादन  3. पाचन  4. क्लोरीनीकरण
+स्तम्भ II: a. स्वच्छ जल  b. कम प्रदूषण  c. जीवाणु नष्ट करता है  d. ठोस पदार्थ हटाता है  e. मल-जल का उपचार करता है
+
+---
+
+### H2: Organism / Agent ↔ Specific Biochemical Transformation (Multi-Parameter)
+
+**Column I:** Specific organisms or biological agents.
+**Column II:** The precise biochemical transformation each performs — described with substrate, product, and condition.
+**Interconnection type:** Multi-parameter matching. All Column II items describe transformations in the same pathway but differ in which substrate is converted to which product.
+
+**✓ GOOD:**
+स्तम्भ I: 1. $\textit{{Nitrosomonas}}$  2. $\textit{{Nitrobacter}}$  3. $\textit{{Pseudomonas}}$ (विनाइट्रीकारक)  4. $\textit{{Rhizobium}}$
+स्तम्भ II: a. वातापेक्षी परिस्थितियों में $NO_2^-$ को $NO_3^-$ में ऑक्सीकृत करता है  b. नाइट्रीकरण के पहले चरण के रूप में $NH_3$ को $NO_2^-$ में परिवर्तित करता है  c. अवायवीय परिस्थितियों में $NO_3^-$ को गैसीय $N_2$ में अपचयित करता है  d. मूल ग्रंथिका सहजीविता में वायुमंडलीय $N_2$ को $NH_3$ में परिवर्तित करता है  e. खनिजीकरण के माध्यम से कार्बनिक नाइट्रोजन को $NH_3$ में परिवर्तित करता है
+
+**✗ BAD:**
+स्तम्भ I: 1. $\textit{{Nitrosomonas}}$  2. $\textit{{Lactobacillus}}$  3. यीस्ट  4. $\textit{{E. coli}}$
+स्तम्भ II: a. दही बनाता है  b. ब्रेड बनाता है  c. आंत में पाया जाता है  d. मिट्टी में पाया जाता है  e. जल में पाया जाता है
+
+---
+
+### H3: Structure / Organ ↔ Specific Functional Detail (Parallel Systems)
+
+**Column I:** Structures or organs from parallel or analogous biological systems.
+**Column II:** Specific functional or structural details that belong to ONE system but sound applicable to others.
+**Interconnection type:** Parallel systems — Column I items are structurally similar. Column II items describe features students commonly mis-assign between them.
+
+**✓ GOOD:**
+स्तम्भ I: 1. समीपस्थ कुण्डलित नलिका  2. हेनले लूप  3. दूरस्थ कुण्डलित नलिका  4. संग्राहक नलिका
+स्तम्भ II: a. $ADH$ के परिसंचरित स्तर द्वारा नियंत्रित जल का ऐच्छिक पुनरावशोषण  b. लगभग 70% फिल्ट्रेट जल और सम्पूर्ण ग्लूकोज का अनिवार्य पुनरावशोषण  c. प्रति-प्रवाह गुणन द्वारा मध्यांश परासरणी प्रवणता का निर्माण  d. अम्ल-क्षार संतुलन हेतु $H^+$ और $K^+$ आयनों का चयनित स्रवण  e. छिद्रित केशिका अंतःस्तर के आर-पार रक्त प्लाज़्मा का दाब-चालित अतिस्यंदन
+
+**✗ BAD:**
+स्तम्भ I: 1. हृदय  2. वृक्क  3. फेफड़ा  4. यकृत
+स्तम्भ II: a. रक्त पम्प करता है  b. अपशिष्ट को छानता है  c. गैस विनिमय  d. विषहरण  e. पाचन
+
+---
+
+### H4: Phase / Sub-stage ↔ Defining Molecular Event (Fine Discrimination)
+
+**Column I:** Phases or sub-stages of a single biological process.
+**Column II:** The specific molecular or cellular event that DEFINES each phase — described at the mechanism level.
+**Interconnection type:** Fine discrimination — all events happen during the same overall process and involve similar molecular machinery. Student must know the precise SEQUENCE and MECHANISM.
+
+**✓ GOOD:**
+स्तम्भ I: 1. लेप्टोटीन  2. जाइगोटीन  3. पैकीटीन  4. डिप्लोटीन
+स्तम्भ II: a. सूत्र-युग्मन संकुल (synaptonemal complex) का निर्माण समजात गुणसूत्रों के पूरी लंबाई में युग्मन को सक्षम बनाता है  b. पुनर्संयोजन गुच्छिकाएँ द्विसंयोजकों के असमजात क्रोमेटिड्स के बीच आनुवंशिक पदार्थ के विनिमय को सुगम बनाती हैं  c. सूत्र-युग्मन संकुल का क्रमिक विघटन विनिमय स्थलों पर X-आकार के काइऐज्मा को प्रकट करता है  d. क्रोमैटिन तन्तु संघनित होकर केन्द्रक-झिल्ली के भीतर पतले लम्बे तन्तुओं के रूप में दृश्यमान पृथक् गुणसूत्रों में बदल जाते हैं  e. काइनेटोकोर सूक्ष्मनलिकाएँ मध्यपट्टिका पर संरेखित द्विसंयोजकों के सेंट्रोमियर से जुड़ती हैं
+
+**✗ BAD:**
+स्तम्भ I: 1. पूर्वावस्था  2. मध्यावस्था  3. पश्चावस्था  4. अन्त्यावस्था
+स्तम्भ II: a. गुणसूत्र संघनित होते हैं  b. गुणसूत्र संरेखित होते हैं  c. गुणसूत्र पृथक् होते हैं  d. केन्द्रक-झिल्ली पुनर्निर्मित होती है  e. $DNA$ प्रतिकृति बनाता है
+
+---
+
+### H5: Comparative Feature ↔ Specific Taxon (Multi-Way Comparison)
+
+**Column I:** Specific biological features or characteristics.
+**Column II:** The specific taxon that UNIQUELY possesses each feature — among a set of closely related taxa.
+**Interconnection type:** Multi-way comparison — all Column I features and Column II taxa are from the SAME classification level. Features are ones students commonly misattribute between the taxa.
+
+**✓ GOOD:**
+स्तम्भ I: 1. जल दाब परिवर्तन का पता लगाने हेतु पाश्विक रेखा (lateral line) संवेदी तंत्र  2. अपूर्ण रूप से विभाजित निलय सहित त्रि-कक्षीय हृदय  3. उत्प्लावन नियमन हेतु तेल-युक्त यकृतग्रन्थि (hepatopancreas)  4. श्वसन तंत्र से जुड़ी वायु-गुहाओं सहित वातिल अस्थियाँ (pneumatic bones)
+स्तम्भ II: a. अस्थिमीनी (Osteichthyes)  b. उभयचर (Amphibia)  c. कॉन्ड्रिक्थीज़ (Chondrichthyes)  d. पक्षी (Aves)  e. सरीसृप (Reptilia)
+
+**✗ BAD:**
+स्तम्भ I: 1. पंख  2. क्लोम (gills)  3. स्तन ग्रन्थियाँ  4. शल्क (scales)
+स्तम्भ II: a. पक्षी वर्ग  b. मत्स्य वर्ग  c. स्तनी वर्ग  d. सरीसृप वर्ग  e. उभयचर वर्ग
+
+---
+
+## ZERO KEYWORD OVERLAP RULE (CRITICAL — HARD FAILURE)
+
+**NO word or root word may appear in BOTH a Column I item AND its correct Column II match.**
+
+- ❌ "सूक्ष्मजैविक अपघटन" → "सूक्ष्मजीवों द्वारा अपघटन" ("अपघटन/degradation" मूल शब्द साझा होता है)
+- ❌ "जलवाहिका तंत्र (water vascular system)" → "जल दाब का उपयोग कर संचलन करने वाला तंत्र" ("जल/water" और "तंत्र/system" शब्द साझा होते हैं)
+- ✅ "यूट्रोफिकेशन" → "शैवाल प्रस्फुटन रात्रि में घुलित $O_2$ को घटा देता है"
+- ✅ "सक्रियित स्लज" → "नए बैच के लिए टीके (inoculum) का कार्य करता है"
+
+---
+
+## CATEGORICAL CONSISTENCY RULE (CRITICAL — HARD FAILURE)
+
+**Column I must be ALL one type.** Column II must be ALL one different type.
+**BANNED:** Mixing organisms + equipment + processes in Column I. Mixing definitions + outcomes + locations in Column II.
+
+---
+
+## NO COMMON-SENSE / TAUTOLOGY RULE (HARD FAILURE)
+
+Every pair MUST require specific biological knowledge AND multi-step reasoning.
+
+**Pattern 1: Common-Sense (No Biology Needed)**
+- ❌ "प्रभावी उपचार" → "कम प्रदूषण" — कोई भी अनुमान लगा सकता है
+
+**Pattern 2: Tautology (Column II Restates Column I)**
+- ❌ "सूक्ष्मजैविक अपघटन" → "सूक्ष्मजीवों द्वारा कार्बनिक पदार्थ का अपघटन" — समान अर्थ की पुनरावृत्ति
+
+**Pattern 3: Definitional Echo (Column II Expands Column I)**
+- ❌ "नाइट्रीकरण" → "अमोनिया का नाइट्रेट में रूपांतरण" — शब्दकोश परिभाषा मात्र
+- ✅ सुधार: "नाइट्रीकरण" → "कीमोआटोट्रॉफिक जीवाणुओं द्वारा क्रमिक दो-चरणीय ऑक्सीकरण, पहले $NO_2^-$ फिर $NO_3^-$ का निर्माण"
+
+---
+
+## IMMEDIATE CONSEQUENCE RULE (NO CHAIN-SKIPPING)
+
+Each Column I item maps to its **MOST IMMEDIATE** downstream consequence — NOT a final-stage effect.
+
+If the causal chain is A → B → C → D:
+- Column I item "A" → Column II must be "B" (immediate), NOT "C" or "D"
+- If both A and C are in Column I: A maps to B and C maps to D — each gets its OWN immediate outcome
+
+- ❌ चरण-लंघन: वायुकरण → नदियों में उत्सर्जित अपशिष्ट जल
+- ✅ तात्कालिक: वायुकरण → वातापेक्षी विषमपोषी समुदायों का तीव्र प्रवर्धन
+
+---
+
+## SOURCE-FACT VERIFICATION PROCEDURE (MANDATORY — EVERY PAIR)
+
+For EVERY Column I ↔ Column II pair, internally perform this check before including it:
+
+**Step 1: LOCATE** — Identify the EXACT sentence or phrase in the source content where this pair's relationship is stated. If you cannot point to a specific line, DO NOT use this pair.
+
+**Step 2: QUOTE-CHECK** — The fact in Column II must be a rephrased version of what the source ACTUALLY says. Do NOT:
+- Expand a source fact with additional detail from your training knowledge
+- Combine facts from the source with facts you "know" to be true
+- Use a fact that is biologically correct but NOT stated in the provided source content
+- Assume a fact is in the source because it is standard NCERT -- only the PROVIDED text counts
+
+**Step 3: NEGATIVE CHECK** — Ask: "Does Column II contain anything that goes BEYOND what the source explicitly states?" If YES → rewrite Column II to contain ONLY what the source says, or drop the pair.
+
+This applies to the distractor as well — it must describe a real biological fact from the same topic area, but NOT one stated in the source as matching any Column I item.
+
+---
+
+## UNIQUE MATCH TEST (MANDATORY — EVERY TABLE)
+
+After building the table but BEFORE generating options, run this test:
+
+For EACH Column I item, ask: "Could more than one Column II item be a defensible correct match?"
+
+If YES for any Column I item → the Column II items are not distinct enough. You MUST fix this by adding a distinguishing qualifier to the confusable Column II items that makes only ONE match defensible.
+
+Example of failure:
+स्तम्भ I: 1. प्रकाश-अभिग्राही संकुल (light-harvesting complex)  2. अभिक्रिया केन्द्र क्लोरोफिल a
+स्तम्भ II: ii. फोटॉन अवशोषित करता है और उत्तेजना ऊर्जा स्थानांतरित करता है
+समस्या: दोनों स्तम्भ I आइटम फोटॉन अवशोषित करते हैं — "ii" दोनों 1 और 2 से मेल खाता है।
+विभेदक विशेषण जोड़कर सुधार:
+- "1" से मेल खाने वाले आइटम के लिए: "अवशोषित फोटॉन ऊर्जा को प्रकाश-रासायनिक परिवर्तन से गुजरे बिना अभिक्रिया केन्द्र तक पहुँचाता है"
+- "2" से मेल खाने वाले आइटम के लिए: "फोटॉन अवशोषण पर ऑक्सीकृत होता है और प्राथमिक ग्राही को इलेक्ट्रॉन दान करता है"
+
+The test passes when: Every Column I item has exactly ONE defensible Column II match, and no Column II item (except the distractor) can validly match more than one Column I item.
+
+If you cannot make the matches unambiguous after two attempts → discard the topic and choose a different one.
+
+---
+
+## PRE-GENERATION STEP (MANDATORY)
+
+Before writing each question, internally perform these steps:
+
+1. **Select a category** from H1–H5. If the question does not fit any category, do not generate it.
+2. **Identify the interconnection type** and verify that Column II items are genuinely interconnected and confusable.
+3. **Build all 4 correct pairs** from the source content. Verify each requires multi-step reasoning.
+4. **Design the distractor** — maximally confusable with at least one correct Column II match, same domain and specificity level.
+5. **Run the keyword overlap check** on every pair.
+6. **Run the tautology/definitional check** on every pair. If Column II merely defines Column I, rewrite at mechanism level.
+7. **Run the chain-skipping check.** Does each Column I item map to its IMMEDIATE consequence?
+8. **Build options** using the close-option method: each wrong option differs from correct by exactly 1-2 swapped pairs. At least one wrong option uses the distractor.
+9. **Verify interconnection quality:** For each Column I item, can at least 2 Column II items seem plausible at first glance? If not, the question lacks Hard-level ambiguity.
+10. **Shuffle Column II** so correct answer is not 1-i, 2-ii, 3-iii, 4-iv. Assign all 5 items (4 correct + 1 distractor) to positions i–v randomly — the distractor must NOT always land at position v. Vary the distractor's position across questions.
+
+---
+
+## OPTION GENERATION PROCEDURE — ANCHOR-AND-DERIVE METHOD (MANDATORY)
+
+This method eliminates the most common Hard MTF failure: no correct option present. Follow these steps IN ORDER — do not skip or reorder.
+
+**Step 1 — ANCHOR the correct sequence:**
+After constructing the table, immediately write the correct matching as a standalone line:
+CORRECT = 1-[x], 2-[y], 3-[z], 4-[w] (unused: [D])
+where [D] is the numeral assigned to the distractor (could be any of i–v, not always v).
+Verify: all four roman numerals in CORRECT are different and [D] is unused.
+
+**Step 2 — WRITE option (a) by COPYING the CORRECT line exactly:**
+a) 1-[x], 2-[y], 3-[z], 4-[w]
+This is a CHARACTER-BY-CHARACTER copy. Do not retype from memory — copy the exact string from Step 1. Option (a) is ALWAYS the correct answer during generation.
+
+**Step 3 — Derive option (b) by swapping TWO MOST CONFUSABLE Column II numerals in (a):**
+Pick two Column II numerals from option (a) that students are most likely to confuse. Swap them.
+Write: (b) = (a) with numerals [x] and [z] swapped in their positions
+Then write the full option: b) 1-[z], 2-[y], 3-[x], 4-[w]
+CHECK: Does (b) contain 4 DIFFERENT roman numerals? If not → fix.
+
+**Step 4 — Derive option (c) by making a DIFFERENT swap of 1–2 pairs from (a):**
+Must touch DIFFERENT Column I items than option (b) touched.
+Write: (c) = (a) with numerals [y] and [w] swapped in their positions
+Then write the full option: c) 1-[x], 2-[w], 3-[z], 4-[y]
+CHECK: Does (c) contain 4 DIFFERENT roman numerals? Does (c) differ from (b)? If not → fix.
+
+SPREAD RULE: Across options (b) and (c), the swapped pairs must collectively touch at least 3 of the 4 Column I items.
+- ❌ BAD — All options agree on items 1 and 4, only items 2 and 3 vary (student skips checking 1 and 4):
+  a) 1-iii, 2-i, 3-iv, 4-ii
+  b) 1-iii, 2-iv, 3-i, 4-ii
+  c) 1-iii, 2-i, 3-ii, 4-iv
+  d) 1-iv, 2-i, 3-v, 4-ii
+- ✅ GOOD — Swaps spread across different pairs, distractor [D]=ii placed at position ii in table:
+  a) 1-iii, 2-i, 3-iv, 4-v    ← correct (distractor is ii, unused)
+  b) 1-iii, 2-iv, 3-i, 4-v    ← swaps 2↔3
+  c) 1-iii, 2-i, 3-v, 4-iv    ← swaps 3↔4
+  d) 1-iv, 2-i, 3-ii, 4-v     ← swaps 1 + distractor in 3
+
+**Step 5 — Derive option (d) by replacing ONE correct numeral with the distractor numeral [D]:**
+Take option (a). Pick one Column I item. Replace its Column II numeral with [D] (the distractor's numeral from Step 1).
+Write: (d) = (a) with pair [item]-[numeral] replaced by [item]-[D]
+Then write the full option: d) 1-[x], 2-[D], 3-[z], 4-[w]
+CHECK: Does (d) contain 4 DIFFERENT roman numerals? If not → fix.
+
+**Step 6 — FINAL VERIFICATION (ALL 4 OPTIONS):**
+For each option, answer these TWO questions:
+
+Q1: "Are all 4 roman numerals in this option DIFFERENT from each other?"
+- If NO → HARD FAILURE. Rewrite the option.
+
+Q2: "Does this option exactly match the CORRECT line from Step 1?"
+- Option (a): must be YES
+- Options (b), (c), (d): must be NO
+- If option (a) does NOT match CORRECT → you made a copy error. Re-copy from Step 1.
+- If any of (b), (c), (d) accidentally matches CORRECT → you didn't actually swap. Redo the swap.
+
+**Step 7 — RANDOMIZE the position of the correct answer:**
+After verification passes, randomly reassign which letter (a/b/c/d) holds the correct sequence. Move the option CONTENTS, not the labels. Distribute evenly across all questions: no more than 3 consecutive questions with correct answer in the same position.
+
+### REAL FAILURE EXAMPLE — No correct option present:
+
+Generated question (prophase substages):
+स्तम्भ I: 1. लेप्टोटीन  2. जाइगोटीन  3. पैकीटीन  4. डिप्लोटीन
+स्तम्भ II:
+i. समजात गुणसूत्र अपनी पूरी लंबाई में युग्मित होकर सूत्र-युग्मन संकुल बनाते हैं
+ii. सूत्र-युग्मन संकुल के विघटित होने पर काइऐज्मा दृश्यमान हो जाते हैं
+iii. क्रोमैटिन केन्द्रक के भीतर पतले लम्बे तन्तुओं के रूप में संघनित होता है
+iv. पुनर्संयोजन गुच्छिकाओं पर असमजात क्रोमेटिड्स के बीच जीन-विनिमय होता है
+v. द्विसंयोजक विपरीत ध्रुवों से काइनेटोकोर तन्तुओं के साथ मध्यपट्टिका पर संरेखित होते हैं
+
+Correct sequence: 1-iii, 2-i, 3-iv, 4-ii
+
+OPTIONS generated (independent permutations — WRONG METHOD):
+a. 1-i, 2-iii, 3-ii, 4-iv
+b. 1-iv, 2-i, 3-iii, 4-ii
+c. 1-iii, 2-iv, 3-i, 4-v
+d. 1-ii, 2-iii, 3-iv, 4-i
+
+TEACHER FEEDBACK: Unsolvable — none of the four options matches the correct sequence (1-iii, 2-i, 3-iv, 4-ii).
+
+ROOT CAUSE: Options generated as independent permutations — correct sequence was never placed in a slot first. Use Anchor-and-Derive: anchor CORRECT as (a), derive (b)/(c)/(d) by swapping pairs, verify, then randomize position.
+
+---
+
+## GOOD EXAMPLES
+
+### Example 1 — Category H2: Organism ↔ Biochemical Transformation (Nitrogen Cycle)
+
+प्र. निम्नलिखित जीवों को नाइट्रोजन चक्र में उनकी विशिष्ट जैव-रासायनिक भूमिका से मिलाइए:
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+स्तम्भ I & स्तम्भ II \\
+\hline
+1. $\textit{{Nitrosomonas}}$ & i. अवायवीय परिस्थितियों में $NO_3^-$ को गैसीय $N_2$ में अपचयित करता है \\
+2. $\textit{{Nitrobacter}}$ & ii. प्रथम ऑक्सीकरण चरण के रूप में $NH_3$ को $NO_2^-$ में परिवर्तित करता है \\
+3. $\textit{{Pseudomonas}}$ (विनाइट्रीकारक) & iii. द्वितीय ऑक्सीकरण चरण के रूप में $NO_2^-$ को $NO_3^-$ में ऑक्सीकृत करता है \\
+4. $\textit{{Rhizobium}}$ & iv. मूल ग्रंथिका सहजीविता के भीतर वायुमंडलीय $N_2$ को $NH_3$ में परिवर्तित करता है \\
+ & v. अपरद (detritus) के अपघटन द्वारा कार्बनिक नाइट्रोजन को $NH_3$ में खनिजीकृत करता है \\
+\hline
+\end{{tabular}}
+
+a) 1-ii, 2-iii, 3-i, 4-iv
+b) 1-iii, 2-ii, 3-i, 4-iv
+c) 1-ii, 2-iii, 3-iv, 4-i
+d) 1-ii, 2-iii, 3-i, 4-v
+
+उत्तर: a
+*सभी 5 स्तम्भ II आइटम नाइट्रोजन रूपांतरण हैं — अत्यधिक अंतर्संबंधित। विकल्प (b) में $\textit{{Nitrosomonas}}$ और $\textit{{Nitrobacter}}$ को बदला गया है (नाइट्रीकरण के चरण 1 बनाम चरण 2 — छात्रों की सबसे सामान्य भ्रान्ति)। विकल्प (c) में $\textit{{Pseudomonas}}$ और $\textit{{Rhizobium}}$ को बदला गया है (विनाइट्रीकरण को नाइट्रोजन स्थिरीकरण से भ्रमित करता है)। विकल्प (d) में $\textit{{Pseudomonas}}$ के लिए डिस्ट्रैक्टर अंक का उपयोग किया गया है (विनाइट्रीकरण को अमोनीकरण से भ्रमित करने वाले छात्रों को फँसाता है)।*
+
+---
+
+### Example 2 — Category H3: Structure ↔ Functional Detail (Nephron Segments)
+
+प्र. निम्नलिखित नेफ्रॉन खण्डों को उनकी प्राथमिक शरीरक्रियात्मक भूमिका से मिलाइए:
+
+\begin{{tabular}}{{|l|l|}}
+\hline
+स्तम्भ I & स्तम्भ II \\
+\hline
+1. समीपस्थ कुण्डलित नलिका & i. प्रति-प्रवाह गुणन द्वारा मध्यांश परासरणी प्रवणता का निर्माण \\
+2. हेनले लूप & ii. परिसंचरित $ADH$ स्तर द्वारा नियंत्रित जल का ऐच्छिक पुनरावशोषण \\
+3. दूरस्थ कुण्डलित नलिका & iii. लगभग 70% फिल्ट्रेट जल और सम्पूर्ण ग्लूकोज का अनिवार्य पुनरावशोषण \\
+4. संग्राहक नलिका & iv. अम्ल-क्षार संतुलन में सहायक $H^+$ और $K^+$ आयनों का चयनित स्रवण \\
+ & v. छिद्रित केशिका अंतःस्तर के आर-पार रक्त प्लाज़्मा का दाब-चालित निस्यंदन \\
+\hline
+\end{{tabular}}
+
+a) 1-iii, 2-i, 3-iv, 4-ii
+b) 1-iii, 2-i, 3-ii, 4-iv
+c) 1-ii, 2-i, 3-iv, 4-iii
+d) 1-iii, 2-i, 3-iv, 4-v
+
+उत्तर: a
+*सभी स्तम्भ II आइटम नेफ्रॉन में जल/आयन प्रबंधन का वर्णन करते हैं — निकटता से अंतर्संबंधित। विकल्प (b) में DCT और संग्राहक नलिका को बदला गया है (दोनों पुनरावशोषण के सूक्ष्म-नियमन में शामिल हैं)। विकल्प (c) में PCT और संग्राहक नलिका को बदला गया है (अनिवार्य बनाम ऐच्छिक पुनरावशोषण को भ्रमित करता है)। विकल्प (d) डिस्ट्रैक्टर अंक का उपयोग करता है — संग्राहक नलिका को गुच्छीय निस्यंदन से भ्रमित करने वाले छात्रों को फँसाता है।*
+
+---
+
+## BAD EXAMPLES — NEVER generate questions like these
+
+**BAD 1 — No interconnection (Easy-level disguised as Hard):**
+स्तम्भ I: 1. हृदय  2. वृक्क  3. फेफड़ा  4. यकृत
+स्तम्भ II: i. रक्त पम्प करता है  ii. अपशिष्ट को छानता है  iii. गैस विनिमय  iv. विषहरण  v. पाचन
+*पूर्णतः भिन्न अंग तंत्र। कोई अस्पष्टता नहीं।*
+
+**BAD 2 — Keyword overlap:**
+स्तम्भ I: 1. सूक्ष्मजैविक अपघटन  |  स्तम्भ II: a. सूक्ष्मजीवों द्वारा अपघटन
+*स्तम्भ II स्तम्भ I का ही पुनर्कथन है।*
+
+**BAD 3 — Chain-skipping:**
+स्तम्भ I: 1. अपवाह का वायुकरण  |  स्तम्भ II: a. नदी में मुक्त स्वच्छ जल
+*5 मध्यवर्ती चरणों को छोड़ देता है। इसे तात्कालिक परिणाम (सूक्ष्मजीव वृद्धि) से मिलाना चाहिए।*
+
+**BAD 4 — Non-close options (correct: 1-iii, 2-i, 3-iv, 4-ii):**
+a) 1-iii, 2-i, 3-iv, 4-ii  b) 1-i, 2-ii, 3-iii, 4-iv  c) 1-iv, 2-iii, 3-ii, 4-i  d) 1-v, 2-v, 3-v, 4-v
+*गलत विकल्प सही उत्तर के साथ 0 युग्म साझा करते हैं — तुरन्त हटाए जा सकते हैं।*
+
+**BAD 5 — Definitional echo (Medium-level, not Hard):**
+स्तम्भ I: 1. $BOD$  2. $COD$  3. $DO$  4. $STP$
+स्तम्भ II: i. सूक्ष्मजीवों द्वारा उपयोग की गई ऑक्सीजन  ii. कुल ऑक्सीकरणीय भार  iii. घुलित ऑक्सीजन  iv. उपचार सुविधा  v. pH स्तर
+*हर युग्म एक सीधी परिभाषा है। कोई बहु-चरणीय तर्क नहीं।*
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+## ADDITIONAL WRITING RULES
+
+- NEVER use parenthetical translations as hints: ❌ "कॉन्ड्रिक्थीज़ (उपास्थि मीन)" — केवल शब्द लिखें और छात्र को स्वयं पहचानने दें

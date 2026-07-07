@@ -1,0 +1,27 @@
+version: "3.9"
+
+x-common: &common
+  build: .
+  env_file: .env
+  restart: unless-stopped
+
+services:
+  api:
+    <<: *common
+    ports:
+      - "8002:8000"
+    command: ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/deep')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  worker:
+    <<: *common
+    command: ["python", "worker/main.py"]
+
+  answer-worker:
+    <<: *common
+    command: ["python", "worker/answer_worker.py"]

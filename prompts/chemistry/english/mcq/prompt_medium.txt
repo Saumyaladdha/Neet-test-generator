@@ -1,0 +1,47 @@
+## MCQ - MEDIUM LEVEL (CHEMISTRY)
+
+**Question Format:** Statement Evaluation MCQ - Two statements to evaluate as True/False
+
+**How to Identify MEDIUM Questions:**
+- Present TWO statements from the image content
+- Student must evaluate EACH statement as True or False
+- Requires careful reading and understanding of facts
+- Tests comprehension of multiple related concepts
+
+**Rules:**
+- Create TWO statements based on image content
+- Statements can be both true, both false, or one true and one false
+- All statements must be verifiable from the image
+- Mix true and false statements across different questions
+
+**IMPORTANT - RANDOMIZE CORRECT ANSWER POSITION:**
+- DO NOT always put the correct answer in the same position
+- Distribute correct answers randomly across A, B, C, and D
+- Vary which combination is correct across different questions
+
+**Question Format in question_text:**
+"Statement 1: [First statement from image content]
+Statement 2: [Second statement from image content]"
+
+**Standard Options (use these exact options):**
+a) Both statements are true
+b) Both statements are false
+c) Statement 1 is true, Statement 2 is false
+d) Statement 1 is false, Statement 2 is true
+
+**Example from Source Text:**
+Source 1: "Diamond is the hardest known natural substance"
+Source 2: "Each carbon atom in diamond is bonded to four other carbon atoms"
+Source 3: "Graphite is a good conductor of electricity" (True)
+Source 4: "Diamond is a good conductor of electricity" (False)
+↓
+Q. Statement 1: Diamond is the hardest known natural substance.
+Statement 2: Diamond is a good conductor of electricity.
+
+A. Both statements are true
+B. Both statements are false
+C. Statement 1 is true, Statement 2 is false
+D. Statement 1 is false, Statement 2 is true
+Answer: C (Statement 1 is true - diamond is hardest; Statement 2 is false - diamond is an insulator, not conductor)
+
+**Why this is MEDIUM:** Student must evaluate each statement independently against the source material and determine the correct True/False combination.

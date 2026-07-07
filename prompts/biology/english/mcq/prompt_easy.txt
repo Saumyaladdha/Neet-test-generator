@@ -1,0 +1,226 @@
+EASY-LEVEL OVERRIDE: Do NOT use negative phrasing ("NOT correct", "NOT INCORRECT", "EXCEPT"), do NOT scramble sequences, do NOT use number/count-based traps. Every question must be straightforward direct recall. EASY = Student recalls a single fact directly stated in one sentence of the source. No multi-step reasoning, no comparing two concepts, no cause-effect chains.
+
+## MCQ - EASY LEVEL (BIOLOGY)
+
+## MANDATORY: USE BOTH CATEGORIES BELOW
+
+You MUST generate a MIX of both categories. For 10+ questions: at least 3 Fill in the Blank and at least 4 Standard MCQ. For 5 questions: at least 2 Fill in the Blank and at least 2 Standard MCQ. NEVER generate all questions as only one category.
+NOTE: Both categories use "question_type": "MCQ" in the output JSON. Do NOT use "Fill in the Blank" as a question_type value.
+
+---
+
+## GLOBAL OPTION RULES (APPLY TO BOTH CATEGORIES)
+
+**BANNED OPTION PATTERNS (HARD FAILURE):**
+- NEVER use "All of the above", "None of the above", "None of these", "All of these"
+- NEVER use "Both A and B", "Both A and C", "Both B and D", or any combination option
+- NEVER use "All are correct", "None is correct", or any variant
+- Every option must be a standalone, independent answer. No option may reference another option.
+
+**OPTION ORDERING:**
+- When options are numbers or quantities, arrange them in ascending order (smallest to largest)
+- When options are terms or names, arrange them in no obvious alphabetical or positional pattern that reveals the answer
+
+---
+
+### CATEGORY A: Standard MCQ (Direct Factual)
+
+**Question Format:** Direct factual Multiple Choice Questions with 4 options
+
+**How to Identify:**
+- Question tests a SINGLE, directly stated fact from ONE sentence
+- Answer is explicitly written in the text -- no interpretation needed
+- Student only needs to recall/recognize the exact information
+
+**Rules:**
+- Answer must use the EXACT word/phrase from the source content
+- Incorrect options must be terms visible elsewhere in the source content
+- If insufficient plausible distractors are available from the source content, construct scientifically plausible wrong options from the same biological domain. Do NOT use "None of these" as a fallback.
+
+BANNED: QUESTION ASKS X, OPTIONS ANSWER Y (HARD FAILURE)
+- The options must DIRECTLY answer what the question asks
+- If the question asks "Which cell type...?" → options must be cell type NAMES (e.g., Yeast, HeLa, Neuron, RBC)
+- If the question asks "How long...?" → options must be TIME durations
+- If the question asks "Where...?" → options must be LOCATIONS
+- NEVER mix the axis of the question with a different axis in options
+- Before outputting, re-read the question word (Which/What/Where/How many/How long) and verify ALL 4 options answer THAT specific question word
+
+BAD EXAMPLE:
+Q: "Which cell type completes the cell cycle in about 90 minutes?"
+A) Approximately 24 hours  B) About 90 minutes  C) About an hour  D) None of these
+FAILURE: Question asks for a CELL TYPE → options give TIME DURATIONS. These don't answer the question.
+
+CORRECT:
+Q: "Which cell type completes the cell cycle in about 90 minutes?"
+A) Yeast  B) Human cell  C) Neuron  D) E. coli
+
+BANNED: ANSWER VISIBLE IN THE QUESTION STEM (HARD FAILURE)
+- The correct answer (or any synonym/derivative of it) must NEVER appear in the question text
+- Before outputting, check: does any word in the correct option also appear in the question stem? If YES → rewrite the question to remove that word
+- This applies to both Standard MCQ and Fill in the Blank categories
+
+BAD EXAMPLE:
+Q: "Algae are chlorophyll-bearing, simple, thalloid, autotrophic and largely aquatic organisms. Which term best describes their mode of nutrition?"
+A) Autotrophic  B) Heterotrophic  C) Saprophytic  D) Parasitic
+FAILURE: "autotrophic" appears in the question AND is the correct answer — student doesn't need to know biology, just reads the stem.
+
+CORRECT VERSION 1 (remove the giveaway word):
+Q: "Algae are chlorophyll-bearing, simple, thalloid and largely aquatic organisms. What is their mode of nutrition?"
+A) Autotrophic  B) Heterotrophic  C) Saprophytic  D) Parasitic
+
+CORRECT VERSION 2 (rephrase entirely):
+Q: "What is the mode of nutrition in organisms that are chlorophyll-bearing, thalloid and largely aquatic?"
+A) Autotrophic  B) Heterotrophic  C) Saprophytic  D) Parasitic
+
+BANNED: COMPARATIVE/SUPERLATIVE RANKING QUESTIONS (HARD FAILURE)
+- Never ask "Which is THE defining/most important/primary/key/main [feature/property/characteristic] of X?" when all options belong to the same category
+- When all 4 options could legitimately qualify (e.g., all are features of life), the question has no single unambiguous answer — this violates the one-correct-answer rule
+- Reframe as a specific factual claim that is unambiguously answered by one option
+
+❌ BAD EXAMPLE 1:
+Q: "Which feature is identified as the defining feature of life forms?"
+A) Cellular organisation  B) Growth  C) Metabolism  D) Consciousness
+FAILURE: All four options are valid defining features of life — no single unambiguous answer.
+
+❌ BAD EXAMPLE 2:
+Q: "Which property is stated to become the defining property of living organisms?"
+A) Consciousness  B) Self-replication  C) Self-organisation  D) Metabolism
+FAILURE: Same problem — all options are scientifically valid properties of living organisms.
+
+✅ CORRECT (reframe as a specific factual claim):
+Q: "Which characteristic of living organisms involves the sum total of all chemical reactions occurring in the body?"
+A) Consciousness  B) Growth  C) Metabolism  D) Reproduction
+Q: "The ability of an organism to sense and respond to environmental stimuli is referred to as __________."
+A) Metabolism  B) Consciousness  C) Growth  D) Reproduction
+
+DISTRACTOR QUALITY RULES:
+- Every incorrect option must be CLEARLY wrong -- no partial correctness or alternate representations.
+- NEVER use a different notation/representation of the correct answer as a distractor (e.g., if the answer is "four peptide chains", do NOT use "$H_2L_2$" as a distractor since it represents the same thing).
+- NEVER use a SUBSET of the correct answer as a distractor (e.g., if the answer is "four chains", do NOT use "two light chains" or "two heavy chains" since those are parts of the same answer).
+- Each distractor must describe a genuinely DIFFERENT concept.
+
+**Example 1 - Plant Kingdom:**
+Source: "Depending on the type of pigment possessed and the type of stored food, algae are classified into three classes, namely Chlorophyceae, Phaeophyceae and Rhodophyceae."
+Q. How many classes are algae classified into based on pigment type and stored food?
+A. Two  B. Three  C. Four  D. Five
+Answer: B (Three)
+
+**Example 2 - Bryophytes:**
+Source: "Bryophytes are plants which can live in soil but are dependent on water for sexual reproduction."
+Q. Bryophytes are dependent on water for which of the following processes?
+A. Vegetative propagation  B. Photosynthesis  C. Spore dispersal  D. Sexual reproduction
+Answer: D (Sexual reproduction)
+
+**Example 3 - From MIDDLE of content:**
+Source: "The plant body of liverworts is thalloid and dorsiventral whereas mosses have upright, slender axes bearing spirally arranged leaves."
+Q. The plant body of liverworts is:
+A. Upright with spirally arranged leaves
+B. Thalloid and dorsiventral
+C. Differentiated into root, stem and leaves
+D. Prostrate with vascular tissues
+Answer: B (Thalloid and dorsiventral - Option A is a trap describing mosses, not liverworts)
+
+**Example 4 - From MIDDLE-END of content:**
+Source: "In pteridophytes the main plant is a sporophyte... These organs possess well-differentiated vascular tissues."
+Q. Which plant group has a main plant body that possesses well-differentiated vascular tissues?
+A. Algae  B. Bryophytes  C. Pteridophytes  D. Liverworts
+Answer: C (Pteridophytes)
+
+**Example 5 - From END of content:**
+Source: "The gymnosperms are the plants in which ovules are not enclosed by any ovary wall... these plants are called naked-seeded plants."
+Q. Gymnosperms are also known as naked-seeded plants because:
+A. They lack a seed coat
+B. Their seeds are dispersed without fruit
+C. Their ovules are not enclosed by any ovary wall
+D. They reproduce without fertilisation
+Answer: C (Their ovules are not enclosed by any ovary wall)
+
+---
+
+### CATEGORY B: Fill in the Blank
+
+**Question Format:** A sentence with exactly ONE blank (shown as __________), testing direct recall of a single factual keyword or phrase from the source text.
+
+**How to Identify:**
+- Tests a SINGLE definitional or factual keyword -- pure recall
+- The blank replaces ONE specific term that is directly stated in the text
+- NO multi-step reasoning, NO inference, NO cause-effect logic
+- Difficulty MUST remain EASY
+
+**Rules:**
+- Exactly ONE blank per question
+- The blank must replace the KEY biological term being tested — never a preposition, article, conjunction, or filler word. The blank IS the question. If the blank replaces a generic verb or a grammatical word instead of the specific biology term, REWRITE.
+- The correct answer must be the EXACT term from the source text
+- Distractors must be clearly incorrect but conceptually related (same domain)
+- NO ambiguous options where multiple answers could seem correct
+- NO subtle traps or partially correct options
+- Fill-in-the-blank stems must be 1–2 sentences maximum. If more context is needed, convert it to a Standard MCQ instead.
+
+**Blank placement rule:**
+- ❌ "Algae __________ vegetatively by fragmentation." (blank replaces "reproduce" — a generic verb, not a biology term. Any organism "reproduces." This tests English vocabulary, not biology.)
+- ❌ "Bryophytes are dependent __________ water for sexual reproduction." (blank replaces "on" — a preposition. Tests grammar, not biology.)
+- ✅ "The study of algae is called __________." (blank replaces "Phycology" — the specific biology term being tested)
+- ✅ "Bryophytes are dependent on water for __________." (blank replaces "sexual reproduction" — the specific biological process)
+
+**GOOD Example 1 - Sewage Treatment:**
+Q. Sewage is also known as __________.
+A. Drinking water  B. Municipal waste-water  C. Distilled water  D. Treated sludge
+Answer: B (Municipal waste-water -- direct definitional recall, clear distractors)
+
+**GOOD Example 2 - Sewage Composition:**
+Q. Sewage contains large amounts of __________ and microbes.
+A. Oxygen  B. Organic matter  C. Carbon dioxide  D. Pure water
+Answer: B (Organic matter -- single missing keyword, no ambiguity)
+
+**GOOD Example 3 - Plant Kingdom:**
+Q. The study of algae is called __________.
+A. Mycology  B. Phycology  C. Bryology  D. Pteridology
+Answer: B (Phycology -- direct recall of a specific term)
+
+BAD EXAMPLES -- NEVER generate questions like these:
+
+**BAD (Blank replaces a filler word, not the key term):**
+Q. Algae __________ vegetatively by fragmentation.
+A. Reproduce  B. Grow  C. Develop  D. Divide
+(Blank replaces a generic verb. Any biology student knows organisms "reproduce." This tests vocabulary, not biology. The KEY term here is "fragmentation" — that should be the blank.)
+
+**BAD (Too Hard -- requires inference/cause-effect):**
+Q. Untreated sewage increases __________ levels in water bodies, leading to oxygen depletion.
+A. Nitrogen  B. BOD  C. Carbon monoxide  D. pH
+(Requires understanding BOD concept + cause-effect reasoning -- NOT easy recall)
+
+**BAD (Ambiguous distractors):**
+Q. Sewage treatment makes water __________.
+A. Pure  B. Less polluting  C. Safe  D. Clean
+("Pure" vs "Clean" vs "Safe" are subjective -- multiple answers seem correct)
+
+**BAD (Stem too long for fill-in-the-blank):**
+Q. In the five kingdom classification proposed by R.H. Whittaker, organisms are divided based on cell structure, body organization, mode of nutrition, reproduction, and phylogenetic relationships. The kingdom that includes all prokaryotic organisms with cell walls made of peptidoglycan is __________.
+A. Monera  B. Protista  C. Fungi  D. Plantae
+(Stem is 3+ sentences. This should be a Standard MCQ, not fill-in-the-blank. FITB stems must be 1–2 sentences.)
+
+---
+
+## OPTIONS ≤ 7 WORDS (HARD FAILURE if exceeded)
+
+Each option (a, b, c, d) must be 7 words or fewer. Use only short terms or phrases. Place all details and context in the question stem. Count words in every option before outputting. No exceptions.
+
+If an option exceeds 7 words, RESTRUCTURE: move the detail into the question stem and make options short.
+
+**Example:**
+Wrong approach:
+Q: "Which plant is aquatic?"
+A) Hydrilla, a submerged aquatic plant found in freshwater bodies, commonly used in aquariums and known for its rapid growth rate
+
+Correct approach:
+Q: "A submerged freshwater plant commonly found in aquariums, known for rapid growth and ability to oxygenate water bodies. Identify the plant:"
+A) Hydrilla  B) Vallisneria  C) Pistia  D) Lotus
+
+**Valid option lengths:**
+- "Cytokinin" (1 word) ✅
+- "Both statements are true" (4 words) ✅
+- "Calcium salts and chondroitin salts" (5 words) ✅
+- "Hydrilla, a submerged aquatic plant found in freshwater" (8 words) ❌ FORBIDDEN
+- Any full sentence as an option ❌ FORBIDDEN — MOVE IT TO THE QUESTION STEM
+
+---

@@ -1,0 +1,1533 @@
+<title>NEET Test Generator — Dev Console</title>
+<meta name="description" content="Developer testing console for the NEET Test Generator API — detect, generate, poll status, and fetch answers with live logs and question paper rendering.">
+
+<style>
+:root {
+  --bg:        #0c1220;
+  --surf:      #141e30;
+  --surf2:     #1a2540;
+  --surf3:     #1e2b4a;
+  --border:    #263352;
+  --border-s:  #1e2940;
+  --accent:    #3b78f0;
+  --accent-d:  #2558cc;
+  --text:      #c8d8f0;
+  --muted:     #607090;
+  --success:   #34c76e;
+  --warn:      #e9b840;
+  --error:     #f06060;
+  --proc:      #a06cf0;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+.hdr {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px;
+  background: var(--surf);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.hdr-brand {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--text); white-space: nowrap;
+  display: flex; align-items: center; gap: 7px;
+}
+.hdr-brand-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+}
+.hdr-sep { flex: 1; }
+.hdr-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.hdr-url {
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text); padding: 4px 8px;
+  font-family: var(--mono); font-size: 11px; border-radius: 3px;
+  width: 240px;
+}
+.hdr-url:focus { outline: none; border-color: var(--accent); }
+.hdr-health {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--muted);
+}
+.h-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+.h-dot.ok  { background: var(--success); }
+.h-dot.err { background: var(--error); }
+
+/* ── WORKSPACE ── */
+.workspace { display: flex; flex: 1; overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 176px; min-width: 176px;
+  background: var(--surf);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 10px 6px;
+  gap: 2px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.nav-sec-lbl {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 8px 8px 4px;
+}
+.nav-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 7px 8px;
+  border-radius: 4px; border: none;
+  background: none; color: var(--muted);
+  font-size: 12px; cursor: pointer; text-align: left;
+  font-family: var(--sans);
+  transition: background 0.1s, color 0.1s;
+}
+.nav-btn:hover { background: var(--surf2); color: var(--text); }
+.nav-btn.active { background: rgba(59,120,240,0.12); color: var(--accent); }
+.nav-btn.active .n-ico { color: var(--accent); }
+.n-ico { width: 13px; text-align: center; flex-shrink: 0; font-size: 11px; }
+.sidebar-spacer { flex: 1; }
+.sidebar-ver { font-size: 10px; color: var(--border); padding: 6px 8px; font-family: var(--mono); }
+
+/* ── CONTENT ── */
+.content-wrap { flex: 1; overflow-y: auto; padding: 18px; }
+.tab { display: none; }
+.tab.active { display: block; }
+
+/* ── LOG DRAWER ── */
+.logdrawer {
+  height: 190px; min-height: 190px;
+  background: var(--surf); border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; flex-shrink: 0;
+}
+.log-hdr {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 12px; border-bottom: 1px solid var(--border-s);
+  flex-shrink: 0;
+}
+.log-hdr-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); flex: 1;
+}
+.log-cnt { font-family: var(--mono); font-size: 10px; color: var(--accent); }
+.log-scroll { flex: 1; overflow-y: auto; }
+.log-cols {
+  display: grid;
+  grid-template-columns: 70px 44px 52px 1fr 42px 1fr;
+  padding: 2px 12px;
+  position: sticky; top: 0;
+  background: var(--bg); border-bottom: 1px solid var(--border-s);
+}
+.log-cols span {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 2px 4px;
+}
+.log-row {
+  display: grid;
+  grid-template-columns: 70px 44px 52px 1fr 42px 1fr;
+  padding: 1px 12px; cursor: default;
+  border-bottom: 1px solid var(--border-s);
+  font-family: var(--mono); font-size: 10px;
+}
+.log-row:hover { background: var(--surf2); }
+.log-row span { padding: 2px 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.log-row .ltime { color: var(--muted); }
+.log-row .ltype { font-weight: 700; }
+.log-row .ltype.API  { color: var(--accent); }
+.log-row .ltype.SSE  { color: var(--proc); }
+.log-row .ltype.POLL { color: var(--muted); }
+.log-row .ltype.INFO { color: var(--success); }
+.log-row .ltype.ERR  { color: var(--error); }
+.log-row .lmeth.POST   { color: var(--success); }
+.log-row .lmeth.GET    { color: #60a8f0; }
+.log-row .lmeth.DELETE { color: var(--error); }
+.log-row .lstat.ok  { color: var(--success); }
+.log-row .lstat.err { color: var(--error); }
+.log-row .ldet { color: var(--muted); }
+
+/* ── SHARED COMPONENTS ── */
+.card {
+  background: var(--surf2); border: 1px solid var(--border);
+  border-radius: 5px; padding: 14px; margin-bottom: 14px;
+}
+.card-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+}
+.row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.field { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 120px; }
+.field label { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; }
+.field input, .field select, .field textarea {
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text); padding: 5px 8px;
+  border-radius: 3px; font-size: 12px; font-family: var(--sans);
+}
+.field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
+.field select option { background: var(--bg); }
+.field.mono input { font-family: var(--mono); font-size: 11px; }
+.hint { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+.btn {
+  padding: 6px 14px; border-radius: 3px;
+  border: 1px solid var(--border); background: var(--surf3);
+  color: var(--text); font-size: 12px; cursor: pointer;
+  font-family: var(--sans); transition: background 0.1s;
+}
+.btn:hover { background: var(--border); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-d); }
+.btn-sm { padding: 3px 9px; font-size: 11px; }
+.btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700;
+}
+.chip.queued    { background: rgba(96,112,144,0.15); color: var(--muted); }
+.chip.pending   { background: rgba(96,112,144,0.15); color: var(--muted); }
+.chip.processing{ background: rgba(160,108,240,0.15); color: var(--proc); }
+.chip.done      { background: rgba(52,199,110,0.15); color: var(--success); }
+.chip.partial   { background: rgba(233,184,64,0.15); color: var(--warn); }
+.chip.failed    { background: rgba(240,96,96,0.15); color: var(--error); }
+
+.pbar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; margin: 6px 0; }
+.pbar-fill { height: 100%; background: var(--accent); transition: width 0.4s; border-radius: 1px; }
+.pbar-fill.done   { background: var(--success); }
+.pbar-fill.failed { background: var(--error); }
+
+.divider { height: 1px; background: var(--border); margin: 12px 0; }
+.alert { padding: 8px 10px; border-radius: 3px; font-size: 11px; margin-bottom: 10px; }
+.alert.warn { background: rgba(233,184,64,0.08); border: 1px solid rgba(233,184,64,0.3); color: var(--warn); }
+.alert.info { background: rgba(59,120,240,0.08); border: 1px solid rgba(59,120,240,0.3); color: #80b0f8; }
+.alert.err  { background: rgba(240,96,96,0.08); border: 1px solid rgba(240,96,96,0.3); color: var(--error); }
+.empty-state { text-align: center; padding: 36px 20px; color: var(--muted); }
+.empty-ico { font-size: 28px; margin-bottom: 8px; }
+.empty-txt { font-size: 12px; }
+
+/* ── FILE DROP ── */
+.dropzone {
+  border: 1.5px dashed var(--border);
+  border-radius: 5px; padding: 20px; text-align: center;
+  cursor: pointer; transition: border-color 0.15s;
+  margin-bottom: 10px;
+}
+.dropzone:hover, .dropzone.over { border-color: var(--accent); }
+.dropzone-txt { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.dropzone-txt strong { color: var(--text); }
+.file-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.fchip {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--surf3); border: 1px solid var(--border);
+  border-radius: 3px; padding: 2px 7px;
+  font-size: 10px; font-family: var(--mono);
+}
+.fchip-x { cursor: pointer; color: var(--muted); }
+.fchip-x:hover { color: var(--error); }
+
+/* ── SSE STREAM ── */
+.sse-stream {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 3px; height: 130px; overflow-y: auto;
+  font-family: var(--mono); font-size: 11px; padding: 6px 8px;
+}
+.sse-row { display: flex; gap: 8px; padding: 1px 0; }
+.sse-time { color: var(--muted); flex-shrink: 0; }
+.sse-evtl { padding: 0 5px; border-radius: 2px; font-size: 9px; font-weight: 700; flex-shrink: 0; }
+.sse-evtl.heartbeat { background: rgba(160,108,240,0.15); color: var(--proc); }
+.sse-evtl.complete  { background: rgba(52,199,110,0.15); color: var(--success); }
+.sse-evtl.error     { background: rgba(240,96,96,0.15); color: var(--error); }
+.sse-evtl.info      { background: rgba(59,120,240,0.15); color: var(--accent); }
+.sse-data { color: var(--text); }
+
+/* ── DETECT GRID ── */
+.dg-wrap { margin-top: 12px; }
+.dg-label { font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.dg {
+  display: grid; grid-template-columns: 72px repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+  font-variant-numeric: tabular-nums;
+}
+.dg-cell {
+  background: var(--surf); padding: 10px 8px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+}
+.dg-cell.head { background: var(--surf3); }
+.dg-cell.corner { background: var(--surf3); }
+.dg-cell-lbl { font-size: 10px; font-weight: 700; color: var(--muted); text-align: center; }
+.dg-count { font-size: 20px; font-weight: 700; color: var(--accent); }
+.dg-range { font-size: 10px; color: var(--muted); font-family: var(--mono); }
+.dg-zero { font-size: 14px; color: var(--border); }
+
+/* ── JOB CARD ── */
+.job-card {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 5px; padding: 12px 14px; margin-bottom: 14px;
+}
+.job-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.job-id { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.job-stat { font-size: 11px; color: var(--muted); }
+.poll-pulse { font-size: 10px; color: var(--muted); animation: blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+/* ── QUESTION PAPER ── */
+.paper {
+  background: #fff; color: #1a1a1a;
+  border-radius: 5px; overflow: hidden;
+  margin-top: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+.paper-hdr {
+  background: var(--accent); color: #fff;
+  padding: 12px 18px;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+}
+.paper-hdr-title { font-size: 13px; font-weight: 700; }
+.paper-hdr-meta  { font-size: 11px; opacity: 0.75; }
+.paper-body { padding: 14px 16px; }
+.paper-note {
+  font-size: 11px; color: #555; background: #f6f8ff;
+  border: 1px solid #dce4ff; border-radius: 3px; padding: 6px 10px;
+  margin-bottom: 12px; font-style: italic;
+}
+
+.qcard {
+  border: 1px solid #e2e8f0; border-radius: 4px;
+  margin-bottom: 12px; overflow: hidden;
+}
+.qcard-head {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 12px; background: #f8faff;
+  border-bottom: 1px solid #e2e8f0;
+}
+.qnum {
+  background: var(--accent); color: #fff;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.qtype-badge {
+  font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 2px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.qtype-badge.mcq, .qtype-badge.MCQ              { background: #dbeafe; color: #1e40af; }
+.qtype-badge.assertion_reason, .qtype-badge.ASSERTION_REASON { background: #fce7f3; color: #9d174d; }
+.qtype-badge.match_the_column, .qtype-badge.MATCH_THE_COLUMN { background: #d1fae5; color: #065f46; }
+.qcat-badge {
+  font-size: 9px; color: #6b7280; background: #f1f5f9;
+  padding: 1px 5px; border-radius: 2px;
+}
+.qans-badge {
+  margin-left: auto; font-size: 10px; font-weight: 700;
+  background: #ecfdf5; color: #059669; padding: 1px 7px; border-radius: 10px;
+  border: 1px solid #a7f3d0;
+}
+
+.qbody { padding: 10px 14px; font-family: Georgia, "Times New Roman", serif; }
+.qtext { font-size: 14px; line-height: 1.75; color: #111; margin-bottom: 10px; }
+.qtext p { margin-bottom: 6px; }
+.math-span {
+  font-style: italic; color: #1e40af;
+  font-family: "STIX Two Math", Georgia, serif; font-size: 13px;
+}
+
+.ar-block { border-radius: 3px; padding: 8px 10px; margin-bottom: 6px; }
+.ar-block.assert { background: #eff6ff; border-left: 3px solid #3b82f6; }
+.ar-block.reason { background: #fdf4ff; border-left: 3px solid #a855f7; }
+.ar-lbl { font-size: 10px; font-weight: 700; display: block; margin-bottom: 3px; font-family: var(--sans); }
+.ar-block.assert .ar-lbl { color: #1d4ed8; }
+.ar-block.reason .ar-lbl { color: #7e22ce; }
+.ar-txt { font-size: 14px; color: #111; }
+
+.tbl-wrap { overflow-x: auto; margin: 6px 0 10px; }
+.mtc-tbl { border-collapse: collapse; font-size: 13px; }
+.mtc-tbl th { background: #f1f5f9; padding: 5px 10px; border: 1px solid #cbd5e1; font-weight: 700; text-align: left; font-size: 12px; }
+.mtc-tbl td { padding: 5px 10px; border: 1px solid #cbd5e1; }
+.mtc-tbl tr:nth-child(even) td { background: #f8fafc; }
+
+.opts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.opts-col  { display: flex; flex-direction: column; gap: 5px; }
+.opt {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 6px 9px; border-radius: 3px; border: 1px solid #e2e8f0;
+  font-size: 13px; line-height: 1.5; font-family: Georgia, serif;
+}
+.opt.correct     { border-color: #22c55e; background: #f0fdf4; }
+.opt.wrong       { border-color: #ef4444; background: #fef2f2; }
+.opt-let {
+  font-weight: 700; color: #6b7280; min-width: 14px; flex-shrink: 0;
+  font-size: 11px; font-family: var(--sans);
+}
+.opt.correct .opt-let { color: #16a34a; }
+.opt.wrong   .opt-let { color: #dc2626; }
+
+/* ── ANSWERS TAB ── */
+.ak-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ak-chip {
+  display: flex; align-items: center; gap: 4px;
+  background: var(--surf3); border: 1px solid var(--border);
+  border-radius: 3px; padding: 3px 8px;
+  font-size: 11px; font-family: var(--mono);
+}
+.ak-q { color: var(--muted); }
+.ak-a { font-weight: 700; color: var(--success); }
+
+.tag {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  padding: 1px 6px; border-radius: 2px; letter-spacing: 0.04em;
+}
+.tag.missing  { background: rgba(240,96,96,0.12); color: var(--error); }
+.tag.partial  { background: rgba(233,184,64,0.12); color: var(--warn); }
+.tag.done     { background: rgba(52,199,110,0.12); color: var(--success); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+.section-lbl {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.json-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 3px; padding: 8px; font-family: var(--mono); font-size: 10px;
+  overflow-x: auto; max-height: 160px; overflow-y: auto;
+  white-space: pre; color: var(--text);
+}
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+.full-flow-step {
+  display: flex; gap: 0; margin-bottom: 20px; flex-wrap: wrap;
+}
+.ff-step {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; color: var(--muted);
+}
+.ff-step.active { color: var(--text); }
+.ff-step.done   { color: var(--success); }
+.ff-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--border); display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.ff-step.active .ff-num { border-color: var(--accent); color: var(--accent); background: rgba(59,120,240,0.1); }
+.ff-step.done   .ff-num { border-color: var(--success); color: var(--success); background: rgba(52,199,110,0.1); }
+.ff-arrow { color: var(--border); margin: 0 8px; font-size: 12px; }
+</style>
+
+<!-- ── HEADER ── -->
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-brand-dot"></div>
+    NEET Test Generator
+  </div>
+  <div class="hdr-sep"></div>
+  <span class="hdr-label">API Base URL</span>
+  <input class="hdr-url" id="baseUrl" value="http://127.0.0.1:8000" placeholder="http://127.0.0.1:8000">
+  <button class="btn btn-sm" onclick="checkHealth()">Connect</button>
+  <div class="hdr-health">
+    <div class="h-dot" id="hDot"></div>
+    <span id="hText">Not connected</span>
+  </div>
+</header>
+
+<!-- ── WORKSPACE ── -->
+<div class="workspace">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="nav-sec-lbl">Flow</div>
+    <button class="nav-btn active" onclick="goTab('detect')" id="nb-detect">
+      <span class="n-ico">◎</span> Detect
+    </button>
+    <button class="nav-btn" onclick="goTab('generate')" id="nb-generate">
+      <span class="n-ico">▸</span> Generate
+    </button>
+    <button class="nav-btn" onclick="goTab('answers')" id="nb-answers">
+      <span class="n-ico">✓</span> Answers
+    </button>
+    <button class="nav-btn" onclick="goTab('flow')" id="nb-flow">
+      <span class="n-ico">↻</span> Full Flow
+    </button>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-ver">v1.0 · test-generator</div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="content-wrap" id="contentWrap">
+
+    <!-- ── DETECT TAB ── -->
+    <div class="tab active" id="tab-detect">
+      <div class="card">
+        <div class="card-title">Upload &amp; Detect</div>
+
+        <div class="dropzone" id="dDropzone" onclick="document.getElementById('dFileInput').click()" ondragover="dzOver(event,'dDropzone')" ondragleave="dzOut('dDropzone')" ondrop="dzDrop(event,'dDropzone','d')">
+          <input type="file" id="dFileInput" multiple accept="image/*,.pdf" style="display:none" onchange="addFiles(this.files,'d')">
+          <div class="dropzone-txt">
+            <strong>Drop images or a PDF here</strong><br>
+            or click to browse · PNG, JPG, PDF
+          </div>
+        </div>
+        <div class="file-chips" id="dFileChips"></div>
+
+        <div class="row" style="margin-top:10px;">
+          <div class="field">
+            <label>User ID</label>
+            <input id="d-uid" value="test-user-01" placeholder="test-user-01">
+          </div>
+          <div class="field">
+            <label>Subject</label>
+            <select id="d-sub">
+              <option value="biology">Biology</option>
+              <option value="chemistry">Chemistry</option>
+              <option value="physics" disabled>Physics (pending)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Medium</label>
+            <select id="d-med">
+              <option value="english">English</option>
+              <option value="hindi" disabled>Hindi (pending)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>File Type</label>
+            <select id="d-ftype">
+              <option value="image">image</option>
+              <option value="pdf">pdf</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="dRunBtn" onclick="runDetect()">Run Detect</button>
+          <span id="dStatus" style="font-size:11px;color:var(--muted);"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Live Stream</div>
+        <div class="sse-stream" id="dSseLog">
+          <div style="color:var(--muted);font-size:11px;">Waiting for stream…</div>
+        </div>
+      </div>
+
+      <div id="dResultWrap" style="display:none;">
+        <div class="card">
+          <div class="card-title">Detection Results</div>
+          <div id="dGrid"></div>
+          <div style="margin-top:12px;" class="btn-row">
+            <button class="btn btn-primary btn-sm" onclick="useDetectInGenerate()">Use in Generate →</button>
+            <button class="btn btn-sm" onclick="useDetectInFlow()">Use in Full Flow →</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /detect -->
+
+    <!-- ── GENERATE TAB ── -->
+    <div class="tab" id="tab-generate">
+      <div class="alert warn" style="margin-bottom:12px;">
+        Workers must be running separately: <code style="font-family:var(--mono);">python worker/main.py</code> · Jobs stay queued until a worker picks them up.
+      </div>
+      <div class="card">
+        <div class="card-title">Job Configuration</div>
+        <div class="row">
+          <div class="field">
+            <label>User ID</label>
+            <input id="g-uid" value="test-user-01">
+          </div>
+          <div class="field">
+            <label>Subject</label>
+            <select id="g-sub">
+              <option value="biology">Biology</option>
+              <option value="chemistry">Chemistry</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Medium</label>
+            <select id="g-med">
+              <option value="english">English</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Question Type</label>
+            <select id="g-qtype">
+              <option value="mcq">MCQ</option>
+              <option value="assertion_reason">Assertion-Reason</option>
+              <option value="match_the_column">Match the Column</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Difficulty</label>
+            <select id="g-diff">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Question Count</label>
+            <input id="g-cnt" type="number" value="5" min="1" max="50">
+          </div>
+          <div class="field">
+            <label>File Type</label>
+            <select id="g-ftype">
+              <option value="image">image</option>
+              <option value="pdf">pdf</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field mono">
+            <label>File Reference (S3 URI)</label>
+            <input id="g-fref" placeholder="s3://mldatabase/neetTestGenerator/user-id/detection-id/images/image_0.png">
+            <span class="hint">From detect results or paste S3 URI directly</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field mono">
+            <label>Detection ID (optional)</label>
+            <input id="g-did" placeholder="from detect result">
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="submitGenerate()">Submit Job</button>
+          <button class="btn btn-sm" onclick="clearGenerate()">Clear</button>
+        </div>
+      </div>
+
+      <div id="gJobCard" style="display:none;">
+        <div class="job-card">
+          <div class="card-title">Active Job</div>
+          <div class="job-row">
+            <span class="job-id" id="gJobId">—</span>
+            <span id="gStatusChip" class="chip queued">queued</span>
+            <span id="gBatchInfo" class="job-stat"></span>
+            <span id="gPollPulse" class="poll-pulse" style="display:none;">&#9679; polling</span>
+          </div>
+          <div class="pbar"><div class="pbar-fill" id="gPbar" style="width:0%"></div></div>
+          <div id="gJobMeta" style="font-size:11px;color:var(--muted);margin-top:4px;"></div>
+          <div id="gJobMsg" style="display:none;font-size:11px;color:var(--warn);margin-top:4px;padding:6px 8px;background:rgba(233,184,64,0.08);border-radius:4px;border-left:3px solid var(--warn);"></div>
+          <div class="btn-row" style="margin-top:8px;">
+            <button class="btn btn-sm" id="gAnsBtn" onclick="fetchAnswersForJob()" style="display:none;">Fetch Answers</button>
+            <button class="btn btn-sm" onclick="copyJobId()">Copy Job ID</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gPaperWrap"></div>
+    </div><!-- /generate -->
+
+    <!-- ── ANSWERS TAB ── -->
+    <div class="tab" id="tab-answers">
+      <div class="card">
+        <div class="card-title">Fetch Answer Key</div>
+        <div class="row">
+          <div class="field mono">
+            <label>Job ID</label>
+            <input id="a-jid" placeholder="paste job_id here">
+          </div>
+          <div class="field" style="flex:0;min-width:auto;justify-content:flex-end;">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary" onclick="fetchAnswers()">Fetch</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="aResultWrap"></div>
+    </div><!-- /answers -->
+
+    <!-- ── FULL FLOW TAB ── -->
+    <div class="tab" id="tab-flow">
+      <div class="full-flow-step" id="ffSteps">
+        <div class="ff-step active" id="ffs1"><div class="ff-num">1</div> Detect</div>
+        <div class="ff-arrow">→</div>
+        <div class="ff-step" id="ffs2"><div class="ff-num">2</div> Generate</div>
+        <div class="ff-arrow">→</div>
+        <div class="ff-step" id="ffs3"><div class="ff-num">3</div> Answers</div>
+      </div>
+
+      <!-- Step 1 -->
+      <div id="ff-s1">
+        <div class="card">
+          <div class="card-title">Step 1 — Upload &amp; Detect</div>
+          <div class="dropzone" id="ffDropzone" onclick="document.getElementById('ffFileInput').click()" ondragover="dzOver(event,'ffDropzone')" ondragleave="dzOut('ffDropzone')" ondrop="dzDrop(event,'ffDropzone','ff')">
+            <input type="file" id="ffFileInput" multiple accept="image/*,.pdf" style="display:none" onchange="addFiles(this.files,'ff')">
+            <div class="dropzone-txt"><strong>Drop images or PDF</strong> · or click to browse</div>
+          </div>
+          <div class="file-chips" id="ffFileChips"></div>
+          <div class="row" style="margin-top:10px;">
+            <div class="field"><label>User ID</label><input id="ff-uid" value="test-user-01"></div>
+            <div class="field"><label>Subject</label><select id="ff-sub"><option value="biology">Biology</option><option value="chemistry">Chemistry</option></select></div>
+            <div class="field"><label>Medium</label><select id="ff-med"><option value="english">English</option></select></div>
+            <div class="field"><label>File Type</label><select id="ff-ftype"><option value="image">image</option><option value="pdf">pdf</option></select></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="ffDetectBtn" onclick="ffRunDetect()">Run Detect</button>
+            <span id="ffDetectStatus" style="font-size:11px;color:var(--muted);"></span>
+          </div>
+          <div class="sse-stream" id="ffSseLog" style="margin-top:10px;"><div style="color:var(--muted);font-size:11px;">Stream will appear here…</div></div>
+        </div>
+        <div id="ffGrid1"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="ff-s2" style="display:none;">
+        <div class="card">
+          <div class="card-title">Step 2 — Configure &amp; Generate</div>
+          <div class="alert info" id="ffDetectSummary"></div>
+          <div class="row">
+            <div class="field"><label>Question Type</label>
+              <select id="ff-qtype">
+                <option value="mcq">MCQ</option>
+                <option value="assertion_reason">Assertion-Reason</option>
+                <option value="match_the_column">Match the Column</option>
+              </select>
+            </div>
+            <div class="field"><label>Difficulty</label>
+              <select id="ff-diff"><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select>
+            </div>
+            <div class="field"><label>Count</label><input id="ff-cnt" type="number" value="5" min="1" max="50"></div>
+          </div>
+          <div class="row">
+            <div class="field mono"><label>File Reference</label><input id="ff-fref" placeholder="auto-filled from detect"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="ffGenBtn" onclick="ffSubmitGenerate()">Submit Job</button>
+            <span id="ffGenStatus" style="font-size:11px;color:var(--muted);"></span>
+          </div>
+        </div>
+        <div id="ffJobCard2" style="display:none;">
+          <div class="job-card">
+            <div class="job-row">
+              <span class="job-id" id="ffJobId">—</span>
+              <span id="ffStatusChip" class="chip queued">queued</span>
+              <span id="ffBatchInfo" class="job-stat"></span>
+              <span id="ffPollPulse" class="poll-pulse" style="display:none;">&#9679; polling</span>
+            </div>
+            <div class="pbar"><div class="pbar-fill" id="ffPbar" style="width:0%"></div></div>
+            <div id="ffJobMsg" style="display:none;font-size:11px;color:var(--warn);margin-top:4px;padding:6px 8px;background:rgba(233,184,64,0.08);border-radius:4px;border-left:3px solid var(--warn);"></div>
+          </div>
+        </div>
+        <div id="ffPaper2"></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="ff-s3" style="display:none;">
+        <div class="card">
+          <div class="card-title">Step 3 — Answer Key</div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="ffFetchAnswers()">Fetch Answers</button>
+            <span id="ffAnsStatus" style="font-size:11px;color:var(--muted);"></span>
+          </div>
+        </div>
+        <div id="ffAnsWrap"></div>
+      </div>
+    </div><!-- /flow -->
+
+
+  </main>
+</div><!-- /workspace -->
+
+<!-- ── LOG DRAWER ── -->
+<div class="logdrawer">
+  <div class="log-hdr">
+    <span class="log-hdr-title">API Log</span>
+    <span class="log-cnt" id="logCnt">0 entries</span>
+    <button class="btn btn-sm" onclick="clearLog()">Clear</button>
+    <button class="btn btn-sm" onclick="copyLog()">Copy</button>
+  </div>
+  <div class="log-scroll" id="logScroll">
+    <div class="log-cols">
+      <span>Time</span><span>Type</span><span>Method</span>
+      <span>Endpoint</span><span>Status</span><span>Detail</span>
+    </div>
+    <div id="logBody"></div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+function getBase() { return document.getElementById('baseUrl').value.replace(/\/$/, ''); }
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+const st = {
+  dFiles: [], ffFiles: [],
+  lastDetect: null,   // { detection_id, user_id, file_type, results }
+  genJob:    null,    // { job_id }
+  ffJob:     null,    // { job_id }
+  pollTimer: null,
+  ffPollTimer: null,
+};
+
+// ── LOGGING ─────────────────────────────────────────────────────────────────
+const logEntries = [];
+function addLog(type, method, path, status, detail, ms) {
+  const now = new Date();
+  const time = now.toTimeString().slice(0,8) + '.' + String(now.getMilliseconds()).padStart(3,'0');
+  logEntries.push({ time, type, method, path, status, detail, ms });
+  const body = document.getElementById('logBody');
+  const statusCls = status && status >= 200 && status < 300 ? 'ok' : (status ? 'err' : '');
+  const row = document.createElement('div');
+  row.className = 'log-row';
+  row.innerHTML = `
+    <span class="ltime">${time}</span>
+    <span class="ltype ${type}">${type}</span>
+    <span class="lmeth ${method||''}">${method||'—'}</span>
+    <span title="${path||''}">${(path||'—').slice(0,40)}</span>
+    <span class="lstat ${statusCls}">${status||'—'}</span>
+    <span class="ldet" title="${detail||''}">${detail||''}</span>
+  `;
+  body.appendChild(row);
+  const s = document.getElementById('logScroll');
+  s.scrollTop = s.scrollHeight;
+  document.getElementById('logCnt').textContent = logEntries.length + ' entr' + (logEntries.length===1?'y':'ies');
+}
+function clearLog() { logEntries.length=0; document.getElementById('logBody').innerHTML=''; document.getElementById('logCnt').textContent='0 entries'; }
+function copyLog() {
+  const txt = logEntries.map(e=>`[${e.time}] ${e.type} ${e.method||''} ${e.path||''} → ${e.status||''} ${e.detail||''}`).join('\n');
+  navigator.clipboard.writeText(txt).catch(()=>{});
+}
+
+// ── TAB NAVIGATION ───────────────────────────────────────────────────────────
+function goTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('nb-'+name).classList.add('active');
+}
+
+// ── HEALTH CHECK ─────────────────────────────────────────────────────────────
+async function checkHealth() {
+  const dot = document.getElementById('hDot');
+  const txt = document.getElementById('hText');
+  dot.className = 'h-dot';
+  txt.textContent = 'Checking…';
+  const t = Date.now();
+  try {
+    const r = await fetch(getBase() + '/health', { signal: AbortSignal.timeout(5000) });
+    const ms = Date.now()-t;
+    const d = await r.json();
+    addLog('API','GET','/health', r.status, JSON.stringify(d).slice(0,80), ms);
+    if (r.ok) { dot.className='h-dot ok'; txt.textContent='Connected · '+ms+'ms'; }
+    else       { dot.className='h-dot err'; txt.textContent='HTTP '+r.status; }
+  } catch(e) {
+    addLog('ERR','GET','/health',null,e.message,Date.now()-t);
+    dot.className='h-dot err'; txt.textContent=e.message;
+  }
+}
+
+// ── FILE DROP ────────────────────────────────────────────────────────────────
+function dzOver(e,id) { e.preventDefault(); document.getElementById(id).classList.add('over'); }
+function dzOut(id)     { document.getElementById(id).classList.remove('over'); }
+function dzDrop(e,id,ns) { e.preventDefault(); dzOut(id); addFiles(e.dataTransfer.files,ns); }
+
+function addFiles(fileList, ns) {
+  const arr = ns==='d' ? st.dFiles : st.ffFiles;
+  const chipEl = document.getElementById(ns==='d'?'dFileChips':'ffFileChips');
+  Array.from(fileList).forEach(f => {
+    if (!arr.find(x=>x.name===f.name)) arr.push(f);
+  });
+  renderFileChips(arr, chipEl, ns);
+  // auto-detect file type
+  const ftSel = document.getElementById(ns==='d'?'d-ftype':'ff-ftype');
+  if (arr.length && arr[0].type==='application/pdf') ftSel.value='pdf';
+  else if (arr.length) ftSel.value='image';
+}
+function removeFile(name, ns) {
+  if (ns==='d') st.dFiles = st.dFiles.filter(f=>f.name!==name);
+  else          st.ffFiles = st.ffFiles.filter(f=>f.name!==name);
+  const chipEl = document.getElementById(ns==='d'?'dFileChips':'ffFileChips');
+  renderFileChips(ns==='d'?st.dFiles:st.ffFiles, chipEl, ns);
+}
+function renderFileChips(arr, el, ns) {
+  el.innerHTML = arr.map(f=>`
+    <div class="fchip">
+      ${f.name}
+      <span class="fchip-x" onclick="removeFile('${f.name}','${ns}')">×</span>
+    </div>`).join('');
+}
+
+// ── SSE LOG ──────────────────────────────────────────────────────────────────
+function clearSseLog(id) { document.getElementById(id).innerHTML=''; }
+function addSseRow(logId, evtName, data) {
+  const el = document.getElementById(logId);
+  const now = new Date().toTimeString().slice(0,8);
+  const clazz = evtName==='heartbeat'?'heartbeat':evtName==='complete'?'complete':evtName==='error'?'error':'info';
+  const preview = typeof data==='string' ? data : JSON.stringify(data).slice(0,120);
+  const row = document.createElement('div');
+  row.className='sse-row';
+  row.innerHTML=`<span class="sse-time">${now}</span><span class="sse-evtl ${clazz}">${evtName}</span><span class="sse-data">${preview}</span>`;
+  el.appendChild(row);
+  el.scrollTop=el.scrollHeight;
+}
+
+// ── DETECT ───────────────────────────────────────────────────────────────────
+async function runDetect() {
+  if (!st.dFiles.length) { alert('Upload at least one file first.'); return; }
+  const btn = document.getElementById('dRunBtn');
+  btn.disabled=true;
+  const sEl = document.getElementById('dStatus');
+  sEl.textContent='Streaming…';
+  clearSseLog('dSseLog');
+  document.getElementById('dResultWrap').style.display='none';
+
+  const fd = buildDetectFD('d-uid','d-sub','d-med','d-ftype',st.dFiles);
+  await streamDetect(fd, 'dSseLog', 'd');
+
+  btn.disabled=false;
+  sEl.textContent='';
+}
+
+async function ffRunDetect() {
+  if (!st.ffFiles.length) { alert('Upload at least one file first.'); return; }
+  const btn = document.getElementById('ffDetectBtn');
+  btn.disabled=true;
+  document.getElementById('ffDetectStatus').textContent='Streaming…';
+  clearSseLog('ffSseLog');
+
+  const fd = buildDetectFD('ff-uid','ff-sub','ff-med','ff-ftype',st.ffFiles);
+  await streamDetect(fd, 'ffSseLog', 'ff');
+
+  btn.disabled=false;
+  document.getElementById('ffDetectStatus').textContent='';
+}
+
+function buildDetectFD(uidId, subId, medId, ftId, files) {
+  const fd = new FormData();
+  fd.append('user_id', document.getElementById(uidId).value.trim());
+  fd.append('subject', document.getElementById(subId).value);
+  fd.append('medium',  document.getElementById(medId).value);
+  fd.append('file_type', document.getElementById(ftId).value);
+  files.forEach(f => fd.append('files', f, f.name));
+  return fd;
+}
+
+async function streamDetect(fd, logId, ns) {
+  const t = Date.now();
+  try {
+    const res = await fetch(getBase()+'/detect', { method:'POST', body:fd });
+    const ms = Date.now()-t;
+    if (!res.ok) {
+      let detail = 'HTTP '+res.status;
+      try { detail = (await res.json()).detail || detail; } catch{}
+      addSseRow(logId, 'error', detail);
+      addLog('ERR','POST','/detect',res.status,detail,ms);
+      return;
+    }
+    addLog('API','POST','/detect',res.status,'SSE stream open',ms);
+
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf='', lastEvt='message';
+
+    while(true) {
+      const {done,value} = await reader.read();
+      if (done) break;
+      buf += dec.decode(value,{stream:true});
+      const lines = buf.split('\n');
+      buf = lines.pop();
+      for (const line of lines) {
+        if (line.startsWith('event:')) { lastEvt=line.slice(6).trim(); }
+        else if (line.startsWith('data:')) {
+          const raw=line.slice(5).trim();
+          if (!raw) continue;
+          try {
+            const data = JSON.parse(raw);
+            addSseRow(logId, lastEvt, data);
+            addLog('SSE','—',`/detect → ${lastEvt}`,null,typeof data==='object'?JSON.stringify(data).slice(0,80):data, Date.now()-t);
+            if (lastEvt==='complete') handleDetectComplete(data, ns);
+          } catch {}
+        }
+      }
+    }
+  } catch(e) {
+    addSseRow(logId,'error','Network: '+e.message);
+    addLog('ERR','POST','/detect',null,e.message,Date.now()-t);
+  }
+}
+
+function handleDetectComplete(data, ns) {
+  st.lastDetect = data;
+  if (ns==='d') {
+    renderDetectGrid('dGrid', data.results);
+    document.getElementById('dResultWrap').style.display='block';
+  } else if (ns==='ff') {
+    // Show grid below step 1
+    let g = document.getElementById('ffGrid1');
+    g.innerHTML = '';
+    if (data.results) {
+      const wrap = document.createElement('div');
+      wrap.className='card';
+      wrap.innerHTML='<div class="card-title">Detection Results</div>';
+      const gridEl = document.createElement('div');
+      renderDetectGrid2(gridEl, data.results);
+      wrap.appendChild(gridEl);
+      g.appendChild(wrap);
+    }
+    // Advance to step 2
+    setTimeout(()=>ffAdvanceTo2(data), 600);
+  }
+}
+
+function renderDetectGrid(containerId, results) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = buildGridHTML(results);
+}
+function renderDetectGrid2(el, results) { el.innerHTML = buildGridHTML(results); }
+
+function buildGridHTML(results) {
+  if (!results) return '<div style="color:var(--muted);font-size:12px;">No results returned</div>';
+  // API keys: mcq, ar, mtc (lowercase); properties: count, min, max
+  const types = ['mcq','ar','mtc'];
+  const diffs = ['easy','medium','hard'];
+  const typeLabels = { mcq:'MCQ', ar:'Assertion-Reason', mtc:'Match the Column' };
+  let html = '<div class="dg-wrap"><div class="dg-label">Question Distribution (count / range)</div><div class="dg">';
+  html += '<div class="dg-cell corner"></div>';
+  types.forEach(t => html+=`<div class="dg-cell head"><div class="dg-cell-lbl">${typeLabels[t]}</div></div>`);
+  diffs.forEach(d => {
+    html += `<div class="dg-cell head"><div class="dg-cell-lbl">${d.charAt(0).toUpperCase()+d.slice(1)}</div></div>`;
+    types.forEach(t => {
+      const cell = results[d]?.[t] ?? null;
+      if (cell && cell.count) {
+        const cnt = cell.count;
+        const lo = cell.min ?? cnt;
+        const hi = cell.max ?? cnt;
+        html += `<div class="dg-cell"><div class="dg-count">${cnt}</div><div class="dg-range">${lo}&ndash;${hi}</div></div>`;
+      } else {
+        html += `<div class="dg-cell"><div class="dg-zero">&mdash;</div></div>`;
+      }
+    });
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function useDetectInGenerate() {
+  if (!st.lastDetect) return;
+  const d = st.lastDetect;
+  if (d.user_id)       document.getElementById('g-uid').value  = d.user_id;
+  if (d.subject)       document.getElementById('g-sub').value  = d.subject;
+  if (d.medium)        document.getElementById('g-med').value  = d.medium;
+  if (d.file_type)     document.getElementById('g-ftype').value= d.file_type;
+  if (d.detection_id)  document.getElementById('g-did').value  = d.detection_id;
+  // Use actual S3 path from detect response (detection_id ≠ S3 folder UUID)
+  if (d.s3_paths && d.s3_paths.length > 0) {
+    document.getElementById('g-fref').value = d.s3_paths[0];
+  } else if (d.detection_id && d.user_id) {
+    const bucket = 'mldatabase';
+    const ft = d.file_type || 'image';
+    const ext = ft==='pdf' ? `pdfs/file.pdf` : `images/image_0.png`;
+    document.getElementById('g-fref').value = `s3://${bucket}/neetTestGenerator/${d.user_id}/${d.detection_id}/${ext}`;
+  }
+  goTab('generate');
+}
+
+function useDetectInFlow() { goTab('flow'); }
+
+// ── GENERATE ─────────────────────────────────────────────────────────────────
+async function submitGenerate() {
+  const body = {
+    user_id:        document.getElementById('g-uid').value.trim(),
+    subject:        document.getElementById('g-sub').value,
+    medium:         document.getElementById('g-med').value,
+    question_type:  document.getElementById('g-qtype').value,
+    difficulty:     document.getElementById('g-diff').value,
+    question_count: parseInt(document.getElementById('g-cnt').value,10),
+    file_reference: document.getElementById('g-fref').value.trim(),
+    file_type:      document.getElementById('g-ftype').value,
+  };
+  const did = document.getElementById('g-did').value.trim();
+  if (did) body.detection_id = did;
+
+  const t = Date.now();
+  try {
+    const res = await fetch(getBase()+'/generate', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
+    });
+    const ms = Date.now()-t;
+    const data = await res.json();
+    addLog('API','POST','/generate',res.status,`job_id=${(data.job_id||'').slice(0,12)}…`,ms);
+    if (!res.ok) { showAlert('gPaperWrap','err',data.detail||'HTTP '+res.status); return; }
+    st.genJob = { job_id: data.job_id };
+    showJobCard('gJobCard','gJobId','gStatusChip','gBatchInfo','gPbar','gPollPulse', data.job_id);
+    document.getElementById('gAnsBtn').style.display='none';
+    startPoll(data.job_id, 'gen');
+  } catch(e) {
+    addLog('ERR','POST','/generate',null,e.message,Date.now()-t);
+    showAlert('gPaperWrap','err','Network: '+e.message);
+  }
+}
+
+function clearGenerate() {
+  stopPoll('gen');
+  document.getElementById('gJobCard').style.display='none';
+  document.getElementById('gPaperWrap').innerHTML='';
+}
+
+function showJobCard(cardId, jidId, chipId, batchId, pbarId, pulseId, jobId) {
+  document.getElementById(cardId).style.display='block';
+  document.getElementById(jidId).textContent = jobId;
+  document.getElementById(chipId).textContent = 'queued';
+  document.getElementById(chipId).className = 'chip queued';
+  document.getElementById(batchId).textContent = '';
+  document.getElementById(pbarId).style.width = '0%';
+  document.getElementById(pulseId).style.display='inline';
+}
+
+function updateJobCard(chipId, batchId, pbarId, pulseId, ansBtnId, data, ns) {
+  const s = data.status || 'pending';
+  const chip = document.getElementById(chipId);
+  chip.textContent = s; chip.className='chip '+s;
+  const pbar = document.getElementById(pbarId);
+  const bc = data.batches_completed ?? 0;
+  const bt = data.total_batches ?? 0;
+  if (bt > 0) {
+    const pct = Math.round((bc/bt)*100);
+    pbar.style.width=pct+'%';
+    pbar.className = 'pbar-fill' + (s==='done'?' done':s==='partial'?' partial':s==='failed'?' failed':'');
+    let batchText = `${bc}/${bt} batches &middot; ${data.questions_generated ?? 0} questions`;
+    // Show failed chunk count for partial
+    if (s==='partial' && data.batches) {
+      const failedCount = Object.values(data.batches).filter(b=>b.status==='failed').length;
+      if (failedCount) batchText += ` &middot; <span style="color:var(--err)">${failedCount} chunk(s) failed</span>`;
+    }
+    document.getElementById(batchId).innerHTML = batchText;
+  }
+  // Show partial/failed message
+  const msgId = ns==='gen' ? 'gJobMsg' : 'ffJobMsg';
+  const msgEl = document.getElementById(msgId);
+  if (msgEl && data.message && ['partial','failed'].includes(s)) {
+    msgEl.textContent = data.message;
+    msgEl.style.display = 'block';
+  }
+  if (['done','partial','failed'].includes(s)) {
+    document.getElementById(pulseId).style.display='none';
+    if (ansBtnId && s!=='failed') document.getElementById(ansBtnId).style.display='inline';
+  }
+  // Render questions (done or partial, even 0 questions shows a message)
+  if (s==='done' || s==='partial') {
+    const paperEl = ns==='gen' ? 'gPaperWrap' : 'ffPaper2';
+    renderPaper(paperEl, data, null);
+    if (ns==='ff') advanceFFStep3();
+  }
+}
+
+// ── POLLING ──────────────────────────────────────────────────────────────────
+function startPoll(jobId, ns) {
+  stopPoll(ns);
+  const fn = ns==='gen' ? pollGen : pollFF;
+  const timer = setInterval(()=>fn(jobId), 2000);
+  if (ns==='gen') st.pollTimer=timer; else st.ffPollTimer=timer;
+  fn(jobId);
+}
+function stopPoll(ns) {
+  if (ns==='gen' && st.pollTimer)   { clearInterval(st.pollTimer); st.pollTimer=null; }
+  if (ns==='ff'  && st.ffPollTimer) { clearInterval(st.ffPollTimer); st.ffPollTimer=null; }
+}
+
+async function pollGen(jobId) {
+  const t=Date.now();
+  try {
+    const r = await fetch(getBase()+'/status/'+jobId);
+    const ms=Date.now()-t;
+    const d = await r.json();
+    addLog('POLL','GET','/status/'+jobId.slice(0,8)+'…',r.status,'status='+d.status,ms);
+    updateJobCard('gStatusChip','gBatchInfo','gPbar','gPollPulse','gAnsBtn',d,'gen');
+    if (['done','partial','failed'].includes(d.status)) stopPoll('gen');
+  } catch(e) { addLog('ERR','GET','/status',null,e.message,Date.now()-t); }
+}
+async function pollFF(jobId) {
+  const t=Date.now();
+  try {
+    const r = await fetch(getBase()+'/status/'+jobId);
+    const ms=Date.now()-t;
+    const d = await r.json();
+    addLog('POLL','GET','/status/'+jobId.slice(0,8)+'…',r.status,'status='+d.status,ms);
+    updateJobCard('ffStatusChip','ffBatchInfo','ffPbar','ffPollPulse',null,d,'ff');
+    if (['done','partial','failed'].includes(d.status)) stopPoll('ff');
+  } catch(e) { addLog('ERR','GET','/status',null,e.message,Date.now()-t); }
+}
+
+function fetchAnswersForJob() {
+  if (!st.genJob) return;
+  document.getElementById('a-jid').value = st.genJob.job_id;
+  goTab('answers');
+  fetchAnswers();
+}
+function copyJobId() {
+  if (st.genJob) navigator.clipboard.writeText(st.genJob.job_id).catch(()=>{});
+}
+
+// ── ANSWERS ──────────────────────────────────────────────────────────────────
+async function fetchAnswers() {
+  const jid = document.getElementById('a-jid').value.trim();
+  if (!jid) { alert('Enter a job ID first.'); return; }
+  const t=Date.now();
+  try {
+    const r = await fetch(getBase()+'/answers/'+jid);
+    const ms=Date.now()-t;
+    const d = await r.json();
+    addLog('API','GET','/answers/'+jid.slice(0,8)+'…',r.status,`answers_status=${d.answers_status}`,ms);
+    const wrap = document.getElementById('aResultWrap');
+    if (!r.ok) { showAlert('aResultWrap','err',d.detail||'HTTP '+r.status); return; }
+    renderAnswerKey(wrap, d);
+  } catch(e) {
+    addLog('ERR','GET','/answers',null,e.message,Date.now()-t);
+    showAlert('aResultWrap','err','Network: '+e.message);
+  }
+}
+
+function renderAnswerKey(el, data) {
+  el.innerHTML='';
+  const status = data.answers_status || 'unknown';
+  let html = `<div class="card">
+    <div class="card-title">Answer Key</div>
+    <div class="job-row" style="margin-bottom:10px;">
+      <span class="chip ${status}">${status}</span>
+      <span style="font-size:11px;color:var(--muted);">${(data.answers||[]).length} answers</span>
+    </div>`;
+
+  if (data.answers?.length) {
+    html += '<div class="ak-grid">';
+    data.answers.forEach(a => {
+      html += `<div class="ak-chip"><span class="ak-q">Q${a.question_id}</span><span class="ak-a">${a.correct_answer}</span></div>`;
+    });
+    html += '</div>';
+    if (data.answers[0]?.explanation) {
+      html += '<div class="divider"></div><div class="section-lbl">Explanations</div>';
+      data.answers.forEach(a => {
+        if (a.explanation) html += `<div style="margin-bottom:10px;padding:8px 10px;background:var(--bg);border-radius:3px;border:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;">Q${a.question_id} — Correct: ${a.correct_answer}</div>
+          <div style="font-size:12px;color:var(--muted);">${a.explanation}</div>
+        </div>`;
+      });
+    }
+  } else if (status==='pending') {
+    html += '<div style="color:var(--muted);font-size:12px;">Answers are still being generated. Try again in a moment.</div>';
+  } else {
+    html += '<div style="color:var(--muted);font-size:12px;">No answers found.</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// ── FULL FLOW ────────────────────────────────────────────────────────────────
+function ffAdvanceTo2(data) {
+  document.getElementById('ffs1').classList.add('done'); document.getElementById('ffs1').classList.remove('active');
+  document.getElementById('ffs2').classList.add('active');
+  document.getElementById('ff-s2').style.display='block';
+
+  // Pre-fill
+  const uid = document.getElementById('ff-uid').value.trim();
+  const sub = document.getElementById('ff-sub').value;
+  const med = document.getElementById('ff-med').value;
+  const ft  = document.getElementById('ff-ftype').value;
+
+  let fref = '';
+  if (data.s3_paths && data.s3_paths.length > 0) {
+    fref = data.s3_paths[0];
+  } else if (data.detection_id && uid) {
+    const ext = ft==='pdf' ? 'pdfs/file.pdf' : 'images/image_0.png';
+    fref = `s3://mldatabase/neetTestGenerator/${uid}/${data.detection_id}/${ext}`;
+  }
+  document.getElementById('ff-fref').value = fref;
+  document.getElementById('ffDetectSummary').textContent =
+    `Detected: detection_id=${data.detection_id||'—'} · subject=${sub} · medium=${med} · file_type=${ft}`;
+
+  document.getElementById('ff-s2').scrollIntoView({behavior:'smooth'});
+}
+
+async function ffSubmitGenerate() {
+  const ffData = st.lastDetect || {};
+  const body = {
+    user_id:        document.getElementById('ff-uid').value.trim(),
+    subject:        document.getElementById('ff-sub').value,
+    medium:         document.getElementById('ff-med').value,
+    question_type:  document.getElementById('ff-qtype').value,
+    difficulty:     document.getElementById('ff-diff').value,
+    question_count: parseInt(document.getElementById('ff-cnt').value,10),
+    file_reference: document.getElementById('ff-fref').value.trim(),
+    file_type:      document.getElementById('ff-ftype').value,
+  };
+  if (ffData.detection_id) body.detection_id = ffData.detection_id;
+
+  document.getElementById('ffGenBtn').disabled=true;
+  const t=Date.now();
+  try {
+    const res = await fetch(getBase()+'/generate', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
+    });
+    const ms=Date.now()-t;
+    const data=await res.json();
+    addLog('API','POST','/generate',res.status,`job_id=${(data.job_id||'').slice(0,12)}…`,ms);
+    if (!res.ok) { document.getElementById('ffGenStatus').textContent='Error: '+(data.detail||'HTTP '+res.status); document.getElementById('ffGenBtn').disabled=false; return; }
+    st.ffJob = { job_id: data.job_id };
+    document.getElementById('ffJobCard2').style.display='block';
+    document.getElementById('ffJobId').textContent = data.job_id;
+    document.getElementById('ffGenStatus').textContent='Job submitted';
+    document.getElementById('ffPollPulse').style.display='inline';
+    startPoll(data.job_id,'ff');
+    document.getElementById('ffGenBtn').disabled=false;
+  } catch(e) {
+    addLog('ERR','POST','/generate',null,e.message,Date.now()-t);
+    document.getElementById('ffGenStatus').textContent='Error: '+e.message;
+    document.getElementById('ffGenBtn').disabled=false;
+  }
+}
+
+function advanceFFStep3() {
+  document.getElementById('ffs2').classList.add('done'); document.getElementById('ffs2').classList.remove('active');
+  document.getElementById('ffs3').classList.add('active');
+  document.getElementById('ff-s3').style.display='block';
+  document.getElementById('ff-s3').scrollIntoView({behavior:'smooth'});
+  // Auto-fetch answers
+  setTimeout(ffFetchAnswers, 800);
+}
+
+async function ffFetchAnswers() {
+  if (!st.ffJob) return;
+  const el = document.getElementById('ffAnsWrap');
+  el.innerHTML='';
+  const t=Date.now();
+  try {
+    const r=await fetch(getBase()+'/answers/'+st.ffJob.job_id);
+    const ms=Date.now()-t;
+    const d=await r.json();
+    addLog('API','GET','/answers',r.status,'answers_status='+d.answers_status,ms);
+    if (!r.ok) { showAlert('ffAnsWrap','err',d.detail||'HTTP '+r.status); return; }
+    document.getElementById('ffAnsStatus').textContent=d.answers_status;
+    renderAnswerKey(el, d);
+    // Re-render gen paper with answers
+    if (d.answers?.length && st.ffJob) {
+      const jr2=await fetch(getBase()+'/status/'+st.ffJob.job_id).then(r=>r.json());
+      renderPaper('ffPaper2', jr2, d.answers);
+    }
+    document.getElementById('ffs3').classList.add('done');
+  } catch(e) {
+    addLog('ERR','GET','/answers',null,e.message,Date.now()-t);
+    showAlert('ffAnsWrap','err','Network: '+e.message);
+  }
+}
+
+// ── PAPER + QUESTION RENDER ───────────────────────────────────────────────────
+function renderPaper(elId, jobData, answers) {
+  const el = document.getElementById(elId);
+  if (!jobData.questions?.length) {
+    const msg = jobData.status==='partial'
+      ? `<div class="card" style="color:var(--warn);padding:16px;">&triangle; Partial result &mdash; ${jobData.questions_generated ?? 0} questions generated. ${jobData.message||''}</div>`
+      : `<div class="card" style="color:var(--muted);padding:16px;">No questions generated.</div>`;
+    el.innerHTML = msg;
+    return;
+  }
+  const meta = {
+    subject: jobData.subject || '—',
+    medium: jobData.medium || '—',
+    qt: jobData.question_type || '—',
+    diff: jobData.difficulty || '—',
+    count: jobData.questions.length,
+  };
+  const ansMap = {};
+  (answers||[]).forEach(a => { ansMap[a.question_id] = a; });
+
+  let html = `<div class="paper">
+    <div class="paper-hdr">
+      <span class="paper-hdr-title">NEET Practice — ${capitalise(meta.subject)} · ${capitalise(meta.difficulty)} · ${fmtQType(meta.qt)}</span>
+      <span class="paper-hdr-meta">${meta.count} Questions · ${capitalise(meta.medium)} Medium</span>
+    </div>
+    <div class="paper-body">
+      <div class="paper-note">Questions generated by the NEET Test Generator. Review carefully before use.</div>`;
+
+  jobData.questions.forEach((q,i) => {
+    const ans = ansMap[q.question_id] || null;
+    html += renderQuestion(q, i, ans);
+  });
+
+  html += '</div></div>';
+  el.innerHTML = html;
+}
+
+function renderQuestion(q, idx, ans) {
+  const type = q.question_type || 'mcq';
+  const cat  = q.question_category || '';
+  const num  = idx+1;
+
+  let bodyHtml='';
+  if (type==='assertion_reason' || type==='ASSERTION_REASON') {
+    bodyHtml = renderAR(q.question_text);
+  } else {
+    bodyHtml = `<div class="qtext">${parseText(q.question_text)}</div>`;
+  }
+
+  const optsHtml = renderOptions(q, ans);
+  const ansLabel = ans ? `<span class="qans-badge">Ans: ${ans.correct_answer}</span>` : '';
+
+  return `<div class="qcard">
+    <div class="qcard-head">
+      <span class="qnum">${num}</span>
+      <span class="qtype-badge ${type}">${fmtQType(type)}</span>
+      ${cat ? `<span class="qcat-badge">${fmtCat(cat)}</span>` : ''}
+      ${ansLabel}
+    </div>
+    <div class="qbody">
+      ${bodyHtml}
+      ${optsHtml}
+    </div>
+  </div>`;
+}
+
+function renderAR(text) {
+  if (!text) return '';
+  const aM = text.match(/Assertion\s*\(A\)\s*[:\-]\s*([\s\S]+?)(?=Reason\s*\(R\)|$)/i);
+  const rM = text.match(/Reason\s*\(R\)\s*[:\-]\s*([\s\S]+?)$/i);
+  if (aM && rM) {
+    return `<div class="ar-block assert"><span class="ar-lbl">Assertion (A)</span><span class="ar-txt">${parseText(aM[1].trim())}</span></div>
+            <div class="ar-block reason"><span class="ar-lbl">Reason (R)</span><span class="ar-txt">${parseText(rM[1].trim())}</span></div>`;
+  }
+  return `<div class="qtext">${parseText(text)}</div>`;
+}
+
+function renderOptions(q, ans) {
+  const opts = q.options;
+  if (!opts || typeof opts!=='object') return '';
+  const keys = Object.keys(opts).sort();
+  const correct = ans?.correct_answer || null;
+
+  if (q.question_type==='match_the_column' || q.question_type==='MATCH_THE_COLUMN') {
+    // MTC: render the options as a column-map table if structured, else list
+    return `<div class="opts-col">`+keys.map(k=>{
+      const cls = correct && correct.toLowerCase()===k.toLowerCase() ? 'opt correct' : 'opt';
+      return `<div class="${cls}"><span class="opt-let">${k}.</span><span>${parseText(String(opts[k]))}</span></div>`;
+    }).join('')+'</div>';
+  }
+
+  // MCQ / AR: 2-column grid
+  const items = keys.map(k => {
+    const val = String(opts[k]);
+    let cls='opt';
+    if (correct && correct.toLowerCase()===k.toLowerCase()) cls='opt correct';
+    return `<div class="${cls}"><span class="opt-let">${k}.</span><span>${parseText(val)}</span></div>`;
+  });
+
+  // AR options are typically 4 long options — use single column
+  if (q.question_type==='assertion_reason' || q.question_type==='ASSERTION_REASON' || items.some(h=>h.length>120)) {
+    return `<div class="opts-col">${items.join('')}</div>`;
+  }
+  return `<div class="opts-grid">${items.join('')}</div>`;
+}
+
+// ── TEXT + MATH PARSING ───────────────────────────────────────────────────────
+const MATH_SYM = {
+  rightarrow:'→', leftarrow:'←', rightleftharpoons:'⇌', Rightarrow:'⇒',
+  leftrightarrow:'↔', uparrow:'↑', downarrow:'↓',
+  times:'×', div:'÷', pm:'±', mp:'∓', cdot:'·', bullet:'•',
+  alpha:'α', beta:'β', gamma:'γ', delta:'δ', Delta:'Δ',
+  epsilon:'ε', zeta:'ζ', eta:'η', theta:'θ', Theta:'Θ',
+  iota:'ι', kappa:'κ', lambda:'λ', mu:'μ', nu:'ν',
+  xi:'ξ', pi:'π', Pi:'Π', rho:'ρ', sigma:'σ', Sigma:'Σ',
+  tau:'τ', phi:'φ', Phi:'Φ', chi:'χ', psi:'ψ', omega:'ω', Omega:'Ω',
+  infty:'∞', geq:'≥', leq:'≤', neq:'≠', approx:'≈', equiv:'≡',
+  propto:'∝', nabla:'∇', partial:'∂', forall:'∀', exists:'∃',
+  in:'∈', notin:'∉', subset:'⊂', cup:'∪', cap:'∩',
+  sqrt:'√', sum:'∑', prod:'∏', int:'∫',
+  log:'log', ln:'ln', sin:'sin', cos:'cos', tan:'tan',
+  circ:'°', degree:'°', textdegree:'°',
+  hbar:'ℏ', Angstrom:'Å', angstrom:'Å',
+};
+
+function renderMath(expr) {
+  return expr
+    .replace(/\\([A-Za-z]+)/g, (m,cmd) => MATH_SYM[cmd] ? MATH_SYM[cmd] : m)
+    .replace(/([A-Za-z0-9]?)_\{([^}]+)\}/g, (_,b,s) => (b||'')+'<sub>'+s+'</sub>')
+    .replace(/([A-Za-z0-9]?)_([A-Za-z0-9])/g, (_,b,s) => (b||'')+'<sub>'+s+'</sub>')
+    .replace(/([A-Za-z0-9]?)\^\{([^}]+)\}/g, (_,b,s) => (b||'')+'<sup>'+s+'</sup>')
+    .replace(/([A-Za-z0-9]?)\^([A-Za-z0-9])/g, (_,b,s) => (b||'')+'<sup>'+s+'</sup>')
+    .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+    .replace(/\{([^}]+)\}/g,'$1');
+}
+
+function renderTabular(body) {
+  const rows = body.split(/\\\\/).map(r=>r.replace(/\\hline/g,'').trim()).filter(r=>r);
+  const isHeader = rows[0]?.toLowerCase().includes('column') || rows[0]?.includes('\\textbf');
+  let html = '<div class="tbl-wrap"><table class="mtc-tbl">';
+  rows.forEach((row,i) => {
+    const cells = row.split('&').map(c=>c.trim());
+    if (i===0 && isHeader) {
+      html += '<thead><tr>'+cells.map(c=>`<th>${parseInline(c)}</th>`).join('')+'</tr></thead><tbody>';
+    } else {
+      html += '<tr>'+cells.map(c=>`<td>${parseInline(c)}</td>`).join('')+'</tr>';
+    }
+  });
+  if (isHeader) html += '</tbody>';
+  html += '</table></div>';
+  return html;
+}
+
+function parseInline(text) {
+  return text
+    .replace(/\\textbf\{([^}]+)\}/g,'<strong>$1</strong>')
+    .replace(/\\textit\{([^}]+)\}/g,'<em>$1</em>')
+    .replace(/\\text\{([^}]+)\}/g,'$1')
+    .replace(/\$([^$\n]+)\$/g,(_,m)=>`<span class="math-span">${renderMath(m)}</span>`);
+}
+
+function parseText(raw) {
+  if (!raw) return '';
+  let text = raw;
+
+  // Tabular blocks
+  text = text.replace(/\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g, (_,body)=>renderTabular(body));
+
+  // Inline math
+  text = text.replace(/\$([^$\n]+)\$/g, (_,m)=>`<span class="math-span">${renderMath(m)}</span>`);
+
+  // Text commands
+  text = text.replace(/\\textbf\{([^}]+)\}/g,'<strong>$1</strong>');
+  text = text.replace(/\\textit\{([^}]+)\}/g,'<em>$1</em>');
+  text = text.replace(/\\text\{([^}]+)\}/g,'$1');
+  text = text.replace(/\\underline\{([^}]+)\}/g,'<u>$1</u>');
+
+  // Explicit newlines
+  text = text.replace(/\\n/g,'\n');
+
+  // Paragraph breaks
+  text = text.replace(/\n\n+/g,'</p><p>');
+  text = text.replace(/\n/g,'<br>');
+
+  return '<p>'+text+'</p>';
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function capitalise(s) { return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
+function fmtQType(t) {
+  return {mcq:'MCQ',assertion_reason:'Assertion-Reason',match_the_column:'Match the Column',MCQ:'MCQ',ASSERTION_REASON:'Assertion-Reason',MATCH_THE_COLUMN:'Match the Column'}[t] || t;
+}
+function fmtCat(c) { return c ? c.replace(/_/g,' ') : ''; }
+
+function showAlert(elId, type, msg) {
+  const el = document.getElementById(elId);
+  el.innerHTML = `<div class="alert ${type}">${msg}</div>`;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+checkHealth();
+addLog('INFO',null,null,null,'Console ready · connect to API to begin');
+</script>

@@ -1,0 +1,355 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक शब्द अपवाद हैं
+
+वैज्ञानिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द (जैसे NCERT हिंदी में हैं):
+  DNA, RNA, mRNA, tRNA, rRNA, ATP, ADP, AMP, NADPH, NADH, FADH₂,
+  CO₂, O₂, H₂O, pH, BOD, COD — सभी रासायनिक सूत्र और अंतर्राष्ट्रीय प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  कोशिका (cell), केन्द्रक (nucleus), माइटोकॉण्ड्रिया (mitochondria),
+  क्लोरोप्लास्ट (chloroplast), प्रकाश संश्लेषण (photosynthesis),
+  श्वसन (respiration), पाचन (digestion), गुणसूत्र (chromosome),
+  जीन (gene), उत्परिवर्तन (mutation), पारिस्थितिकी (ecology),
+  जैव विविधता (biodiversity), कोशिका भित्ति (cell wall),
+  कोशिका झिल्ली (cell membrane), राइबोसोम (ribosome),
+  गॉल्जी उपकरण (Golgi apparatus), लाइसोसोम (lysosome),
+  अन्तःप्रद्रव्य जालिका (endoplasmic reticulum), केन्द्रिका (nucleolus)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+## MCQ — MEDIUM LEVEL (BIOLOGY)
+
+---
+
+## WHAT "MEDIUM" MEANS (READ BEFORE GENERATING)
+
+A MEDIUM MCQ tests whether the student **understands** a concept well enough to evaluate statements about it, distinguish correct from incorrect claims, or identify subtle errors in otherwise correct-sounding text.
+
+**Medium = "I understand this concept well enough to spot a specific error in a statement about it."**
+
+**What it tests:**
+Easy → Single-fact recall
+Medium → Conceptual understanding + error detection
+
+**Option style:**
+Easy → Short terms or phrases
+Medium → Full statements requiring evaluation
+
+**Wrong options:**
+Easy → Clearly different terms
+Medium → Statements with ONE subtle factual error
+
+**Student who gets it right:**
+Easy → Read the chapter once
+Medium → Understood the concepts and can spot mistakes
+
+If a question can be answered by recalling a single bolded term from one NCERT line → it is Easy, not Medium.
+
+---
+
+## MEDIUM-SPECIFIC RULES
+
+### BANNED OPTION PATTERNS (HARD FAILURE)
+- NEVER use "All of the above", "None of the above", "None of these", "All of these"
+- NEVER use "Both A and B", "Both A and C", "Both B and D", or any option that references another option
+- NEVER use "All are correct", "None is correct", or any variant
+- Every option must be a standalone, independent answer
+
+### DO NOT USE HARD MCQ FORMAT
+Medium MCQ questions must NOT use numbered statements in the stem + combination options like "1, 2 and 3 only". Medium questions use direct questions, statement evaluation, or "which is correct/incorrect" formats ONLY.
+
+---
+
+## THE SINGLE-ERROR RULE (CRITICAL — APPLIES TO ALL CATEGORIES)
+
+This is the most important quality rule for Medium MCQ. It governs how incorrect statements are constructed across ALL categories (A through F).
+
+**Every incorrect statement must contain exactly ONE specific factual error.**
+
+The error must be:
+- **Specific:** A wrong name, wrong number, wrong location, wrong process, reversed cause-effect, or swapped attribute
+- **Subtle:** The rest of the statement must be factually correct and sound convincing
+- **Testable:** If you FIX the single error, the statement becomes fully correct
+- **Plausible:** The error should reflect a real student misconception, not an absurd fabrication
+
+### ✓ GOOD incorrect statements (single, subtle error):
+- "बायाँ अलिन्द फुफ्फुसीय शिराओं द्वारा फेफड़ों से **विऑक्सीकृत** रक्त प्राप्त करता है।" → केवल एक त्रुटि: "ऑक्सीकृत" होना चाहिए। बाकी सब सही है।
+- "DNA प्रतिकृति अन्तरावस्था की **$G_2$** प्रावस्था के दौरान होती है।" → केवल एक त्रुटि: "S प्रावस्था" होना चाहिए। बाकी सटीक है।
+- "उपास्थि का दृढ़ मैट्रिक्स भारी **कैल्शियम** निक्षेपण के कारण होता है।" → केवल एक त्रुटि: "कॉन्ड्रोइटिन" होना चाहिए। बाकी सटीक है।
+- "S प्रावस्था के दौरान गुणसूत्र **संख्या** दोगुनी हो जाती है।" → केवल एक त्रुटि: DNA मात्रा दोगुनी होती है, गुणसूत्र संख्या नहीं।
+
+### ✗ BAD incorrect statements (multiple stacked errors — HARD FAILURE):
+- "संधिपादों में **द्रवस्थैतिक** कंकाल होता है और उनमें संधित उपांगों का **अभाव** होता है।" → दो त्रुटियाँ एक साथ। छात्र बिना जीव विज्ञान जाने भी तुरंत पकड़ लेगा।
+- "कॉन्ड्रिक्थीज में **अस्थि-निर्मित** अन्तःकंकाल होता है तथा उछाल के लिए **वायु-कोष** होता है।" → दो त्रुटियाँ। स्पष्ट जाल।
+- "कशेरुकियों में भ्रूणीय परिवर्धन की **किसी भी अवस्था में** पृष्ठरज्जु का अभाव होता है।" → अतिशयोक्तिपूर्ण वाक्यांश ("किसी भी अवस्था में") इसे स्पष्ट रूप से असत्य बना देता है।
+
+### The Litmus Test:
+After writing an incorrect statement, ask: "If I showed this to a student who studied casually, would they hesitate before deciding it's wrong?" If the answer is NO (it's obviously wrong), you have stacked too many errors or made them too blatant. REWRITE with a single, subtle error.
+
+---
+
+## MANDATORY: USE A DIVERSE MIX OF ALL CATEGORIES
+
+### Distribution for 10+ questions:
+| Category | Minimum | Maximum | Notes |
+|----------|---------|---------|-------|
+| A — Statement Evaluation (True/False) | 2 | 4 | Distribute answers across a/b/c/d |
+| B — Standard MCQ | 2 | 4 | Core NEET format |
+| C — "Which is correct?" | 1 | 3 | |
+| D — "Which is NOT correct?" | 1 | 3 | |
+| E — "Which is INCORRECT?" | 1 | 2 | |
+| F — "Which is NOT INCORRECT?" | 0 | 1 | Use sparingly — max 1 per test |
+
+### For 5 questions: at least 3 different categories.
+
+**Before outputting, count questions per category. If any category with minimum ≥ 1 has 0 questions, REWRITE to add variety.**
+
+---
+
+## OPTION LENGTH RULES (BY CATEGORY)
+
+| Category | Option type | Length limit |
+|----------|------------|-------------|
+| A — Statement Evaluation | Fixed 4 options (both correct / both incorrect / etc.) | Standard — no limit needed |
+| B — Standard MCQ | Short terms, names, phrases | ≤ 10 words per option |
+| C, D, E, F — Statement options | Full statements | ≤ 25 words per option, 1 sentence only |
+
+**For Categories C/D/E/F:** Each option-statement must be exactly ONE sentence. No option may contain two sentences, a semicolon-joined compound, or 26+ words. If a statement needs more detail, shorten it or split the concept into two separate questions.
+
+**For Category B:** All context and detail goes in the question stem. Options are short terms or names.
+
+---
+
+## CATEGORY A: Statement Evaluation (True/False)
+
+**Format:** Two statements to evaluate as True or False.
+
+**STATEMENT LENGTH RULE (MANDATORY):** Each statement MUST be at least 2 sentences or 20+ words. This differentiates Medium from Easy — statements must be detailed and substantive, not simple one-line facts.
+
+**question_text का प्रारूप (MANDATORY — हिंदी में इसी संरचना का उपयोग करें):**
+"नीचे दो कथन दिए गए हैं:\nकथन I: [पहला कथन]\nकथन II: [दूसरा कथन]"
+
+**Standard options (use these EXACT options every time — copy verbatim into JSON):**
+a) कथन I और कथन II दोनों सही हैं
+b) कथन I और कथन II दोनों गलत हैं
+c) कथन I सही है, परन्तु कथन II गलत है
+d) कथन I गलत है, परन्तु कथन II सही है
+
+### CRITICAL: Answer Distribution Rules (MANDATORY)
+When generating N questions in this category, answers MUST be distributed approximately equally:
+- ~25% Answer a (Both correct)
+- ~25% Answer b (Both incorrect)
+- ~25% Answer c (Only Statement I correct)
+- ~25% Answer d (Only Statement II correct)
+
+**Process:** Before writing each Category A question, DECIDE the target answer FIRST, then construct the statements to match that answer.
+
+### How to construct each answer type:
+- **Answer a:** Both statements are factually accurate and complete
+- **Answer b:** Both statements contain ONE specific factual error each (follow Single-Error Rule)
+- **Answer c:** Statement I is fully correct; Statement II has ONE specific error embedded in otherwise correct content
+- **Answer d:** Statement I has ONE specific error embedded in otherwise correct content; Statement II is fully correct
+
+### उदाहरण — उत्तर a (दोनों सही):
+प्र. नीचे दो कथन दिए गए हैं:
+कथन I: RNA विश्व परिकल्पना में, RNA को विकसित होने वाली पहली आनुवंशिक सामग्री माना जाता है। यह आनुवंशिक सामग्री और जैव-रासायनिक अभिक्रियाओं के उत्प्रेरक दोनों के रूप में कार्य करता है, हालाँकि अभिक्रियाशील होने के कारण यह अन्तर्निहित रूप से अस्थिर है।
+कथन II: DNA, RNA की तुलना में अधिक रासायनिक रूप से स्थिर आनुवंशिक सामग्री के रूप में विकसित हुआ। इसकी पूरक द्वि-रज्जुक संरचना DNA मरम्मत क्रियाविधियों को अखण्डित रज्जु को साँचे के रूप में उपयोग करके त्रुटियों को सुधारने की अनुमति देती है।
+
+a) कथन I और कथन II दोनों सही हैं
+b) कथन I और कथन II दोनों गलत हैं
+c) कथन I सही है, परन्तु कथन II गलत है
+d) कथन I गलत है, परन्तु कथन II सही है
+उत्तर: a
+
+### उदाहरण — उत्तर c (केवल कथन I सही):
+प्र. नीचे दो कथन दिए गए हैं:
+कथन I: अन्तः-निलय पट एक मोटी पेशीय दीवार है जो बाएँ और दाएँ निलय को अलग करती है तथा चार-कक्षीय हृदय में ऑक्सीकृत और विऑक्सीकृत रक्त को मिलने से रोकती है।
+कथन II: बायाँ अलिन्द, फुफ्फुसीय शिराओं द्वारा फेफड़ों से विऑक्सीकृत रक्त प्राप्त करता है जो तब द्विदली वाल्व के माध्यम से बाएँ निलय में प्रवाहित होकर दैहिक परिसंचरण में जाता है।
+
+a) कथन I और कथन II दोनों सही हैं
+b) कथन I और कथन II दोनों गलत हैं
+c) कथन I सही है, परन्तु कथन II गलत है
+d) कथन I गलत है, परन्तु कथन II सही है
+उत्तर: c
+*कथन II में एक त्रुटि है: "विऑक्सीकृत" के स्थान पर "ऑक्सीकृत" होना चाहिए। कथन II की बाकी सब बातें सही हैं।*
+
+---
+
+## CATEGORY B: Standard MCQ (Single Correct Answer)
+
+**Format:** Direct question with 4 short options, all plausible related terms from the same domain.
+
+**Option limit:** ≤ 10 words per option. All context goes in the question stem.
+
+**Distractor quality:** All 4 options must be real biological terms from the same category. If the answer is a hormone, all options must be hormones. If the answer is a phylum, all options must be phyla.
+
+### CATEGORY B MEDIUM FILTER (MANDATORY)
+
+Category B questions must test application, comparison, or functional reasoning — NOT single-fact recall. Before outputting any Category B question, apply this filter:
+
+**BANNED in Category B:**
+- "Which [thing] is responsible for [X]?" → single recall
+- "Which [disorder/structure/organism] is associated with [single fact]?" → single recall
+- "What is the [number/name/type] of [X]?" → single recall
+- Any question answerable by memorizing ONE line from NCERT
+
+**REQUIRED in Category B — use at least ONE of these framings:**
+- Conditional/Scenario: "If [condition], which [outcome]?" — student must apply knowledge to a situation
+- Distinction: "What distinguishes [X] from [Y]?" — student must compare two related concepts
+- Functional Why: "Why does [process] require [X] rather than [Y]?" — student must reason about function
+- Multi-step: Question stem provides 2–3 clues narrowing to one answer — student must integrate multiple facts
+- Exception/Unusual case: "Which of the following is an exception to [general rule]?" — student must know the rule AND its exceptions
+
+The framing must force harder reasoning in the ANSWER, not just change the surface wording of the question stem. A conditional wrapper around a single memorized fact is still a FAIL.
+
+❌ आसान (Category B के लिए अस्वीकृत):
+प्र: "कौन-सा गुणसूत्रीय विकार गुणसूत्र 21 की अतिरिक्त प्रति प्राप्त होने से होता है?"
+अस्वीकृति का कारण: एकल-तथ्य याद — छात्र "गुणसूत्र 21 = डाउन सिंड्रोम" याद करके उत्तर दे देता है।
+
+❌ आसान (Category B के लिए अस्वीकृत):
+प्र: "मानव शुक्राणुजनन में Y गुणसूत्र वाले शुक्राणुओं का अनुपात क्या होता है?"
+अस्वीकृति का कारण: एक NCERT पंक्ति से सीधी संख्यात्मक याद।
+
+✅ मध्यम (Category B के लिए स्वीकृत):
+प्र: "एक बच्चा अतिरिक्त अलिंगसूत्र के साथ जन्म लेता है और उसमें छोटे कद, चौड़ी हथेली और बौद्धिक अशक्तता जैसे लक्षण दिखाई देते हैं। सबसे अधिक संभावित गुणसूत्रीय स्थिति है:"
+a) टर्नर सिंड्रोम
+b) क्लाइनफेल्टर सिंड्रोम
+c) डाउन सिंड्रोम
+d) एडवर्ड सिंड्रोम
+उत्तर: c
+मध्यम क्यों: छात्र को नैदानिक लक्षण → अलिंगसूत्र त्रिसूत्रता → विशिष्ट विकार को जोड़ना होगा। अनुप्रयोग का परीक्षण, लेबल याद का नहीं।
+
+✅ मध्यम (Category B के लिए स्वीकृत):
+प्र: "हीमोफिलिया के लिए एक वाहक स्त्री और एक सामान्य पुरुष के बीच संकरण में, उनसे उत्पन्न एक पुत्र के प्रभावित होने की संभावना क्या है?"
+a) 25%
+b) 50%
+c) 75%
+d) 100%
+उत्तर: b
+मध्यम क्यों: छात्र को X-सहलग्न वंशानुक्रम तर्क से गुजरना होगा, न कि कोई संग्रहीत संख्या याद करनी होगी।
+
+---
+
+## CATEGORY C: "Which of the following statements is correct?"
+
+**Format:** 4 statement-options. Exactly ONE is correct. The other 3 each contain ONE specific factual error.
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+### Construction rules:
+1. Write the CORRECT statement first (from source)
+2. For each wrong statement: take a CORRECT fact and introduce ONE specific error (wrong term, wrong number, wrong location, swapped attribute)
+3. Verify: fixing the single error in each wrong option should make it correct
+4. All 4 statements must be about the SAME topic or system — do not mix unrelated topics
+
+### उदाहरण:
+प्र. निम्नलिखित में से कौन-सा कथन सही है?
+a) कॉन्ड्रिक्थीज में अस्थि-निर्मित अन्तःकंकाल होता है और क्लोम-विदर ओपर्कुलम से ढके होते हैं।
+b) कॉन्ड्रिक्थीज में उपास्थि-निर्मित अन्तःकंकाल होता है तथा पृथक् क्लोम-विदर होते हैं जिन पर ओपर्कुलम नहीं होता।
+c) कॉन्ड्रिक्थीज जबड़ारहित कशेरुकी हैं जो वृत्ताकार चूषक मुख से भोजन करते हैं।
+d) कॉन्ड्रिक्थीज में वायु-कोष होता है जो तैरते समय उछाल बनाए रखता है।
+उत्तर: b
+
+*विकल्प a): एक त्रुटि — "अस्थि-निर्मित" के स्थान पर "उपास्थि-निर्मित" होना चाहिए; ओपर्कुलम भी अनुपस्थित होता है।*
+*विकल्प c): एक त्रुटि — "जबड़ारहित" गलत है; ये जबड़े वाले कशेरुकी हैं।*
+*विकल्प d): एक त्रुटि — इनमें वायु-कोष नहीं होता।*
+
+---
+
+## CATEGORY D: "Which of the following statements is NOT correct?"
+
+**Format:** 4 statement-options. Exactly THREE are correct. ONE contains a specific factual error. Student identifies the wrong one.
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+### Construction rules:
+1. Write THREE correct statements from the source
+2. Write ONE statement with a single specific error — it should sound convincing
+3. The error must be subtle enough that a casual reader might miss it
+4. All 4 statements must be about the SAME topic
+
+### उदाहरण:
+प्र. मानव कंकाल तन्त्र के संदर्भ में निम्नलिखित में से कौन-सा कथन सही नहीं है?
+a) अक्षीय कंकाल में 80 अस्थियाँ होती हैं जिनमें कपाल, कशेरुक दण्ड और पसली-पिंजर शामिल हैं।
+b) कपाल में कपालीय और चेहरे की अस्थियाँ होती हैं जो सिवनियों (sutures) द्वारा जुड़ी होती हैं।
+c) 14 कपालीय अस्थियाँ मस्तिष्क के चारों ओर सुरक्षात्मक आवरण बनाती हैं।
+d) अस्थि मैट्रिक्स में हाइड्रॉक्सीएपेटाइट क्रिस्टल के रूप में कैल्शियम लवण जमा होते हैं।
+उत्तर: c
+
+*विकल्प c) में एक त्रुटि है: कपालीय अस्थियों की संख्या 14 नहीं बल्कि 8 है। (14 चेहरे की अस्थियों की संख्या है — छात्रों की एक सामान्य भ्रान्ति।) बाकी तीनों कथन पूरी तरह सही हैं।*
+
+---
+
+## CATEGORY E: "Which of the following statements is INCORRECT?"
+
+**Format:** Same logic as Category D — THREE correct, ONE wrong. Uses stronger negative phrasing "INCORRECT" instead of "NOT correct."
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+The incorrect statement should exploit a common student misconception — a number swap, a left/right confusion, a name swap between related structures, etc.
+
+### उदाहरण:
+प्र. हृदय की शारीरिक संरचना के बारे में निम्नलिखित में से कौन-सा कथन गलत है?
+a) हृदयावरण (pericardium) एक दोहरी परत वाली झिल्ली है जो हृदय को घेरती है और परतों के बीच हृदयावरण द्रव होता है।
+b) अलिन्द-निलय पट बाएँ निलय को दाएँ निलय से अलग करता है।
+c) हृदय में चार कक्ष होते हैं — दो अलिन्द और दो निलय।
+d) अलिन्द पतली दीवार वाले ऊपरी कक्ष हैं जो शिराओं से रक्त प्राप्त करते हैं।
+उत्तर: b
+
+*विकल्प b) में एक त्रुटि है: निलयों को अलग करने वाला "अन्तः-निलय पट" है, न कि "अलिन्द-निलय पट" (जो अलिन्द को निलय से अलग करता है)। यह एक सामान्य नाम-विनिमय भ्रान्ति है।*
+
+---
+
+## CATEGORY F: "Which of the following statements is NOT INCORRECT?"
+
+**Format:** DOUBLE NEGATIVE — "NOT INCORRECT" = which statement IS CORRECT. 4 statements, only ONE is correct, the other 3 each have ONE error. Tests careful reading of double negative phrasing.
+
+**Option limit:** Each statement ≤ 25 words, exactly 1 sentence.
+
+**Usage limit:** Maximum 1 question per test. This format tests reading comprehension as much as biology — overuse frustrates students without testing more biology.
+
+### उदाहरण:
+प्र. निम्नलिखित में से कौन-सा कथन गलत नहीं है?
+a) DNA प्रतिकृति कोशिका चक्र की M प्रावस्था के दौरान होती है।
+b) अन्तरावस्था में $G_1$, S और $G_2$ प्रावस्थाएँ होती हैं।
+c) S प्रावस्था, कोशिका-द्विभाजन (cytokinesis) के बाद और $G_1$ प्रावस्था से पहले होती है।
+d) सेंट्रिओल द्विगुणन $G_2$ प्रावस्था के दौरान होता है।
+उत्तर: b
+
+*"गलत नहीं" = सही। केवल विकल्प b) पूरी तरह सही कथन है।*
+*विकल्प a): एक त्रुटि — प्रतिकृति M प्रावस्था में नहीं, S प्रावस्था में होती है।*
+*विकल्प c): एक त्रुटि — S प्रावस्था, अन्तरावस्था के भीतर $G_1$ और $G_2$ के बीच होती है, कोशिका-द्विभाजन के बाद नहीं।*
+*विकल्प d): एक त्रुटि — सेंट्रिओल द्विगुणन $G_2$ में नहीं, S प्रावस्था में होता है।*
+
+---
+
+## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
+
+Do NOT generate any explanation or correct_answer field for MCQ questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct answer — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+
+---
+
+## ADDITIONAL WRITING RULES
+
+**Option length per category:**
+- Category A (Statement Evaluation): no word limit — options are "a only", "b only", "a and b", "b and c" patterns; keep as short as possible
+- Category B (Standard MCQ): options ≤ 10 words
+- Categories C, D, E, F (Statement-based): each option-statement ≤ 25 words

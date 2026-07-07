@@ -1,0 +1,30 @@
+## PRE-OUTPUT MENTAL COUNT (Internal — Do NOT include in output)
+
+Before writing JSON output, count your questions by type:
+  type (a): ___
+  type (b): ___
+  type (c): ___
+  type (d): ___
+
+If ANY count is 0 → STOP and REWRITE the missing type.
+If ANY type exceeds 35% of total → STOP and REBALANCE.
+If the round-robin order is broken → STOP and REORDER.
+
+Do not include this count in the output.
+
+---
+
+## PRE-OUTPUT CHECKLIST (verify every question before outputting)
+
+- [ ] Round-robin type assignment followed for this question number
+- [ ] Type was DECIDED before writing A and R — not after
+- [ ] CONNECTION TEST: Is R about the same compound/reaction/phenomenon as A? If NO → REWRITE
+- [ ] A contains ONE clean fact only — not multiple facts bundled together
+- [ ] R contains ONE clean fact only — not multiple facts bundled together
+- [ ] A is factually correct per the source (types a, b, c) OR contains exactly ONE subtle error (type d)
+- [ ] R is factually correct per the source (types a, b) OR contains exactly ONE subtle error (types c, d)
+- [ ] The answer type (a/b/c/d) correctly follows from the evaluation above
+- [ ] No correct_answer, explanation, or extra fields in the JSON output beyond question_id, question_type, answer_type, question_text, options ("answer_type" is an internal quality-check value, see schema — stripped automatically before delivery to students)
+- [ ] ENTITY CHECK: A and R are about the SAME specific compound/ion/element — no cation/anion splits, no "element X in A, element Y in R" splits (FAILURE 3 and 4)
+- [ ] NO-MIRROR CHECK: For types (c) and (d), the false statement is NOT a simple property-value reversal of the true statement. A student must need chemistry knowledge to detect the error — not just logic (FAILURE 5)
+- [ ] DIFFICULTY CHECK: Would a student who has memorised all NCERT facts find this easy or medium? If YES → REWRITE. Hard means the error is subtle enough that rote memorisers will get it wrong.

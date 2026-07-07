@@ -1,0 +1,13 @@
+pdf_name,pdf_pages,model_name,provider,status,latency_s,total_questions,input_tokens,output_tokens,cost_usd,input_$/1m,output_$/1m,notes,error,easy_mcq_count,easy_ar_count,easy_mtc_count,medium_mcq_count,medium_ar_count,medium_mtc_count,hard_mcq_count,hard_ar_count,hard_mtc_count
+NCERT-Class-11-Biology.pdf,52,GPT-5.4-mini,openai,OK,75.33,212,191747,65,0.144103,0.75,4.5,Current default. 2x faster than gpt-5-mini.,,96,11,6,38,14,8,18,10,11
+NCERT-Class-11-Biology.pdf,52,Gemini 3.1 Flash-Lite,gemini,OK,15.8,243,30446,130,0.007807,0.25,1.5,381.9 tok/s. Fastest Gemini. 1M ctx.,,115,12,6,42,16,8,22,10,12
+NCERT-Class-11-Biology.pdf,52,Gemini 2.5 Flash,gemini,OK,18.39,333,16822,125,0.005359,0.3,2.5,Current default. thinking_budget=0 for speed.,,135,15,6,75,28,10,35,16,13
+kebo101.pdf,9,GPT-5.4-mini,openai,OK,11.04,150,16081,93,0.012479,0.75,4.5,Current default. 2x faster than gpt-5-mini.,,78,11,4,28,9,3,10,5,2
+kebo101.pdf,9,Gemini 3.1 Flash-Lite,gemini,OK,10.8,161,8266,120,0.002247,0.25,1.5,381.9 tok/s. Fastest Gemini. 1M ctx.,,65,8,4,35,12,6,18,8,5
+kebo101.pdf,9,Gemini 2.5 Flash,gemini,OK,13.01,126,5728,120,0.002018,0.3,2.5,Current default. thinking_budget=0 for speed.,,55,8,2,25,10,3,12,6,5
+kech101.pdf,28,GPT-5.4-mini,openai,OK,17.49,221,51827,93,0.039289,0.75,4.5,Current default. 2x faster than gpt-5-mini.,,92,14,6,41,16,9,23,12,8
+kech101.pdf,28,Gemini 3.1 Flash-Lite,gemini,OK,15.24,203,18526,122,0.004815,0.25,1.5,381.9 tok/s. Fastest Gemini. 1M ctx.,,95,12,4,35,14,6,22,10,5
+kech101.pdf,28,Gemini 2.5 Flash,gemini,OK,19.17,229,10630,123,0.003497,0.3,2.5,Current default. thinking_budget=0 for speed.,,85,10,5,48,22,8,25,16,10
+NCERT-Hindi-Class-12-Biology.pdf,41,GPT-5.4-mini,openai,OK,53.86,274,79940,65,0.060247,0.75,4.5,Current default. 2x faster than gpt-5-mini.,,115,12,7,54,22,10,28,15,11
+NCERT-Hindi-Class-12-Biology.pdf,41,Gemini 3.1 Flash-Lite,gemini,OK,11.8,231,25218,124,0.006491,0.25,1.5,381.9 tok/s. Fastest Gemini. 1M ctx.,,105,12,5,42,15,8,22,10,12
+NCERT-Hindi-Class-12-Biology.pdf,41,Gemini 2.5 Flash,gemini,OK,19.21,195,13984,121,0.004498,0.3,2.5,Current default. thinking_budget=0 for speed.,,95,8,6,35,12,7,16,6,10

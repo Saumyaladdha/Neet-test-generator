@@ -1,6 +1,14 @@
 openai
+google-genai
 streamlit
 pillow
 requests
 python-dotenv
 pypdf
+boto3
+fastapi
+uvicorn[standard]
+sse-starlette
+python-multipart
+pymupdf
+redis

@@ -1,0 +1,12 @@
+{
+      "question_id": 1,
+      "question_type": "ASSERTION_REASON",
+      "answer_type": "a | b | c | d — YOUR OWN determination of which fixed option is correct for THIS question, based on the round-robin TYPE you were assigned when writing it. Internal quality-check field only — removed automatically before delivery to students, never shown to them.",
+      "question_text": "Assertion (A): [Statement with LaTeX: $H_2O$, $\\alpha$]\n\nReason (R): [Statement with LaTeX notation]",
+      "options": {
+        "a": "Both Assertion and Reason are true and Reason is the correct explanation of Assertion",
+        "b": "Both Assertion and Reason are true but Reason is NOT the correct explanation of Assertion",
+        "c": "Assertion is true but Reason is false",
+        "d": "Assertion is false but Reason is true"
+      }
+    }

@@ -1,0 +1,467 @@
+═══════════════════════════════════════════════════════
+हिंदी माध्यम — अनिवार्य भाषा आवश्यकता (MANDATORY)
+═══════════════════════════════════════════════════════
+
+यह प्रॉम्प्ट हिंदी माध्यम NEET छात्रों के लिए रसायन विज्ञान प्रश्न उत्पन्न करता है।
+Source content: NCERT या NCERT-समकक्ष हिंदी माध्यम रसायन विज्ञान पाठ्यपुस्तक।
+
+आउटपुट भाषा — अनिवार्य:
+- सभी question_text हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- सभी options (a, b, c, d) हिंदी (देवनागरी लिपि) में लिखे जाने चाहिए
+- प्रश्न स्टेम या विकल्पों में अंग्रेजी नहीं — केवल नीचे दिए गए वैज्ञानिक/रासायनिक शब्द अपवाद हैं
+
+वैज्ञानिक/रासायनिक शब्द परम्पराएँ (NCERT हिंदी पाठ्यपुस्तक शैली):
+अंग्रेजी/रोमन लिपि में रहने वाले शब्द:
+  सभी रासायनिक सूत्र: H₂O, CO₂, NaCl, H₂SO₄, HCl, NaOH, CH₄, C₂H₅OH आदि
+  सभी अंतर्राष्ट्रीय प्रतीक: pH, mol, L, kJ, atm, K, M, N आदि
+  अंग्रेजी में प्रयुक्त इकाइयाँ और SI प्रतीक
+
+हिंदी में लिखे जाने वाले शब्द (NCERT हिंदी पुस्तकों के अनुसार):
+  परमाणु (atom), अणु (molecule), तत्व (element), यौगिक (compound),
+  मिश्रण (mixture), विलयन (solution), अभिक्रिया (reaction),
+  ऑक्सीकरण (oxidation), अपचयन (reduction), आयन (ion),
+  इलेक्ट्रॉन (electron), प्रोटॉन (proton), न्यूट्रॉन (neutron),
+  आवर्त सारणी (periodic table), रासायनिक बंध (chemical bond),
+  सहसंयोजक बंध (covalent bond), आयनिक बंध (ionic bond),
+  ऊष्मागतिकी (thermodynamics), साम्यावस्था (equilibrium),
+  कार्बनिक रसायन (organic chemistry), बहुलक (polymer),
+  अम्ल (acid), क्षार (base), लवण (salt), ऑक्साइड (oxide),
+  उत्प्रेरक (catalyst), सक्रियण ऊर्जा (activation energy)
+
+स्रोत सामग्री: अपलोड की गई PDF हिंदी माध्यम NCERT रसायन विज्ञान पाठ्यपुस्तक है।
+हिंदी पाठ पढ़ें और स्रोत से शब्दावली और वाक्यांश सीधे प्रश्नों में उपयोग करें।
+
+NEET मानक: प्रश्न वास्तविक NEET परीक्षा के मानक के अनुसार हिंदी में होने चाहिए।
+हिंदी माध्यम NEET प्रश्नपत्र में कठिनाई, प्रारूप और संरचना अंग्रेजी माध्यम के समान है।
+
+═══════════════════════════════════════════════════════
+नीचे दिए गए नियमों की संरचना (कठिनाई स्तर, प्रश्न श्रेणियाँ, प्रतिबंध) अंग्रेजी माध्यम जैसी है, परन्तु भाषा, शब्दावली और उदाहरण हिन्दी-विशिष्ट हैं — यह अनुवाद नहीं है
+═══════════════════════════════════════════════════════
+
+MCQ — HARD LEVEL (CHEMISTRY | NEET)
+
+You are generating NEET-level HARD MCQs from a textbook PDF.
+Read EVERY page of the PDF before generating. The student has NO textbook — questions must be fully self-contained.
+
+------------ WHAT MAKES A QUESTION HARD ------------
+
+NEET Hard MEANS: a student who MEMORISED the textbook gets it WRONG. A student who UNDERSTOOD gets it RIGHT.
+Every Hard question MUST contain a TRAP.
+
+THE TRAP TEST: "Would a student who memorised but doesn't understand pick the WRONG answer?"
+YES → genuinely Hard. NO → REWRITE.
+
+THE 7 TRAP TYPES (use at least one per question):
+
+(a) NEGATIVE STEM TRAP — "CANNOT occur / is INCORRECT / does NOT / which is FALSE"
+(b) DIRECTION REVERSAL TRAP — state correct fact but invert the mechanism direction in one option
+(c) TREND EXCEPTION TRAP — general trend is true; question targets the known exception
+(d) BOTH-TRUE-WRONG-EXPLANATION TRAP — both statements true, but Reason explains a DIFFERENT aspect
+(e) ERROR-PROPAGATION TRAP — multi-step reaction where mistake at step 2 gives wrong final product
+(f) NCERT-SCOPE PRECISION TRAP — chemistry correct, but NCERT defines a narrower scope
+(g) SCOPE PRECISION TRAP — question targets a known exception or boundary case within a general rule (e.g., why does F have lower electron affinity than Cl despite being more electronegative?)
+
+BANNED — DATA LOOKUP / ARITHMETIC ON TABULATED VALUES (INSTANT REWRITE):
+BAD: "Fe 7.8, Co 8.7, Ni 8.9 — which has the highest density?" — reads biggest number = EASY
+BAD: "Using the atomic radii listed for Period 2, the decrease from B to F is approximately:" — trivial subtraction
+BAD: "Which element has an electron gain enthalpy of approximately −349 kJ mol⁻¹ according to the tabulated values?" with options "S (≈ −200)", "F (≈ −328)", "Cl (≈ −349)", "P (≈ −73)" — student just matches numbers to names, teaches ZERO chemistry. The values in options make it trivial lookup, not reasoning.
+CONVERT to WHY: "Vanadium has the highest enthalpy of atomisation among Sc, Ti, V, Cr BECAUSE:"
+(A) Maximum unpaired d-electrons strengthening metallic bonding
+(B) Highest nuclear charge among the four
+(C) Strongest d-d orbital overlap due to optimal atomic radius
+(D) Greater 4s electron contribution to bonding
+
+हिंदी उदाहरण — गलत (तालिका से सीधा डेटा-लुकअप):
+"Fe 7.8, Co 8.7, Ni 8.9 — इनमें से किसका घनत्व सर्वाधिक है?" — केवल सबसे बड़ी संख्या पढ़ना = EASY, कोई रसायन विज्ञान नहीं।
+WHY में परिवर्तित करें — सही: "Sc, Ti, V, Cr में वैनेडियम का परमाणुकरण एन्थैल्पी सर्वाधिक है, इसका कारण है:"
+(A) अयुगलित d-इलेक्ट्रॉनों की अधिकतम संख्या के कारण प्रबल धात्विक बंधन
+(B) चारों में सर्वाधिक नाभिकीय आवेश
+(C) उपयुक्त परमाण्विक त्रिज्या के कारण प्रबलतम d-d कक्षक अतिव्यापन
+(D) बंधन में अधिक 4s इलेक्ट्रॉन योगदान
+
+STATEMENTS MUST CONTAIN REASONING (not bare facts):
+BAD: "1. NaCl shows Schottky defect  2. ZnS shows Frenkel defect  3. CsCl has BCC structure" — bare recall
+GOOD: "1. NaCl shows Schottky rather than Frenkel because both $Na^+$ and $Cl^-$ are too large to occupy interstitial sites"
+
+हिंदी उदाहरण — कथनों में तर्क होना चाहिए (केवल तथ्य नहीं):
+गलत: "1. $NaCl$ शॉट्की दोष दर्शाता है  2. $ZnS$ फ्रेंकल दोष दर्शाता है  3. $CsCl$ की संरचना BCC है" — बिना तर्क की सीधी याद।
+सही: "1. $NaCl$ फ्रेंकल के बजाय शॉट्की दोष दर्शाता है क्योंकि $Na^+$ और $Cl^-$ दोनों आकार में इतने बड़े हैं कि अंतराकाशी स्थान में समा नहीं सकते"
+
+FALSE STATEMENT QUALITY:
+False statements must fail for a MECHANISM ERROR, not an obvious blunder.
+BAD false: "(2) NaCl shows Frenkel defect" — every student eliminates this in 1 second
+GOOD false: "(2) NaCl shows Schottky rather than Frenkel defect because its high lattice energy prevents ionic displacement" — fact is correct but REASON is wrong
+
+हिंदी उदाहरण — असत्य कथन की गुणवत्ता:
+गलत असत्य कथन: "(2) $NaCl$ फ्रेंकल दोष दर्शाता है" — हर छात्र इसे 1 सेकंड में हटा देगा।
+सही असत्य कथन: "(2) $NaCl$ फ्रेंकल के बजाय शॉट्की दोष इसलिए दर्शाता है क्योंकि इसकी उच्च जालक ऊर्जा आयनिक विस्थापन को रोकती है" — तथ्य सही है परन्तु कारण गलत है।
+
+------------ 7 QUESTION CATEGORIES — DISTRIBUTE EVENLY ------------
+
+MANDATORY DISTRIBUTION (HARD FAIL if violated):
+
+Cat D (Arrange in order) is DISABLED — do NOT generate Cat D questions. Trivial ordering (same-group elements, same-period elements by simple trends) produces questions that test recall, not understanding. Use Cat A/B/C/E/F/G only.
+
+For 5 questions:
+- Category A or C (multi-statement): at least 1 — MANDATORY
+- Category E (True/False pattern): at least 1 — MANDATORY
+- Category G (deep WHY/HOW): at least 1
+- Remaining from A, B, C, E, F, G
+
+For 10 questions:
+- Category A (Which are correct?): 2 questions
+- Category C (How many are correct?): 2 questions — HARDEST NEET FORMAT
+- Category E (True/False pattern): 2 questions
+- Category F (Numerical): 1 question (only if PDF has quantitative data)
+- Category G (Deep WHY/HOW): 2 questions
+- Category B (Which are incorrect?): 1 question
+
+For 20+ questions:
+- Category A: 5 questions
+- Category C: 5 questions — HIGHEST PRIORITY
+- Category B: 3 questions
+- Category E: 3 questions
+- Category F: 2 questions (if PDF supports numericals)
+- Category G: 4 questions
+
+HARD FAIL — if ALL questions are plain "X is because:" MCQ (Category G only) with ZERO multi-statement / T-F / numerical → REWRITE the entire set.
+HARD FAIL — if no question uses numbered statements in the stem → at least 50% MUST have numbered statements (Categories A/B/C/E).
+
+CYCLE RULE: Never use the same category for 2 consecutive questions.
+Pattern example: Q1=A, Q2=G, Q3=C, Q4=E, Q5=G, Q6=B, Q7=A, Q8=F, Q9=C, Q10=E
+
+QUESTION_CATEGORY FIELD (MANDATORY — HARD FAIL IF MISSING):
+Every question JSON must include "question_category" with one of: "cat_a" | "cat_b" | "cat_c" | "cat_e" | "cat_f" | "cat_g"
+HARD FAIL — Cat D ("cat_d") is banned — if any question has "cat_d" → regenerate that question.
+
+---- A — WHICH ARE CORRECT? (multi-statement + combination options) ----
+
+4-5 numbered statements in the stem. Options are SHORT combinations.
+Each statement must test UNDERSTANDING with "because" / "due to" reasoning.
+
+CRITICAL — STATEMENTS MUST BE IN question_text (NOT IN OPTIONS):
+ALL numbered statements (1)(2)(3)(4) MUST appear inside the question_text field.
+Options must contain ONLY the combination labels like "(1) and (2) only".
+NEVER reference statements in options that do not appear in question_text.
+
+BAD question_text: "Which of the following statements about Dobereiner's triads are CORRECT?"
+(options then reference (1),(2),(3),(4) that appear NOWHERE) — INSTANT FAIL
+
+GOOD question_text (JSON field value):
+"Which of the following statements are CORRECT?\n(1) NaCl shows Schottky defect rather than Frenkel because its cation and anion are of similar size, making interstitial displacement energetically unfavourable\n(2) Frenkel defects do not change the density of a crystal because the displaced ion stays within the lattice\n(3) ZnS shows Frenkel defect because $Zn^{{2+}}$ is small enough to occupy interstitial sites\n(4) Doping Si with B creates p-type semiconductor because B contributes an extra valence electron to the conduction band"
+
+हिंदी question_text (JSON फील्ड मान):
+"निम्नलिखित में से कौन-से कथन सही हैं?\n(1) $NaCl$ फ्रेंकल के बजाय शॉट्की दोष दर्शाता है क्योंकि इसके धनायन और ऋणायन का आकार लगभग समान है, जिससे अंतराकाशी विस्थापन ऊर्जा की दृष्टि से प्रतिकूल हो जाता है\n(2) फ्रेंकल दोष क्रिस्टल के घनत्व को नहीं बदलते क्योंकि विस्थापित आयन जालक के भीतर ही रहता है\n(3) $ZnS$ फ्रेंकल दोष दर्शाता है क्योंकि $Zn^{{2+}}$ इतना छोटा होता है कि अंतराकाशी स्थान में समा जाता है\n(4) $Si$ में $B$ की डोपिंग से p-प्रकार अर्धचालक बनता है क्योंकि $B$ एक अतिरिक्त संयोजी इलेक्ट्रॉन की कमी चालन बैंड में उत्पन्न करता है"
+
+NEET 2023 उदाहरण:
+प्र. निम्नलिखित में से कौन-से कथन सही हैं?
+(1) बेकिंग सोडा गर्म करने पर विघटित होता है क्योंकि $NaHCO_3$ ऊष्मीय रूप से $Na_2CO_3$ से कम स्थिर है
+(2) धोबी सोडा (washing soda) ऊर्ध्वपातित होता है क्योंकि यह शुष्क वायु में क्रिस्टलन जल खो देता है
+(3) प्लास्टर ऑफ पेरिस में जल मिलाने पर यह कठोर हो जाता है क्योंकि यह ऊष्माक्षेपी रूप से $CaSO_4 \cdot 2H_2O$ में परिवर्तित होता है
+(4) विरंजक चूर्ण (bleaching powder) एक मिश्रित लवण है क्योंकि इसमें $ClO^-$ और $Cl^-$ दोनों आयन होते हैं
+
+(A) केवल (1), (2) और (3)  (B) केवल (1) और (3)  (C) केवल (2), (3) और (4)  (D) (1), (2), (3) और (4)
+
+OPTION GENERATION PROCEDURE FOR CAT A (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY against the PDF. Record:
+  - Statement (I): CORRECT / INCORRECT
+  - Statement (II): CORRECT / INCORRECT
+  - Statement (III): CORRECT / INCORRECT
+  - Statement (IV): CORRECT / INCORRECT (if used)
+
+Step 3 — COLLECT the correct statement labels. This is your CORRECT COMBINATION. For Hard level, 1–2 statements should be correct (majority incorrect with subtle mechanism errors). If 3+ are correct → go back and rewrite statements to introduce subtle errors per the FALSE STATEMENT QUALITY rule.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots (A, B, C, D). Vary placement across questions — never consistently put it in the same slot.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Each must differ from the correct combination by exactly 1 statement (add one incorrect label OR remove one correct label OR swap one of each).
+
+Step 6 — TRIPLE VERIFICATION (skip = HARD FAILURE):
+  a) Re-read each statement independently
+  b) Re-confirm CORRECT/INCORRECT for each, strictly from PDF content
+  c) Confirm your correct combination from Step 3 still holds
+  d) Confirm EXACTLY ONE option matches this combination
+  e) If any verification fails → regenerate the question from Step 1
+
+FAILURE EXAMPLE (CAT A — READ THIS):
+Generated question (transition metals):
+(I) Fe shows +2 and +3 oxidation states because 4s electrons are lost before 3d
+(II) All transition metal ions are coloured in aqueous solution due to d-d transitions
+(III) Cu has anomalous configuration [Ar]$3d^{{10}}4s^1$ due to extra stability of completely filled d subshell
+(IV) Catalytic activity of transition metals is due to variable oxidation states and ability to form intermediates
+
+Options built WITHOUT doing Step 2:
+(A) (I) and (II) only  (B) (II) and (III) only  (C) (I), (II) and (IV) only  (D) (I), (III) and (IV) only
+
+Step 2 evaluation AFTER building options: (I)=CORRECT, (II)=INCORRECT ($Sc^{{3+}}$, $Ti^{{4+}}$, $Zn^{{2+}}$ are colourless — $d^0$/$d^{{10}}$ have no d-d transition), (III)=CORRECT, (IV)=CORRECT.
+Correct combination = (I), (III) and (IV) only → ZERO options match this → CATASTROPHIC FAILURE.
+
+ROOT CAUSE: Model intended (II) to be correct (sounds right as a general rule), skipped Step 2, built options assuming (II) is correct. Statement (II) is a classic overgeneralisation — "all" fails for $d^0$ and $d^{{10}}$ ions.
+LESSON: ALWAYS complete Step 2 before writing a single option. Never build options from intent — build them from verified truth values.
+
+हिंदी उदाहरण (CAT A — इसे ध्यान से पढ़ें):
+उत्पन्न प्रश्न (संक्रमण धातुएँ):
+(I) $Fe$, +2 तथा +3 ऑक्सीकरण अवस्थाएँ दर्शाता है क्योंकि 4s इलेक्ट्रॉन 3d से पहले निकलते हैं
+(II) सभी संक्रमण धातु आयन जलीय विलयन में d-d संक्रमण के कारण रंगीन होते हैं
+(III) $Cu$ का असामान्य विन्यास [Ar]$3d^{{10}}4s^1$ पूर्ण भरे d-उपकोश की अतिरिक्त स्थिरता के कारण है
+(IV) संक्रमण धातुओं की उत्प्रेरकीय क्रियाशीलता परिवर्ती ऑक्सीकरण अवस्थाओं और मध्यवर्ती बनाने की क्षमता के कारण है
+
+Step 2 किए बिना बनाए गए विकल्प:
+(A) केवल (I) और (II)  (B) केवल (II) और (III)  (C) केवल (I), (II) और (IV)  (D) केवल (I), (III) और (IV)
+
+विकल्प बनाने के बाद Step 2 का मूल्यांकन: (I)=सही, (II)=गलत ($Sc^{{3+}}$, $Ti^{{4+}}$, $Zn^{{2+}}$ रंगहीन होते हैं — $d^0$/$d^{{10}}$ में कोई d-d संक्रमण नहीं होता), (III)=सही, (IV)=सही।
+सही संयोजन = केवल (I), (III) और (IV) → कोई भी विकल्प इससे मेल नहीं खाता → गम्भीर विफलता।
+
+मूल कारण: मॉडल का इरादा (II) को सही मानने का था (सामान्य नियम की तरह सही लगता है), Step 2 को छोड़ दिया, और (II) को सही मानकर विकल्प बना दिए। कथन (II) एक क्लासिक अतिसामान्यीकरण है — "सभी" शब्द $d^0$ और $d^{{10}}$ आयनों के लिए असत्य सिद्ध होता है।
+सीख: एक भी विकल्प लिखने से पहले हमेशा Step 2 पूरा करें। विकल्प इरादे से नहीं, बल्कि सत्यापित सत्य-मूल्यों से बनाएँ।
+
+---- B — WHICH ARE INCORRECT? (multi-statement, find the wrong ones) ----
+
+Same structure as A but asks for INCORRECT statements.
+Include traps: statements that sound right but have a subtle error (reversed trend, wrong reason, partial truth).
+CRITICAL — same JSON format rule as A: ALL statements must be in question_text, NOT in options.
+
+OPTION GENERATION PROCEDURE FOR CAT B (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY. Record CORRECT or INCORRECT for each.
+
+Step 3 — COLLECT the INCORRECT statement labels. This is your CORRECT COMBINATION (the answer to "which are incorrect"). Verify exactly 1–2 are incorrect. If 0 → rewrite. If 3+ → fix until only 1–2 contain errors.
+
+Step 4 — ASSIGN the correct combination to one of the four option slots. Vary placement.
+
+Step 5 — GENERATE 3 WRONG OPTIONS. Include at least one option pointing to a correct-but-suspicious-sounding statement — something students might flag as wrong but is actually right.
+
+Step 6 — TRIPLE VERIFICATION: same as Cat A Step 6.
+
+उदाहरण — Cat B:
+प्र. निम्नलिखित में से कौन-से कथन असत्य हैं?
+(1) $[Fe(CN)_6]^{{4-}}$ में आयरन की ऑक्सीकरण अवस्था +3 है क्योंकि षट्दन्तुर साइनाइड लिगन्ड की उपस्थिति में लोहा तीन इलेक्ट्रॉन त्याग देता है
+(2) $d^0$ तथा $d^{{10}}$ विन्यास वाले संक्रमण धातु आयन रंगहीन होते हैं क्योंकि उनमें d-d संक्रमण सम्भव नहीं है
+(3) $Cu$ का असामान्य विन्यास $[Ar]3d^{{10}}4s^1$ पूर्ण भरे d-उपकोश की अतिरिक्त स्थिरता के कारण है
+(4) उत्प्रेरक अभिक्रिया के साम्य को आगे की दिशा में स्थानांतरित कर देता है, जिससे उत्पाद अधिक मात्रा में बनता है
+
+(A) केवल (1) और (4)  (B) केवल (2) और (3)  (C) केवल (1)  (D) (1), (2), (3) और (4)
+उत्तर: (A). कथन (1) असत्य है — $[Fe(CN)_6]^{{4-}}$ में आयरन की ऑक्सीकरण अवस्था +2 है, +3 नहीं। कथन (4) असत्य है — उत्प्रेरक अभिक्रिया की दर बढ़ाता है, परन्तु ले शातेलिए के सिद्धांत के अनुसार साम्य की स्थिति को स्थानांतरित नहीं करता। कथन (2) और (3) सत्य हैं।
+
+---- C — HOW MANY ARE CORRECT? (hardest NEET format — no elimination) ----
+
+4-5 statements. Options: "Only one / Only two / Only three / All four".
+Student must evaluate EVERY statement — cannot use elimination.
+CRITICAL — same JSON format rule: ALL statements must be in question_text, NOT in options.
+
+OPTION GENERATION PROCEDURE FOR CAT C (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all 4 statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY. Record CORRECT or INCORRECT for each.
+
+Step 3 — COUNT the correct statements. This determines your answer: "Only one" / "Only two" / "Only three" / "All four". Verify count is 1, 2, or 3 — never 0 or 4 (both make the question trivial or unanswerable). If 0 or 4 → rewrite statements until balanced.
+
+Step 4 — ASSIGN the count-option to one of the four slots.
+
+Step 5 — GENERATE 3 WRONG OPTIONS using adjacent counts (e.g., correct = "Only two" → wrong options include "Only one", "Only three", "All four").
+
+Step 6 — TRIPLE VERIFICATION: same as Cat A Step 6.
+
+CAT C FAILURE PATTERN: Model intends 2 correct, builds options around "Only two", but 3 of the 4 statements are actually correct (unintentional correctness creep — statements that were meant to have subtle errors end up being true per the PDF). "Only three" is the real answer but no option says that. Always do Step 2 BEFORE writing any option.
+
+उदाहरण — Cat C:
+प्र. निम्नलिखित कथनों में से कितने सत्य हैं?
+(1) फ्लुओरीन की इलेक्ट्रॉन बंधुता क्लोरीन से कम होती है क्योंकि फ्लुओरीन के छोटे परमाणु आकार में इलेक्ट्रॉन-इलेक्ट्रॉन प्रतिकर्षण अधिक होता है
+(2) आयनन ऊर्जा का मान वर्ग में नीचे जाने पर घटता है क्योंकि नाभिकीय आकर्षण प्रभावी परमाणु त्रिज्या में वृद्धि से कम हो जाता है
+(3) नाइट्रोजन की प्रथम आयनन ऊर्जा ऑक्सीजन से अधिक होती है क्योंकि नाइट्रोजन का अर्ध-भरित $2p^3$ विन्यास अतिरिक्त स्थिरता प्रदान करता है
+(4) संक्रमण धातुओं में परमाण्विक त्रिज्या वर्ग में नीचे जाने पर नियमित रूप से बढ़ती है
+
+(A) केवल एक  (B) केवल दो  (C) केवल तीन  (D) चारों
+उत्तर: (C). कथन (1), (2) और (3) सत्य हैं। कथन (4) असत्य है — लैंथेनाइड संकुचन के कारण संक्रमण धातुओं में परमाण्विक त्रिज्या वर्ग में नीचे जाने पर नियमित रूप से नहीं बढ़ती (पाँचवीं और छठी आवर्त धातुओं की त्रिज्याएँ लगभग समान होती हैं)।
+
+---- D — ARRANGE IN ORDER — DISABLED (DO NOT GENERATE) ----
+
+Cat D is banned. Ordering questions (arrange elements/periods/compounds by a property) consistently produce trivial questions that test recall of trends, not chemical understanding.
+
+BANNED examples (HARD FAILURE — instant regenerate):
+- "Arrange Li, Na, K, Cs in increasing order of metallic character" → trivial: same group, obvious trend
+- "Arrange periods in increasing order of number of elements" → trivial: just counting
+- "Arrange halogens in decreasing order of electronegativity" → trivial: standard trend recall
+- ANY question whose answer is just "follow the periodic trend down the group / across the period"
+
+If you are about to generate a Cat D question → STOP → replace with Cat A, B, C, E, F, or G instead.
+
+---- E — TRUE/FALSE PATTERN ----
+
+4 statements. Options are T/F combinations: "T F T F" / "T T F T" / etc. (4 letters, space-separated).
+At least 1 trap statement that sounds true but is false, and at least 1 that sounds false but is true.
+
+STEM FORMAT (MANDATORY):
+The instruction line MUST come FIRST, before any numbered statements. Never put it at the end.
+
+BAD (instruction at end — HARD FAILURE):
+"(1) $NaCl$ shows Schottky defect because...\n(2) ZnS shows Frenkel defect because...\n(3) Doping Si with B creates p-type...\n(4) AgBr shows both types of defects...\nChoose the correct True/False pattern."
+
+GOOD (instruction first):
+"State whether the following statements are True (T) or False (F):\n(1) $NaCl$ shows Schottky defect because...\n(2) ZnS shows Frenkel defect because...\n(3) Doping Si with B creates p-type...\n(4) AgBr shows both types of defects..."
+
+हिंदी उदाहरण — गलत (निर्देश अंत में — हार्ड फेल्योर):
+"(1) $NaCl$ शॉट्की दोष दर्शाता है क्योंकि...\n(2) $ZnS$ फ्रेंकल दोष दर्शाता है क्योंकि...\n(3) $Si$ में $B$ की डोपिंग से p-प्रकार बनता है...\n(4) $AgBr$ दोनों प्रकार के दोष दर्शाता है...\nसही सत्य/असत्य प्रारूप चुनिए।"
+
+हिंदी उदाहरण — सही (निर्देश पहले):
+"निम्नलिखित कथनों को सत्य (T) अथवा असत्य (F) के रूप में चिह्नित कीजिए:\n(1) $NaCl$ शॉट्की दोष दर्शाता है क्योंकि...\n(2) $ZnS$ फ्रेंकल दोष दर्शाता है क्योंकि...\n(3) $Si$ में $B$ की डोपिंग से p-प्रकार बनता है...\n(4) $AgBr$ दोनों प्रकार के दोष दर्शाता है..."
+
+OPTION GENERATION PROCEDURE FOR CAT E (MANDATORY — FOLLOW IN ORDER):
+
+Step 1 — WRITE all 4 statements first. Do NOT think about options yet.
+
+Step 2 — EVALUATE each statement INDEPENDENTLY. Record T or F for each:
+  - Statement (1): T / F
+  - Statement (2): T / F
+  - Statement (3): T / F
+  - Statement (4): T / F
+
+Step 3 — WRITE the correct T/F pattern from Step 2. Example: "T F T T". This is your correct answer.
+Verify balance: NEVER use "T T T T" or "F F F F" — at least 1 T and 1 F required.
+
+Step 4 — ASSIGN the correct pattern to one of the four option slots (A, B, C, D). Vary placement across questions.
+
+Step 5 — GENERATE 3 WRONG options. Each must differ from the correct pattern by exactly 1–2 positions (flip one or two T/F values).
+
+Step 6 — TRIPLE VERIFICATION (HARD FAILURE if skipped):
+  a) Re-read each statement one more time
+  b) Re-confirm T or F for each against the source
+  c) Confirm the correct T/F pattern from Step 3 still holds
+  d) Confirm EXACTLY ONE option matches this pattern
+  e) If any verification fails → regenerate from Step 1
+
+AMBIGUITY CHECK: Look at each position across all 4 options. At least 2 positions must have mixed values (some T, some F across options). If only 1 position varies → question reduces to a 1-statement evaluation → REWRITE.
+
+उदाहरण — Cat E:
+प्र. निम्नलिखित कथनों को सत्य (T) अथवा असत्य (F) के रूप में चिह्नित कीजिए:
+(1) $BeCl_2$ अणु रैखिक होता है क्योंकि Be में sp संकरण होता है
+(2) $NH_3$ में बंध कोण $109.5°$ होता है क्योंकि इसमें चार सहसंयोजक बंध उपस्थित होते हैं
+(3) $H_2O$ का बंध कोण $NH_3$ से कम होता है क्योंकि ऑक्सीजन पर एकाकी युग्मों की प्रतिकर्षण क्षमता अधिक होती है
+(4) अनुचुम्बकीय पदार्थों में सभी इलेक्ट्रॉन युगलित (paired) होते हैं
+
+(A) T F T F  (B) T T F F  (C) F T T F  (D) T F T T
+उत्तर: (A). कथन (1) सत्य — $BeCl_2$ sp संकरित रैखिक अणु है। कथन (2) असत्य — $NH_3$ में एक एकाकी युग्म के कारण बंध कोण $109.5°$ नहीं बल्कि $107°$ है। कथन (3) सत्य — ऑक्सीजन पर दो एकाकी युग्मों की प्रतिकर्षण नाइट्रोजन के एक एकाकी युग्म से अधिक होती है, जिससे $H_2O$ का बंध कोण ($104.5°$) $NH_3$ से कम होता है। कथन (4) असत्य — अनुचुम्बकीय पदार्थों में अयुगलित (unpaired) इलेक्ट्रॉन होते हैं, युगलित नहीं।
+
+---- F — NUMERICAL / CALCULATION (multi-step) ----
+
+Multi-step calculation (2-3 steps). Options are 4 numerical values with units.
+Distractors = results of common student errors (forgot unit conversion, wrong formula, sign error).
+Use when the PDF content has quantitative data OR when standard NCERT formulas apply.
+
+SCOPE — numericals can come from ANY branch present in the PDF:
+- Physical Chemistry: Colligative properties, Nernst equation, $\Delta G = \Delta H - T\Delta S$, solution chemistry
+- Inorganic Chemistry: Spin-only magnetic moment $\mu = \sqrt{{n(n+2)}}$ BM, oxidation state calculation
+- Organic Chemistry (rare): Degree of unsaturation only
+
+उदाहरण (केवल-चक्रण चुम्बकीय आघूर्ण):
+प्र. $[Fe(NH_3)_6]^{3+}$ और $[FeF_6]^{3-}$ के केवल-चक्रण चुम्बकीय आघूर्ण (BM में) क्रमशः हैं:
+(A) 1.73 और 1.73  (B) 5.92 और 1.73  (C) 1.73 और 5.92  (D) 5.92 और 5.92
+उत्तर: (C). $NH_3$ = प्रबल क्षेत्र → $t_{2g}^5 e_g^0$ → 1 अयुग्मित → 1.73 BM. $F^-$ = दुर्बल क्षेत्र → $t_{2g}^3 e_g^2$ → 5 अयुग्मित → 5.92 BM.
+
+---- G — CONCEPTUAL REASONING (deep WHY/HOW — NOT simple recall) ----
+
+Single question testing WHY or HOW a phenomenon occurs. Student must chain 2-3 logical steps.
+Options are 4 SHORT mechanism LABELS (3-8 words max). ALL must sound plausible — at least 2 must be common misconceptions.
+
+OPTIONS MUST NAME THE MECHANISM — NOT EXPLAIN IT:
+BAD options (full explanation — reasoning is inside the option):
+(A) "Each $Sr^{{2+}}$ replaces one $Na^+$ and creates one cation vacancy for electrical neutrality"
+GOOD options (short labels — student must supply the reasoning):
+(A) Interstitial accommodation of $Sr^{{2+}}$
+(B) Substitution of $Na^+$ by $Sr^{{2+}}$ with cation vacancy for charge balance
+
+हिंदी उदाहरण — विकल्पों में क्रियाविधि का नाम होना चाहिए, व्याख्या नहीं:
+गलत विकल्प (पूर्ण व्याख्या — तर्क विकल्प के भीतर ही है):
+(A) "प्रत्येक $Sr^{{2+}}$ एक $Na^+$ का स्थान लेता है और विद्युत उदासीनता हेतु एक धनायन रिक्ति उत्पन्न करता है"
+सही विकल्प (संक्षिप्त लेबल — छात्र को स्वयं तर्क देना होगा):
+(A) $Sr^{{2+}}$ का अन्तराकाशी समावेशन
+(B) आवेश संतुलन हेतु धनायन रिक्ति के साथ $Na^+$ का $Sr^{{2+}}$ द्वारा प्रतिस्थापन
+
+HARD G ≠ EASY G (CRITICAL):
+EASY G: "Chromium has configuration $3d^5 4s^1$ because:" → student just recalls "half-filled stability" = ONE STEP = EASY. BANNED.
+HARD G: "When NaCl is doped with $SrCl_2$, cation vacancies increase. The reason is:" → 3-step reasoning required.
+
+हिंदी उदाहरण — HARD G बनाम EASY G:
+EASY G (प्रतिबंधित): "क्रोमियम का विन्यास $3d^5 4s^1$ है, इसका कारण है:" → छात्र केवल "अर्ध-भरित स्थिरता" याद करता है = एक-चरणीय = EASY।
+HARD G: "जब $NaCl$ में $SrCl_2$ की डोपिंग की जाती है, तो धनायन रिक्तियाँ बढ़ जाती हैं। इसका कारण है:" → 3-चरणीय तर्क आवश्यक।
+
+उदाहरण — Cat G:
+प्र. जब $NaCl$ में थोड़ी मात्रा में $SrCl_2$ मिलाया जाता है, तो क्रिस्टल में धनायन रिक्तियों (cation vacancies) की संख्या बढ़ जाती है। इसका कारण है:
+(A) $Sr^{{2+}}$ अन्तराकाशी स्थान में समाहित हो जाता है
+(B) प्रत्येक $Sr^{{2+}}$ दो $Na^+$ स्थानों पर प्रतिस्थापित होकर एक धनायन रिक्ति उत्पन्न करता है ताकि विद्युत उदासीनता बनी रहे
+(C) $Cl^-$ आयन जालक से बाहर निकल जाते हैं
+(D) $Sr^{{2+}}$ जालक ऊर्जा को कम कर देता है
+उत्तर: (B). $Sr^{{2+}}$ का आवेश $Na^+$ से अधिक (+2 बनाम +1) होता है, इसलिए प्रत्येक $Sr^{{2+}}$ आयन दो $Na^+$ आयनों का स्थान लेता है — एक स्थान पर वास्तव में बैठता है और दूसरा स्थान रिक्त रह जाता है, जिससे विद्युत उदासीनता बनी रहती है। यह एक अशुद्धि दोष (impurity defect) है।
+
+------------ TOPIC MAPPING (before writing questions) ------------
+
+1. Read the ENTIRE PDF — every page.
+2. List distinct sub-topics from across the full PDF.
+3. Assign one unique sub-topic per question from DIFFERENT sections.
+4. For A/B/C questions: pull statements from DIFFERENT parts of the PDF.
+5. No two questions should test the same concept.
+
+------------ ANTI-REPETITION ------------
+
+- NEVER repeat the same question template with only the element/compound swapped.
+- Cycle through categories: Q1=A, Q2=D, Q3=F, Q4=C, Q5=G, etc.
+- Each question must LOOK and FEEL different from every other question.
+
+------------ NEET ≠ JEE LIMITER (CRITICAL) ------------
+
+NEET Hard = Multi-step reasoning about mechanisms, competing effects, conceptual depth.
+NOT: Quantum-level derivations, mathematical proofs, Olympiad-level edge cases.
+If it requires mathematical derivation or data beyond NCERT → TOO HARD. Scale back.
+
+------------ COMMON ACCURACY TRAPS (VERIFY BEFORE OUTPUT) ------------
+
+- d-block: Remove electrons from 4s FIRST, then 3d ($Fe \rightarrow Fe^{{2+}}$: lose $4s^2$ first → $3d^6$)
+- Oxidation states: Mn in $KMnO_4$ = +7 (not +6), Cr in $K_2Cr_2O_7$ = +6 (not +7)
+- Coordination: $[Fe(CN)_6]^{{4-}}$ has $Fe^{{2+}}$ (not $Fe^{{3+}}$), $[Fe(CN)_6]^{{3-}}$ has $Fe^{{3+}}$
+- Magnetic behaviour: Depends on UNPAIRED electrons, not total d-electrons
+- Spin state: Strong field ligand = low spin, Weak field = high spin
+- $\Delta G = \Delta H - T\Delta S$: endothermic can be spontaneous if $T\Delta S > \Delta H$
+- Le Chatelier: Catalyst does NOT shift equilibrium, only increases rate
+- Nernst equation: n = number of electrons transferred, NOT moles of reactant
+- SN1 = racemisation, SN2 = inversion (backside attack)
+- Markovnikov: H adds to C with MORE hydrogens
+- Anti-Markovnikov: ONLY with HBr + peroxide, NOT HCl or HI
+
+------------ STATEMENT QUALITY (for A/B/C/E) ------------
+
+BANNED PATTERNS (instant rewrite):
+- "The formula of X is Y" → EASY recall
+- "The value of X is Y" → EASY lookup
+- "X is also known as Y" → EASY name recall
+
+CONVERSION: Add "because" + mechanism.
+BAD: "NaCl has coordination number 6"
+GOOD: "$Cs^+$ in CsCl has coordination number 8 rather than 6 because its larger size accommodates more $Cl^-$ ions without anion-anion repulsion"
+
+हिंदी उदाहरण — रूपांतरण: "क्योंकि" + क्रियाविधि जोड़ें:
+गलत: "$NaCl$ की समन्वय संख्या 6 है"
+सही: "$CsCl$ में $Cs^+$ की समन्वय संख्या 6 के बजाय 8 है क्योंकि इसका बड़ा आकार बिना ऋणायन-ऋणायन प्रतिकर्षण के अधिक $Cl^-$ आयनों को समायोजित कर लेता है"
+
+------------ OPTION RULES ------------
+
+A/B/C: SHORT combinations only ("(1) and (3) only", "Only two") — MAX 7 words per option
+E: T/F patterns only ("T F T F", "T T F T") — exactly 4 letters space-separated
+F: 4 numerical values with units
+G: 4 short mechanism labels (1 line each, all plausible)
+
+------------ ANSWER DISTRIBUTION (CRITICAL) ------------
+
+Correct answers MUST be roughly equally distributed across A, B, C, D.
+No letter > 40%. No letter = 0.
+Before outputting: count correct answers per letter. If any letter > 40% or = 0 → reshuffle.
+
+------------ ANSWER VERIFICATION ------------
+
+1. Verify the correct answer matches the PDF content.
+2. For multi-statement questions (Cat A/B/C/E): verify each statement TRUE/FALSE independently, then confirm the correct combination or T/F pattern appears in exactly ONE option.
+If any mismatch → fix. If unsure → remove that question entirely.
