@@ -12,3 +12,4 @@ sse-starlette
 python-multipart
 pymupdf
 redis
+openpyxl
