@@ -357,10 +357,25 @@ if st.session_state.questions:
         return buf.getvalue()
 
     st.divider()
-    st.download_button(
-        "📥 Download Excel (questions + marks + comments)",
-        data=_build_excel(),
-        file_name=f"qa_review_{Path(st.session_state.source_name).stem}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        type="primary",
-    )
+
+    # download_button serves whatever `data=` was attached to it in the LAST
+    # completed rerun — if a Mark/Comment edit hasn't finished its own
+    # blur-triggered rerun yet, clicking Download directly downloads stale
+    # data (the edit shows up only on the 2nd/3rd click, once that rerun has
+    # caught up). Forcing an explicit "Prepare" button click in between
+    # guarantees a full rerun (committing any pending widget edit) happens
+    # BEFORE the export bytes are built, so the very next download is always
+    # current.
+    if st.button("🔄 Prepare Excel for download"):
+        st.session_state["excel_bytes"] = _build_excel()
+
+    if "excel_bytes" in st.session_state:
+        st.download_button(
+            "📥 Download Excel (questions + marks + comments)",
+            data=st.session_state["excel_bytes"],
+            file_name=f"qa_review_{Path(st.session_state.source_name).stem}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            type="primary",
+        )
+    else:
+        st.caption("Click \"Prepare Excel\" above to generate the download.")
