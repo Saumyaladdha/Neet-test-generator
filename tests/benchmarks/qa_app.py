@@ -69,6 +69,7 @@ st.caption("Calls the prompt/LLM directly — no API, SQS, or worker involved. H
 
 for key, default in [
     ("questions", []), ("source_name", ""), ("marks", {}), ("comments", {}),
+    ("question_type", ""), ("difficulty", ""),
 ]:
     if key not in st.session_state:
         st.session_state[key] = default
@@ -278,6 +279,8 @@ if generate_clicked and uploaded is not None:
 
             st.session_state.questions = questions
             st.session_state.source_name = uploaded.name
+            st.session_state.question_type = question_type
+            st.session_state.difficulty = difficulty
             st.session_state.marks = {}
             st.session_state.comments = {}
             st.success(f"Generated {len(questions)} question(s) from {uploaded.name}")
@@ -319,8 +322,8 @@ if st.session_state.questions:
         ws = wb.active
         ws.title = "QA Review"
 
-        headers = ["PDF Name", "Total Questions", "Q#", "Question", "Option A", "Option B",
-                   "Option C", "Option D", "Mark", "Comment"]
+        headers = ["PDF Name", "Total Questions", "Question Type", "Difficulty", "Q#", "Question",
+                   "Option A", "Option B", "Option C", "Option D", "Mark", "Comment"]
         header_font = Font(bold=True, size=11, color="FFFFFF")
         header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
         header_align = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -331,9 +334,14 @@ if st.session_state.questions:
             c = ws.cell(row=1, column=col, value=h)
             c.font, c.fill, c.alignment, c.border = header_font, header_fill, header_align, border
 
-        widths = [30, 14, 6, 60, 30, 30, 30, 30, 16, 30]
+        widths = [30, 14, 18, 12, 6, 60, 30, 30, 30, 30, 16, 30]
         for col, w in enumerate(widths, start=1):
             ws.column_dimensions[get_column_letter(col)].width = w
+
+        question_type_label = QUESTION_TYPE_LABELS.get(
+            st.session_state.question_type, st.session_state.question_type
+        )
+        difficulty_label = st.session_state.difficulty.capitalize()
 
         questions = st.session_state.questions
         for i, q in enumerate(questions):
@@ -341,13 +349,15 @@ if st.session_state.questions:
             row = [
                 st.session_state.source_name if i == 0 else "",
                 len(questions) if i == 0 else "",
+                question_type_label,
+                difficulty_label,
                 i + 1,
                 q.get("question_text", ""),
                 opts.get("a", ""), opts.get("b", ""), opts.get("c", ""), opts.get("d", ""),
                 st.session_state.marks.get(i, ""),
                 st.session_state.comments.get(i, ""),
             ]
-            for col, val in enumerate(row, start=2 if False else 1):
+            for col, val in enumerate(row, start=1):
                 cell = ws.cell(row=i + 2, column=col, value=val)
                 cell.alignment, cell.border = cell_align, border
 
@@ -370,10 +380,18 @@ if st.session_state.questions:
         st.session_state["excel_bytes"] = _build_excel()
 
     if "excel_bytes" in st.session_state:
+        _type_slug = QUESTION_TYPE_LABELS.get(
+            st.session_state.question_type, st.session_state.question_type
+        ).replace(" ", "_").replace("-", "_")
+        _difficulty_slug = st.session_state.difficulty
+        file_name = (
+            f"qa_review_{Path(st.session_state.source_name).stem}"
+            f"_{_type_slug}_{_difficulty_slug}.xlsx"
+        )
         st.download_button(
             "📥 Download Excel (questions + marks + comments)",
             data=st.session_state["excel_bytes"],
-            file_name=f"qa_review_{Path(st.session_state.source_name).stem}.xlsx",
+            file_name=file_name,
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             type="primary",
         )
