@@ -34,6 +34,14 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+# On Streamlit Cloud, secrets.toml values are only synced into os.environ
+# once st.secrets is accessed — but core.config reads OPENAI_API_KEY via
+# os.getenv() at import time, before anything below touches st.secrets.
+# Bridge it explicitly so the import chain below doesn't crash first.
+if "OPENAI_API_KEY" in st.secrets:
+    os.environ.setdefault("OPENAI_API_KEY", st.secrets["OPENAI_API_KEY"])
+
 from core.generator import generate_chunk
 from core.pdf import get_page_count_from_bytes, extract_pages
 from core.topic_detector import detect_topics, distribute_questions
