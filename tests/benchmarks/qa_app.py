@@ -58,8 +58,10 @@ from core.generator import generate_chunk
 from core.pdf import get_page_count_from_bytes, extract_pages
 from core.topic_detector import detect_topics, distribute_questions
 from core.dedup import dedup_questions
+from core.detector import detect as run_detector
 
 _MAX_PARALLEL_CHUNKS = 4
+_TYPE_ABBR = {"mcq": "mcq", "assertion_reason": "ar", "match_the_column": "mtc"}
 
 st.set_page_config(page_title="NEET Hindi Question QA Tool", page_icon="📝", layout="wide")
 st.title("📝 NEET Hindi Question Generator — QA Tool")
@@ -70,6 +72,7 @@ st.caption("Calls the prompt/LLM directly — no API, SQS, or worker involved. H
 for key, default in [
     ("questions", []), ("source_name", ""), ("marks", {}), ("comments", {}),
     ("question_type", ""), ("difficulty", ""),
+    ("detection_counts", None), ("detection_file_key", None),
 ]:
     if key not in st.session_state:
         st.session_state[key] = default
@@ -137,23 +140,9 @@ with st.sidebar:
         format_func=lambda x: QUESTION_TYPE_LABELS[x],
     )
     difficulty = st.selectbox("Difficulty", ["easy", "medium", "hard"])
-    question_count = st.number_input("Question Count", min_value=1, max_value=50, value=5)
     st.info("Medium: **Hindi** (fixed for this tool)")
 
 _MAX_FILE_MB = 50  # matches the spec's PDF upload limit (Section 02: File Upload Rules)
-
-uploaded = st.file_uploader(
-    f"Upload one PDF or image (max {_MAX_FILE_MB} MB, matching production's own limit)",
-    type=["pdf", "png", "jpg", "jpeg", "webp"],
-)
-
-if uploaded is not None:
-    size_mb = len(uploaded.getvalue()) / (1024 * 1024)
-    if size_mb > _MAX_FILE_MB:
-        st.error(f"'{uploaded.name}' is {size_mb:.1f} MB — over the {_MAX_FILE_MB} MB limit.")
-        uploaded = None
-
-generate_clicked = st.button("🚀 Generate Questions", type="primary", disabled=uploaded is None)
 
 
 def _upload_pdf_bytes(client: OpenAI, pdf_bytes: bytes) -> str:
@@ -167,6 +156,33 @@ def _upload_pdf_bytes(client: OpenAI, pdf_bytes: bytes) -> str:
             return client.files.create(file=f, purpose="user_data").id
     finally:
         os.unlink(tmp_path)
+
+
+def _detect_max_counts(client: OpenAI, file_bytes: bytes, is_pdf: bool, uploaded_name: str) -> dict:
+    """
+    Runs the SAME detector production's /detect endpoint uses (core/detector.py)
+    to get a recommended question count for all 9 difficulty x type cells —
+    forced to the OpenAI path since this tool only configures OPENAI_API_KEY.
+    """
+    if is_pdf:
+        file_id = _upload_pdf_bytes(client, file_bytes)
+        try:
+            _, parsed = run_detector(media_items=[{"file_id": file_id}], provider="openai")
+        finally:
+            try:
+                client.files.delete(file_id)
+            except Exception:
+                pass
+    else:
+        ext = uploaded_name.rsplit(".", 1)[-1].lower()
+        mime = f"image/{'jpeg' if ext in ('jpg', 'jpeg') else ext}"
+        data_uri = f"data:{mime};base64,{base64.b64encode(file_bytes).decode()}"
+        _, parsed = run_detector(media_items=[{"url": data_uri}], provider="openai")
+    return parsed
+
+
+def _max_for(counts: dict, difficulty: str, question_type: str) -> int:
+    return int(counts.get(f"{difficulty}_{_TYPE_ABBR[question_type]}_count", 0) or 0)
 
 
 def _generate_pdf_with_chunking(client, pdf_bytes, subject, question_type, difficulty, question_count, progress_cb=None):
@@ -243,6 +259,82 @@ def _generate_pdf_with_chunking(client, pdf_bytes, subject, question_type, diffi
 
     return all_questions
 
+
+# ── Step 1: Upload ───────────────────────────────────────────────────────────
+
+st.markdown("### 1️⃣ Upload")
+uploaded = st.file_uploader(
+    f"Upload one PDF or image (max {_MAX_FILE_MB} MB, matching production's own limit)",
+    type=["pdf", "png", "jpg", "jpeg", "webp"],
+    label_visibility="collapsed",
+)
+
+if uploaded is not None:
+    size_mb = len(uploaded.getvalue()) / (1024 * 1024)
+    if size_mb > _MAX_FILE_MB:
+        st.error(f"'{uploaded.name}' is {size_mb:.1f} MB — over the {_MAX_FILE_MB} MB limit.")
+        uploaded = None
+
+_file_key = f"{uploaded.name}:{uploaded.size}" if uploaded is not None else None
+if _file_key != st.session_state.detection_file_key:
+    # A new/different file was uploaded — any cached detection is now stale.
+    st.session_state.detection_counts = None
+    st.session_state.detection_file_key = _file_key
+
+# ── Step 2: Detect ───────────────────────────────────────────────────────────
+
+st.markdown("### 2️⃣ Detect content")
+detect_clicked = st.button(
+    "🔍 Detect max questions", disabled=uploaded is None,
+    help="Runs the same detector production uses to estimate how many questions this file can support.",
+)
+
+if detect_clicked and uploaded is not None:
+    with st.spinner("Analyzing file..."):
+        try:
+            client = OpenAI()
+            is_pdf = uploaded.type == "application/pdf" or uploaded.name.lower().endswith(".pdf")
+            st.session_state.detection_counts = _detect_max_counts(
+                client, uploaded.getvalue(), is_pdf, uploaded.name
+            )
+        except Exception as exc:
+            st.error(f"Detection failed: {exc}")
+
+if st.session_state.detection_counts:
+    counts = st.session_state.detection_counts
+    with st.expander("📊 Recommended counts (all difficulty x type combinations)", expanded=False):
+        for d in ["easy", "medium", "hard"]:
+            c1, c2, c3 = st.columns(3)
+            c1.metric(f"{d.capitalize()} — MCQ", _max_for(counts, d, "mcq"))
+            c2.metric(f"{d.capitalize()} — Assertion-Reason", _max_for(counts, d, "assertion_reason"))
+            c3.metric(f"{d.capitalize()} — Match the Column", _max_for(counts, d, "match_the_column"))
+
+# ── Step 3: Configure & Generate ────────────────────────────────────────────
+
+st.markdown("### 3️⃣ Configure & generate")
+
+max_questions = _max_for(st.session_state.detection_counts, difficulty, question_type) \
+    if st.session_state.detection_counts else 0
+
+if not st.session_state.detection_counts:
+    st.caption("Run detection above first — the slider is bounded by what the detector says this file supports.")
+    question_count = 0
+elif max_questions == 0:
+    st.warning(
+        f"Detector suggests 0 questions for {QUESTION_TYPE_LABELS[question_type]} / {difficulty.capitalize()} "
+        "with this file's content. Try a different type/difficulty in the sidebar."
+    )
+    question_count = 0
+else:
+    question_count = st.slider(
+        f"Question Count (max {max_questions} for {QUESTION_TYPE_LABELS[question_type]} / {difficulty.capitalize()})",
+        min_value=0, max_value=max_questions, value=min(5, max_questions),
+    )
+
+generate_clicked = st.button(
+    "🚀 Generate Questions", type="primary",
+    disabled=uploaded is None or question_count < 1,
+)
 
 # ── Generation ────────────────────────────────────────────────────────────────
 
