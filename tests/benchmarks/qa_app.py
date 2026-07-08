@@ -290,7 +290,7 @@ detect_clicked = st.button(
 )
 
 if detect_clicked and uploaded is not None:
-    with st.spinner("Analyzing file..."):
+    with st.spinner("PDF ka content check ho raha hai, ruknaa please..."):
         try:
             client = OpenAI()
             is_pdf = uploaded.type == "application/pdf" or uploaded.name.lower().endswith(".pdf")
@@ -298,11 +298,16 @@ if detect_clicked and uploaded is not None:
                 client, uploaded.getvalue(), is_pdf, uploaded.name
             )
         except Exception as exc:
-            st.error(f"Detection failed: {exc}")
+            st.error(f"Detection fail ho gaya: {exc}")
 
 if st.session_state.detection_counts:
     counts = st.session_state.detection_counts
-    with st.expander("📊 Recommended counts (all difficulty x type combinations)", expanded=False):
+    _current_max = _max_for(counts, difficulty, question_type)
+    st.success(
+        f"✅ Is PDF se **{QUESTION_TYPE_LABELS[question_type]}** ({difficulty.capitalize()} level) ke "
+        f"**max {_current_max} questions** generate ho sakte hain."
+    )
+    with st.expander("📊 Baaki sab difficulty aur type ke liye bhi counts dekhein", expanded=False):
         for d in ["easy", "medium", "hard"]:
             c1, c2, c3 = st.columns(3)
             c1.metric(f"{d.capitalize()} — MCQ", _max_for(counts, d, "mcq"))
@@ -343,11 +348,12 @@ if generate_clicked and uploaded is not None:
     is_pdf = uploaded.type == "application/pdf" or uploaded.name.lower().endswith(".pdf")
 
     status_box = st.empty()
+    status_box.info(f"⏳ Abhi {question_count} question(s) generate ho rahe hain, thoda time lagega...")
 
     def _progress(msg: str) -> None:
-        status_box.info(msg)
+        status_box.info(f"⏳ {msg}")
 
-    with st.spinner(f"Generating {question_count} question(s)... this can take a while for larger files."):
+    with st.spinner(f"Abhi questions generate ho rahe hain... bade PDF mein thoda time lag sakta hai."):
         try:
             client = OpenAI()
             if is_pdf:
