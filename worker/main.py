@@ -61,6 +61,7 @@ from core.dedup import dedup_questions
 from core.validators import (
     check_ar_type_distribution,
     filter_inconsistent_multi_statement_mcq,
+    filter_inconsistent_mtc,
     filter_invalid_mtc_options,
     filter_mtc_duplicate_content,
     strip_internal_fields,
@@ -203,11 +204,15 @@ def _to_test_questions(questions: list) -> list:
     return out
 
 
-def _apply_type_validators(test_id: str, questions: list) -> list:
+def _apply_type_validators(test_id: str, questions: list) -> tuple:
     """
     Route each question to the validator(s) for its own type/difficulty, then
     recombine. Questions are matched by object identity (id()) since dicts
     aren't hashable and we need to know exactly which ones got dropped.
+
+    Returns (kept_questions, dropped_counts) where dropped_counts is a
+    dict[(question_type, difficulty), int] — used by _backfill_dropped_questions
+    to know how many replacement questions to request per combo.
     """
     ar_list = [q for q in questions if q.get("question_type") == "ASSERTION_REASON"]
     if ar_list:
@@ -218,12 +223,131 @@ def _apply_type_validators(test_id: str, questions: list) -> list:
     mcq_hard_dropped = {id(q) for q in mcq_hard_list} - {id(q) for q in mcq_hard_kept}
 
     mtc_list = [q for q in questions if q.get("question_type") == "MATCH_THE_COLUMN"]
-    mtc_step1 = filter_invalid_mtc_options(test_id, mtc_list) if mtc_list else []
+    mtc_step0 = filter_inconsistent_mtc(test_id, mtc_list) if mtc_list else []
+    mtc_step1 = filter_invalid_mtc_options(test_id, mtc_step0) if mtc_step0 else []
     mtc_step2 = filter_mtc_duplicate_content(test_id, mtc_step1) if mtc_step1 else []
     mtc_dropped = {id(q) for q in mtc_list} - {id(q) for q in mtc_step2}
 
     dropped = mcq_hard_dropped | mtc_dropped
-    return [q for q in questions if id(q) not in dropped]
+    kept = [q for q in questions if id(q) not in dropped]
+
+    dropped_counts = {}
+    for q in questions:
+        if id(q) in dropped:
+            key = (q.get("question_type", ""), q.get("difficulty", ""))
+            dropped_counts[key] = dropped_counts.get(key, 0) + 1
+
+    return kept, dropped_counts
+
+
+_REVERSE_QUESTION_TYPE_MAP = {v: k for k, v in _QUESTION_TYPE_MAP.items()}
+
+
+def _backfill_dropped_questions(job: dict, questions: list, dropped_counts: dict, source: dict, max_rounds: int = 2) -> list:
+    """
+    After _apply_type_validators drops questions (no valid answer among their
+    own options), request replacement questions from the whole original
+    source content — not tied to a specific topic-chunk, since drops are
+    discovered only after all chunks are already combined — and re-run the
+    same validators on the merged result. Repeats up to max_rounds; if a
+    shortfall remains after that, accepts a shorter-than-requested list
+    (today's existing fallback behavior, unchanged).
+
+    source: {"file_type": "pdf", "openai_file_id": ...} or
+            {"file_type": <image type>, "presigned_url": ...}
+    """
+    test_id = job["test_id"]
+    user_id = job.get("user_id")
+    subject = job["subject"]
+    medium = job["medium"]
+
+    requested = {
+        (_QUESTION_TYPE_MAP[c["question_type"]], c["difficulty"]): c["question_count"]
+        for c in job["components"]
+    }
+
+    def _shortfall(qs: list) -> dict:
+        counts = {}
+        for q in qs:
+            key = (q.get("question_type", ""), q.get("difficulty", ""))
+            counts[key] = counts.get(key, 0) + 1
+        return {
+            key: want - counts.get(key, 0)
+            for key, want in requested.items()
+            if want - counts.get(key, 0) > 0
+        }
+
+    kept = questions
+    short = {k: v for k, v in dropped_counts.items() if v > 0}
+
+    for round_num in range(1, max_rounds + 1):
+        if not short:
+            break
+
+        new_questions = []
+        for (question_type_upper, difficulty), count in short.items():
+            question_type = _REVERSE_QUESTION_TYPE_MAP.get(question_type_upper)
+            if not question_type:
+                continue
+            same_type_texts = [
+                q.get("question_text", "") for q in kept
+                if q.get("question_type") == question_type_upper
+            ]
+            try:
+                backfilled = generate_chunk(
+                    file_type=source["file_type"],
+                    presigned_url=source.get("presigned_url"),
+                    openai_file_id=source.get("openai_file_id"),
+                    subject=subject,
+                    medium=medium,
+                    question_type=question_type,
+                    difficulty=difficulty,
+                    question_count=count,
+                    previous_questions=same_type_texts,
+                    user_id=user_id,
+                    test_id=test_id,
+                    batch_id=f"backfill_r{round_num}_{question_type}_{difficulty}",
+                )
+            except Exception as exc:
+                log.warning("worker.backfill_generation_failed",
+                            test_id=test_id, question_type=question_type,
+                            difficulty=difficulty, round=round_num, error=str(exc))
+                continue
+
+            for q in backfilled:
+                q["difficulty"] = difficulty
+                q["topic"] = "backfill"
+                q["subject"] = subject
+            new_questions.extend(backfilled)
+
+        if not new_questions:
+            log.info("worker.backfill_no_new_questions", test_id=test_id, round=round_num)
+            break
+
+        merged = dedup_questions(test_id, kept + new_questions)
+        kept, _ = _apply_type_validators(test_id, merged)
+        short = _shortfall(kept)
+        if short:
+            log.info("worker.backfill_round_done", test_id=test_id, round=round_num, still_short=short)
+
+    if short:
+        log.info("worker.backfill_shortfall_accepted", test_id=test_id, final_shortfall=short)
+
+    # Never ship more than what was actually requested per (type, difficulty)
+    # — a backfill round can overshoot its ask by a question or two.
+    counts_so_far = {}
+    final = []
+    for q in kept:
+        key = (q.get("question_type", ""), q.get("difficulty", ""))
+        limit = requested.get(key)
+        if limit is None:
+            final.append(q)
+            continue
+        counts_so_far[key] = counts_so_far.get(key, 0) + 1
+        if counts_so_far[key] <= limit:
+            final.append(q)
+
+    return final
 
 
 # ── Image job ─────────────────────────────────────────────────────────────────
@@ -321,7 +445,12 @@ def _process_image_job(job: dict) -> tuple:
             }, user_id=user_id)
             components_failed += 1
 
-    all_questions = _apply_type_validators(test_id, all_questions)
+    all_questions, dropped_counts = _apply_type_validators(test_id, all_questions)
+    if any(dropped_counts.values()):
+        all_questions = _backfill_dropped_questions(
+            job, all_questions, dropped_counts,
+            source={"file_type": job["file_type"], "presigned_url": presigned_url},
+        )
     strip_internal_fields(all_questions)
     return all_questions, components_failed, components_total
 
@@ -518,7 +647,20 @@ def _process_pdf_job(job: dict) -> tuple:
                  questions_removed=before - len(all_questions),
                  questions_remaining=len(all_questions))
 
-    all_questions = _apply_type_validators(test_id, all_questions)
+    all_questions, dropped_counts = _apply_type_validators(test_id, all_questions)
+    if any(dropped_counts.values()):
+        backfill_file_id = None
+        try:
+            backfill_file_id = _openai_upload(pdf_bytes)
+            all_questions = _backfill_dropped_questions(
+                job, all_questions, dropped_counts,
+                source={"file_type": "pdf", "openai_file_id": backfill_file_id},
+            )
+        except Exception as exc:
+            log.warning("worker.backfill_upload_failed", test_id=test_id, error=str(exc))
+        finally:
+            if backfill_file_id:
+                _openai_delete(backfill_file_id)
     strip_internal_fields(all_questions)
 
     return all_questions, chunks_failed, chunks_total

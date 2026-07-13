@@ -72,7 +72,7 @@ def _assert_hindi_purity(questions: list, batch_label: str, attempt: int) -> Non
 
 # Structured logger for the worker-oriented generate_chunk path
 from core.logger import get_logger as _get_logger
-from core.parser import strip_markdown_fences
+from core.parser import strip_markdown_fences, parse_json_response
 _log = _get_logger(__name__)
 
 
@@ -1062,7 +1062,12 @@ def generate_chunk(
                     elif getattr(item, "type", None) == "text":
                         result_text += getattr(item, "text", "")
 
-                batch_result = json.loads(strip_markdown_fences(result_text))
+                batch_result = parse_json_response(result_text)
+                if batch_result is None:
+                    raise json.JSONDecodeError(
+                        "parse_json_response could not recover valid JSON after all repair attempts",
+                        result_text, 0,
+                    )
 
                 questions_found = len(batch_result.get("questions", []))
                 _log.info("batch.parse_ok",

@@ -175,6 +175,7 @@ Only after exhausting all valid pairs across all categories (E1–E10) throughou
 
 **Step 1 — LOCK the correct sequence.**
 Write explicitly: `CORRECT = 1-[x], 2-[x], 3-[x], 4-[x]`
+Copy this line verbatim into the output's `correct_sequence` field (see schema) — an internal quality-check value, not a shown answer key.
 
 **Step 2 — Verify shuffle, then assign CORRECT to one option slot (a/b/c/d).** First check: is CORRECT in sequential order (1-i, 2-ii, 3-iii, 4-iv)? If yes → return to pre-generation step 8, swap two Column II items, and update CORRECT before continuing. Then assign CORRECT to a slot, distributing evenly across a/b/c/d over all questions.
 
@@ -214,7 +215,7 @@ CORRECT = 1-iii, 2-i, 3-ii, 4-iv
 
 ## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
 
-Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, correct_sequence, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template. (correct_sequence is an internal quality-check field, stripped before delivery — populating it is not a violation of this rule.)
 
 ---
 

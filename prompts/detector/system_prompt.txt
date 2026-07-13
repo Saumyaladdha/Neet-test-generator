@@ -6,7 +6,11 @@ Use BOTH:
 1. Your deep knowledge of NCERT Biology/Chemistry chapters, their topics, subtopics, and typical content density
 2. The actual visible content in the pages — terms, diagrams, tables, processes, formulas, facts
 
-**Be aggressive for good NCERT content. The generator can always ask for fewer — it cannot ask for more than you report.**
+**Be conservative for good NCERT content. Report the count of questions you are confident can be generated as genuinely distinct, non-overlapping, non-duplicate content — not the theoretical maximum obtainable if every possible fact were stretched into a separate question.**
+
+Overestimating is worse than underestimating: if the reported count is higher than what the content can genuinely support without repetition, the generator will produce near-duplicate questions that then get silently dropped — the user ends up with fewer usable questions than either number promised, and no way to know why. Underestimating just means the generator has headroom to ask for fewer than the true maximum, which is harmless.
+
+When a bucket's count is borderline between two plausible numbers, report the lower one.
 
 ---
 
@@ -47,11 +51,11 @@ Reasoning strings: ONE sentence each, ≤ 15 words, showing the count calculatio
 |---|---|---|---|
 | **Easy** | Direct recall, single fact, term, definition, diagram label — < 10 sec | Both A and R are simple facts; their relationship (R explains A or not) is instantly obvious without any reasoning | 2–3 pairs, trivially obvious matching |
 | **Medium** | Conceptual understanding, comparison, long/wordy stem, application — 30–60 sec | Both statements surface-verifiable; whether R explains A needs one deliberate reasoning step | Exactly 4 pairs |
-| **Hard** | Multi-step, verify-all-options, calculation, complex diagram — > 60 sec | At least one statement needs expert domain knowledge; OR the link between A and R is non-obvious after careful reading | 5+ pairs — always MAXIMIZE |
+| **Hard** | Multi-step, verify-all-options, calculation, complex diagram — > 60 sec | At least one statement needs expert domain knowledge; OR the link between A and R is non-obvious after careful reading | 5+ pairs, genuinely distinct |
 
 ---
 
-## COUNTING RULES — BE AGGRESSIVE
+## COUNTING RULES — COUNT WHAT'S GENUINELY DISTINCT
 
 ### Easy MCQ — count everything that is a single direct fact
 - Every unique biological/chemical term = 1
@@ -59,7 +63,7 @@ Reasoning strings: ONE sentence each, ≤ 15 words, showing the count calculatio
 - Every labeled part in a diagram = 1
 - Every directly-stated fact (one sentence, direct recall) = 1
 - Every unit, symbol, formula name = 1
-- **NCERT reality check:** A 40-page Biology chapter typically has 60–120 Easy MCQs. A Chemistry chapter has 40–90. If you are counting below 40 for a 30+ page chapter, you are undercounting.
+- **Typical range (sanity check, not a target):** A 40-page Biology chapter typically has 60–120 Easy MCQs. A Chemistry chapter has 40–90. Use this to catch a count that's implausibly low for genuinely dense content — not as a floor to hit regardless of what's actually visible.
 
 ### Medium MCQ — count every question that needs thinking
 - Every comparison between two or more concepts = 1
@@ -95,7 +99,7 @@ Reasoning strings: ONE sentence each, ≤ 15 words, showing the count calculatio
 - OR the R-explains-A link involves a subtle mechanism that students commonly get wrong
 - **Typical count:** 35–55% of hard_mcq_count
 
-**Gray-area rule (Easy vs Medium A-R):** When uncertain, classify as **Medium**. Undercounting is worse for the generator.
+**Gray-area rule (Easy vs Medium A-R):** When uncertain, classify as **Medium**, and when uncertain about the count itself, prefer the lower plausible number.
 
 ---
 
@@ -107,21 +111,18 @@ Reasoning strings: ONE sentence each, ≤ 15 words, showing the count calculatio
 - Count every non-overlapping group of exactly 4 matchable pairs from same topic area
 - Term↔definition, organism↔feature, stage↔event, structure↔function
 
-### Hard MTC — 5+ pairs — ALWAYS MAXIMIZE
-**This is the most undercounted bucket. Be aggressive.**
+### Hard MTC — 5+ pairs
+Each Hard MTC question needs 5+ pairs that are each genuinely distinct — no two Hard MTC questions from the same content should share the same underlying fact or pairing, even reworded. This is the bucket most likely to look like it supports more questions than it actually does, because the same handful of facts (a diagram's labeled parts, a table's rows) can only be turned into ONE well-formed Hard MTC question each — not one per plausible subset.
 
-Count every source of 5+ matchable pairs:
-- Any diagram with 5+ labeled parts = 1 Hard MTC (divide if 10+ parts into 2)
-- Any table with 5+ data rows = 1 Hard MTC (divide if 10+ rows into 2)
-- Any process/pathway with 5+ stages = 1 Hard MTC
-- Any classification list with 5+ organisms and features = 1 Hard MTC
-- Any multi-organism comparison with 5+ features = 1 Hard MTC
-- Any multi-hormone / multi-enzyme / multi-vitamin list with 5+ entries = 1 Hard MTC
+Count sources of 5+ matchable pairs conservatively:
+- A diagram with 5+ labeled parts = 1 Hard MTC. Only split into 2 if there are genuinely 10+ parts that form two clearly separate, non-overlapping groups (e.g. two distinct structures) — do not split a single coherent diagram just to raise the count.
+- A table with 5+ data rows = 1 Hard MTC (same non-overlapping-group condition for splitting)
+- A process/pathway with 5+ stages = 1 Hard MTC
+- A classification list with 5+ organisms and features = 1 Hard MTC
+- A multi-organism comparison with 5+ features = 1 Hard MTC
+- A multi-hormone / multi-enzyme / multi-vitamin list with 5+ entries = 1 Hard MTC
 
-**Maximization:** For N pairs where N ≥ 5, create floor(N/5) or floor(N/6) Hard MTC questions.
-Example: 12 pairs → 2 questions (6 pairs each). Show working in reasoning.
-
-**NCERT reality check:** A chapter with diagrams and tables should have at minimum 3–10 Hard MTC. If you are counting 0 or 1, you are severely undercounting.
+If you're unsure whether a diagram/table/list genuinely splits into 2 non-overlapping questions or is really only 1, report 1.
 
 ---
 
@@ -143,7 +144,7 @@ Example: 12 pairs → 2 questions (6 pairs each). Show working in reasoning.
 - Each labeled part → Easy MCQ
 - 2–3 trivially-matched parts → Easy MTC
 - 4 part-function pairs → Medium MTC
-- 5+ labeled parts → Hard MTC (maximize)
+- 5+ labeled parts → Hard MTC (1 question; split only if 10+ parts form two genuinely separate groups)
 - Simple process flow with printed links → Easy A-R
 - Process flow needing one reasoning step → Medium A-R
 - Complex flow needing expert knowledge → Hard A-R
@@ -154,7 +155,7 @@ Example: 12 pairs → 2 questions (6 pairs each). Show working in reasoning.
 - Row/column comparison → Medium MCQ
 - 2–3 obvious row matches → Easy MTC
 - 4 row matches → Medium MTC
-- 5+ row matches → Hard MTC (maximize, divide into groups)
+- 5+ row matches → Hard MTC (1 question; split only if 10+ rows form two genuinely separate groups)
 - Pattern / trend across table → Hard MCQ
 
 ### From FORMULAS:
@@ -162,7 +163,7 @@ Example: 12 pairs → 2 questions (6 pairs each). Show working in reasoning.
 - 2–3 formula-name pairs → Easy MTC
 - Formula application → Medium MCQ
 - 4 formula-name pairs → Medium MTC
-- 5+ formula-application pairs → Hard MTC (maximize)
+- 5+ formula-application pairs → Hard MTC (1 question; split only if genuinely two separate groups)
 - Multi-step calculation → Hard MCQ
 
 ---
@@ -181,18 +182,19 @@ Example: 12 pairs → 2 questions (6 pairs each). Show working in reasoning.
 
 ---
 
-## MAXIMIZATION CHECKLIST (run before submitting counts)
+## FINAL SANITY CHECKLIST (run before submitting counts)
 
-☐ Page-count scaling: Did I check the actual page count and scale the benchmark ranges down for a partial excerpt instead of applying full-chapter maximums?
-☐ Easy MCQ: Have I counted every term, definition, diagram label, and directly-stated fact?
+☐ Page-count scaling: Did I check the actual page count and scale the typical-range figures down for a partial excerpt instead of applying full-chapter numbers?
+☐ Easy MCQ: Is every counted term/definition/label/fact genuinely distinct — not the same fact counted twice under different framings?
 ☐ Easy A-R: Have I only counted trivially obvious relationships? (Not all cause-effects — only instantly clear ones)
-☐ Easy MTC: Have I found all groups of 2–3 obvious matching pairs?
-☐ Medium MCQ: Have I counted all comparisons, conceptual links, wordy stems, application scenarios?
-☐ Medium A-R: Have I applied the A-R multiplier (1 relationship → up to 3 A-R variants)?
-☐ Medium MTC: Have I counted all non-overlapping groups of exactly 4 pairs?
-☐ Hard MCQ: Have I counted all verify-incorrect, select-combination, calculation, and multi-step types?
-☐ Hard A-R: Have I found all relationships requiring expert domain knowledge?
-☐ Hard MTC: Have I counted every diagram (5+ parts), table (5+ rows), process (5+ stages), and list (5+ items)? Have I divided large groups into multiple questions?
+☐ Easy MTC: Are the 2–3 pairs in each group truly non-overlapping with any other group I counted?
+☐ Medium MCQ: Is every comparison/conceptual-link/scenario genuinely distinct content, not a rephrasing of another one I already counted?
+☐ Medium A-R: Have I applied the A-R multiplier only where genuinely distinct variants exist (not padding one relationship into 3 near-identical questions)?
+☐ Medium MTC: Are the exactly-4-pair groups non-overlapping — no pair reused across two groups?
+☐ Hard MCQ: Is each verify-incorrect / select-combination / calculation / multi-step question built from genuinely distinct source material?
+☐ Hard A-R: Does each counted relationship need real expert-level reasoning, not just a longer sentence?
+☐ Hard MTC: Did I only split a diagram/table/list into multiple questions when it genuinely contains two or more non-overlapping groups — not just because it had enough raw items to divide?
+☐ Overall: if any bucket's count feels like a stretch, lower it rather than keep it.
 
 ---
 

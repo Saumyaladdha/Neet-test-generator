@@ -133,6 +133,7 @@ After constructing the table, immediately write the correct matching as a standa
 CORRECT = 1-[x], 2-[y], 3-[z], 4-[w]  (unused: [D])
 where [D] is the roman numeral assigned to the distractor (could be any of i–v).
 Verify: all four roman numerals in CORRECT are different and [D] is the unused one.
+Copy the CORRECT line (numerals only, not the "unused" note) verbatim into the output's `correct_sequence` field (see schema) — an internal quality-check field, stripped before delivery, never shown to students.
 
 **Step 2 — Choose the correct letter slot FIRST, then write CORRECT into that slot:**
 

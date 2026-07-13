@@ -434,6 +434,7 @@ After constructing the table, immediately write the correct matching as a standa
 CORRECT = 1-[x], 2-[y], 3-[z], 4-[w] (unused: [D])
 where [D] is the numeral assigned to the distractor (could be any of i–v, not always v).
 Verify: all four roman numerals in CORRECT are different and [D] is unused.
+Copy the CORRECT line (numerals only, not the "unused" note) verbatim into the output's `correct_sequence` field (see schema) — an internal quality-check value, not a shown answer key.
 
 **Step 2 — WRITE option (a) by COPYING the CORRECT line exactly:**
 a) 1-[x], 2-[y], 3-[z], 4-[w]
@@ -591,7 +592,7 @@ a) 1-iii, 2-i, 3-iv, 4-ii  b) 1-i, 2-ii, 3-iii, 4-iv  c) 1-iv, 2-iii, 3-ii, 4-i 
 
 ## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
 
-Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+Do NOT generate any explanation or correct_answer field for Match the Column questions. Output ONLY: question_id, question_type, correct_sequence, question_text, and options. However, exactly ONE of the four options MUST be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template. (correct_sequence is an internal quality-check field, stripped before delivery — populating it is not a violation of this rule.)
 
 ---
 

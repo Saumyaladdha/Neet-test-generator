@@ -84,6 +84,13 @@ d) 1-ii, 2-iv, 3-i, 4-iii
 गलत व्यवस्था: 1-i, 2-ii, 3-iii, 4-iv (बहुत सरल — क्रमिक मिलान)
 सही व्यवस्था: 1-iii, 2-i, 3-iv, 4-ii (फेरबदल किया गया — ज्ञान आवश्यक)
 
+**MANDATORY — OPTION GENERATION (PREVENTS "NO CORRECT ANSWER" BUG):**
+1. After building the table, write the correct matching internally: CORRECT = 1-[x], 2-[y], 3-[z], 4-[w]
+2. Copy CORRECT into one option slot exactly, character-by-character.
+3. Build the other 3 options by swapping 2+ pairings from CORRECT — never generate all 4 options independently.
+4. Before finalizing, verify: exactly ONE option matches CORRECT exactly; the other 3 do not. If zero or more than one match, fix before outputting.
+5. Copy the CORRECT line verbatim into the output's `correct_sequence` field (see schema) — an internal quality-check field, stripped before delivery, never shown to students.
+
 **स्रोत से उदाहरण:**
 स्रोत: "$HCl$ - हाइड्रोक्लोरिक अम्ल" | "$H_2SO_4$ - सल्फ्यूरिक अम्ल" | "$HNO_3$ - नाइट्रिक अम्ल" | "$CH_3COOH$ - एसीटिक अम्ल"
 ↓

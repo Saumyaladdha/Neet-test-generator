@@ -17,12 +17,18 @@ prevent (confirmed via real E2E testing):
    see: two Column-II items with identical text, or two Column-I items
    that are near-duplicate concepts — both make the "correct" match
    ambiguous even when the option letters themselves look fine.
+5. Match-the-column options that are each individually well-formed but
+   where NONE of the 4 actually represents the correct matching sequence
+   — the model is told to derive the correct sequence first and build
+   the other 3 options FROM it, but sometimes writes all 4 as independent
+   permutations instead, so the true correct mapping never appears among
+   them (confirmed more frequent in Hindi-medium generation than English).
 
-The first two validators consume the internal "answer_type" /
-"correct_statement_numbers" fields (see prompts/schemas/ar.txt and
-mcq_hard.txt) and strip them before the question is stored or returned —
-students never see them, exactly like correct_answer is never shown at
-generation time.
+Validators 2 and 5 consume the internal "correct_statement_numbers" /
+"correct_sequence" fields (see prompts/schemas/mcq_hard.txt and
+prompts/schemas/mtc.txt) and strip them before the question is stored or
+returned — students never see them, exactly like correct_answer is never
+shown at generation time.
 """
 
 import re
@@ -33,6 +39,7 @@ log = get_logger(__name__)
 
 _NUMBER_RE = re.compile(r"\d+")
 _MTC_OPTION_RE = re.compile(r"\d+\s*-\s*([ivx]+)", re.IGNORECASE)
+_MTC_PAIR_RE = re.compile(r"(\d+)\s*-\s*([ivx]+)", re.IGNORECASE)
 _MTC_ROW_RE = re.compile(r"(?:(\d+)\.\s*([^&\n]+?))?\s*&\s*([ivx]+)\.\s*([^\\]+?)\s*\\\\", re.IGNORECASE)
 
 
@@ -41,6 +48,7 @@ def strip_internal_fields(questions: list) -> list:
     for q in questions:
         q.pop("answer_type", None)
         q.pop("correct_statement_numbers", None)
+        q.pop("correct_sequence", None)
     return questions
 
 
@@ -115,6 +123,59 @@ def filter_inconsistent_multi_statement_mcq(test_id: str, questions: list) -> li
     removed = len(questions) - len(valid)
     if removed:
         log.info("mcq_hard.consistency_filter", test_id=test_id, removed=removed, kept=len(valid))
+    return valid
+
+
+def _mtc_pairs(text: str) -> dict:
+    """Parse '1-iii, 2-i, 3-iv, 4-ii' into {1: 'iii', 2: 'i', 3: 'iv', 4: 'ii'}.
+
+    Used to compare a matching sequence structurally (which Column-II item
+    goes with which Column-I number) rather than as raw text, so pair-order
+    differences ("1-iii, 2-i" vs "2-i, 1-iii") never register as a mismatch.
+    """
+    return {int(num): roman.lower() for num, roman in _MTC_PAIR_RE.findall(text)}
+
+
+def filter_inconsistent_mtc(test_id: str, questions: list) -> list:
+    """
+    Drop match_the_column questions where the model's self-derived
+    correct_sequence (internal field, populated during generation — see
+    prompts/schemas/mtc.txt) doesn't match ANY of the 4 given options, i.e.
+    the question has no valid answer among its own options. Mirrors
+    filter_inconsistent_multi_statement_mcq's approach for MTC's analogous
+    failure mode: generation sometimes writes 4 options as independent
+    permutations rather than deriving 3 of them FROM the correct sequence,
+    so the true correct mapping never appears among them.
+    """
+    valid = []
+    for q in questions:
+        if q.get("question_type", "").upper() != "MATCH_THE_COLUMN":
+            valid.append(q)
+            continue
+
+        stated = q.get("correct_sequence")
+        if not stated:
+            # Model didn't populate the field — can't validate, let it through
+            # rather than discarding a possibly-fine question over a missing field.
+            valid.append(q)
+            continue
+
+        stated_map = _mtc_pairs(stated)
+        options = q.get("options", {})
+        if any(_mtc_pairs(opt_text) == stated_map for opt_text in options.values()):
+            valid.append(q)
+        else:
+            log.warning(
+                "mtc.no_valid_option",
+                test_id=test_id,
+                question=q.get("question_text", "")[:100],
+                stated_correct=stated,
+                options=options,
+            )
+
+    removed = len(questions) - len(valid)
+    if removed:
+        log.info("mtc.answer_consistency_filter", test_id=test_id, removed=removed, kept=len(valid))
     return valid
 
 

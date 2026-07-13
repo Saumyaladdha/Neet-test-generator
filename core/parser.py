@@ -18,8 +18,14 @@ def _fix_latex_escapes(text: str) -> str:
     """
     Escape unescaped LaTeX backslash commands so they are valid JSON strings.
     Leaves already-escaped sequences and single-char JSON escapes untouched.
+
+    Uses a replacement function rather than a backslash-count-dependent
+    replacement string, since getting that count exactly right is easy to
+    get wrong (a prior version silently corrupted every match — the
+    captured command name was replaced by a literal backreference digit
+    instead of the command itself, e.g. "\\mathrm" -> "\\\\1").
     """
-    return re.sub(r'(?<!\\)\\([a-zA-Z]{2,})', r'\\\\\\1', text)
+    return re.sub(r'(?<!\\)\\([a-zA-Z]{2,})', lambda m: '\\\\' + m.group(1), text)
 
 
 def strip_markdown_fences(text: str) -> str:

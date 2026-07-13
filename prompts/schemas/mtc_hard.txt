@@ -3,6 +3,7 @@ IMPORTANT: Column II has 5 items (i, ii, iii, iv, v). In option values, ALWAYS u
 {
       "question_id": 1,
       "question_type": "MATCH_THE_COLUMN",
+      "correct_sequence": "1-iii, 2-i, 3-iv, 4-ii",
       "question_text": "Match the following:\n\n\\begin{tabular}{|l|l|}\n\\hline\nColumn I & Column II \\\\\n\\hline\n1. [Item] & i. [Item] \\\\\n2. [Item] & ii. [Item] \\\\\n3. [Item] & iii. [Item] \\\\\n4. [Item] & iv. [Item] \\\\\n & v. [Distractor item] \\\\\n\\hline\n\\end{tabular}",
       "options": {
         "a": "1-iii, 2-i, 3-iv, 4-ii",
@@ -13,3 +14,5 @@ IMPORTANT: Column II has 5 items (i, ii, iii, iv, v). In option values, ALWAYS u
     }
 
 Option values use roman numerals ONLY: i, ii, iii, iv, v. Write "1-iii" not "1-c". Write "2-v" not "2-e".
+
+"correct_sequence" is an internal quality-check field: the 4 real matches YOU determined are correct (never the distractor), same "N-roman" format as options. Stripped automatically before delivery — students never see it. It MUST equal (as a set of number:roman pairs, any order) exactly one of the four options above. Populating it is not a violation of any "no answer key" instruction elsewhere.

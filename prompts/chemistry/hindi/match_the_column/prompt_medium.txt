@@ -88,6 +88,13 @@ d) 1-iv, 2-iii, 3-ii, 4-i
 - Include related but distinct concepts as distractors
 - Shuffled options should be plausible at first glance
 
+**MANDATORY — OPTION GENERATION (PREVENTS "NO CORRECT ANSWER" BUG):**
+1. After building the table, write the correct matching internally: CORRECT = 1-[x], 2-[y], 3-[z], 4-[w]
+2. Copy CORRECT into one option slot exactly, character-by-character.
+3. Build the other 3 options by swapping 2+ pairings from CORRECT — never generate all 4 options independently.
+4. Before finalizing, verify: exactly ONE option matches CORRECT exactly; the other 3 do not. If zero or more than one match, fix before outputting.
+5. Copy the CORRECT line verbatim into the output's `correct_sequence` field (see schema) — an internal quality-check field, stripped before delivery, never shown to students.
+
 **स्रोत से उदाहरण:**
 स्रोत 1: "सोडियम जल के साथ तीव्र अभिक्रिया करके हाइड्रोजन गैस उत्पन्न करता है"
 स्रोत 2: "कैल्सियम ठंडे जल के साथ धीमी अभिक्रिया करता है"

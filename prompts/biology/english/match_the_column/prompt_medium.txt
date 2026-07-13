@@ -83,7 +83,7 @@ Every pair must require specific biological knowledge. Three banned patterns:
 
 ## OPTION GENERATION PROCEDURE (MANDATORY — FOLLOW IN ORDER)
 
-Step 1: After constructing the table, write down the CORRECT matching sequence internally (e.g., 1-iii, 2-i, 3-iv, 4-ii).
+Step 1: After constructing the table, write down the CORRECT matching sequence internally (e.g., 1-iii, 2-i, 3-iv, 4-ii). Copy this sequence verbatim into the output's `correct_sequence` field (see schema) — an internal quality-check value, not a shown answer key.
 
 Step 2: Randomly assign this correct sequence to one of the four option slots (a, b, c, or d). Distribute roughly evenly across all questions.
 
@@ -216,4 +216,4 @@ See GOOD EXAMPLES for source-accurate pairs. The key principle: if you cannot po
 
 ## NO EXPLANATIONS, NO ANSWER KEY (OVERRIDES EXPLANATION GUIDELINES)
 
-Do NOT generate any explanation or correct_answer field. Output ONLY: question_id, question_type, question_text, and options. Exactly ONE of the four options must be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template.
+Do NOT generate any explanation or correct_answer field. Output ONLY: question_id, question_type, correct_sequence, question_text, and options. Exactly ONE of the four options must be the correct matching sequence — construct the question so that one option is unambiguously correct and the other three are wrong. This overrides any explanation or correct_answer instructions in the base template. (correct_sequence is an internal quality-check field, stripped before delivery — populating it is not a violation of this rule.)
